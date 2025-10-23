@@ -1,4 +1,5 @@
 ﻿using Airplace2025.BLL.DAO;
+using Airplace2025.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,39 +22,19 @@ namespace Airplace2025
             InitializeWebView();
         }
 
-        // Hàm này cần là async để đợi WebView2 sẵn sàng
+        //  là async để đợi WebView2 sẵn sàng
         async void InitializeWebView()
         {
-            // Phải gọi hàm này trước khi làm bất cứ điều gì
             await webView.EnsureCoreWebView2Async(null);
             webView.CoreWebView2.OpenDevToolsWindow();
 
             // Lấy đường dẫn tuyệt đối đến file map.html
-            // (File này đã được copy vào thư mục build nhờ Bước 2)
+            // (File này đã được copy vào thư mục build)
             string htmlPath = Path.Combine(Application.StartupPath, "map.html");
 
-            // Điều hướng WebView2 đến file HTML của bạn
+            // Điều hướng WebView2 đến file HTML
             webView.CoreWebView2.Navigate("file:///" + htmlPath.Replace("\\", "/"));
         }
-
-        //private async void btnDraw_Click_1(object sender, EventArgs e)
-        //{
-        //    string startName = txtStart.Text; // Ví dụ: "New York"
-        //    string endName = txtEnd.Text;     // Ví dụ: "London"
-
-        //    if (string.IsNullOrWhiteSpace(startName) || string.IsNullOrWhiteSpace(endName))
-        //    {
-        //        MessageBox.Show("Vui lòng nhập cả điểm đi và điểm đến.");
-        //        return;
-        //    }
-
-        //    // Tạo chuỗi script để gọi hàm JavaScript "findAndDrawRoute"
-        //    // Lưu ý dùng dấu nháy đơn (') bao quanh tên địa điểm
-        //    string script = $"findAndDrawRoute('{startName}', '{endName}');";
-
-        //    // Thực thi script
-        //    await webView.CoreWebView2.ExecuteScriptAsync(script);
-        //}
 
         public void LoadFlightData()
         {
@@ -159,6 +140,8 @@ namespace Airplace2025
                 {
                     string maChuyenBay = dgvFlight.Rows[e.RowIndex].Cells["MaChuyenBay"].Value.ToString();
                     // Qua form Đặt vé
+                    frmDatVe frm = new frmDatVe();
+                    frm.Show();
                 }
                 else
                 {
