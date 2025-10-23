@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" ... />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" ...></script>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #myMap {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="myMap"></div>
+
+    <script type="text/javascript">
+        var map;
+        var currentLayerGroup;
+
+        map = L.map('myMap').setView([21.0285, 105.8542], 5);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        currentLayerGroup = L.layerGroup().addTo(map);
+
+        // Hàm vẽ
+        function drawRoute(startLat, startLon, endLat, endLon) {
+            currentLayerGroup.clearLayers();
+            var startLatLng = L.latLng(startLat, startLon);
+            var endLatLng = L.latLng(endLat, endLon);
+            var startMarker = L.marker(startLatLng).bindPopup('Điểm đi');
+            var endMarker = L.marker(endLatLng).bindPopup('Điểm đến');
+            var routeLine = L.polyline([startLatLng, endLatLng], { color: 'red' });
+            currentLayerGroup.addLayer(startMarker);
+            currentLayerGroup.addLayer(endMarker);
+            currentLayerGroup.addLayer(routeLine);
+            var bounds = L.latLngBounds([startLatLng, endLatLng]);
+            map.fitBounds(bounds, { padding: [50, 50] });
+        }
+
+
+        async function findAndDrawRoute(startName, endName) {
+            // alert('Đã gọi hàm! Đi: ' + startName + ' | Đến: ' + endName);
+            try {
+                // Tạo 2 yêu cầu gọi API Nominatim
+                // (format=jsonv2&limit=1 nghĩa là: trả về dạng JSON, chỉ lấy 1 kết quả)
+                const fetchStart = fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(startName)}&format=jsonv2&limit=1`);
+                const fetchEnd = fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(endName)}&format=jsonv2&limit=1`);
+
+                // Chờ cả 2 yêu cầu hoàn thành
+                const [responseStart, responseEnd] = await Promise.all([fetchStart, fetchEnd]);
+
+                // Chuyển kết quả sang JSON
+                const dataStart = await responseStart.json();
+                const dataEnd = await responseEnd.json();
+
+                // Kiểm tra xem có tìm thấy cả 2 địa điểm không
+                if (dataStart.length > 0 && dataEnd.length > 0) {
+                    // Lấy lat/lon từ kết quả đầu tiên
+                    var startLat = dataStart[0].lat;
+                    var startLon = dataStart[0].lon;
+                    var endLat = dataEnd[0].lat;
+                    var endLon = dataEnd[0].lon;
+
+                    // Gọi hàm vẽ cũ
+                    drawRoute(startLat, startLon, endLat, endLon);
+                } else {
+                    // Thông báo nếu không tìm thấy
+                    if (dataStart.length === 0) alert('Không tìm thấy địa điểm: ' + startName);
+                    if (dataEnd.length === 0) alert('Không tìm thấy địa điểm: ' + endName);
+                }
+            } catch (error) {
+                console.error('Lỗi Geocoding:', error);
+                alert('Đã xảy ra lỗi khi tìm kiếm địa điểm.');
+            }
+        }
+    </script>
+</body>
+</html>

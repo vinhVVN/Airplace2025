@@ -1,0 +1,99 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Airplace2025.BLL;
+using Airplace2025.DAL;
+
+namespace Airplace2025.BLL.DAO
+{
+    public class FlightDAO
+    {
+        private static FlightDAO instance;
+        public static FlightDAO Instance
+        {
+            get { if (instance == null) instance = new FlightDAO(); return instance; }
+            private set => instance = value;
+        }
+        public FlightDAO() { }
+
+
+        public DataTable GetFlightList()
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection con = DBConnection.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand("sp_LayDanhSachChuyenBay", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                con.Open();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+            }
+            return dt;
+        }
+
+        public FlightResult GetFlightDetail(string maChuyenBay)
+        {
+            var result = new FlightResult();
+            using (SqlConnection connection = DBConnection.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand("sp_LayChiTietChuyenBay", connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@MaChuyenBay", maChuyenBay);
+
+                connection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    // Đọc bảng 1: thông tin chính
+                    if (reader.HasRows)
+                    {
+                        reader.Read();
+                        result.ThongTin = new FlightDetail
+                        {
+                            MaChuyenBay = reader["MaChuyenBay"].ToString(),
+                            MaSanBayDi = reader["MaSanBayDi"].ToString(),
+                            TenSanBayDi = reader["TenSanBayDi"].ToString(),
+                            MaSanBayDen = reader["MaSanBayDen"].ToString(),
+                            TenSanBayDen = reader["TenSanBayDen"].ToString(),
+                            NgayGioBay = Convert.ToDateTime(reader["NgayGioBay"]),
+                            NgayGioDen = Convert.ToDateTime(reader["NgayGioDen"]),
+                            ThoiGianBay = Convert.ToInt32(reader["ThoiGianBay"]),
+                            TongThoiGianDung = Convert.ToInt32(reader["TongThoiGianDung"]),
+                            TongThoiGianHanhTrinh = Convert.ToInt32(reader["TongThoiGianHanhTrinh"]),
+                            SoDiemDung = Convert.ToInt32(reader["SoDiemDung"]),
+                            TenMayBay = reader["TenMayBay"].ToString(),
+                            TenHangBay = reader["TenHangBay"].ToString(),
+                            Logo = FlightDetail.ConvertByteArraytoImage(reader["Logo"])
+                        };
+                    }
+
+                    // Đọc bảng 2: Danh sách trung gian
+                    if (reader.NextResult())
+                    {
+                        while (reader.Read())
+                        {
+                            result.dsTrungGian.Add(new TrungGianChiTiet
+                            {
+                                TenHangBay = reader["TenHangBay"].ToString(),
+                                ThuTu = Convert.ToInt32(reader["ThuTu"]),
+                                MaSanBay = reader["MaSanBay"].ToString(),
+                                TenSanBay = reader["TenSanBay"].ToString(),
+                                ThoiGianDung = Convert.ToInt32(reader["ThoiGianDung"]),
+                                GhiChu = reader["GhiChu"].ToString(),
+                                Logo = FlightDetail.ConvertByteArraytoImage(reader["Logo"]),
+                                ThoiGianChuyen = Convert.ToInt32(reader["ThoiGianChuyen"])
+                            });
+                        }
+                    }
+                }
+            }
+
+            return result;
+
+        }
+    }
+}
