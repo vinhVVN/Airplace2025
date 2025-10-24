@@ -14,6 +14,10 @@ namespace Airplace2025
     {
         // Passenger list
         private List<PassengerInfo> passengerList = new List<PassengerInfo>();
+        
+        // Price breakdown and booking info
+        private PriceBreakdown priceBreakdown = new PriceBreakdown();
+        private BookingInfo bookingInfo = new BookingInfo();
 
         public frmDatVe()
         {
@@ -26,6 +30,7 @@ namespace Airplace2025
             SetupFlightColumns();
             SetupPassengerColumns();
             AttachPassengerEventHandlers();
+            InitializePaymentTab();
         }
 
         /// <summary>
@@ -249,9 +254,8 @@ namespace Airplace2025
             int totalCount = passengerList.Count;
             lblSoLuongVe.Text = totalCount.ToString();
             
-            // Calculate total price (simplified)
-            int pricePerSeat = 1000000; // 1 triệu/vé
-            lblTongTien.Text = (totalCount * pricePerSeat).ToString("N0") + " ₫";
+            // Update price breakdown when passenger count changes
+            UpdatePriceBreakdown();
         }
 
         /// <summary>
@@ -360,6 +364,318 @@ namespace Airplace2025
                 MessageBox.Show($"Lỗi cập nhật chính sách: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        /// <summary>
+        /// Initialize payment tab with PNR, payment methods, and employee info
+        /// </summary>
+        private void InitializePaymentTab()
+        {
+            try
+            {
+                // Generate PNR
+                bookingInfo.PNR = GeneratePNR();
+                bookingInfo.Status = "Hold";
+                bookingInfo.CreatedTime = DateTime.Now;
+                bookingInfo.HoldDeadline = DateTime.Now.AddHours(24); // TODO: Từ DB THAMSO.TGDatVeChamNhat
+                bookingInfo.EmployeeCode = "NV001";
+                bookingInfo.EmployeeName = "Nguyễn Văn A";
+
+                // Populate payment methods
+                cbPhuongThucTT.Items.Clear();
+                cbPhuongThucTT.Items.AddRange(new string[] {
+                    "Tiền mặt",
+                    "Thẻ tín dụng/ghi nợ",
+                    "Chuyển khoản ngân hàng",
+                    "QR Code (VNPay/MoMo/ZaloPay)"
+                });
+                cbPhuongThucTT.SelectedIndex = 0;
+
+                // Display employee info
+                lblNhanVien.Text = $"{bookingInfo.EmployeeCode} - {bookingInfo.EmployeeName}";
+
+                // Attach event handlers
+                cbPhuongThucTT.SelectedIndexChanged += CbPhuongThucTT_SelectedIndexChanged;
+                btnGiuCho.Click += BtnGiuCho_Click;
+                btnThanhToan.Click += BtnThanhToan_Click;
+                txtPhuThu.TextChanged += (s, e) => UpdatePriceBreakdown();
+
+                UpdatePriceBreakdown();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khởi tạo tab thanh toán: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Generate PNR (Passenger Name Record) - 6 characters
+        /// </summary>
+        private string GeneratePNR()
+        {
+            const string chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+            var random = new Random();
+            return new string(Enumerable.Repeat(chars, 6)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        /// <summary>
+        /// Update price breakdown with detailed calculation
+        /// </summary>
+        private void UpdatePriceBreakdown()
+        {
+            try
+            {
+                int passengerCount = passengerList.Count;
+
+                // Base fare per passenger (từ chuyến bay đã chọn)
+                decimal baseFarePerPax = 1000000m; // TODO: Lấy từ giá vé đã chọn
+                priceBreakdown.BaseFare = baseFarePerPax * passengerCount;
+
+                // Thuế & phí (20% base fare)
+                priceBreakdown.TaxAndFees = priceBreakdown.BaseFare * 0.20m;
+
+                // Phụ thu (từ textbox)
+                if (decimal.TryParse(txtPhuThu.Text, out decimal surcharge))
+                {
+                    priceBreakdown.Surcharges = surcharge;
+                }
+                else
+                {
+                    priceBreakdown.Surcharges = 0;
+                }
+
+                // Dịch vụ thêm (ghế + hành lý)
+                decimal seatFees = 0m; // TODO: Tính từ loại ghế premium
+                decimal baggageFees = passengerList.Sum(p => p.HanhLy * 50000m); // 50k/kg
+                priceBreakdown.OptionalServices = seatFees + baggageFees;
+
+                // Giảm giá (voucher) - TODO: Implement voucher system
+                priceBreakdown.Discount = 0m;
+
+                // VAT (10% của subtotal)
+                priceBreakdown.VAT = priceBreakdown.SubTotal * 0.10m;
+
+                // Cập nhật hiển thị
+                lblSoLuongVe.Text = passengerCount.ToString();
+                lblTongTien.Text = priceBreakdown.Total.ToString("N0") + " ₫";
+                lblGiaVeChon.Text = baseFarePerPax.ToString("N0") + " ₫";
+
+                // TODO: Hiển thị breakdown chi tiết trong một label hoặc RichTextBox
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi cập nhật giá: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Handle payment method selection change
+        /// </summary>
+        private void CbPhuongThucTT_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string selectedMethod = cbPhuongThucTT.SelectedItem?.ToString();
+
+                if (selectedMethod == "Thẻ tín dụng/ghi nợ")
+                {
+                    MessageBox.Show(
+                        "Vui lòng chuẩn bị thẻ để thanh toán\n\n" +
+                        "Lưu ý: Chúng tôi chỉ lưu 4 số cuối thẻ và tên ngân hàng.\n" +
+                        "Không lưu thông tin nhạy cảm.",
+                        "Thanh toán thẻ",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+                else if (selectedMethod == "QR Code (VNPay/MoMo/ZaloPay)")
+                {
+                    MessageBox.Show(
+                        $"Quét mã QR để thanh toán\n\n" +
+                        $"Số tiền: {priceBreakdown.Total:N0} ₫\n" +
+                        $"Nội dung: Thanh toan ve may bay {bookingInfo.PNR}",
+                        "Thanh toán QR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Handle "Giữ chỗ" button - Issue PNR and set hold deadline
+        /// </summary>
+        private void BtnGiuCho_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (passengerList.Count == 0)
+                {
+                    MessageBox.Show("Vui lòng thêm hành khách trước khi giữ chỗ",
+                        "Thông báo",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(lblChuyenBayChon.Text) || lblChuyenBayChon.Text == "-")
+                {
+                    MessageBox.Show("Vui lòng chọn chuyến bay trước khi giữ chỗ",
+                        "Thông báo",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // TODO: Lưu vào database với status = "Hold"
+                bookingInfo.Status = "Hold";
+
+                string message = $@"
+ĐÃ GIỮ CHỖ THÀNH CÔNG!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Mã đặt chỗ (PNR): {bookingInfo.PNR}
+Trạng thái: {bookingInfo.Status}
+Thời hạn giữ chỗ: {bookingInfo.HoldDeadline:dd/MM/yyyy HH:mm}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+THÔNG TIN CHUYẾN BAY:
+{lblChuyenBayChon.Text}
+Hạng vé: {lblHangVeChon.Text}
+Số hành khách: {passengerList.Count}
+
+CHI TIẾT GIÁ:
+Base Fare: {priceBreakdown.BaseFare:N0} ₫
+Thuế & Phí: {priceBreakdown.TaxAndFees:N0} ₫
+Phụ thu: {priceBreakdown.Surcharges:N0} ₫
+Dịch vụ thêm: {priceBreakdown.OptionalServices:N0} ₫
+VAT (10%): {priceBreakdown.VAT:N0} ₫
+─────────────────────────
+TỔNG CỘNG: {priceBreakdown.Total:N0} ₫
+
+Nhân viên: {bookingInfo.EmployeeCode} - {bookingInfo.EmployeeName}
+Thời gian: {bookingInfo.CreatedTime:dd/MM/yyyy HH:mm:ss}
+
+⚠ Vui lòng thanh toán trước thời hạn để xuất vé!";
+
+                MessageBox.Show(message,
+                    "Giữ chỗ thành công",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi giữ chỗ: {ex.Message}", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Handle "Thanh toán và Xuất vé" button - Process payment and emit e-ticket
+        /// </summary>
+        private void BtnThanhToan_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (passengerList.Count == 0)
+                {
+                    MessageBox.Show("Vui lòng thêm hành khách trước khi thanh toán",
+                        "Thông báo",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(lblChuyenBayChon.Text) || lblChuyenBayChon.Text == "-")
+                {
+                    MessageBox.Show("Vui lòng chọn chuyến bay trước khi thanh toán",
+                        "Thông báo",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Confirm payment
+                string confirmMessage = $@"
+XÁC NHẬN THANH TOÁN
+
+Tổng tiền: {priceBreakdown.Total:N0} ₫
+Phương thức: {cbPhuongThucTT.SelectedItem}
+
+Bạn có chắc chắn muốn thanh toán?";
+
+                DialogResult result = MessageBox.Show(confirmMessage,
+                    "Xác nhận thanh toán",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    // TODO: Process payment through payment gateway
+                    // TODO: Update database status = "Ticketed"
+                    // TODO: Send confirmation email
+
+                    bookingInfo.Status = "Ticketed";
+
+                    // Generate e-ticket numbers (format: 739-YYYYMMDDXXX)
+                    string eTickets = string.Join(", ",
+                        passengerList.Select((p, i) => $"739-{DateTime.Now:yyyyMMdd}{i + 1:000}"));
+
+                    string successMessage = $@"
+THANH TOÁN THÀNH CÔNG!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Mã đặt chỗ (PNR): {bookingInfo.PNR}
+Trạng thái: ĐÃ XUẤT VÉ
+Số vé điện tử: {eTickets}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+BREAKDOWN GIÁ VÉ:
+Base Fare ({passengerList.Count} vé): {priceBreakdown.BaseFare:N0} ₫
+Thuế & Phí (20%): {priceBreakdown.TaxAndFees:N0} ₫
+Phụ thu: {priceBreakdown.Surcharges:N0} ₫
+Dịch vụ thêm: {priceBreakdown.OptionalServices:N0} ₫
+Giảm giá: -{priceBreakdown.Discount:N0} ₫
+VAT (10%): {priceBreakdown.VAT:N0} ₫
+─────────────────────────
+TỔNG CỘNG: {priceBreakdown.Total:N0} ₫
+
+THANH TOÁN:
+Phương thức: {cbPhuongThucTT.SelectedItem}
+Nhân viên: {bookingInfo.EmployeeCode} - {bookingInfo.EmployeeName}
+Thời gian: {DateTime.Now:dd/MM/yyyy HH:mm:ss}
+
+✓ Vé đã được gửi qua email!
+✓ Bạn có thể in vé hoặc lưu PDF.";
+
+                    MessageBox.Show(successMessage,
+                        "Xuất vé thành công",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+
+                    // TODO: Show print/email dialog
+                    DialogResult printResult = MessageBox.Show(
+                        "Bạn có muốn in vé ngay bây giờ?",
+                        "In vé",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
+
+                    if (printResult == DialogResult.Yes)
+                    {
+                        // TODO: Implement print ticket functionality
+                        MessageBox.Show("Chức năng in vé đang được phát triển", "Thông báo",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi thanh toán: {ex.Message}", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 
     /// <summary>
@@ -376,5 +692,50 @@ namespace Airplace2025
         public string Ghe { get; set; }
         public int HanhLy { get; set; }
         public string GhiChu { get; set; }
+    }
+
+    /// <summary>
+    /// Price breakdown structure
+    /// </summary>
+    public class PriceBreakdown
+    {
+        public decimal BaseFare { get; set; }
+        public decimal TaxAndFees { get; set; }
+        public decimal Surcharges { get; set; }
+        public decimal OptionalServices { get; set; }  // Ghế, hành lý
+        public decimal Discount { get; set; }
+        public decimal VAT { get; set; }
+
+        public decimal SubTotal => BaseFare + TaxAndFees + Surcharges + OptionalServices;
+        public decimal Total => SubTotal - Discount + VAT;
+
+        /// <summary>
+        /// Get formatted breakdown for display
+        /// </summary>
+        public string GetFormattedBreakdown()
+        {
+            return $@"
+Base Fare: {BaseFare:N0} ₫
+Thuế & Phí: {TaxAndFees:N0} ₫
+Phụ thu: {Surcharges:N0} ₫
+Dịch vụ thêm: {OptionalServices:N0} ₫
+Giảm giá: -{Discount:N0} ₫
+VAT (10%): {VAT:N0} ₫
+─────────────────────────
+TỔNG CỘNG: {Total:N0} ₫";
+        }
+    }
+
+    /// <summary>
+    /// Booking information structure
+    /// </summary>
+    public class BookingInfo
+    {
+        public string PNR { get; set; }  // Mã đặt chỗ (6 ký tự)
+        public string Status { get; set; }  // Hold, Ticketed, Void
+        public DateTime CreatedTime { get; set; }
+        public DateTime HoldDeadline { get; set; }  // Từ THAMSO.TGDatVeChamNhat
+        public string EmployeeCode { get; set; }
+        public string EmployeeName { get; set; }
     }
 }
