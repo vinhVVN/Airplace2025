@@ -99,14 +99,16 @@ namespace Airplace2025.DAL
             {
                 using (SqlConnection conn = DBConnection.GetConnection())
                 {
+                    // Tính giá = GiaCoBan * TiLeGiaHangVe vì ChiTietHangVe không có cột Gia
                     string query = @"
                         SELECT 
                             HV.TenHangVe,
-                            CTHV.Gia,
+                            CB.GiaCoBan * HV.TiLeGiaHangVe AS Gia,
                             CTHV.SoLuongConLai,
                             CTHV.SoLuong
                         FROM ChiTietHangVe CTHV
                         INNER JOIN HangVe HV ON CTHV.MaHangVe = HV.MaHangVe
+                        INNER JOIN ChuyenBay CB ON CTHV.MaChuyenBay = CB.MaChuyenBay
                         WHERE CTHV.MaChuyenBay = @MaChuyenBay";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -171,9 +173,7 @@ namespace Airplace2025.DAL
             return dt;
         }
 
-        /// <summary>
         /// Lấy danh sách hạng vé từ database
-        /// </summary>
         public List<HangVeDTO> GetServiceClasses()
         {
             List<HangVeDTO> hangVeList = new List<HangVeDTO>();

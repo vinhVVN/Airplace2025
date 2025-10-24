@@ -14,10 +14,10 @@ namespace Airplace2025
 {
     public partial class frmDatVe : Form
     {
-        // Passenger list
+        //Danh sách hành khách
         private List<PassengerInfo> passengerList = new List<PassengerInfo>();
 
-        // Price breakdown and booking info
+        // Thông tin giá vé chi tiết
         private PriceBreakdown priceBreakdown = new PriceBreakdown();
         private BookingInfo bookingInfo = new BookingInfo();
 
@@ -35,20 +35,14 @@ namespace Airplace2025
             InitializePaymentTab();
         }
 
-        /// <summary>
-        /// Initialize search controls with data from database
-        /// </summary>
         private void InitializeControls()
         {
             try
             {
-                // Load airports from database
                 LoadAirports();
 
-                // Load service classes from database
                 LoadServiceClasses();
 
-                // Hide return date initially
                 dtpReturnDate.Visible = rbRoundTrip.Checked;
                 lblReturnDate.Visible = rbRoundTrip.Checked;
 
@@ -98,9 +92,7 @@ namespace Airplace2025
             }
         }
 
-        /// <summary>
-        /// Load service classes (hạng vé) from database
-        /// </summary>
+        /// Load service classes (hạng vé) từ database
         private void LoadServiceClasses()
         {
             try
@@ -116,7 +108,7 @@ namespace Airplace2025
                 cbServiceClass.ValueMember = "MaHangVe";
 
                 if (cbServiceClass.Items.Count > 0)
-                    cbServiceClass.SelectedIndex = 0; // Default to first class (usually Phổ thông)
+                    cbServiceClass.SelectedIndex = 0; //Chọn mặc định hạng phổ thông
             }
             catch (Exception ex)
             {
@@ -130,9 +122,7 @@ namespace Airplace2025
             }
         }
 
-        /// <summary>
-        /// Setup columns for flight results DataGridView
-        /// </summary>
+        // Setup columns for flight results DataGridView
         private void SetupFlightColumns()
         {
             try
@@ -147,6 +137,7 @@ namespace Airplace2025
                 dgvChuyenBay.Columns.Add("GheEconomy", "Ghế Economy");
                 dgvChuyenBay.Columns.Add("GhePremium", "Ghế Premium");
                 dgvChuyenBay.Columns.Add("GheBusiness", "Ghế Business");
+                dgvChuyenBay.Columns.Add("GheFirst", "Ghế First");
                 dgvChuyenBay.Columns.Add("GiaTu", "Giá từ");
 
                 // Set column widths
@@ -159,6 +150,7 @@ namespace Airplace2025
                 dgvChuyenBay.Columns["GheEconomy"].Width = 70;
                 dgvChuyenBay.Columns["GhePremium"].Width = 70;
                 dgvChuyenBay.Columns["GheBusiness"].Width = 70;
+                dgvChuyenBay.Columns["GheFirst"].Width = 70;
                 dgvChuyenBay.Columns["GiaTu"].Width = 80;
             }
             catch (Exception ex)
@@ -210,7 +202,7 @@ namespace Airplace2025
         private void AttachPassengerEventHandlers()
         {
             btnThemHanhKhach.Click += BtnThemHanhKhach_Click;
-            btnTimKiem.Click += btnTimKiem_Click;
+            // btnTimKiem.Click đã được attach trong Designer.cs, không cần attach lại
         }
 
         /// <summary>
@@ -266,10 +258,11 @@ namespace Airplace2025
                 // Format time duration
                 string thoiGianBay = ChuyenBayBLL.Instance.FormatFlightDuration(flight.ThoiGianBay);
 
-                // Get seat availability by class from ChiTietHangVe
-                string gheEconomy = flight.GheEconomy.HasValue ? flight.GheEconomy.Value.ToString() : "-";
-                string ghePremium = flight.GhePremium.HasValue ? flight.GhePremium.Value.ToString() : "-";
-                string gheBusiness = flight.GheBusiness.HasValue ? flight.GheBusiness.Value.ToString() : "-";
+                // Get seat availability by class from ChiTietHangVe (hiển thị 0 nếu không có)
+                string gheEconomy = flight.GheEconomy.HasValue ? flight.GheEconomy.Value.ToString() : "0";
+                string ghePremium = flight.GhePremium.HasValue ? flight.GhePremium.Value.ToString() : "0";
+                string gheBusiness = flight.GheBusiness.HasValue ? flight.GheBusiness.Value.ToString() : "0";
+                string gheFirst = flight.GheFirst.HasValue ? flight.GheFirst.Value.ToString() : "0";
 
                 // Get price based on selected class
                 // Nếu không có giá theo hạng, dùng giá cơ bản và nhân với tỉ lệ
@@ -316,6 +309,7 @@ namespace Airplace2025
                     gheEconomy,
                     ghePremium,
                     gheBusiness,
+                    gheFirst,
                     giaHienThi.ToString("N0") + " ₫"
                 );
             }
@@ -910,14 +904,25 @@ Thời gian: {DateTime.Now:dd/MM/yyyy HH:mm:ss}
 
                 if (flights.Count == 0)
                 {
-                    MessageBox.Show("Không tìm thấy chuyến bay phù hợp", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    int tongHanhKhach = searchParams.SoNguoiLon + searchParams.SoTreEm + searchParams.SoEmBe;
+                    MessageBox.Show(
+                        $"Không tìm thấy chuyến bay phù hợp!\n\n" +
+                        $"Tuyến: {searchParams.MaSanBayDi} → {searchParams.MaSanBayDen}\n" +
+                        $"Ngày đi: {searchParams.NgayDi:dd/MM/yyyy}\n" +
+                        $"Hạng vé: {searchParams.HangDichVu}\n" +
+                        $"Số hành khách: {tongHanhKhach} người\n\n" +
+                        $"Vui lòng thử:\n" +
+                        $"• Chọn ngày khác\n" +
+                        $"• Chọn hạng vé khác\n" +
+                        $"• Giảm số lượng hành khách",
+                        "Không tìm thấy chuyến bay",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
                     return;
                 }
 
                 // Display results
                 DisplayFlightResults(flights, searchParams.HangDichVu);
-
-                MessageBox.Show($"Tìm thấy {flights.Count} chuyến bay phù hợp", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

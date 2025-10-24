@@ -26,6 +26,43 @@ namespace Airplace2025.BLL
         private ChuyenBayBLL() { }
 
         /// <summary>
+        /// Lọc chuyến bay theo số ghế còn lại của hạng vé cụ thể
+        /// </summary>
+        private List<ChuyenBayDTO> FilterByServiceClassAvailability(List<ChuyenBayDTO> flights, string hangDichVu, int soHanhKhach)
+        {
+            if (string.IsNullOrEmpty(hangDichVu))
+                return flights;
+
+            string lowerHangDichVu = hangDichVu.ToLower();
+
+            return flights.Where(f =>
+            {
+                // Kiểm tra số ghế còn lại của hạng vé đang tìm
+                if (lowerHangDichVu.Contains("phổ thông") && !lowerHangDichVu.Contains("đặc biệt"))
+                {
+                    return (f.GheEconomy ?? 0) >= soHanhKhach;
+                }
+                else if (lowerHangDichVu.Contains("đặc biệt"))
+                {
+                    return (f.GhePremium ?? 0) >= soHanhKhach;
+                }
+                else if (lowerHangDichVu.Contains("thương gia"))
+                {
+                    return (f.GheBusiness ?? 0) >= soHanhKhach;
+                }
+                else if (lowerHangDichVu.Contains("hạng nhất"))
+                {
+                    return (f.GheFirst ?? 0) >= soHanhKhach;
+                }
+                else
+                {
+                    // Mặc định là phổ thông
+                    return (f.GheEconomy ?? 0) >= soHanhKhach;
+                }
+            }).ToList();
+        }
+
+        /// <summary>
         /// Tìm kiếm chuyến bay với các business rules
         /// </summary>
         public List<ChuyenBayDTO> SearchFlights(SearchFlightParams searchParams)
@@ -63,39 +100,56 @@ namespace Airplace2025.BLL
             // Gọi DAL để tìm kiếm
             List<ChuyenBayDTO> flights = ChuyenBayDAO.Instance.SearchFlights(searchParams);
 
-            // Lọc theo hạng vé và số ghế trống
-            flights = flights.Where(f => f.SoGheTrong >= tongHanhKhach).ToList();
-
-            // Enrich thông tin hạng vé
+            // Enrich thông tin hạng vé trước khi lọc
             foreach (var flight in flights)
             {
                 try
                 {
                     var hangVeInfo = ChuyenBayDAO.Instance.GetHangVeInfo(flight.MaChuyenBay);
 
-                    if (hangVeInfo.ContainsKey("Economy"))
+                    // Khởi tạo giá trị mặc định là 0 cho tất cả hạng vé
+                    flight.GheEconomy = 0;
+                    flight.GhePremium = 0;
+                    flight.GheBusiness = 0;
+                    flight.GheFirst = 0;
+
+                    // Map tên hạng vé từ database (tiếng Việt) sang các thuộc tính DTO
+                    if (hangVeInfo.ContainsKey("Phổ thông"))
                     {
-                        flight.GheEconomy = hangVeInfo["Economy"].SoLuongConLai;
-                        flight.GiaEconomy = hangVeInfo["Economy"].Gia;
+                        flight.GheEconomy = hangVeInfo["Phổ thông"].SoLuongConLai;
+                        flight.GiaEconomy = hangVeInfo["Phổ thông"].Gia;
                     }
 
-                    if (hangVeInfo.ContainsKey("Premium"))
+                    if (hangVeInfo.ContainsKey("Phổ thông đặc biệt"))
                     {
-                        flight.GhePremium = hangVeInfo["Premium"].SoLuongConLai;
-                        flight.GiaPremium = hangVeInfo["Premium"].Gia;
+                        flight.GhePremium = hangVeInfo["Phổ thông đặc biệt"].SoLuongConLai;
+                        flight.GiaPremium = hangVeInfo["Phổ thông đặc biệt"].Gia;
                     }
 
-                    if (hangVeInfo.ContainsKey("Business"))
+                    if (hangVeInfo.ContainsKey("Thương gia"))
                     {
-                        flight.GheBusiness = hangVeInfo["Business"].SoLuongConLai;
-                        flight.GiaBusiness = hangVeInfo["Business"].Gia;
+                        flight.GheBusiness = hangVeInfo["Thương gia"].SoLuongConLai;
+                        flight.GiaBusiness = hangVeInfo["Thương gia"].Gia;
+                    }
+
+                    if (hangVeInfo.ContainsKey("Hạng nhất"))
+                    {
+                        flight.GheFirst = hangVeInfo["Hạng nhất"].SoLuongConLai;
+                        flight.GiaFirst = hangVeInfo["Hạng nhất"].Gia;
                     }
                 }
                 catch
                 {
-                    // Nếu lỗi khi lấy thông tin hạng vé, bỏ qua
+                    // Nếu lỗi khi lấy thông tin hạng vé, giữ giá trị mặc định 0
+                    flight.GheEconomy = 0;
+                    flight.GhePremium = 0;
+                    flight.GheBusiness = 0;
+                    flight.GheFirst = 0;
                 }
             }
+
+            // Lọc theo số ghế của hạng vé đang tìm
+            flights = FilterByServiceClassAvailability(flights, searchParams.HangDichVu, tongHanhKhach);
 
             return flights;
         }
@@ -215,6 +269,9 @@ namespace Airplace2025.BLL
                     break;
                 case "business":
                     giaVe = flight.GiaBusiness ?? flight.GiaCoBan * 2m;
+                    break;
+                case "first":
+                    giaVe = flight.GiaFirst ?? flight.GiaCoBan * 3m;
                     break;
                 default:
                     giaVe = flight.GiaCoBan;
