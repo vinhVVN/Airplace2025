@@ -18,7 +18,7 @@ namespace Airplace2025
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            
+
             this.gbSearch = new Guna.UI2.WinForms.Guna2GroupBox();
             this.btnSwapAirport = new Guna.UI2.WinForms.Guna2Button();
             this.cbServiceClass = new Guna.UI2.WinForms.Guna2ComboBox();
@@ -46,16 +46,8 @@ namespace Airplace2025
             this.tabControl1 = new Guna.UI2.WinForms.Guna2TabControl();
             this.tabHanhKhach = new System.Windows.Forms.TabPage();
             this.dgvHanhKhach = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.gbThongTin = new Guna.UI2.WinForms.Guna2GroupBox();
-            this.cbLoaiKH = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.gbGhe = new Guna.UI2.WinForms.Guna2GroupBox();
             this.btnThemHanhKhach = new Guna.UI2.WinForms.Guna2Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.txtMaGhe = new Guna.UI2.WinForms.Guna2TextBox();
-            this.gbTimKH = new Guna.UI2.WinForms.Guna2GroupBox();
-            this.btnTimKH = new Guna.UI2.WinForms.Guna2Button();
-            this.txtTimKiemKH = new Guna.UI2.WinForms.Guna2TextBox();
+            this.lblHuongDan = new System.Windows.Forms.Label();
             this.tabThanhToan = new System.Windows.Forms.TabPage();
             this.gbThanhToanInfo = new Guna.UI2.WinForms.Guna2GroupBox();
             this.lblNhanVien = new System.Windows.Forms.Label();
@@ -80,7 +72,7 @@ namespace Airplace2025
             this.btnGiuCho = new Guna.UI2.WinForms.Guna2Button();
             this.btnThanhToan = new Guna.UI2.WinForms.Guna2Button();
             this.btnLamMoi = new Guna.UI2.WinForms.Guna2Button();
-            
+
             this.gbSearch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numBaby)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numChild)).BeginInit();
@@ -89,15 +81,12 @@ namespace Airplace2025
             this.tabControl1.SuspendLayout();
             this.tabHanhKhach.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHanhKhach)).BeginInit();
-            this.gbGhe.SuspendLayout();
-            this.gbThongTin.SuspendLayout();
-            this.gbTimKH.SuspendLayout();
             this.pnlBaggagePolicy.SuspendLayout();
             this.tabThanhToan.SuspendLayout();
             this.gbThanhToanInfo.SuspendLayout();
             this.gbThongTinChung.SuspendLayout();
             this.SuspendLayout();
-            
+
             // gbSearch - Flight Search Panel
             this.gbSearch.BorderColor = System.Drawing.Color.FromArgb(200, 200, 200);
             this.gbSearch.BorderRadius = 8;
@@ -152,8 +141,8 @@ namespace Airplace2025
             this.cbServiceClass.Name = "cbServiceClass";
             this.cbServiceClass.Size = new System.Drawing.Size(120, 30);
             this.cbServiceClass.TabIndex = 14;
+            this.cbServiceClass.SelectedIndex = 0;
 
-            // Service class label
             this.lblServiceClass.AutoSize = true;
             this.lblServiceClass.Location = new System.Drawing.Point(880, 50);
             this.lblServiceClass.Name = "lblServiceClass";
@@ -383,12 +372,11 @@ namespace Airplace2025
             this.tabControl1.Size = new System.Drawing.Size(1180, 360);
             this.tabControl1.TabIndex = 2;
 
-            // Tab Passenger Info
+            // Tab Passenger Info - SIMPLIFIED
             this.tabHanhKhach.BackColor = System.Drawing.Color.White;
             this.tabHanhKhach.Controls.Add(this.dgvHanhKhach);
-            this.tabHanhKhach.Controls.Add(this.gbGhe);
-            this.tabHanhKhach.Controls.Add(this.gbThongTin);
-            this.tabHanhKhach.Controls.Add(this.gbTimKH);
+            this.tabHanhKhach.Controls.Add(this.btnThemHanhKhach);
+            this.tabHanhKhach.Controls.Add(this.lblHuongDan);
             this.tabHanhKhach.Location = new System.Drawing.Point(184, 4);
             this.tabHanhKhach.Name = "tabHanhKhach";
             this.tabHanhKhach.Padding = new System.Windows.Forms.Padding(10);
@@ -396,109 +384,35 @@ namespace Airplace2025
             this.tabHanhKhach.TabIndex = 0;
             this.tabHanhKhach.Text = "Thông tin hành khách";
 
-            this.dgvHanhKhach.AllowUserToAddRows = false;
-            this.dgvHanhKhach.ColumnHeadersHeight = 35;
-            this.dgvHanhKhach.Location = new System.Drawing.Point(10, 213);
-            this.dgvHanhKhach.Name = "dgvHanhKhach";
-            this.dgvHanhKhach.RowHeadersVisible = false;
-            this.dgvHanhKhach.Size = new System.Drawing.Size(972, 126);
-            this.dgvHanhKhach.TabIndex = 3;
+            // Instruction label
+            this.lblHuongDan.AutoSize = false;
+            this.lblHuongDan.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblHuongDan.ForeColor = System.Drawing.Color.FromArgb(100, 100, 100);
+            this.lblHuongDan.Location = new System.Drawing.Point(10, 10);
+            this.lblHuongDan.Name = "lblHuongDan";
+            this.lblHuongDan.Size = new System.Drawing.Size(972, 30);
+            this.lblHuongDan.TabIndex = 0;
+            this.lblHuongDan.Text = "Nhấn \"Thêm vào danh sách\" để thêm hành khách mới. Bạn sẽ được hướng dẫn tìm/tạo khách hàng, nhập chi tiết và chọn ghế.";
 
-            this.gbThongTin.BorderColor = System.Drawing.Color.FromArgb(200, 200, 200);
-            this.gbThongTin.BorderRadius = 8;
-            this.gbThongTin.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.gbThongTin.ForeColor = System.Drawing.Color.FromArgb(125, 137, 149);
-            this.gbThongTin.Location = new System.Drawing.Point(10, 82);
-            this.gbThongTin.Name = "gbThongTin";
-            this.gbThongTin.Size = new System.Drawing.Size(979, 50);
-            this.gbThongTin.TabIndex = 1;
-            this.gbThongTin.Text = "Thông tin chi tiết hành khách";
-
-            this.cbLoaiKH.BackColor = System.Drawing.Color.Transparent;
-            this.cbLoaiKH.BorderRadius = 6;
-            this.cbLoaiKH.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cbLoaiKH.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbLoaiKH.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.cbLoaiKH.Location = new System.Drawing.Point(276, 111);
-            this.cbLoaiKH.Name = "cbLoaiKH";
-            this.cbLoaiKH.Size = new System.Drawing.Size(100, 36);
-            this.cbLoaiKH.TabIndex = 17;
-
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(223, 120);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(51, 15);
-            this.label9.TabIndex = 16;
-            this.label9.Text = "Loại KH:";
-
-            // Seat Info GroupBox
-            this.gbGhe.BorderColor = System.Drawing.Color.FromArgb(200, 200, 200);
-            this.gbGhe.BorderRadius = 8;
-            this.gbGhe.Controls.Add(this.btnThemHanhKhach);
-            this.gbGhe.Controls.Add(this.label10);
-            this.gbGhe.Controls.Add(this.txtMaGhe);
-            this.gbGhe.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.gbGhe.ForeColor = System.Drawing.Color.FromArgb(125, 137, 149);
-            this.gbGhe.Location = new System.Drawing.Point(10, 137);
-            this.gbGhe.Name = "gbGhe";
-            this.gbGhe.Size = new System.Drawing.Size(979, 70);
-            this.gbGhe.TabIndex = 2;
-            this.gbGhe.Text = "Chi tiết vé";
-
+            // Add passenger button
             this.btnThemHanhKhach.BorderRadius = 6;
             this.btnThemHanhKhach.FillColor = System.Drawing.Color.FromArgb(0, 120, 215);
-            this.btnThemHanhKhach.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnThemHanhKhach.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnThemHanhKhach.ForeColor = System.Drawing.Color.White;
-            this.btnThemHanhKhach.Location = new System.Drawing.Point(167, 41);
+            this.btnThemHanhKhach.Location = new System.Drawing.Point(10, 45);
             this.btnThemHanhKhach.Name = "btnThemHanhKhach";
-            this.btnThemHanhKhach.Size = new System.Drawing.Size(142, 25);
-            this.btnThemHanhKhach.TabIndex = 18;
-            this.btnThemHanhKhach.Text = "Thêm vào danh sách";
+            this.btnThemHanhKhach.Size = new System.Drawing.Size(150, 32);
+            this.btnThemHanhKhach.TabIndex = 1;
+            this.btnThemHanhKhach.Text = "+ Thêm vào danh sách";
 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(10, 45);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(47, 15);
-            this.label10.TabIndex = 3;
-            this.label10.Text = "Mã ghế";
-
-            this.txtMaGhe.BorderRadius = 6;
-            this.txtMaGhe.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtMaGhe.Location = new System.Drawing.Point(59, 41);
-            this.txtMaGhe.Name = "txtMaGhe";
-            this.txtMaGhe.PlaceholderText = "Mã ghế";
-            this.txtMaGhe.Size = new System.Drawing.Size(100, 25);
-            this.txtMaGhe.TabIndex = 0;
-
-            // Search Customer GroupBox
-            this.gbTimKH.BorderColor = System.Drawing.Color.FromArgb(200, 200, 200);
-            this.gbTimKH.BorderRadius = 8;
-            this.gbTimKH.Controls.Add(this.btnTimKH);
-            this.gbTimKH.Controls.Add(this.txtTimKiemKH);
-            this.gbTimKH.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.gbTimKH.Location = new System.Drawing.Point(10, 3);
-            this.gbTimKH.Name = "gbTimKH";
-            this.gbTimKH.Size = new System.Drawing.Size(979, 74);
-            this.gbTimKH.TabIndex = 0;
-            this.gbTimKH.Text = "Tìm kiếm khách hàng";
-
-            this.btnTimKH.BorderRadius = 6;
-            this.btnTimKH.FillColor = System.Drawing.Color.FromArgb(0, 120, 215);
-            this.btnTimKH.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnTimKH.ForeColor = System.Drawing.Color.White;
-            this.btnTimKH.Location = new System.Drawing.Point(220, 43);
-            this.btnTimKH.Name = "btnTimKH";
-            this.btnTimKH.Size = new System.Drawing.Size(80, 25);
-            this.btnTimKH.TabIndex = 1;
-            this.btnTimKH.Text = "Tìm";
-
-            this.txtTimKiemKH.BorderRadius = 6;
-            this.txtTimKiemKH.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtTimKiemKH.Location = new System.Drawing.Point(10, 43);
-            this.txtTimKiemKH.Name = "txtTimKiemKH";
-            this.txtTimKiemKH.PlaceholderText = "CCCD hoặc SĐT";
-            this.txtTimKiemKH.Size = new System.Drawing.Size(200, 25);
-            this.txtTimKiemKH.TabIndex = 0;
+            // Passenger grid
+            this.dgvHanhKhach.AllowUserToAddRows = false;
+            this.dgvHanhKhach.ColumnHeadersHeight = 35;
+            this.dgvHanhKhach.Location = new System.Drawing.Point(10, 82);
+            this.dgvHanhKhach.Name = "dgvHanhKhach";
+            this.dgvHanhKhach.RowHeadersVisible = false;
+            this.dgvHanhKhach.Size = new System.Drawing.Size(972, 260);
+            this.dgvHanhKhach.TabIndex = 2;
 
             // Tab Payment
             this.tabThanhToan.BackColor = System.Drawing.Color.White;
@@ -736,7 +650,7 @@ namespace Airplace2025
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Đặt Vé Máy Bay";
             this.Load += new System.EventHandler(this.frmDatVe_Load);
-            
+
             this.gbSearch.ResumeLayout(false);
             this.gbSearch.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numBaby)).EndInit();
@@ -746,11 +660,6 @@ namespace Airplace2025
             this.tabControl1.ResumeLayout(false);
             this.tabHanhKhach.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvHanhKhach)).EndInit();
-            this.gbGhe.ResumeLayout(false);
-            this.gbGhe.PerformLayout();
-            this.gbThongTin.ResumeLayout(false);
-            this.gbThongTin.PerformLayout();
-            this.gbTimKH.ResumeLayout(false);
             this.pnlBaggagePolicy.ResumeLayout(false);
             this.pnlBaggagePolicy.PerformLayout();
             this.tabThanhToan.ResumeLayout(false);
@@ -788,16 +697,8 @@ namespace Airplace2025
         private Guna.UI2.WinForms.Guna2TabControl tabControl1;
         private System.Windows.Forms.TabPage tabHanhKhach;
         private System.Windows.Forms.TabPage tabThanhToan;
-        private Guna.UI2.WinForms.Guna2GroupBox gbTimKH;
-        private Guna.UI2.WinForms.Guna2TextBox txtTimKiemKH;
-        private Guna.UI2.WinForms.Guna2Button btnTimKH;
-        private Guna.UI2.WinForms.Guna2GroupBox gbThongTin;
-        private System.Windows.Forms.Label label9;
-        private Guna.UI2.WinForms.Guna2ComboBox cbLoaiKH;
-        private Guna.UI2.WinForms.Guna2GroupBox gbGhe;
         private Guna.UI2.WinForms.Guna2Button btnThemHanhKhach;
-        private System.Windows.Forms.Label label10;
-        private Guna.UI2.WinForms.Guna2TextBox txtMaGhe;
+        private System.Windows.Forms.Label lblHuongDan;
         private Guna.UI2.WinForms.Guna2DataGridView dgvHanhKhach;
         private Guna.UI2.WinForms.Guna2GroupBox gbThongTinChung;
         private System.Windows.Forms.Label label15;
