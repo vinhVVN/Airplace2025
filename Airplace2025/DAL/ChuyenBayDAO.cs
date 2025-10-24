@@ -174,9 +174,9 @@ namespace Airplace2025.DAL
         /// <summary>
         /// Lấy danh sách hạng vé từ database
         /// </summary>
-        public DataTable GetServiceClasses()
+        public List<HangVeDTO> GetServiceClasses()
         {
-            DataTable dt = new DataTable();
+            List<HangVeDTO> hangVeList = new List<HangVeDTO>();
 
             try
             {
@@ -186,9 +186,20 @@ namespace Airplace2025.DAL
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         conn.Open();
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            adapter.Fill(dt);
+                            while (reader.Read())
+                            {
+                                HangVeDTO hangVe = new HangVeDTO
+                                {
+                                    MaHangVe = reader["MaHangVe"].ToString(),
+                                    TenHangVe = reader["TenHangVe"].ToString(),
+                                    TiLeGiaHangVe = reader["TiLeGiaHangVe"] != DBNull.Value 
+                                        ? Convert.ToDecimal(reader["TiLeGiaHangVe"]) : 1.0m
+                                };
+
+                                hangVeList.Add(hangVe);
+                            }
                         }
                     }
                 }
@@ -198,7 +209,7 @@ namespace Airplace2025.DAL
                 throw new Exception($"Lỗi lấy danh sách hạng vé: {ex.Message}", ex);
             }
 
-            return dt;
+            return hangVeList;
         }
     }
 

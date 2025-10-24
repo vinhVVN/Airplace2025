@@ -128,25 +128,45 @@ namespace Airplace2025.BLL
         /// <summary>
         /// Lấy danh sách hạng vé từ database
         /// </summary>
-        public DataTable GetServiceClasses()
+        public List<HangVeDTO> GetServiceClasses()
         {
             return ChuyenBayDAO.Instance.GetServiceClasses();
         }
 
         /// <summary>
-        /// Format danh sách hạng vé cho ComboBox
+        /// Format danh sách hạng vé cho ComboBox (trả về List<HangVeDTO>)
         /// </summary>
-        public List<string> GetFormattedServiceClassList()
+        public List<HangVeDTO> GetFormattedServiceClassList()
         {
-            List<string> result = new List<string>();
-            DataTable serviceClasses = GetServiceClasses();
+            return GetServiceClasses();
+        }
 
-            foreach (DataRow row in serviceClasses.Rows)
-            {
-                result.Add(row["TenHangVe"].ToString());
-            }
+        /// <summary>
+        /// Lấy mã hạng vé từ tên hạng vé
+        /// </summary>
+        public string GetMaHangVe(string tenHangVe)
+        {
+            if (string.IsNullOrEmpty(tenHangVe))
+                return null;
 
-            return result;
+            List<HangVeDTO> hangVeList = GetServiceClasses();
+            var hangVe = hangVeList.FirstOrDefault(hv => hv.TenHangVe.Equals(tenHangVe, StringComparison.OrdinalIgnoreCase));
+            
+            return hangVe?.MaHangVe;
+        }
+
+        /// <summary>
+        /// Lấy tỉ lệ giá của hạng vé
+        /// </summary>
+        public decimal GetTiLeGiaHangVe(string tenHangVe)
+        {
+            if (string.IsNullOrEmpty(tenHangVe))
+                return 1.0m;
+
+            List<HangVeDTO> hangVeList = GetServiceClasses();
+            var hangVe = hangVeList.FirstOrDefault(hv => hv.TenHangVe.Equals(tenHangVe, StringComparison.OrdinalIgnoreCase));
+            
+            return hangVe?.TiLeGiaHangVe ?? 1.0m;
         }
 
         /// <summary>

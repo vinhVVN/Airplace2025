@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\DAO\FlightDAO.cs" />
+    <Compile Include="BLL\DTO\HangVeDTO.cs" />
     <Compile Include="BLL\FlightDetail.cs" />
     <Compile Include="BLL\ChuyenBayBLL.cs" />
     <Compile Include="BLL\DTO\ChuyenBayDTO.cs" />

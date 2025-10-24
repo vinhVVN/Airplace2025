@@ -105,24 +105,27 @@ namespace Airplace2025
         {
             try
             {
-                List<string> serviceClasses = ChuyenBayBLL.Instance.GetFormattedServiceClassList();
+                List<HangVeDTO> serviceClasses = ChuyenBayBLL.Instance.GetFormattedServiceClassList();
 
+                cbServiceClass.DataSource = null;
                 cbServiceClass.Items.Clear();
 
-                foreach (string serviceClass in serviceClasses)
-                {
-                    cbServiceClass.Items.Add(serviceClass);
-                }
+                // Set DataSource để binding
+                cbServiceClass.DataSource = serviceClasses;
+                cbServiceClass.DisplayMember = "TenHangVe";
+                cbServiceClass.ValueMember = "MaHangVe";
 
                 if (cbServiceClass.Items.Count > 0)
-                    cbServiceClass.SelectedIndex = 0; // Default to first class (usually Economy)
+                    cbServiceClass.SelectedIndex = 0; // Default to first class (usually Phổ thông)
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi tải danh sách hạng vé: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 // Fallback to hardcoded data
-                cbServiceClass.Items.AddRange(new string[] { "Economy", "Premium", "Business" });
+                cbServiceClass.DataSource = null;
+                cbServiceClass.Items.Clear();
+                cbServiceClass.Items.AddRange(new string[] { "Phổ thông", "Phổ thông đặc biệt", "Thương gia", "Hạng nhất" });
                 cbServiceClass.SelectedIndex = 0;
             }
         }
@@ -211,6 +214,42 @@ namespace Airplace2025
         }
 
         /// <summary>
+        /// Lấy tên hạng vé đã chọn
+        /// </summary>
+        private string GetSelectedServiceClassName()
+        {
+            if (cbServiceClass.SelectedItem is HangVeDTO)
+            {
+                return ((HangVeDTO)cbServiceClass.SelectedItem).TenHangVe;
+            }
+            else if (cbServiceClass.SelectedItem != null)
+            {
+                return cbServiceClass.SelectedItem.ToString();
+            }
+            else
+            {
+                return "Phổ thông"; // Default
+            }
+        }
+
+        /// <summary>
+        /// Lấy mã hạng vé đã chọn
+        /// </summary>
+        private string GetSelectedServiceClassCode()
+        {
+            if (cbServiceClass.SelectedItem is HangVeDTO)
+            {
+                return ((HangVeDTO)cbServiceClass.SelectedItem).MaHangVe;
+            }
+            else
+            {
+                // Fallback: tìm mã từ tên
+                string tenHangVe = GetSelectedServiceClassName();
+                return ChuyenBayBLL.Instance.GetMaHangVe(tenHangVe);
+            }
+        }
+
+        /// <summary>
         /// Handle Search Flight button click
         /// </summary>
         
@@ -233,19 +272,38 @@ namespace Airplace2025
                 string gheBusiness = flight.GheBusiness.HasValue ? flight.GheBusiness.Value.ToString() : "-";
 
                 // Get price based on selected class
-                // Nếu không có giá theo hạng, dùng giá cơ bản
+                // Nếu không có giá theo hạng, dùng giá cơ bản và nhân với tỉ lệ
                 decimal giaHienThi = flight.GiaCoBan;
-                switch (hangDichVu.ToLower())
+                decimal tiLeGia = 1.0m;
+                
+                string lowerHangDichVu = hangDichVu.ToLower();
+                
+                // Hỗ trợ cả tiếng Việt và tiếng Anh
+                if (lowerHangDichVu.Contains("phổ thông") && !lowerHangDichVu.Contains("đặc biệt") || lowerHangDichVu == "economy")
                 {
-                    case "economy":
-                        giaHienThi = flight.GiaEconomy ?? flight.GiaCoBan;
-                        break;
-                    case "premium":
-                        giaHienThi = flight.GiaPremium ?? flight.GiaCoBan;
-                        break;
-                    case "business":
-                        giaHienThi = flight.GiaBusiness ?? flight.GiaCoBan;
-                        break;
+                    giaHienThi = flight.GiaEconomy ?? flight.GiaCoBan;
+                    tiLeGia = ChuyenBayBLL.Instance.GetTiLeGiaHangVe(hangDichVu);
+                }
+                else if (lowerHangDichVu.Contains("đặc biệt") || lowerHangDichVu == "premium")
+                {
+                    giaHienThi = flight.GiaPremium ?? flight.GiaCoBan;
+                    tiLeGia = ChuyenBayBLL.Instance.GetTiLeGiaHangVe(hangDichVu);
+                }
+                else if (lowerHangDichVu.Contains("thương gia") || lowerHangDichVu == "business")
+                {
+                    giaHienThi = flight.GiaBusiness ?? flight.GiaCoBan;
+                    tiLeGia = ChuyenBayBLL.Instance.GetTiLeGiaHangVe(hangDichVu);
+                }
+                else if (lowerHangDichVu.Contains("hạng nhất") || lowerHangDichVu == "first")
+                {
+                    giaHienThi = flight.GiaFirst ?? flight.GiaCoBan;
+                    tiLeGia = ChuyenBayBLL.Instance.GetTiLeGiaHangVe(hangDichVu);
+                }
+                
+                // Nếu không có giá riêng cho hạng, tính dựa trên giá cơ bản * tỉ lệ
+                if (giaHienThi == flight.GiaCoBan && tiLeGia > 0)
+                {
+                    giaHienThi = flight.GiaCoBan * tiLeGia;
                 }
 
                 dgvChuyenBay.Rows.Add(
@@ -440,11 +498,11 @@ namespace Airplace2025
                 string gia = row.Cells["GiaTu"].Value?.ToString() ?? "-";
 
                 lblChuyenBayChon.Text = $"{maCB} ({hang})";
-                lblHangVeChon.Text = cbServiceClass.SelectedItem?.ToString() ?? "Economy";
+                lblHangVeChon.Text = GetSelectedServiceClassName();
                 lblGiaVeChon.Text = gia;
 
                 // Update baggage policy based on selected service class
-                UpdateBaggagePolicy(cbServiceClass.SelectedItem?.ToString() ?? "Economy");
+                UpdateBaggagePolicy(GetSelectedServiceClassName());
 
                 MessageBox.Show($"Đã chọn chuyến bay: {maCB}\nHãng: {hang}\nGiá từ: {gia}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -461,24 +519,33 @@ namespace Airplace2025
         {
             try
             {
-                switch (serviceClass.ToLower())
+                string lowerClass = serviceClass.ToLower();
+                
+                // Hỗ trợ cả tiếng Việt và tiếng Anh
+                if (lowerClass.Contains("phổ thông") && !lowerClass.Contains("đặc biệt") || lowerClass == "economy")
                 {
-                    case "economy":
-                        lblBaggageInfo.Text = "Hành lý: 20kg khoang + 5kg xách tay";
-                        lblChangePolicy.Text = "Đổi vé: Miễn phí (lần đầu)";
-                        break;
-                    case "premium":
-                        lblBaggageInfo.Text = "Hành lý: 25kg khoang + 7kg xách tay";
-                        lblChangePolicy.Text = "Đổi vé: Miễn phí (2 lần)";
-                        break;
-                    case "business":
-                        lblBaggageInfo.Text = "Hành lý: 30kg khoang + 10kg xách tay";
-                        lblChangePolicy.Text = "Đổi vé: Miễn phí (không giới hạn)";
-                        break;
-                    default:
-                        lblBaggageInfo.Text = "Hành lý: Tùy theo hãng";
-                        lblChangePolicy.Text = "Đổi vé: Liên hệ hãng hàng không";
-                        break;
+                    lblBaggageInfo.Text = "Hành lý: 20kg khoang + 5kg xách tay";
+                    lblChangePolicy.Text = "Đổi vé: Miễn phí (lần đầu)";
+                }
+                else if (lowerClass.Contains("đặc biệt") || lowerClass == "premium")
+                {
+                    lblBaggageInfo.Text = "Hành lý: 25kg khoang + 7kg xách tay";
+                    lblChangePolicy.Text = "Đổi vé: Miễn phí (2 lần)";
+                }
+                else if (lowerClass.Contains("thương gia") || lowerClass == "business")
+                {
+                    lblBaggageInfo.Text = "Hành lý: 30kg khoang + 10kg xách tay";
+                    lblChangePolicy.Text = "Đổi vé: Miễn phí (không giới hạn)";
+                }
+                else if (lowerClass.Contains("hạng nhất") || lowerClass == "first")
+                {
+                    lblBaggageInfo.Text = "Hành lý: 40kg khoang + 12kg xách tay";
+                    lblChangePolicy.Text = "Đổi vé: Miễn phí (không giới hạn)";
+                }
+                else
+                {
+                    lblBaggageInfo.Text = "Hành lý: Tùy theo hãng";
+                    lblChangePolicy.Text = "Đổi vé: Liên hệ hãng hàng không";
                 }
             }
             catch (Exception ex)
@@ -825,7 +892,7 @@ Thời gian: {DateTime.Now:dd/MM/yyyy HH:mm:ss}
                     SoNguoiLon = (int)numAdult.Value,
                     SoTreEm = (int)numChild.Value,
                     SoEmBe = (int)numBaby.Value,
-                    HangDichVu = cbServiceClass.SelectedItem?.ToString() ?? "Economy",
+                    HangDichVu = GetSelectedServiceClassName(),
                     LaKhuHoi = rbRoundTrip.Checked
                 };
 
