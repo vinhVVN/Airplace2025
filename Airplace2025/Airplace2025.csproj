@@ -69,8 +69,12 @@
   <ItemGroup>
     <Compile Include="BLL\DAO\FlightDAO.cs" />
     <Compile Include="BLL\FlightDetail.cs" />
+    <Compile Include="BLL\ChuyenBayBLL.cs" />
+    <Compile Include="BLL\DTO\ChuyenBayDTO.cs" />
+    <Compile Include="BLL\DTO\SearchFlightParams.cs" />
     <Compile Include="Controls\TimelineNodeType.cs" />
     <Compile Include="DAL\DBConnection.cs" />
+    <Compile Include="DAL\ChuyenBayDAO.cs" />
     <Compile Include="Controls\FlightLegControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

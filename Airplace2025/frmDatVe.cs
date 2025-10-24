@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Airplace2025.BLL;
+using Airplace2025.BLL.DTO;
 
 namespace Airplace2025
 {
@@ -14,7 +16,7 @@ namespace Airplace2025
     {
         // Passenger list
         private List<PassengerInfo> passengerList = new List<PassengerInfo>();
-        
+
         // Price breakdown and booking info
         private PriceBreakdown priceBreakdown = new PriceBreakdown();
         private BookingInfo bookingInfo = new BookingInfo();
@@ -34,28 +36,94 @@ namespace Airplace2025
         }
 
         /// <summary>
-        /// Initialize search controls with sample data
+        /// Initialize search controls with data from database
         /// </summary>
         private void InitializeControls()
         {
             try
             {
-                // Airports - Load từ database hoặc list cứng
-                cbSanBayDi.Items.AddRange(new string[] { "HAN - Hà Nội", "SGN - Tp.HCM", "DAD - Đà Nẵng", "CTS - Cần Thơ" });
-                cbSanBayDen.Items.AddRange(new string[] { "HAN - Hà Nội", "SGN - Tp.HCM", "DAD - Đà Nẵng", "CTS - Cần Thơ" });
-                cbSanBayDi.SelectedIndex = 0;
-                cbSanBayDen.SelectedIndex = 1;
+                // Load airports from database
+                LoadAirports();
 
-                // Service Class
-                cbServiceClass.SelectedIndex = 0;
+                // Load service classes from database
+                LoadServiceClasses();
 
                 // Hide return date initially
                 dtpReturnDate.Visible = rbRoundTrip.Checked;
                 lblReturnDate.Visible = rbRoundTrip.Checked;
+
+                // Set minimum date for date pickers
+                dtpNgayDi.MinDate = DateTime.Now.Date;
+                dtpReturnDate.MinDate = DateTime.Now.Date.AddDays(1);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khởi tạo controls: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Load airports from database
+        /// </summary>
+        private void LoadAirports()
+        {
+            try
+            {
+                List<string> airports = ChuyenBayBLL.Instance.GetFormattedAirportList();
+
+                cbSanBayDi.Items.Clear();
+                cbSanBayDen.Items.Clear();
+
+                foreach (string airport in airports)
+                {
+                    cbSanBayDi.Items.Add(airport);
+                    cbSanBayDen.Items.Add(airport);
+                }
+
+                if (cbSanBayDi.Items.Count > 0)
+                    cbSanBayDi.SelectedIndex = 0;
+
+                if (cbSanBayDen.Items.Count > 1)
+                    cbSanBayDen.SelectedIndex = 1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi tải danh sách sân bay: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                // Fallback to hardcoded data
+                cbSanBayDi.Items.AddRange(new string[] { "HAN - Nội Bài (Hà Nội)", "SGN - Tân Sơn Nhất (TP.HCM)", "DAD - Đà Nẵng", "CXR - Cam Ranh (Khánh Hòa)" });
+                cbSanBayDen.Items.AddRange(new string[] { "HAN - Nội Bài (Hà Nội)", "SGN - Tân Sơn Nhất (TP.HCM)", "DAD - Đà Nẵng", "CXR - Cam Ranh (Khánh Hòa)" });
+                cbSanBayDi.SelectedIndex = 0;
+                cbSanBayDen.SelectedIndex = 1;
+            }
+        }
+
+        /// <summary>
+        /// Load service classes (hạng vé) from database
+        /// </summary>
+        private void LoadServiceClasses()
+        {
+            try
+            {
+                List<string> serviceClasses = ChuyenBayBLL.Instance.GetFormattedServiceClassList();
+
+                cbServiceClass.Items.Clear();
+
+                foreach (string serviceClass in serviceClasses)
+                {
+                    cbServiceClass.Items.Add(serviceClass);
+                }
+
+                if (cbServiceClass.Items.Count > 0)
+                    cbServiceClass.SelectedIndex = 0; // Default to first class (usually Economy)
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi tải danh sách hạng vé: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                // Fallback to hardcoded data
+                cbServiceClass.Items.AddRange(new string[] { "Economy", "Premium", "Business" });
+                cbServiceClass.SelectedIndex = 0;
             }
         }
 
@@ -139,6 +207,60 @@ namespace Airplace2025
         private void AttachPassengerEventHandlers()
         {
             btnThemHanhKhach.Click += BtnThemHanhKhach_Click;
+            btnTimKiem.Click += btnTimKiem_Click;
+        }
+
+        /// <summary>
+        /// Handle Search Flight button click
+        /// </summary>
+        
+
+        /// <summary>
+        /// Display flight search results in DataGridView
+        /// </summary>
+        private void DisplayFlightResults(List<ChuyenBayDTO> flights, string hangDichVu)
+        {
+            dgvChuyenBay.Rows.Clear();
+
+            foreach (var flight in flights)
+            {
+                // Format time duration
+                string thoiGianBay = ChuyenBayBLL.Instance.FormatFlightDuration(flight.ThoiGianBay);
+
+                // Get seat availability by class from ChiTietHangVe
+                string gheEconomy = flight.GheEconomy.HasValue ? flight.GheEconomy.Value.ToString() : "-";
+                string ghePremium = flight.GhePremium.HasValue ? flight.GhePremium.Value.ToString() : "-";
+                string gheBusiness = flight.GheBusiness.HasValue ? flight.GheBusiness.Value.ToString() : "-";
+
+                // Get price based on selected class
+                // Nếu không có giá theo hạng, dùng giá cơ bản
+                decimal giaHienThi = flight.GiaCoBan;
+                switch (hangDichVu.ToLower())
+                {
+                    case "economy":
+                        giaHienThi = flight.GiaEconomy ?? flight.GiaCoBan;
+                        break;
+                    case "premium":
+                        giaHienThi = flight.GiaPremium ?? flight.GiaCoBan;
+                        break;
+                    case "business":
+                        giaHienThi = flight.GiaBusiness ?? flight.GiaCoBan;
+                        break;
+                }
+
+                dgvChuyenBay.Rows.Add(
+                    flight.MaChuyenBay,
+                    flight.TenHangBay,
+                    flight.NgayGioBay.ToString("HH:mm"),
+                    flight.NgayGioDen.ToString("HH:mm"),
+                    thoiGianBay,
+                    flight.TrangThai,
+                    gheEconomy,
+                    ghePremium,
+                    gheBusiness,
+                    giaHienThi.ToString("N0") + " ₫"
+                );
+            }
         }
 
         /// <summary>
@@ -253,7 +375,7 @@ namespace Airplace2025
         {
             int totalCount = passengerList.Count;
             lblSoLuongVe.Text = totalCount.ToString();
-            
+
             // Update price breakdown when passenger count changes
             UpdatePriceBreakdown();
         }
@@ -676,6 +798,69 @@ Thời gian: {DateTime.Now:dd/MM/yyyy HH:mm:ss}
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Validate input
+                if (cbSanBayDi.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Vui lòng chọn sân bay đi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (cbSanBayDen.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Vui lòng chọn sân bay đến", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Prepare search parameters
+                SearchFlightParams searchParams = new SearchFlightParams
+                {
+                    MaSanBayDi = ChuyenBayBLL.Instance.ExtractAirportCode(cbSanBayDi.SelectedItem?.ToString()),
+                    MaSanBayDen = ChuyenBayBLL.Instance.ExtractAirportCode(cbSanBayDen.SelectedItem?.ToString()),
+                    NgayDi = dtpNgayDi.Value.Date,
+                    SoNguoiLon = (int)numAdult.Value,
+                    SoTreEm = (int)numChild.Value,
+                    SoEmBe = (int)numBaby.Value,
+                    HangDichVu = cbServiceClass.SelectedItem?.ToString() ?? "Economy",
+                    LaKhuHoi = rbRoundTrip.Checked
+                };
+
+                if (searchParams.LaKhuHoi)
+                {
+                    searchParams.NgayVe = dtpReturnDate.Value.Date;
+                }
+
+                // Show loading
+                this.Cursor = Cursors.WaitCursor;
+                dgvChuyenBay.Rows.Clear();
+
+                // Search flights
+                List<ChuyenBayDTO> flights = ChuyenBayBLL.Instance.SearchFlights(searchParams);
+
+                if (flights.Count == 0)
+                {
+                    MessageBox.Show("Không tìm thấy chuyến bay phù hợp", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // Display results
+                DisplayFlightResults(flights, searchParams.HangDichVu);
+
+                MessageBox.Show($"Tìm thấy {flights.Count} chuyến bay phù hợp", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi tìm kiếm: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+            }
+        }
     }
 
     /// <summary>
@@ -739,3 +924,4 @@ TỔNG CỘNG: {Total:N0} ₫";
         public string EmployeeName { get; set; }
     }
 }
+
