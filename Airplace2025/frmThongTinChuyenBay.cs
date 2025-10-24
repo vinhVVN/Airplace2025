@@ -69,9 +69,30 @@ namespace Airplace2025
             pnlItinerary.Controls.Clear();
             string currentOrigin = ThongTin.MaSanBayDi;
             string currentOriginName = ThongTin.TenSanBayDi;
+            if (ThongTin.TenHangBay == "Vietjet Air") // vietjet
+            {
+                lbSmallCase.Text = "10kg 56cm x 36 cm x 23 cm";
+                lbBigCase.Text = "40kg 119cm x 119 cm x 81 cm";
+                picMedia.Visible = false;
+                lbMedia.Visible = false;
+            }
+            else if (ThongTin.TenHangBay == "Vietravel Airlines") // viettravael
+            {
+                picWifi.Visible = false;
+                lbWifi.Visible = false;
+                picPlug.Visible = false;
+                lbPlug.Visible = false;
+                picMedia.Visible = false;
+                lbMedia.Visible = false;
+            }
+            else
+            {
+                
+            }
+
+
             DateTime currentOriginTime = ThongTin.NgayGioBay;
             
-
 
             foreach (var stop in dsTrungGian)
             {
@@ -133,6 +154,7 @@ namespace Airplace2025
         private void frmThongTinChuyenBay_Load(object sender, EventArgs e)
         {
             LoadFlightData();
+
         }
 
         private void btnClose_Click(object sender, EventArgs e)

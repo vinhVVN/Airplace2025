@@ -1,5 +1,4 @@
 ﻿using Airplace2025.BLL.DAO;
-using Airplace2025.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,7 +25,6 @@ namespace Airplace2025
         async void InitializeWebView()
         {
             await webView.EnsureCoreWebView2Async(null);
-            webView.CoreWebView2.OpenDevToolsWindow();
 
             // Lấy đường dẫn tuyệt đối đến file map.html
             // (File này đã được copy vào thư mục build)
@@ -41,7 +39,7 @@ namespace Airplace2025
      
             try
             {
-                DataTable dt = FlightDAO.Instance.GetFlightList();
+                DataTable dt = FlightDAO.Instance.GetFlightList(cbTrangThai.Text);
                 dgvFlight.DataSource = dt;
             }
             catch (Exception ex)
@@ -149,6 +147,11 @@ namespace Airplace2025
                 }
             }
 
+        }
+
+        private void cbTrangThai_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadFlightData();
         }
     }
 }
