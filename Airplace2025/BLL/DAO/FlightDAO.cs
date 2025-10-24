@@ -21,13 +21,15 @@ namespace Airplace2025.BLL.DAO
         public FlightDAO() { }
 
 
-        public DataTable GetFlightList()
+        public DataTable GetFlightList(string TrangThai)
         {
             DataTable dt = new DataTable();
             using (SqlConnection con = DBConnection.GetConnection())
             {
                 SqlCommand cmd = new SqlCommand("sp_LayDanhSachChuyenBay", con);
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@TrangThai", TrangThai);
+
 
                 con.Open();
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
