@@ -83,6 +83,24 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmPassengerDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPassengerDetails.Designer.cs">
+      <DependentUpon>frmPassengerDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSeatSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSeatSelection.Designer.cs">
+      <DependentUpon>frmSeatSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTimKiemKhachHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTimKiemKhachHang.Designer.cs">
+      <DependentUpon>frmTimKiemKhachHang.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDanhSachChuyenBay.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +132,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPassengerDetails.resx">
+      <DependentUpon>frmPassengerDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTimKiemKhachHang.resx">
+      <DependentUpon>frmTimKiemKhachHang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDanhSachChuyenBay.resx">
       <DependentUpon>frmDanhSachChuyenBay.cs</DependentUpon>

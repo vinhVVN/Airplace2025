@@ -12,6 +12,9 @@ namespace Airplace2025
 {
     public partial class frmDatVe : Form
     {
+        // Passenger list
+        private List<PassengerInfo> passengerList = new List<PassengerInfo>();
+
         public frmDatVe()
         {
             InitializeComponent();
@@ -21,6 +24,8 @@ namespace Airplace2025
         {
             InitializeControls();
             SetupFlightColumns();
+            SetupPassengerColumns();
+            AttachPassengerEventHandlers();
         }
 
         /// <summary>
@@ -84,6 +89,169 @@ namespace Airplace2025
             {
                 MessageBox.Show($"Lỗi setup cột: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        /// <summary>
+        /// Setup columns for passenger DataGridView
+        /// </summary>
+        private void SetupPassengerColumns()
+        {
+            try
+            {
+                dgvHanhKhach.Columns.Clear();
+                dgvHanhKhach.Columns.Add("STT", "STT");
+                dgvHanhKhach.Columns.Add("HoTen", "Họ Tên");
+                dgvHanhKhach.Columns.Add("NgaySinh", "Ngày sinh");
+                dgvHanhKhach.Columns.Add("LoaiHK", "Loại");
+                dgvHanhKhach.Columns.Add("GioiTinh", "Giới tính");
+                dgvHanhKhach.Columns.Add("DocNo", "Tài liệu");
+                dgvHanhKhach.Columns.Add("Ghe", "Ghế");
+                dgvHanhKhach.Columns.Add("HanhLy", "Hành lý (kg)");
+                dgvHanhKhach.Columns.Add("Edit", "Sửa");
+                dgvHanhKhach.Columns.Add("Delete", "Xóa");
+
+                // Set column widths
+                dgvHanhKhach.Columns["STT"].Width = 40;
+                dgvHanhKhach.Columns["HoTen"].Width = 120;
+                dgvHanhKhach.Columns["NgaySinh"].Width = 90;
+                dgvHanhKhach.Columns["LoaiHK"].Width = 60;
+                dgvHanhKhach.Columns["GioiTinh"].Width = 60;
+                dgvHanhKhach.Columns["DocNo"].Width = 100;
+                dgvHanhKhach.Columns["Ghe"].Width = 50;
+                dgvHanhKhach.Columns["HanhLy"].Width = 80;
+                dgvHanhKhach.Columns["Edit"].Width = 50;
+                dgvHanhKhach.Columns["Delete"].Width = 50;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi setup cột hành khách: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Attach event handlers for passenger grid
+        /// </summary>
+        private void AttachPassengerEventHandlers()
+        {
+            btnThemHanhKhach.Click += BtnThemHanhKhach_Click;
+        }
+
+        /// <summary>
+        /// Handle Add Passenger button
+        /// </summary>
+        private void BtnThemHanhKhach_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // 1. Find/Create Customer
+                using (frmTimKiemKhachHang frmLookup = new frmTimKiemKhachHang())
+                {
+                    if (frmLookup.ShowDialog() != DialogResult.OK)
+                        return;
+
+                    // 2. Add Passenger Details
+                    using (frmPassengerDetails frmDetails = new frmPassengerDetails())
+                    {
+                        if (frmDetails.ShowDialog() != DialogResult.OK)
+                            return;
+
+                        // Validate INF constraint
+                        if (!ValidatePassengerConstraints(frmDetails.PassengerType))
+                            return;
+
+                        // 3. Select Seat
+                        using (frmSeatSelection frmSeat = new frmSeatSelection(30, 6))
+                        {
+                            if (frmSeat.ShowDialog() != DialogResult.OK)
+                                return;
+
+                            // Create passenger info
+                            PassengerInfo passenger = new PassengerInfo
+                            {
+                                MaKH = frmLookup.MaKH,
+                                HoTen = $"{frmDetails.FirstName} {frmDetails.LastName}",
+                                NgaySinh = frmDetails.DateOfBirth,
+                                LoaiHK = frmDetails.PassengerType,
+                                GioiTinh = frmDetails.Gender,
+                                DocNo = frmDetails.DocumentNumber,
+                                Ghe = frmSeat.SelectedSeat,
+                                HanhLy = (int)frmDetails.AdditionalBaggage,
+                                GhiChu = frmDetails.Notes
+                            };
+
+                            passengerList.Add(passenger);
+                            RefreshPassengerGrid();
+                            UpdatePassengerCount();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi thêm hành khách: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Validate passenger constraints (INF must have ADT)
+        /// </summary>
+        private bool ValidatePassengerConstraints(string passengerType)
+        {
+            if (passengerType == "INF")
+            {
+                int adtCount = passengerList.Count(p => p.LoaiHK == "ADT");
+                if (adtCount == 0)
+                {
+                    MessageBox.Show("Em bé (INF) phải đi kèm ít nhất 1 người lớn (ADT)", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+
+                int infCount = passengerList.Count(p => p.LoaiHK == "INF");
+                if (infCount >= adtCount)
+                {
+                    MessageBox.Show($"Số em bé không được vượt quá số người lớn.\nHiện có: {adtCount} ADT, {infCount} INF", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Refresh passenger grid
+        /// </summary>
+        private void RefreshPassengerGrid()
+        {
+            dgvHanhKhach.Rows.Clear();
+            for (int i = 0; i < passengerList.Count; i++)
+            {
+                PassengerInfo p = passengerList[i];
+                dgvHanhKhach.Rows.Add(
+                    i + 1,
+                    p.HoTen,
+                    p.NgaySinh.ToString("dd/MM/yyyy"),
+                    p.LoaiHK,
+                    p.GioiTinh,
+                    p.DocNo,
+                    p.Ghe,
+                    p.HanhLy,
+                    "Sửa",
+                    "Xóa"
+                );
+            }
+        }
+
+        /// <summary>
+        /// Update passenger count labels
+        /// </summary>
+        private void UpdatePassengerCount()
+        {
+            int totalCount = passengerList.Count;
+            lblSoLuongVe.Text = totalCount.ToString();
+            
+            // Calculate total price (simplified)
+            int pricePerSeat = 1000000; // 1 triệu/vé
+            lblTongTien.Text = (totalCount * pricePerSeat).ToString("N0") + " ₫";
         }
 
         /// <summary>
@@ -192,5 +360,21 @@ namespace Airplace2025
                 MessageBox.Show($"Lỗi cập nhật chính sách: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+    }
+
+    /// <summary>
+    /// Passenger info structure
+    /// </summary>
+    public class PassengerInfo
+    {
+        public string MaKH { get; set; }
+        public string HoTen { get; set; }
+        public DateTime NgaySinh { get; set; }
+        public string LoaiHK { get; set; } // ADT, CHD, INF
+        public string GioiTinh { get; set; }
+        public string DocNo { get; set; }
+        public string Ghe { get; set; }
+        public int HanhLy { get; set; }
+        public string GhiChu { get; set; }
     }
 }
