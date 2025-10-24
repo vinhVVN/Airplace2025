@@ -181,9 +181,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Guna.UI.dll" />
     <Content Include="map.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\noun-entertainment-6988208.png" />
+    <None Include="Resources\noun-plug-8109468.png" />
+    <None Include="Resources\noun-meal-8091868.png" />
+    <None Include="Resources\pngwing.com %281%29.png" />
     <None Include="Resources\noun-x-4572560.png" />
     <None Include="Resources\plane-icon.png" />
   </ItemGroup>

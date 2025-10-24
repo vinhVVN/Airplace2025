@@ -63,6 +63,36 @@ namespace Airplace2025.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap noun_entertainment_6988208 {
+            get {
+                object obj = ResourceManager.GetObject("noun-entertainment-6988208", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap noun_meal_8091868 {
+            get {
+                object obj = ResourceManager.GetObject("noun-meal-8091868", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap noun_plug_8109468 {
+            get {
+                object obj = ResourceManager.GetObject("noun-plug-8109468", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap noun_x_4572560 {
             get {
                 object obj = ResourceManager.GetObject("noun-x-4572560", resourceCulture);
@@ -76,6 +106,16 @@ namespace Airplace2025.Properties {
         internal static System.Drawing.Bitmap plane_icon {
             get {
                 object obj = ResourceManager.GetObject("plane-icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pngwing_com__1_ {
+            get {
+                object obj = ResourceManager.GetObject("pngwing.com (1)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
