@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Airplace2025.DAL;
 
 namespace Airplace2025
 {
@@ -17,6 +19,8 @@ namespace Airplace2025
         private int[,] seatStatus;
         private Button[,] seatButtons;
         private string selectedSeat = "";
+        private string maChuyenBay = "";
+        private List<string> bookedSeats = new List<string>();
 
         public string SelectedSeat { get { return selectedSeat; } }
 
@@ -29,11 +33,27 @@ namespace Airplace2025
             InitializeComponent();
         }
 
-        public frmSeatSelection(int numRows = 30, int seatsPerRow = 6)
+        public frmSeatSelection(int numRows = 30, int seatsPerRow = 6, string maChuyenBay = null)
         {
             InitializeComponent();
             this.rows = numRows;
             this.seatsPerRow = seatsPerRow;
+            this.maChuyenBay = maChuyenBay;
+
+            // Load booked seats from database if flight code is provided
+            if (!string.IsNullOrEmpty(maChuyenBay))
+            {
+                try
+                {
+                    bookedSeats = KhachHangDAO.Instance.GetBookedSeats(maChuyenBay);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi tải danh sách ghế đã đặt: {ex.Message}\nSẽ hiển thị tất cả ghế là trống.", 
+                        "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    bookedSeats = new List<string>();
+                }
+            }
         }
 
         private void frmSeatSelection_Load(object sender, EventArgs e)
@@ -51,14 +71,57 @@ namespace Airplace2025
             seatButtons = new Button[rows, seatsPerRow];
 
             // Initialize all seats as available (0)
-            // Randomly set some as taken (2) - for demo
-            Random rand = new Random();
             for (int r = 0; r < rows; r++)
             {
                 for (int c = 0; c < seatsPerRow; c++)
                 {
-                    seatStatus[r, c] = rand.NextDouble() < 0.15 ? 2 : 0; // 15% taken
+                    seatStatus[r, c] = 0; // All available by default
                 }
+            }
+
+            // Mark booked seats as taken (2)
+            foreach (string seatLabel in bookedSeats)
+            {
+                // Parse seat label (e.g., "12A" -> row 11, col 0)
+                if (ParseSeatLabel(seatLabel, out int row, out int col))
+                {
+                    if (row >= 0 && row < rows && col >= 0 && col < seatsPerRow)
+                    {
+                        seatStatus[row, col] = 2; // Taken
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Parse seat label to row and column indices
+        /// </summary>
+        private bool ParseSeatLabel(string seatLabel, out int row, out int col)
+        {
+            row = -1;
+            col = -1;
+
+            if (string.IsNullOrEmpty(seatLabel) || seatLabel.Length < 2)
+                return false;
+
+            try
+            {
+                // Extract row number (e.g., "12" from "12A")
+                string rowStr = seatLabel.Substring(0, seatLabel.Length - 1);
+                if (!int.TryParse(rowStr, out int rowNumber))
+                    return false;
+
+                row = rowNumber - 1; // Convert to 0-based index
+
+                // Extract column letter (e.g., "A" from "12A")
+                char colChar = seatLabel[seatLabel.Length - 1];
+                col = colChar - 'A'; // A=0, B=1, C=2, etc.
+
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
 

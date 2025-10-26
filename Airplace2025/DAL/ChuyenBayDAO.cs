@@ -35,7 +35,7 @@ namespace Airplace2025.DAL
             {
                 using (SqlConnection conn = DBConnection.GetConnection())
                 {
-                    using (SqlCommand cmd = new SqlCommand("sp_TimKiemChuyenBay", conn))
+                    using (SqlCommand cmd = new SqlCommand("usp_TimKiemChuyenBay", conn))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 

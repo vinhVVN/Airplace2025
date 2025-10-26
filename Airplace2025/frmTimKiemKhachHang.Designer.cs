@@ -17,8 +17,6 @@
         {
             this.gbTim = new Guna.UI2.WinForms.Guna2GroupBox();
             this.btnTim = new Guna.UI2.WinForms.Guna2Button();
-            this.cbSearchType = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.lblSearchType = new System.Windows.Forms.Label();
             this.txtTimKiem = new Guna.UI2.WinForms.Guna2TextBox();
             this.lblTimKiem = new System.Windows.Forms.Label();
             this.gbThongTin = new Guna.UI2.WinForms.Guna2GroupBox();
@@ -48,8 +46,6 @@
             this.gbTim.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.gbTim.BorderRadius = 8;
             this.gbTim.Controls.Add(this.btnTim);
-            this.gbTim.Controls.Add(this.cbSearchType);
-            this.gbTim.Controls.Add(this.lblSearchType);
             this.gbTim.Controls.Add(this.txtTimKiem);
             this.gbTim.Controls.Add(this.lblTimKiem);
             this.gbTim.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -66,36 +62,12 @@
             this.btnTim.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
             this.btnTim.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnTim.ForeColor = System.Drawing.Color.White;
-            this.btnTim.Location = new System.Drawing.Point(485, 42);
+            this.btnTim.Location = new System.Drawing.Point(485, 53);
             this.btnTim.Name = "btnTim";
             this.btnTim.Size = new System.Drawing.Size(65, 30);
             this.btnTim.TabIndex = 2;
             this.btnTim.Text = "Tìm";
             this.btnTim.Click += new System.EventHandler(this.btnTim_Click);
-            // 
-            // cbSearchType
-            // 
-            this.cbSearchType.BackColor = System.Drawing.Color.Transparent;
-            this.cbSearchType.BorderRadius = 6;
-            this.cbSearchType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cbSearchType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbSearchType.FocusedColor = System.Drawing.Color.Empty;
-            this.cbSearchType.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.cbSearchType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.cbSearchType.ItemHeight = 30;
-            this.cbSearchType.Location = new System.Drawing.Point(345, 41);
-            this.cbSearchType.Name = "cbSearchType";
-            this.cbSearchType.Size = new System.Drawing.Size(130, 36);
-            this.cbSearchType.TabIndex = 1;
-            // 
-            // lblSearchType
-            // 
-            this.lblSearchType.AutoSize = true;
-            this.lblSearchType.Location = new System.Drawing.Point(315, 40);
-            this.lblSearchType.Name = "lblSearchType";
-            this.lblSearchType.Size = new System.Drawing.Size(32, 15);
-            this.lblSearchType.TabIndex = 3;
-            this.lblSearchType.Text = "Loại:";
             // 
             // txtTimKiem
             // 
@@ -156,15 +128,19 @@
             this.cbGioiTinh.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.cbGioiTinh.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
             this.cbGioiTinh.ItemHeight = 30;
+            this.cbGioiTinh.Items.AddRange(new object[] {
+            "Nam",
+            "Nữ"});
             this.cbGioiTinh.Location = new System.Drawing.Point(360, 163);
             this.cbGioiTinh.Name = "cbGioiTinh";
             this.cbGioiTinh.Size = new System.Drawing.Size(190, 36);
+            this.cbGioiTinh.StartIndex = 0;
             this.cbGioiTinh.TabIndex = 6;
             // 
             // lblGioiTinh
             // 
             this.lblGioiTinh.AutoSize = true;
-            this.lblGioiTinh.Location = new System.Drawing.Point(308, 168);
+            this.lblGioiTinh.Location = new System.Drawing.Point(308, 173);
             this.lblGioiTinh.Name = "lblGioiTinh";
             this.lblGioiTinh.Size = new System.Drawing.Size(55, 15);
             this.lblGioiTinh.TabIndex = 7;
@@ -175,6 +151,7 @@
             this.dtpNgaySinh.BorderRadius = 6;
             this.dtpNgaySinh.Checked = true;
             this.dtpNgaySinh.Enabled = false;
+            this.dtpNgaySinh.FillColor = System.Drawing.Color.White;
             this.dtpNgaySinh.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dtpNgaySinh.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpNgaySinh.Location = new System.Drawing.Point(77, 163);
@@ -188,7 +165,7 @@
             // lblNgaySinh
             // 
             this.lblNgaySinh.AutoSize = true;
-            this.lblNgaySinh.Location = new System.Drawing.Point(10, 168);
+            this.lblNgaySinh.Location = new System.Drawing.Point(10, 169);
             this.lblNgaySinh.Name = "lblNgaySinh";
             this.lblNgaySinh.Size = new System.Drawing.Size(63, 15);
             this.lblNgaySinh.TabIndex = 8;
@@ -202,7 +179,7 @@
             this.txtDiaChi.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtDiaChi.Location = new System.Drawing.Point(100, 133);
             this.txtDiaChi.Name = "txtDiaChi";
-            this.txtDiaChi.PlaceholderText = "Địa chỉ";
+            this.txtDiaChi.PlaceholderText = "Địa chỉ (tùy chọn)";
             this.txtDiaChi.ReadOnly = true;
             this.txtDiaChi.SelectedText = "";
             this.txtDiaChi.Size = new System.Drawing.Size(450, 25);
@@ -225,7 +202,7 @@
             this.txtEmail.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtEmail.Location = new System.Drawing.Point(100, 103);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.PlaceholderText = "Email";
+            this.txtEmail.PlaceholderText = "Email (tùy chọn)";
             this.txtEmail.ReadOnly = true;
             this.txtEmail.SelectedText = "";
             this.txtEmail.Size = new System.Drawing.Size(450, 25);
@@ -248,7 +225,7 @@
             this.txtSDT.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtSDT.Location = new System.Drawing.Point(360, 73);
             this.txtSDT.Name = "txtSDT";
-            this.txtSDT.PlaceholderText = "10+ chữ số";
+            this.txtSDT.PlaceholderText = "SĐT (tùy chọn)";
             this.txtSDT.ReadOnly = true;
             this.txtSDT.SelectedText = "";
             this.txtSDT.Size = new System.Drawing.Size(190, 25);
@@ -257,7 +234,7 @@
             // lblSDT
             // 
             this.lblSDT.AutoSize = true;
-            this.lblSDT.Location = new System.Drawing.Point(320, 78);
+            this.lblSDT.Location = new System.Drawing.Point(333, 77);
             this.lblSDT.Name = "lblSDT";
             this.lblSDT.Size = new System.Drawing.Size(30, 15);
             this.lblSDT.TabIndex = 11;
@@ -271,7 +248,7 @@
             this.txtCCCD.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtCCCD.Location = new System.Drawing.Point(100, 73);
             this.txtCCCD.Name = "txtCCCD";
-            this.txtCCCD.PlaceholderText = "12 chữ số";
+            this.txtCCCD.PlaceholderText = "CCCD (tùy chọn)";
             this.txtCCCD.ReadOnly = true;
             this.txtCCCD.SelectedText = "";
             this.txtCCCD.Size = new System.Drawing.Size(220, 25);
@@ -349,7 +326,7 @@
             this.btnHuy.Text = "Hủy";
             this.btnHuy.Click += new System.EventHandler(this.btnHuy_Click);
             // 
-            // frmCustomerLookup
+            // frmTimKiemKhachHang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -364,7 +341,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmCustomerLookup";
+            this.Name = "frmTimKiemKhachHang";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Tìm/Tạo Khách Hàng";
             this.gbTim.ResumeLayout(false);
@@ -377,8 +354,6 @@
 
         private Guna.UI2.WinForms.Guna2GroupBox gbTim;
         private Guna.UI2.WinForms.Guna2Button btnTim;
-        private Guna.UI2.WinForms.Guna2ComboBox cbSearchType;
-        private System.Windows.Forms.Label lblSearchType;
         private Guna.UI2.WinForms.Guna2TextBox txtTimKiem;
         private System.Windows.Forms.Label lblTimKiem;
 
