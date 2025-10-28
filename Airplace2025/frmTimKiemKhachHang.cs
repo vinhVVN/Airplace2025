@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
+using Airplace2025.BLL;
+using Airplace2025.BLL.DTO;
 
 namespace Airplace2025
 {
@@ -23,15 +27,8 @@ namespace Airplace2025
             InitializeComponent();
         }
 
-        private void frmCustomerLookup_Load(object sender, EventArgs e)
-        {
-            cbSearchType.Items.AddRange(new string[] { "CCCD", "Số điện thoại" });
-            cbSearchType.SelectedIndex = 0;
-            cbGioiTinh.Items.AddRange(new string[] { "Nam", "Nữ", "Khác", "Không khai báo" });
-        }
-
         /// <summary>
-        /// Tìm kiếm khách hàng trong CSDL
+        /// Tìm kiếm khách hàng trong CSDL (Smart Search - tự động detect loại)
         /// </summary>
         private void btnTim_Click(object sender, EventArgs e)
         {
@@ -44,29 +41,131 @@ namespace Airplace2025
 
             try
             {
-                // TODO: Tích hợp với database
-                // var customer = _service.SearchCustomer(searchValue, cbSearchType.SelectedItem.ToString());
+                // Smart search - auto-detect search type
+                List<KhachHangDTO> customers = KhachHangBLL.Instance.SmartSearchCustomer(searchValue);
 
-                // Tạm thời hiển thị thông báo
-                DialogResult result = MessageBox.Show(
-                    $"Không tìm thấy khách hàng với {cbSearchType.SelectedItem}: {searchValue}\n\nBạn có muốn tạo khách hàng mới?",
-                    "Tìm kiếm",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question);
+                // Detect what type was searched for pre-filling
+                string detectedType = DetectSearchType(searchValue);
 
-                if (result == DialogResult.Yes)
+                if (customers.Count == 0)
                 {
-                    EnableCustomerInput();
+                    // No customer found
+                    DialogResult result = MessageBox.Show(
+                        $"Không tìm thấy khách hàng với thông tin: {searchValue}\n\nBạn có muốn tạo khách hàng mới?",
+                        "Tìm kiếm",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        EnableCustomerInput();
+                        // Pre-fill search value based on detected type
+                        PreFillCustomerData(searchValue, detectedType);
+                    }
+                    else
+                    {
+                        ClearCustomerFields();
+                    }
+                }
+                else if (customers.Count == 1)
+                {
+                    // Found exactly one customer
+                    LoadCustomerData(customers[0]);
+                    MessageBox.Show("Đã tìm thấy khách hàng!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    ClearCustomerFields();
+                    // Multiple customers found - let user choose
+                    frmChonKhachHang frmChon = new frmChonKhachHang(customers);
+                    if (frmChon.ShowDialog() == DialogResult.OK && frmChon.SelectedCustomer != null)
+                    {
+                        LoadCustomerData(frmChon.SelectedCustomer);
+                    }
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi tìm kiếm: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        /// <summary>
+        /// Detect search type from input value
+        /// </summary>
+        private string DetectSearchType(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return "Unknown";
+
+            value = value.Trim();
+            
+            // Check if numeric
+            bool isNumeric = value.All(char.IsDigit);
+            
+            if (isNumeric && value.Length == 12)
+                return "CCCD";
+            else if (isNumeric && value.Length >= 10 && value.Length <= 11)
+                return "Phone";
+            else if (value.Contains("@"))
+                return "Email";
+            else
+                return "Name";
+        }
+
+        /// <summary>
+        /// Pre-fill customer data based on detected search type
+        /// </summary>
+        private void PreFillCustomerData(string value, string detectedType)
+        {
+            switch (detectedType)
+            {
+                case "CCCD":
+                    txtCCCD.Text = value;
+                    break;
+                case "Phone":
+                    txtSDT.Text = value;
+                    break;
+                case "Email":
+                    txtEmail.Text = value;
+                    break;
+                case "Name":
+                    txtHoTen.Text = value;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Load customer data into form
+        /// </summary>
+        private void LoadCustomerData(KhachHangDTO customer)
+        {
+            MaKH = customer.MaKhachHang;
+            HoTen = customer.HoTen;
+            CCCD = customer.CCCD;
+            SDT = customer.SoDienThoai;
+            Email = customer.Email;
+            DiaChi = customer.DiaChi;
+            NgaySinh = customer.NgaySinh ?? DateTime.Now.AddYears(-30);
+            GioiTinh = customer.GioiTinh ?? "Nam";
+
+            txtHoTen.Text = customer.HoTen;
+            txtCCCD.Text = customer.CCCD;
+            txtSDT.Text = customer.SoDienThoai;
+            txtEmail.Text = customer.Email;
+            txtDiaChi.Text = customer.DiaChi;
+            dtpNgaySinh.Value = customer.NgaySinh ?? DateTime.Now.AddYears(-30);
+            cbGioiTinh.SelectedItem = customer.GioiTinh ?? "Nam";
+
+            // Make fields readonly
+            txtHoTen.ReadOnly = true;
+            txtCCCD.ReadOnly = true;
+            txtSDT.ReadOnly = true;
+            txtEmail.ReadOnly = true;
+            txtDiaChi.ReadOnly = true;
+            dtpNgaySinh.Enabled = false;
+            cbGioiTinh.Enabled = false;
+            btnTaoMoi.Enabled = false;
+            btnChon.Enabled = true; // Enable btnChon when customer data is loaded
         }
 
         /// <summary>
@@ -82,6 +181,7 @@ namespace Airplace2025
             dtpNgaySinh.Enabled = true;
             cbGioiTinh.Enabled = true;
             btnTaoMoi.Enabled = true;
+            btnChon.Enabled = false; // Disable btnChon when creating new customer
         }
 
         /// <summary>
@@ -104,6 +204,7 @@ namespace Airplace2025
             dtpNgaySinh.Enabled = false;
             cbGioiTinh.Enabled = false;
             btnTaoMoi.Enabled = false;
+            btnChon.Enabled = true; // Enable btnChon when clearing fields
         }
 
         /// <summary>
@@ -118,19 +219,33 @@ namespace Airplace2025
 
             try
             {
-                // TODO: Lưu vào database
-                // _service.CreateCustomer(...)
+                // Create customer DTO
+                KhachHangDTO newCustomer = new KhachHangDTO
+                {
+                    HoTen = txtHoTen.Text.Trim(),
+                    NgaySinh = dtpNgaySinh.Value,
+                    GioiTinh = cbGioiTinh.SelectedItem?.ToString(),
+                    DiaChi = string.IsNullOrWhiteSpace(txtDiaChi.Text) ? null : txtDiaChi.Text.Trim(),
+                    CCCD = string.IsNullOrWhiteSpace(txtCCCD.Text) ? null : txtCCCD.Text.Trim(),
+                    SoDienThoai = string.IsNullOrWhiteSpace(txtSDT.Text) ? null : txtSDT.Text.Trim(),
+                    Email = string.IsNullOrWhiteSpace(txtEmail.Text) ? null : txtEmail.Text.Trim(),
+                    LoaiKhachHang = "Red" // Default customer type
+                };
 
-                MaKH = Guid.NewGuid().ToString().Substring(0, 10).ToUpper(); // Temp
-                HoTen = txtHoTen.Text;
-                CCCD = txtCCCD.Text;
-                SDT = txtSDT.Text;
-                Email = txtEmail.Text;
-                DiaChi = txtDiaChi.Text;
-                NgaySinh = dtpNgaySinh.Value;
-                GioiTinh = cbGioiTinh.SelectedItem?.ToString() ?? "Không khai báo";
+                // Create customer in database
+                string maKhachHang = KhachHangBLL.Instance.CreateCustomer(newCustomer);
 
-                MessageBox.Show($"Tạo khách hàng thành công!\nMã KH: {MaKH}", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Set return values
+                MaKH = maKhachHang;
+                HoTen = newCustomer.HoTen;
+                CCCD = newCustomer.CCCD;
+                SDT = newCustomer.SoDienThoai;
+                Email = newCustomer.Email;
+                DiaChi = newCustomer.DiaChi;
+                NgaySinh = newCustomer.NgaySinh ?? DateTime.Now;
+                GioiTinh = newCustomer.GioiTinh;
+
+                MessageBox.Show($"Đã tạo khách hàng mới thành công!\nMã KH: {MaKH}", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
@@ -174,28 +289,46 @@ namespace Airplace2025
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(txtCCCD.Text))
+            // Validate CCCD if provided (can be null for children)
+            if (!string.IsNullOrWhiteSpace(txtCCCD.Text))
             {
-                MessageBox.Show("CCCD không được trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
+                if (txtCCCD.Text.Length != 12)
+                {
+                    MessageBox.Show("CCCD phải có 12 chữ số", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+                
+                if (!txtCCCD.Text.All(char.IsDigit))
+                {
+                    MessageBox.Show("CCCD chỉ được chứa số", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
             }
 
-            if (txtCCCD.Text.Length != 12)
+            // Validate phone number if provided (can be null for children)
+            if (!string.IsNullOrWhiteSpace(txtSDT.Text))
             {
-                MessageBox.Show("CCCD phải có 12 chữ số", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
+                if (txtSDT.Text.Length < 10 || txtSDT.Text.Length > 15)
+                {
+                    MessageBox.Show("Số điện thoại phải có từ 10-15 chữ số", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+
+                if (!txtSDT.Text.All(char.IsDigit))
+                {
+                    MessageBox.Show("Số điện thoại chỉ được chứa số", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
             }
 
-            if (string.IsNullOrWhiteSpace(txtSDT.Text))
+            // Validate email if provided (can be null)
+            if (!string.IsNullOrWhiteSpace(txtEmail.Text))
             {
-                MessageBox.Show("Số điện thoại không được trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            if (txtSDT.Text.Length < 10)
-            {
-                MessageBox.Show("Số điện thoại phải có ít nhất 10 chữ số", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
+                if (!txtEmail.Text.Contains("@") || !txtEmail.Text.Contains("."))
+                {
+                    MessageBox.Show("Email không hợp lệ", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
             }
 
             return true;

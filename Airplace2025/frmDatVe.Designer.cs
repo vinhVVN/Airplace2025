@@ -532,6 +532,7 @@ namespace Airplace2025
             // btnThemHanhKhach
             // 
             this.btnThemHanhKhach.BorderRadius = 6;
+            this.btnThemHanhKhach.Enabled = false;
             this.btnThemHanhKhach.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
             this.btnThemHanhKhach.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnThemHanhKhach.ForeColor = System.Drawing.Color.White;
@@ -540,6 +541,7 @@ namespace Airplace2025
             this.btnThemHanhKhach.Size = new System.Drawing.Size(150, 32);
             this.btnThemHanhKhach.TabIndex = 1;
             this.btnThemHanhKhach.Text = "+ Thêm vào danh sách";
+            this.btnThemHanhKhach.Click += new System.EventHandler(this.btnThemHanhKhach_Click);
             // 
             // lblHuongDan
             // 
