@@ -27,6 +27,13 @@ namespace Airplace2025
            bool isExpanded = btnChange.Checked;
            lblDown.Visible = !isExpanded;
            lblUp.Visible = isExpanded;
+           pnlChange.Visible = isExpanded;
+        }
+
+        private void btnTotalCustomers_Click(object sender, EventArgs e)
+        {
+            frmSoLuongKhachHang soLuongKhachHangForm = new frmSoLuongKhachHang();
+            soLuongKhachHangForm.Show();
         }
     }
 }

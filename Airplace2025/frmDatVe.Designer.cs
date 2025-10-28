@@ -404,6 +404,7 @@ namespace Airplace2025
             // btnDropDown
             // 
             this.btnDropDown.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
+            this.btnDropDown.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDropDown.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnDropDown.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnDropDown.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -539,6 +540,7 @@ namespace Airplace2025
             this.dtpReturnDate.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.dtpReturnDate.BorderRadius = 6;
             this.dtpReturnDate.Checked = true;
+            this.dtpReturnDate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dtpReturnDate.FillColor = System.Drawing.Color.White;
             this.dtpReturnDate.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dtpReturnDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
@@ -565,6 +567,7 @@ namespace Airplace2025
             this.btnTimKiem.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
             this.btnTimKiem.BorderRadius = 6;
             this.btnTimKiem.BorderThickness = 2;
+            this.btnTimKiem.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnTimKiem.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
             this.btnTimKiem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnTimKiem.ForeColor = System.Drawing.Color.Black;
@@ -582,6 +585,7 @@ namespace Airplace2025
             this.dtpNgayDi.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.dtpNgayDi.BorderRadius = 6;
             this.dtpNgayDi.Checked = true;
+            this.dtpNgayDi.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dtpNgayDi.FillColor = System.Drawing.Color.White;
             this.dtpNgayDi.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dtpNgayDi.Format = System.Windows.Forms.DateTimePickerFormat.Short;
@@ -598,6 +602,7 @@ namespace Airplace2025
             this.cbSanBayDen.BackColor = System.Drawing.Color.Transparent;
             this.cbSanBayDen.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.cbSanBayDen.BorderRadius = 6;
+            this.cbSanBayDen.Cursor = System.Windows.Forms.Cursors.Hand;
             this.cbSanBayDen.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cbSanBayDen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSanBayDen.FocusedColor = System.Drawing.Color.Empty;
@@ -614,6 +619,7 @@ namespace Airplace2025
             this.cbSanBayDi.BackColor = System.Drawing.Color.Transparent;
             this.cbSanBayDi.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.cbSanBayDi.BorderRadius = 6;
+            this.cbSanBayDi.Cursor = System.Windows.Forms.Cursors.Hand;
             this.cbSanBayDi.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cbSanBayDi.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSanBayDi.FocusedColor = System.Drawing.Color.Empty;

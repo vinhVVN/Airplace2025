@@ -125,6 +125,12 @@
     <Compile Include="frmSeatSelection.Designer.cs">
       <DependentUpon>frmSeatSelection.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSoLuongKhachHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSoLuongKhachHang.Designer.cs">
+      <DependentUpon>frmSoLuongKhachHang.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmThemTrungGian.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,6 +189,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmPassengerDetails.resx">
       <DependentUpon>frmPassengerDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSoLuongKhachHang.resx">
+      <DependentUpon>frmSoLuongKhachHang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmThemTrungGian.resx">
       <DependentUpon>frmThemTrungGian.cs</DependentUpon>
