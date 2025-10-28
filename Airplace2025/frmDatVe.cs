@@ -20,6 +20,12 @@ namespace Airplace2025
         // Thông tin giá vé chi tiết
         private PriceBreakdown priceBreakdown = new PriceBreakdown();
         private BookingInfo bookingInfo = new BookingInfo();
+        private const int ADULT_MIN = 1;
+        private const int ADULT_MAX = 9;
+        private const int CHILD_MIN = 0;
+        private const int CHILD_MAX = 8;
+        private const int INFANT_MIN = 0;
+        private const int TOTAL_PASSENGER_MAX = 9;
 
         public frmDatVe()
         {
@@ -32,6 +38,7 @@ namespace Airplace2025
             SetupFlightColumns();
             SetupPassengerColumns();
             InitializePaymentTab();
+            UpdateAllButtons();
         }
 
         private void InitializeControls()
@@ -40,14 +47,14 @@ namespace Airplace2025
             {
                 LoadAirports();
 
-                LoadServiceClasses();
+                //LoadServiceClasses();
 
-                dtpReturnDate.Visible = rbRoundTrip.Checked;
-                lblReturnDate.Visible = rbRoundTrip.Checked;
+                dtpReturnDate.Visible = btnRoundTrip.Checked;
+                lblReturnDate.Visible = btnRoundTrip.Checked;
 
                 // Set minimum date for date pickers
                 dtpNgayDi.MinDate = DateTime.Now.Date;
-                dtpReturnDate.MinDate = DateTime.Now.Date.AddDays(1);
+                dtpReturnDate.MinDate = DateTime.Now.Date;
                 
                 // Initialize selected flight info
                 lblChuyenBayChon.Text = "-";
