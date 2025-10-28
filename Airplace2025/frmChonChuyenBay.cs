@@ -20,7 +20,13 @@ namespace Airplace2025
         private void frmChonChuyenBay_Load(object sender, EventArgs e)
         {
             lblMotChieu.Text = "---------\u2708";
+        }
 
+        private void btnChange_Click(object sender, EventArgs e)
+        {
+           bool isExpanded = btnChange.Checked;
+           lblDown.Visible = !isExpanded;
+           lblUp.Visible = isExpanded;
         }
     }
 }
