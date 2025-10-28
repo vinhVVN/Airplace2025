@@ -14,10 +14,10 @@ namespace Airplace2025
 {
     public partial class frmDatVe : Form
     {
-        // Passenger list
+        //Danh sách hành khách
         private List<PassengerInfo> passengerList = new List<PassengerInfo>();
 
-        // Price breakdown and booking info
+        // Thông tin giá vé chi tiết
         private PriceBreakdown priceBreakdown = new PriceBreakdown();
         private BookingInfo bookingInfo = new BookingInfo();
 
@@ -31,30 +31,31 @@ namespace Airplace2025
             InitializeControls();
             SetupFlightColumns();
             SetupPassengerColumns();
-            AttachPassengerEventHandlers();
             InitializePaymentTab();
         }
 
-        /// <summary>
-        /// Initialize search controls with data from database
-        /// </summary>
         private void InitializeControls()
         {
             try
             {
-                // Load airports from database
                 LoadAirports();
 
-                // Load service classes from database
                 LoadServiceClasses();
 
-                // Hide return date initially
                 dtpReturnDate.Visible = rbRoundTrip.Checked;
                 lblReturnDate.Visible = rbRoundTrip.Checked;
 
                 // Set minimum date for date pickers
                 dtpNgayDi.MinDate = DateTime.Now.Date;
                 dtpReturnDate.MinDate = DateTime.Now.Date.AddDays(1);
+                
+                // Initialize selected flight info
+                lblChuyenBayChon.Text = "-";
+                lblHangVeChon.Text = "-";
+                lblGiaVeChon.Text = "-";
+                
+                // Update add passenger button state
+                UpdateAddPassengerButtonState();
             }
             catch (Exception ex)
             {
@@ -98,9 +99,7 @@ namespace Airplace2025
             }
         }
 
-        /// <summary>
-        /// Load service classes (hạng vé) from database
-        /// </summary>
+        /// Load service classes (hạng vé) từ database
         private void LoadServiceClasses()
         {
             try
@@ -116,7 +115,7 @@ namespace Airplace2025
                 cbServiceClass.ValueMember = "MaHangVe";
 
                 if (cbServiceClass.Items.Count > 0)
-                    cbServiceClass.SelectedIndex = 0; // Default to first class (usually Phổ thông)
+                    cbServiceClass.SelectedIndex = 0; //Chọn mặc định hạng phổ thông
             }
             catch (Exception ex)
             {
@@ -130,9 +129,7 @@ namespace Airplace2025
             }
         }
 
-        /// <summary>
-        /// Setup columns for flight results DataGridView
-        /// </summary>
+        // Setup columns for flight results DataGridView
         private void SetupFlightColumns()
         {
             try
@@ -147,6 +144,7 @@ namespace Airplace2025
                 dgvChuyenBay.Columns.Add("GheEconomy", "Ghế Economy");
                 dgvChuyenBay.Columns.Add("GhePremium", "Ghế Premium");
                 dgvChuyenBay.Columns.Add("GheBusiness", "Ghế Business");
+                dgvChuyenBay.Columns.Add("GheFirst", "Ghế First");
                 dgvChuyenBay.Columns.Add("GiaTu", "Giá từ");
 
                 // Set column widths
@@ -159,6 +157,7 @@ namespace Airplace2025
                 dgvChuyenBay.Columns["GheEconomy"].Width = 70;
                 dgvChuyenBay.Columns["GhePremium"].Width = 70;
                 dgvChuyenBay.Columns["GheBusiness"].Width = 70;
+                dgvChuyenBay.Columns["GheFirst"].Width = 70;
                 dgvChuyenBay.Columns["GiaTu"].Width = 80;
             }
             catch (Exception ex)
@@ -207,11 +206,6 @@ namespace Airplace2025
         /// <summary>
         /// Attach event handlers for passenger grid
         /// </summary>
-        private void AttachPassengerEventHandlers()
-        {
-            btnThemHanhKhach.Click += BtnThemHanhKhach_Click;
-            btnTimKiem.Click += btnTimKiem_Click;
-        }
 
         /// <summary>
         /// Lấy tên hạng vé đã chọn
@@ -266,10 +260,11 @@ namespace Airplace2025
                 // Format time duration
                 string thoiGianBay = ChuyenBayBLL.Instance.FormatFlightDuration(flight.ThoiGianBay);
 
-                // Get seat availability by class from ChiTietHangVe
-                string gheEconomy = flight.GheEconomy.HasValue ? flight.GheEconomy.Value.ToString() : "-";
-                string ghePremium = flight.GhePremium.HasValue ? flight.GhePremium.Value.ToString() : "-";
-                string gheBusiness = flight.GheBusiness.HasValue ? flight.GheBusiness.Value.ToString() : "-";
+                // Get seat availability by class from ChiTietHangVe (hiển thị 0 nếu không có)
+                string gheEconomy = flight.GheEconomy.HasValue ? flight.GheEconomy.Value.ToString() : "0";
+                string ghePremium = flight.GhePremium.HasValue ? flight.GhePremium.Value.ToString() : "0";
+                string gheBusiness = flight.GheBusiness.HasValue ? flight.GheBusiness.Value.ToString() : "0";
+                string gheFirst = flight.GheFirst.HasValue ? flight.GheFirst.Value.ToString() : "0";
 
                 // Get price based on selected class
                 // Nếu không có giá theo hạng, dùng giá cơ bản và nhân với tỉ lệ
@@ -316,64 +311,9 @@ namespace Airplace2025
                     gheEconomy,
                     ghePremium,
                     gheBusiness,
+                    gheFirst,
                     giaHienThi.ToString("N0") + " ₫"
                 );
-            }
-        }
-
-        /// <summary>
-        /// Handle Add Passenger button
-        /// </summary>
-        private void BtnThemHanhKhach_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // 1. Find/Create Customer
-                using (frmTimKiemKhachHang frmLookup = new frmTimKiemKhachHang())
-                {
-                    if (frmLookup.ShowDialog() != DialogResult.OK)
-                        return;
-
-                    // 2. Add Passenger Details
-                    using (frmPassengerDetails frmDetails = new frmPassengerDetails())
-                    {
-                        if (frmDetails.ShowDialog() != DialogResult.OK)
-                            return;
-
-                        // Validate INF constraint
-                        if (!ValidatePassengerConstraints(frmDetails.PassengerType))
-                            return;
-
-                        // 3. Select Seat
-                        using (frmSeatSelection frmSeat = new frmSeatSelection(30, 6))
-                        {
-                            if (frmSeat.ShowDialog() != DialogResult.OK)
-                                return;
-
-                            // Create passenger info
-                            PassengerInfo passenger = new PassengerInfo
-                            {
-                                MaKH = frmLookup.MaKH,
-                                HoTen = $"{frmDetails.FirstName} {frmDetails.LastName}",
-                                NgaySinh = frmDetails.DateOfBirth,
-                                LoaiHK = frmDetails.PassengerType,
-                                GioiTinh = frmDetails.Gender,
-                                DocNo = frmDetails.DocumentNumber,
-                                Ghe = frmSeat.SelectedSeat,
-                                HanhLy = (int)frmDetails.AdditionalBaggage,
-                                GhiChu = frmDetails.Notes
-                            };
-
-                            passengerList.Add(passenger);
-                            RefreshPassengerGrid();
-                            UpdatePassengerCount();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi thêm hành khách: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -436,6 +376,19 @@ namespace Airplace2025
 
             // Update price breakdown when passenger count changes
             UpdatePriceBreakdown();
+        }
+
+        /// <summary>
+        /// Update add passenger button state based on flight selection
+        /// </summary>
+        private void UpdateAddPassengerButtonState()
+        {
+            // Enable button only if a flight is selected (not showing "-")
+            bool hasSelectedFlight = !string.IsNullOrEmpty(lblChuyenBayChon.Text) && 
+                                   lblChuyenBayChon.Text != "-" && 
+                                   !lblChuyenBayChon.Text.Contains("Chọn chuyến bay");
+            
+            btnThemHanhKhach.Enabled = hasSelectedFlight;
         }
 
         /// <summary>
@@ -503,6 +456,9 @@ namespace Airplace2025
 
                 // Update baggage policy based on selected service class
                 UpdateBaggagePolicy(GetSelectedServiceClassName());
+
+                // Update add passenger button state
+                UpdateAddPassengerButtonState();
 
                 MessageBox.Show($"Đã chọn chuyến bay: {maCB}\nHãng: {hang}\nGiá từ: {gia}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -648,6 +604,9 @@ namespace Airplace2025
                 lblSoLuongVe.Text = passengerCount.ToString();
                 lblTongTien.Text = priceBreakdown.Total.ToString("N0") + " ₫";
                 lblGiaVeChon.Text = baseFarePerPax.ToString("N0") + " ₫";
+
+                // Update button state based on flight selection
+                UpdateAddPassengerButtonState();
 
                 // TODO: Hiển thị breakdown chi tiết trong một label hoặc RichTextBox
             }
@@ -904,20 +863,39 @@ Thời gian: {DateTime.Now:dd/MM/yyyy HH:mm:ss}
                 // Show loading
                 this.Cursor = Cursors.WaitCursor;
                 dgvChuyenBay.Rows.Clear();
+                
+                // Clear selected flight info
+                lblChuyenBayChon.Text = "-";
+                lblHangVeChon.Text = "-";
+                lblGiaVeChon.Text = "-";
+                
+                // Update add passenger button state
+                UpdateAddPassengerButtonState();
 
                 // Search flights
                 List<ChuyenBayDTO> flights = ChuyenBayBLL.Instance.SearchFlights(searchParams);
 
                 if (flights.Count == 0)
                 {
-                    MessageBox.Show("Không tìm thấy chuyến bay phù hợp", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    int tongHanhKhach = searchParams.SoNguoiLon + searchParams.SoTreEm + searchParams.SoEmBe;
+                    MessageBox.Show(
+                        $"Không tìm thấy chuyến bay phù hợp!\n\n" +
+                        $"Tuyến: {searchParams.MaSanBayDi} → {searchParams.MaSanBayDen}\n" +
+                        $"Ngày đi: {searchParams.NgayDi:dd/MM/yyyy}\n" +
+                        $"Hạng vé: {searchParams.HangDichVu}\n" +
+                        $"Số hành khách: {tongHanhKhach} người\n\n" +
+                        $"Vui lòng thử:\n" +
+                        $"• Chọn ngày khác\n" +
+                        $"• Chọn hạng vé khác\n" +
+                        $"• Giảm số lượng hành khách",
+                        "Không tìm thấy chuyến bay",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
                     return;
                 }
 
                 // Display results
                 DisplayFlightResults(flights, searchParams.HangDichVu);
-
-                MessageBox.Show($"Tìm thấy {flights.Count} chuyến bay phù hợp", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -926,6 +904,59 @@ Thời gian: {DateTime.Now:dd/MM/yyyy HH:mm:ss}
             finally
             {
                 this.Cursor = Cursors.Default;
+            }
+        }
+
+        private void btnThemHanhKhach_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // 1. Find/Create Customer
+                using (frmTimKiemKhachHang frmLookup = new frmTimKiemKhachHang())
+                {
+                    if (frmLookup.ShowDialog() != DialogResult.OK)
+                        return;
+
+                    // 2. Add Passenger Details
+                    using (frmPassengerDetails frmDetails = new frmPassengerDetails())
+                    {
+                        if (frmDetails.ShowDialog() != DialogResult.OK)
+                            return;
+
+                        // Validate INF constraint
+                        if (!ValidatePassengerConstraints(frmDetails.PassengerType))
+                            return;
+
+                        // 3. Select Seat
+                        using (frmSeatSelection frmSeat = new frmSeatSelection(30, 6))
+                        {
+                            if (frmSeat.ShowDialog() != DialogResult.OK)
+                                return;
+
+                            // Create passenger info
+                            PassengerInfo passenger = new PassengerInfo
+                            {
+                                MaKH = frmLookup.MaKH,
+                                HoTen = $"{frmDetails.FirstName} {frmDetails.LastName}",
+                                NgaySinh = frmDetails.DateOfBirth,
+                                LoaiHK = frmDetails.PassengerType,
+                                GioiTinh = frmDetails.Gender,
+                                DocNo = frmDetails.DocumentNumber,
+                                Ghe = frmSeat.SelectedSeat,
+                                HanhLy = (int)frmDetails.AdditionalBaggage,
+                                GhiChu = frmDetails.Notes
+                            };
+
+                            passengerList.Add(passenger);
+                            RefreshPassengerGrid();
+                            UpdatePassengerCount();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi thêm hành khách: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

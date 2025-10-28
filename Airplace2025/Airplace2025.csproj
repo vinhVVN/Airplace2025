@@ -75,13 +75,16 @@
     <Compile Include="BLL\DAO\AirlineDAO.cs" />
     <Compile Include="BLL\DAO\FlightDAO.cs" />
     <Compile Include="BLL\DTO\HangVeDTO.cs" />
+    <Compile Include="BLL\DTO\KhachHangDTO.cs" />
     <Compile Include="BLL\FlightDetail.cs" />
     <Compile Include="BLL\ChuyenBayBLL.cs" />
+    <Compile Include="BLL\KhachHangBLL.cs" />
     <Compile Include="BLL\DTO\ChuyenBayDTO.cs" />
     <Compile Include="BLL\DTO\SearchFlightParams.cs" />
     <Compile Include="Controls\TimelineNodeType.cs" />
     <Compile Include="DAL\DBConnection.cs" />
     <Compile Include="DAL\ChuyenBayDAO.cs" />
+    <Compile Include="DAL\KhachHangDAO.cs" />
     <Compile Include="Controls\FlightLegControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -93,6 +96,12 @@
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmChonKhachHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChonKhachHang.Designer.cs">
+      <DependentUpon>frmChonKhachHang.cs</DependentUpon>
     </Compile>
     <Compile Include="frmPassengerDetails.cs">
       <SubType>Form</SubType>
@@ -156,11 +165,17 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmChonKhachHang.resx">
+      <DependentUpon>frmChonKhachHang.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmPassengerDetails.resx">
       <DependentUpon>frmPassengerDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmThemTrungGian.resx">
       <DependentUpon>frmThemTrungGian.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSeatSelection.resx">
+      <DependentUpon>frmSeatSelection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTimKiemKhachHang.resx">
       <DependentUpon>frmTimKiemKhachHang.cs</DependentUpon>
