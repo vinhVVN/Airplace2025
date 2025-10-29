@@ -12,14 +12,33 @@ namespace Airplace2025
 {
     public partial class frmChonChuyenBay : Form
     {
+        private string sanBayDi;
+        private string sanBayDen;
+
         public frmChonChuyenBay()
         {
             InitializeComponent();
         }
 
+        public frmChonChuyenBay(string sanBayDi, string sanBayDen)
+        {
+            InitializeComponent();
+            this.sanBayDi = sanBayDi;
+            this.sanBayDen = sanBayDen;
+        }
+
         private void frmChonChuyenBay_Load(object sender, EventArgs e)
         {
-            lblMotChieu.Text = "---------\u2708";
+            // Hiển thị mã sân bay từ frmDatVe
+            if (!string.IsNullOrEmpty(sanBayDi))
+            {
+                lblFrom.Text = sanBayDi;
+            }
+            
+            if (!string.IsNullOrEmpty(sanBayDen))
+            {
+                lblTo.Text = sanBayDen;
+            }
         }
 
         private void btnChange_Click(object sender, EventArgs e)

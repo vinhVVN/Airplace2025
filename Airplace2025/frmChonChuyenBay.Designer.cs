@@ -40,18 +40,14 @@
             this.lblReturn = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblDeparture = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.dtpDeparture = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.pnlKhuHoi = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
             this.lblTo = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnlMotChieu = new Guna.UI2.WinForms.Guna2Panel();
-            this.lblMotChieu = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblFrom = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnlChange = new Guna.UI2.WinForms.Guna2Panel();
-            this.btnOneWay = new Guna.UI2.WinForms.Guna2RadioButton();
-            this.btnRoundTrip = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.btnTotalCustomers = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2HtmlLabel7 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.label1 = new System.Windows.Forms.Label();
@@ -60,13 +56,16 @@
             this.dtpNgayDi = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.cbSanBayDen = new Guna.UI2.WinForms.Guna2ComboBox();
             this.cbSanBayDi = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.guna2HtmlLabel7 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.btnTotalCustomers = new Guna.UI2.WinForms.Guna2Button();
+            this.btnOneWay = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.btnRoundTrip = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnlThongTinDatCho.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
-            this.pnlKhuHoi.SuspendLayout();
             this.pnlMotChieu.SuspendLayout();
             this.pnlChange.SuspendLayout();
+            this.guna2Panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlThongTinDatCho
@@ -81,6 +80,7 @@
             // guna2Panel1
             // 
             this.guna2Panel1.BorderRadius = 8;
+            this.guna2Panel1.Controls.Add(this.guna2Panel4);
             this.guna2Panel1.Controls.Add(this.lblUp);
             this.guna2Panel1.Controls.Add(this.lblDown);
             this.guna2Panel1.Controls.Add(this.btnChange);
@@ -91,7 +91,6 @@
             this.guna2Panel1.Controls.Add(this.lblReturn);
             this.guna2Panel1.Controls.Add(this.lblDeparture);
             this.guna2Panel1.Controls.Add(this.dtpDeparture);
-            this.guna2Panel1.Controls.Add(this.pnlKhuHoi);
             this.guna2Panel1.Controls.Add(this.guna2Panel3);
             this.guna2Panel1.Controls.Add(this.lblTo);
             this.guna2Panel1.Controls.Add(this.pnlMotChieu);
@@ -211,47 +210,15 @@
             this.dtpDeparture.TabIndex = 5;
             this.dtpDeparture.Text = "Th 4, 29 thg 10";
             // 
-            // pnlKhuHoi
-            // 
-            this.pnlKhuHoi.Controls.Add(this.guna2HtmlLabel3);
-            this.pnlKhuHoi.Controls.Add(this.guna2HtmlLabel2);
-            this.pnlKhuHoi.Controls.Add(this.guna2HtmlLabel1);
-            this.pnlKhuHoi.FillColor = System.Drawing.Color.White;
-            this.pnlKhuHoi.Location = new System.Drawing.Point(113, 8);
-            this.pnlKhuHoi.Name = "pnlKhuHoi";
-            this.pnlKhuHoi.Size = new System.Drawing.Size(121, 34);
-            this.pnlKhuHoi.TabIndex = 2;
-            this.pnlKhuHoi.Visible = false;
-            // 
             // guna2HtmlLabel3
             // 
             this.guna2HtmlLabel3.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel3.Location = new System.Drawing.Point(37, 8);
+            this.guna2HtmlLabel3.Location = new System.Drawing.Point(10, 8);
             this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
-            this.guna2HtmlLabel3.Size = new System.Drawing.Size(42, 19);
+            this.guna2HtmlLabel3.Size = new System.Drawing.Size(102, 19);
             this.guna2HtmlLabel3.TabIndex = 2;
-            this.guna2HtmlLabel3.Text = "------>";
-            // 
-            // guna2HtmlLabel2
-            // 
-            this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel2.Location = new System.Drawing.Point(37, 15);
-            this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            this.guna2HtmlLabel2.Size = new System.Drawing.Size(3, 2);
-            this.guna2HtmlLabel2.TabIndex = 1;
-            this.guna2HtmlLabel2.Text = "<------";
-            // 
-            // guna2HtmlLabel1
-            // 
-            this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel1.Location = new System.Drawing.Point(37, 3);
-            this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(42, 19);
-            this.guna2HtmlLabel1.TabIndex = 0;
-            this.guna2HtmlLabel1.Text = "------>";
+            this.guna2HtmlLabel3.Text = "----------------✈️";
             // 
             // guna2Panel3
             // 
@@ -273,22 +240,12 @@
             // 
             // pnlMotChieu
             // 
-            this.pnlMotChieu.Controls.Add(this.lblMotChieu);
+            this.pnlMotChieu.Controls.Add(this.guna2HtmlLabel3);
             this.pnlMotChieu.FillColor = System.Drawing.Color.White;
             this.pnlMotChieu.Location = new System.Drawing.Point(113, 8);
             this.pnlMotChieu.Name = "pnlMotChieu";
             this.pnlMotChieu.Size = new System.Drawing.Size(121, 34);
             this.pnlMotChieu.TabIndex = 1;
-            // 
-            // lblMotChieu
-            // 
-            this.lblMotChieu.BackColor = System.Drawing.Color.Transparent;
-            this.lblMotChieu.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMotChieu.Location = new System.Drawing.Point(39, 8);
-            this.lblMotChieu.Name = "lblMotChieu";
-            this.lblMotChieu.Size = new System.Drawing.Size(42, 19);
-            this.lblMotChieu.TabIndex = 3;
-            this.lblMotChieu.Text = "------>";
             // 
             // lblFrom
             // 
@@ -321,45 +278,39 @@
             this.pnlChange.TabIndex = 1;
             this.pnlChange.Visible = false;
             // 
-            // btnOneWay
+            // btnTotalCustomers
             // 
-            this.btnOneWay.AutoSize = true;
-            this.btnOneWay.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
-            this.btnOneWay.CheckedState.BorderThickness = 1;
-            this.btnOneWay.CheckedState.FillColor = System.Drawing.Color.White;
-            this.btnOneWay.CheckedState.InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
-            this.btnOneWay.CheckedState.InnerOffset = -4;
-            this.btnOneWay.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnOneWay.Location = new System.Drawing.Point(147, 7);
-            this.btnOneWay.Name = "btnOneWay";
-            this.btnOneWay.Size = new System.Drawing.Size(72, 17);
-            this.btnOneWay.TabIndex = 1;
-            this.btnOneWay.Text = "Một chiều";
-            this.btnOneWay.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.btnOneWay.UncheckedState.BorderThickness = 2;
-            this.btnOneWay.UncheckedState.FillColor = System.Drawing.Color.Transparent;
-            this.btnOneWay.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            this.btnTotalCustomers.BorderColor = System.Drawing.Color.Transparent;
+            this.btnTotalCustomers.BorderRadius = 8;
+            this.btnTotalCustomers.BorderThickness = 3;
+            this.btnTotalCustomers.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTotalCustomers.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnTotalCustomers.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnTotalCustomers.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnTotalCustomers.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnTotalCustomers.FillColor = System.Drawing.Color.White;
+            this.btnTotalCustomers.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnTotalCustomers.ForeColor = System.Drawing.Color.Black;
+            this.btnTotalCustomers.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(135)))), ((int)(((byte)(185)))));
+            this.btnTotalCustomers.HoverState.FillColor = System.Drawing.Color.White;
+            this.btnTotalCustomers.HoverState.ForeColor = System.Drawing.Color.Black;
+            this.btnTotalCustomers.Location = new System.Drawing.Point(79, 168);
+            this.btnTotalCustomers.Name = "btnTotalCustomers";
+            this.btnTotalCustomers.Size = new System.Drawing.Size(326, 45);
+            this.btnTotalCustomers.TabIndex = 38;
+            this.btnTotalCustomers.Text = "1 Hành khách";
+            this.btnTotalCustomers.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnTotalCustomers.Click += new System.EventHandler(this.btnTotalCustomers_Click);
             // 
-            // btnRoundTrip
+            // guna2HtmlLabel7
             // 
-            this.btnRoundTrip.AutoSize = true;
-            this.btnRoundTrip.Checked = true;
-            this.btnRoundTrip.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
-            this.btnRoundTrip.CheckedState.BorderThickness = 1;
-            this.btnRoundTrip.CheckedState.FillColor = System.Drawing.Color.White;
-            this.btnRoundTrip.CheckedState.InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
-            this.btnRoundTrip.CheckedState.InnerOffset = -4;
-            this.btnRoundTrip.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRoundTrip.Location = new System.Drawing.Point(79, 7);
-            this.btnRoundTrip.Name = "btnRoundTrip";
-            this.btnRoundTrip.Size = new System.Drawing.Size(61, 17);
-            this.btnRoundTrip.TabIndex = 0;
-            this.btnRoundTrip.TabStop = true;
-            this.btnRoundTrip.Text = "Khứ hồi";
-            this.btnRoundTrip.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.btnRoundTrip.UncheckedState.BorderThickness = 2;
-            this.btnRoundTrip.UncheckedState.FillColor = System.Drawing.Color.Transparent;
-            this.btnRoundTrip.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel7.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel7.ForeColor = System.Drawing.Color.Black;
+            this.guna2HtmlLabel7.Location = new System.Drawing.Point(79, 147);
+            this.guna2HtmlLabel7.Name = "guna2HtmlLabel7";
+            this.guna2HtmlLabel7.Size = new System.Drawing.Size(62, 15);
+            this.guna2HtmlLabel7.TabIndex = 37;
+            this.guna2HtmlLabel7.Text = "Hành khách";
             // 
             // guna2HtmlLabel4
             // 
@@ -470,39 +421,75 @@
             this.cbSanBayDi.Size = new System.Drawing.Size(242, 36);
             this.cbSanBayDi.TabIndex = 28;
             // 
-            // guna2HtmlLabel7
+            // btnOneWay
             // 
-            this.guna2HtmlLabel7.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel7.ForeColor = System.Drawing.Color.Black;
-            this.guna2HtmlLabel7.Location = new System.Drawing.Point(79, 147);
-            this.guna2HtmlLabel7.Name = "guna2HtmlLabel7";
-            this.guna2HtmlLabel7.Size = new System.Drawing.Size(62, 15);
-            this.guna2HtmlLabel7.TabIndex = 37;
-            this.guna2HtmlLabel7.Text = "Hành khách";
+            this.btnOneWay.AutoSize = true;
+            this.btnOneWay.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.btnOneWay.CheckedState.BorderThickness = 1;
+            this.btnOneWay.CheckedState.FillColor = System.Drawing.Color.White;
+            this.btnOneWay.CheckedState.InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.btnOneWay.CheckedState.InnerOffset = -4;
+            this.btnOneWay.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnOneWay.Location = new System.Drawing.Point(147, 7);
+            this.btnOneWay.Name = "btnOneWay";
+            this.btnOneWay.Size = new System.Drawing.Size(72, 17);
+            this.btnOneWay.TabIndex = 1;
+            this.btnOneWay.Text = "Một chiều";
+            this.btnOneWay.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.btnOneWay.UncheckedState.BorderThickness = 2;
+            this.btnOneWay.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.btnOneWay.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
             // 
-            // btnTotalCustomers
+            // btnRoundTrip
             // 
-            this.btnTotalCustomers.BorderColor = System.Drawing.Color.Transparent;
-            this.btnTotalCustomers.BorderRadius = 8;
-            this.btnTotalCustomers.BorderThickness = 3;
-            this.btnTotalCustomers.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnTotalCustomers.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnTotalCustomers.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnTotalCustomers.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnTotalCustomers.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnTotalCustomers.FillColor = System.Drawing.Color.White;
-            this.btnTotalCustomers.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnTotalCustomers.ForeColor = System.Drawing.Color.Black;
-            this.btnTotalCustomers.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(135)))), ((int)(((byte)(185)))));
-            this.btnTotalCustomers.HoverState.FillColor = System.Drawing.Color.White;
-            this.btnTotalCustomers.HoverState.ForeColor = System.Drawing.Color.Black;
-            this.btnTotalCustomers.Location = new System.Drawing.Point(79, 168);
-            this.btnTotalCustomers.Name = "btnTotalCustomers";
-            this.btnTotalCustomers.Size = new System.Drawing.Size(326, 45);
-            this.btnTotalCustomers.TabIndex = 38;
-            this.btnTotalCustomers.Text = "1 Hành khách";
-            this.btnTotalCustomers.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnTotalCustomers.Click += new System.EventHandler(this.btnTotalCustomers_Click);
+            this.btnRoundTrip.AutoSize = true;
+            this.btnRoundTrip.Checked = true;
+            this.btnRoundTrip.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.btnRoundTrip.CheckedState.BorderThickness = 1;
+            this.btnRoundTrip.CheckedState.FillColor = System.Drawing.Color.White;
+            this.btnRoundTrip.CheckedState.InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.btnRoundTrip.CheckedState.InnerOffset = -4;
+            this.btnRoundTrip.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRoundTrip.Location = new System.Drawing.Point(79, 7);
+            this.btnRoundTrip.Name = "btnRoundTrip";
+            this.btnRoundTrip.Size = new System.Drawing.Size(61, 17);
+            this.btnRoundTrip.TabIndex = 0;
+            this.btnRoundTrip.TabStop = true;
+            this.btnRoundTrip.Text = "Khứ hồi";
+            this.btnRoundTrip.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.btnRoundTrip.UncheckedState.BorderThickness = 2;
+            this.btnRoundTrip.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.btnRoundTrip.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            // 
+            // guna2Panel4
+            // 
+            this.guna2Panel4.Controls.Add(this.guna2HtmlLabel2);
+            this.guna2Panel4.Controls.Add(this.guna2HtmlLabel1);
+            this.guna2Panel4.FillColor = System.Drawing.Color.White;
+            this.guna2Panel4.Location = new System.Drawing.Point(113, 8);
+            this.guna2Panel4.Name = "guna2Panel4";
+            this.guna2Panel4.Size = new System.Drawing.Size(121, 34);
+            this.guna2Panel4.TabIndex = 3;
+            // 
+            // guna2HtmlLabel1
+            // 
+            this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(10, -1);
+            this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(102, 19);
+            this.guna2HtmlLabel1.TabIndex = 2;
+            this.guna2HtmlLabel1.Text = "----------------✈️";
+            // 
+            // guna2HtmlLabel2
+            // 
+            this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel2.Location = new System.Drawing.Point(10, 15);
+            this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
+            this.guna2HtmlLabel2.Size = new System.Drawing.Size(102, 19);
+            this.guna2HtmlLabel2.TabIndex = 3;
+            this.guna2HtmlLabel2.Text = "✈️----------------";
             // 
             // frmChonChuyenBay
             // 
@@ -518,12 +505,12 @@
             this.pnlThongTinDatCho.ResumeLayout(false);
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
-            this.pnlKhuHoi.ResumeLayout(false);
-            this.pnlKhuHoi.PerformLayout();
             this.pnlMotChieu.ResumeLayout(false);
             this.pnlMotChieu.PerformLayout();
             this.pnlChange.ResumeLayout(false);
             this.pnlChange.PerformLayout();
+            this.guna2Panel4.ResumeLayout(false);
+            this.guna2Panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -535,12 +522,8 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel lblFrom;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblTo;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel3;
-        private Guna.UI2.WinForms.Guna2Panel pnlKhuHoi;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private Guna.UI2.WinForms.Guna2Panel pnlMotChieu;
-        private Guna.UI2.WinForms.Guna2HtmlLabel lblMotChieu;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblDeparture;
         private Guna.UI2.WinForms.Guna2HtmlLabel dtpDeparture;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblReturn;
@@ -564,5 +547,8 @@
         private Guna.UI2.WinForms.Guna2ComboBox cbSanBayDi;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel7;
         private Guna.UI2.WinForms.Guna2Button btnTotalCustomers;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel4;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
     }
 }

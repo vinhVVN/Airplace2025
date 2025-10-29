@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.mainPanel = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2Panel6 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2HtmlLabel7 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -52,8 +54,6 @@
             this.headerPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2CircleButton1 = new Guna.UI2.WinForms.Guna2CircleButton();
             this.lblTitle = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Panel6 = new Guna.UI2.WinForms.Guna2Panel();
             this.mainPanel.SuspendLayout();
             this.guna2Panel3.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
@@ -80,6 +80,22 @@
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(400, 410);
             this.mainPanel.TabIndex = 1;
+            // 
+            // guna2Panel6
+            // 
+            this.guna2Panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.guna2Panel6.Location = new System.Drawing.Point(20, 340);
+            this.guna2Panel6.Name = "guna2Panel6";
+            this.guna2Panel6.Size = new System.Drawing.Size(360, 1);
+            this.guna2Panel6.TabIndex = 7;
+            // 
+            // guna2Panel5
+            // 
+            this.guna2Panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.guna2Panel5.Location = new System.Drawing.Point(20, 253);
+            this.guna2Panel5.Name = "guna2Panel5";
+            this.guna2Panel5.Size = new System.Drawing.Size(360, 1);
+            this.guna2Panel5.TabIndex = 6;
             // 
             // guna2Panel4
             // 
@@ -413,6 +429,7 @@
             this.guna2CircleButton1.Size = new System.Drawing.Size(40, 40);
             this.guna2CircleButton1.TabIndex = 1;
             this.guna2CircleButton1.Text = "x";
+            this.guna2CircleButton1.Click += new System.EventHandler(this.guna2CircleButton1_Click);
             // 
             // lblTitle
             // 
@@ -425,22 +442,6 @@
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Tag = "";
             this.lblTitle.Text = "Hành khách";
-            // 
-            // guna2Panel5
-            // 
-            this.guna2Panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.guna2Panel5.Location = new System.Drawing.Point(20, 253);
-            this.guna2Panel5.Name = "guna2Panel5";
-            this.guna2Panel5.Size = new System.Drawing.Size(360, 1);
-            this.guna2Panel5.TabIndex = 6;
-            // 
-            // guna2Panel6
-            // 
-            this.guna2Panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.guna2Panel6.Location = new System.Drawing.Point(20, 340);
-            this.guna2Panel6.Name = "guna2Panel6";
-            this.guna2Panel6.Size = new System.Drawing.Size(360, 1);
-            this.guna2Panel6.TabIndex = 7;
             // 
             // frmSoLuongKhachHang
             // 

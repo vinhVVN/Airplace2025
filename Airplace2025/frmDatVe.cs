@@ -778,10 +778,34 @@ namespace Airplace2025
 
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
-            frmChonChuyenBay frm = new frmChonChuyenBay();
+            // Lấy mã sân bay từ combobox
+            string sanBayDi = ExtractAirportCode(cbSanBayDi.SelectedItem?.ToString());
+            string sanBayDen = ExtractAirportCode(cbSanBayDen.SelectedItem?.ToString());
+            
+            frmChonChuyenBay frm = new frmChonChuyenBay(sanBayDi, sanBayDen);
             this.Hide();
             frm.FormClosed += (s, args) => this.Show();
             frm.Show();
+        }
+
+        /// <summary>
+        /// Trích xuất mã sân bay từ chuỗi sân bay
+        /// Ví dụ: "HAN - Nội Bài (Hà Nội)" -> "HAN"
+        /// </summary>
+        private string ExtractAirportCode(string airportString)
+        {
+            if (string.IsNullOrEmpty(airportString))
+                return "";
+
+            // Tìm vị trí của dấu " - " để tách mã sân bay
+            int dashIndex = airportString.IndexOf(" - ");
+            if (dashIndex > 0)
+            {
+                return airportString.Substring(0, dashIndex).Trim();
+            }
+
+            // Nếu không có dấu " - ", trả về toàn bộ chuỗi
+            return airportString.Trim();
         }
 
         private void btnThemHanhKhach_Click(object sender, EventArgs e)
