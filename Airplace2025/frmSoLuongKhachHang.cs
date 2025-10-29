@@ -18,18 +18,6 @@ namespace Airplace2025
             InitializeComponent();
             // Wire events that are not set in Designer
             this.Load += FrmSoLuongKhachHang_Load;
-            btnPlusAdult.Click += BtnPlusAdult_Click;
-            btnMinusAdult.Click += BtnMinusAdult_Click;
-            btnPlusChild.Click += BtnPlusChild_Click;
-            btnMinusChild.Click += BtnMinusChild_Click;
-            btnPlusInfant.Click += BtnPlusInfant_Click;
-            btnMinusInfant.Click += BtnMinusInfant_Click;
-            btnConfirm.Click += BtnConfirm_Click;
-        }
-
-        private void guna2CircleButton1_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         private void FrmSoLuongKhachHang_Load(object sender, EventArgs e)
@@ -42,43 +30,43 @@ namespace Airplace2025
             UpdateAllButtons();
         }
 
-        private void BtnPlusAdult_Click(object sender, EventArgs e)
+        private void btnPlusAdult_Click(object sender, EventArgs e)
         {
             PassengerSelectionState.SetAdult(PassengerSelectionState.Adult + 1);
             SyncLabelsFromState();
         }
 
-        private void BtnMinusAdult_Click(object sender, EventArgs e)
+        private void btnMinusAdult_Click(object sender, EventArgs e)
         {
             PassengerSelectionState.SetAdult(PassengerSelectionState.Adult - 1);
             SyncLabelsFromState();
         }
 
-        private void BtnPlusChild_Click(object sender, EventArgs e)
+        private void btnPlusChild_Click(object sender, EventArgs e)
         {
             PassengerSelectionState.SetChild(PassengerSelectionState.Child + 1);
             SyncLabelsFromState();
         }
 
-        private void BtnMinusChild_Click(object sender, EventArgs e)
+        private void btnMinusChild_Click(object sender, EventArgs e)
         {
             PassengerSelectionState.SetChild(PassengerSelectionState.Child - 1);
             SyncLabelsFromState();
         }
 
-        private void BtnPlusInfant_Click(object sender, EventArgs e)
+        private void btnPlusInfant_Click(object sender, EventArgs e)
         {
             PassengerSelectionState.SetInfant(PassengerSelectionState.Infant + 1);
             SyncLabelsFromState();
         }
 
-        private void BtnMinusInfant_Click(object sender, EventArgs e)
+        private void btnMinusInfant_Click(object sender, EventArgs e)
         {
             PassengerSelectionState.SetInfant(PassengerSelectionState.Infant - 1);
             SyncLabelsFromState();
         }
 
-        private void BtnConfirm_Click(object sender, EventArgs e)
+        private void btnConfirm_Click(object sender, EventArgs e)
         {
             // State already updated on each click; just close
             this.Close();
@@ -109,6 +97,11 @@ namespace Airplace2025
             // Infant buttons
             btnMinusInfant.Enabled = infant > 0;
             btnPlusInfant.Enabled = infant < adult;
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

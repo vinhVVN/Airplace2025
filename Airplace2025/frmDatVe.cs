@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Airplace2025.BLL;
 using Airplace2025.BLL.DTO;
+using Airplace2025.State;
 
 namespace Airplace2025
 {
@@ -791,7 +792,15 @@ namespace Airplace2025
             
             // Xác định loại vé: khứ hồi hay một chiều
             bool isRoundTrip = btnRoundTrip.Checked;
-            
+
+            int adultCount = int.Parse(lblTotalAdult.Text);
+            int childCount = int.Parse(lblTotalChild.Text);
+            int infantCount = int.Parse(lblTotalInfant.Text);
+
+            PassengerSelectionState.SetAdult(adultCount);
+            PassengerSelectionState.SetChild(childCount);
+            PassengerSelectionState.SetInfant(infantCount);
+
             frmChonChuyenBay frm = new frmChonChuyenBay(sanBayDi, sanBayDen, ngayDi, ngayVe, soLuongHanhKhach, isRoundTrip);
             this.Hide();
             frm.FormClosed += (s, args) => this.Show();

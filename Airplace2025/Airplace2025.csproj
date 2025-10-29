@@ -175,6 +175,7 @@
     <Compile Include="Controls\StopControl.Designer.cs">
       <DependentUpon>StopControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="State\PassengerSelectionState.cs" />
     <EmbeddedResource Include="Controls\FlightLegControl.resx">
       <DependentUpon>FlightLegControl.cs</DependentUpon>
     </EmbeddedResource>

@@ -151,6 +151,7 @@
             this.btnPlusInfant.Size = new System.Drawing.Size(45, 45);
             this.btnPlusInfant.TabIndex = 4;
             this.btnPlusInfant.Text = "+";
+            this.btnPlusInfant.Click += new System.EventHandler(this.btnPlusInfant_Click);
             // 
             // btnMinusInfant
             // 
@@ -174,6 +175,7 @@
             this.btnMinusInfant.Size = new System.Drawing.Size(45, 45);
             this.btnMinusInfant.TabIndex = 3;
             this.btnMinusInfant.Text = "-";
+            this.btnMinusInfant.Click += new System.EventHandler(this.btnMinusInfant_Click);
             // 
             // guna2HtmlLabel8
             // 
@@ -243,6 +245,7 @@
             this.btnPlusChild.Size = new System.Drawing.Size(45, 45);
             this.btnPlusChild.TabIndex = 4;
             this.btnPlusChild.Text = "+";
+            this.btnPlusChild.Click += new System.EventHandler(this.btnPlusChild_Click);
             // 
             // btnMinusChild
             // 
@@ -266,6 +269,7 @@
             this.btnMinusChild.Size = new System.Drawing.Size(45, 45);
             this.btnMinusChild.TabIndex = 3;
             this.btnMinusChild.Text = "-";
+            this.btnMinusChild.Click += new System.EventHandler(this.btnMinusChild_Click);
             // 
             // guna2HtmlLabel5
             // 
@@ -335,6 +339,7 @@
             this.btnPlusAdult.Size = new System.Drawing.Size(45, 45);
             this.btnPlusAdult.TabIndex = 4;
             this.btnPlusAdult.Text = "+";
+            this.btnPlusAdult.Click += new System.EventHandler(this.btnPlusAdult_Click);
             // 
             // btnMinusAdult
             // 
@@ -358,6 +363,7 @@
             this.btnMinusAdult.Size = new System.Drawing.Size(45, 45);
             this.btnMinusAdult.TabIndex = 3;
             this.btnMinusAdult.Text = "-";
+            this.btnMinusAdult.Click += new System.EventHandler(this.btnMinusAdult_Click);
             // 
             // guna2HtmlLabel2
             // 
@@ -429,7 +435,7 @@
             this.btnClose.Size = new System.Drawing.Size(40, 40);
             this.btnClose.TabIndex = 1;
             this.btnClose.Text = "x";
-            this.btnClose.Click += new System.EventHandler(this.guna2CircleButton1_Click);
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // lblTitle
             // 

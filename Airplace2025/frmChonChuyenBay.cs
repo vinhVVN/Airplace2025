@@ -259,7 +259,6 @@ namespace Airplace2025
 
             // After dialog closes, refresh displayed totals from shared state
             int total = PassengerSelectionState.Total;
-            lblTotalPassengers.Text = $"{total} người";
             btnTotalCustomers.Text = $"{total} Hành khách";
         }
 
