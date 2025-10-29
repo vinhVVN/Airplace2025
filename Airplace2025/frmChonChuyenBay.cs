@@ -258,7 +258,7 @@ namespace Airplace2025
             soLuongKhachHangForm.ShowDialog(this);
 
             // After dialog closes, refresh displayed totals from shared state
-            int total = PassengerSelectionState.Total;
+            int total = PassengerSelectionStateTemp.Total;
             btnTotalCustomers.Text = $"{total} Hành khách";
         }
 
@@ -267,11 +267,6 @@ namespace Airplace2025
             bool isRoundTrip = btnRoundTrip.Checked;
             lblReturnDate.Visible = isRoundTrip;
             dtpNgayVe.Visible = isRoundTrip;
-        }
-
-        private void guna2Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void pnlRoundTrip_Paint(object sender, PaintEventArgs e)
@@ -411,7 +406,32 @@ namespace Airplace2025
 
         private void gunaEditChange_Click(object sender, EventArgs e)
         {
+            PassengerSelectionState.SetAdult(PassengerSelectionStateTemp.Adult);
+            PassengerSelectionState.SetChild(PassengerSelectionStateTemp.Child);
+            PassengerSelectionState.SetInfant(PassengerSelectionStateTemp.Infant);
 
+            // Update summary info from edit controls
+            UpdateFromLabel();
+            UpdateToLabel();
+
+            dtpDeparture.Text = FormatDate(dtpNgayDi.Value);
+            dtpReturn.Text = FormatDate(dtpNgayVe.Value);
+
+            // Sync passenger count display
+            lblTotalPassengers.Text = FormatPassengerCount(btnTotalCustomers.Text);
+
+            // Reflect one-way vs round-trip selection in header
+            bool roundTrip = btnRoundTrip.Checked;
+            pnlRoundTrip.Visible = roundTrip;
+            pnlOneWay.Visible = !roundTrip;
+            lblReturn.Visible = roundTrip;
+            dtpReturn.Visible = roundTrip;
+
+            // Collapse the change panel (simulate closing edit mode)
+            btnChange.Checked = false;
+            lblDown.Visible = true;
+            lblUp.Visible = false;
+            pnlChange.Visible = false;
         }
     }
 }

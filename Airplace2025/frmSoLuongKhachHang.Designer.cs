@@ -129,6 +129,7 @@
             this.lblTotalInfant.TabIndex = 5;
             this.lblTotalInfant.Text = "0";
             this.lblTotalInfant.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTotalInfant.TextChanged += new System.EventHandler(this.lblTotalInfant_TextChanged);
             // 
             // btnPlusInfant
             // 
@@ -223,6 +224,7 @@
             this.lblTotalChild.TabIndex = 5;
             this.lblTotalChild.Text = "0";
             this.lblTotalChild.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTotalChild.TextChanged += new System.EventHandler(this.lblTotalChild_TextChanged);
             // 
             // btnPlusChild
             // 
@@ -317,6 +319,7 @@
             this.lblTotalAdult.TabIndex = 5;
             this.lblTotalAdult.Text = "1";
             this.lblTotalAdult.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTotalAdult.TextChanged += new System.EventHandler(this.lblTotalAdult_TextChanged);
             // 
             // btnPlusAdult
             // 
@@ -407,6 +410,7 @@
             this.btnConfirm.Size = new System.Drawing.Size(110, 45);
             this.btnConfirm.TabIndex = 1;
             this.btnConfirm.Text = "XÁC NHẬN";
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
             // headerPanel
             // 

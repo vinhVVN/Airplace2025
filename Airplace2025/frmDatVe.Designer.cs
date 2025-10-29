@@ -551,6 +551,7 @@ namespace Airplace2025
             this.dtpReturnDate.Size = new System.Drawing.Size(150, 30);
             this.dtpReturnDate.TabIndex = 4;
             this.dtpReturnDate.Value = new System.DateTime(2025, 10, 25, 15, 12, 10, 444);
+            this.dtpReturnDate.ValueChanged += new System.EventHandler(this.dtpReturnDate_ValueChanged);
             // 
             // lblReturnDate
             // 
@@ -596,6 +597,7 @@ namespace Airplace2025
             this.dtpNgayDi.Size = new System.Drawing.Size(150, 30);
             this.dtpNgayDi.TabIndex = 1;
             this.dtpNgayDi.Value = new System.DateTime(2025, 10, 24, 15, 12, 10, 504);
+            this.dtpNgayDi.ValueChanged += new System.EventHandler(this.dtpNgayDi_ValueChanged);
             // 
             // cbSanBayDen
             // 
@@ -613,6 +615,7 @@ namespace Airplace2025
             this.cbSanBayDen.Name = "cbSanBayDen";
             this.cbSanBayDen.Size = new System.Drawing.Size(150, 36);
             this.cbSanBayDen.TabIndex = 1;
+           // this.cbSanBayDen.SelectedIndexChanged += new System.EventHandler(this.cbSanBayDen_SelectedIndexChanged);
             // 
             // cbSanBayDi
             // 
@@ -630,6 +633,7 @@ namespace Airplace2025
             this.cbSanBayDi.Name = "cbSanBayDi";
             this.cbSanBayDi.Size = new System.Drawing.Size(150, 36);
             this.cbSanBayDi.TabIndex = 0;
+            this.cbSanBayDi.SelectedIndexChanged += new System.EventHandler(this.cbSanBayDi_SelectedIndexChanged);
             // 
             // frmDatVe
             // 
