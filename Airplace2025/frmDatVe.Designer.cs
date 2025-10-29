@@ -615,7 +615,7 @@ namespace Airplace2025
             this.cbSanBayDen.Name = "cbSanBayDen";
             this.cbSanBayDen.Size = new System.Drawing.Size(150, 36);
             this.cbSanBayDen.TabIndex = 1;
-           // this.cbSanBayDen.SelectedIndexChanged += new System.EventHandler(this.cbSanBayDen_SelectedIndexChanged);
+            this.cbSanBayDen.SelectedIndexChanged += new System.EventHandler(this.cbSanBayDen_SelectedIndexChanged);
             // 
             // cbSanBayDi
             // 

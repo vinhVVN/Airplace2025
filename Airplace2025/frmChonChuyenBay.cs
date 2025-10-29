@@ -21,6 +21,9 @@ namespace Airplace2025
         private DateTime ngayVe;
         private string soLuongHanhKhach;
         private bool isRoundTrip;
+        private bool isUpdatingCombos = false;
+        private List<string> airportOptions = new List<string>();
+        private DataTable airportsDisplayTable; // cached source for combo filtering
 
         public frmChonChuyenBay()
         {
@@ -124,16 +127,16 @@ namespace Airplace2025
                     return dt;
                 }
 
-                DataTable dtFrom = buildDisplay(airports);
-                DataTable dtTo = buildDisplay(airports);
+                // cache one built table, bind copies/views to each combo
+                airportsDisplayTable = buildDisplay(airports);
 
                 cbSanBayDi.DisplayMember = "Display";
                 cbSanBayDi.ValueMember = "MaSanBay";
-                cbSanBayDi.DataSource = dtFrom;
+                cbSanBayDi.DataSource = airportsDisplayTable.Copy();
 
                 cbSanBayDen.DisplayMember = "Display";
                 cbSanBayDen.ValueMember = "MaSanBay";
-                cbSanBayDen.DataSource = dtTo;
+                cbSanBayDen.DataSource = airportsDisplayTable.Copy();
             }
             catch (Exception ex)
             {
@@ -249,6 +252,21 @@ namespace Airplace2025
            lblDown.Visible = !isExpanded;
            lblUp.Visible = isExpanded;
            pnlChange.Visible = isExpanded;
+
+           // When expanding, reflect the last saved trip type
+           if (isExpanded)
+           {
+               if (isRoundTrip)
+               {
+                   btnRoundTrip.Checked = true;
+                   btnOneWay.Checked = false;
+               }
+               else
+               {
+                   btnRoundTrip.Checked = false;
+                   btnOneWay.Checked = true;
+               }
+           }
         }
 
         private void btnTotalCustomers_Click(object sender, EventArgs e)
@@ -265,8 +283,15 @@ namespace Airplace2025
         private void btnRoundTrip_CheckedChanged(object sender, EventArgs e)
         {
             bool isRoundTrip = btnRoundTrip.Checked;
+            // Edit panel controls
             lblReturnDate.Visible = isRoundTrip;
             dtpNgayVe.Visible = isRoundTrip;
+
+            // Header controls
+            pnlRoundTrip.Visible = isRoundTrip;
+            pnlOneWay.Visible = !isRoundTrip;
+            lblReturn.Visible = isRoundTrip;
+            dtpReturn.Visible = isRoundTrip;
         }
 
         private void pnlRoundTrip_Paint(object sender, PaintEventArgs e)
@@ -384,19 +409,78 @@ namespace Airplace2025
 
         }
 
-        private void cbSanBayDen_SelectedIndexChanged(object sender, EventArgs e)
+        private string ExtractAirportCode(string airportString)
         {
+            if (string.IsNullOrEmpty(airportString))
+                return "";
 
+            // Tìm vị trí của dấu " - " để tách mã sân bay
+            int dashIndex = airportString.IndexOf(" - ");
+            if (dashIndex > 0)
+            {
+                return airportString.Substring(0, dashIndex).Trim();
+            }
+
+            // Nếu không có dấu " - ", trả về toàn bộ chuỗi
+            return airportString.Trim();
         }
 
         private void cbSanBayDi_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (isUpdatingCombos) return;
+            try
+            {
+                isUpdatingCombos = true;
 
+                // Determine selected 'from' airport code robustly
+                string selectedFromCode = GetSelectedAirportCode(cbSanBayDi.SelectedValue, cbSanBayDi.SelectedItem);
+
+                // Preserve current 'to' code if still valid
+                string currentToCode = GetSelectedAirportCode(cbSanBayDen.SelectedValue, cbSanBayDen.SelectedItem);
+
+                // Rebind 'to' combo via a filtered DataView (cannot modify Items when DataSource is set)
+                if (airportsDisplayTable != null)
+                {
+                    string escaped = (selectedFromCode ?? string.Empty).Replace("'", "''");
+                    var view = new DataView(airportsDisplayTable);
+                    view.RowFilter = string.IsNullOrWhiteSpace(escaped) ? string.Empty : $"MaSanBay <> '{escaped}'";
+
+                    cbSanBayDen.DisplayMember = "Display";
+                    cbSanBayDen.ValueMember = "MaSanBay";
+                    cbSanBayDen.DataSource = view;
+
+                    if (!string.IsNullOrWhiteSpace(currentToCode) && !string.Equals(currentToCode, selectedFromCode, StringComparison.OrdinalIgnoreCase))
+                    {
+                        TrySelectComboValue(cbSanBayDen, currentToCode);
+                    }
+                    else
+                    {
+                        cbSanBayDen.SelectedIndex = -1;
+                    }
+                }
+            }
+            finally
+            {
+                isUpdatingCombos = false;
+            }
+            cbSanBayDi.Invalidate();
         }
 
         private void btnOneWay_CheckedChanged(object sender, EventArgs e)
         {
+            bool oneWay = btnOneWay.Checked;
+            if (oneWay)
+            {
+                // Edit panel controls
+                lblReturnDate.Visible = false;
+                dtpNgayVe.Visible = false;
 
+                // Header controls
+                pnlRoundTrip.Visible = false;
+                pnlOneWay.Visible = true;
+                lblReturn.Visible = false;
+                dtpReturn.Visible = false;
+            }
         }
 
         private void pnlChange_Paint(object sender, PaintEventArgs e)
@@ -404,34 +488,87 @@ namespace Airplace2025
 
         }
 
-        private void gunaEditChange_Click(object sender, EventArgs e)
+        private void btnEditSave_Click(object sender, EventArgs e)
         {
             PassengerSelectionState.SetAdult(PassengerSelectionStateTemp.Adult);
             PassengerSelectionState.SetChild(PassengerSelectionStateTemp.Child);
             PassengerSelectionState.SetInfant(PassengerSelectionStateTemp.Infant);
 
-            // Update summary info from edit controls
-            UpdateFromLabel();
-            UpdateToLabel();
+            // Lấy dữ liệu từ controls đã chỉnh sửa
+            string newSanBayDi = GetSelectedAirportCode(cbSanBayDi.SelectedValue, cbSanBayDi.SelectedItem);
+            string newSanBayDen = GetSelectedAirportCode(cbSanBayDen.SelectedValue, cbSanBayDen.SelectedItem);
+            DateTime newNgayDi = dtpNgayDi.Value;
+            DateTime newNgayVe = dtpNgayVe.Value;
+            int total = PassengerSelectionStateTemp.Total;
+            string newSoLuongHanhKhach = $"{total} hành khách";
+            bool newIsRoundTrip = btnRoundTrip.Checked;
 
-            dtpDeparture.Text = FormatDate(dtpNgayDi.Value);
-            dtpReturn.Text = FormatDate(dtpNgayVe.Value);
+            // Đóng form hiện tại
+            this.DialogResult = DialogResult.OK;
 
-            // Sync passenger count display
-            lblTotalPassengers.Text = FormatPassengerCount(btnTotalCustomers.Text);
+            // Tạo và hiển thị form mới với dữ liệu đã chỉnh sửa
+            frmChonChuyenBay newForm = new frmChonChuyenBay(
+                newSanBayDi,
+                newSanBayDen,
+                newNgayDi,
+                newNgayVe,
+                newSoLuongHanhKhach,
+                newIsRoundTrip
+            );
 
-            // Reflect one-way vs round-trip selection in header
-            bool roundTrip = btnRoundTrip.Checked;
-            pnlRoundTrip.Visible = roundTrip;
-            pnlOneWay.Visible = !roundTrip;
-            lblReturn.Visible = roundTrip;
-            dtpReturn.Visible = roundTrip;
-
-            // Collapse the change panel (simulate closing edit mode)
-            btnChange.Checked = false;
-            lblDown.Visible = true;
-            lblUp.Visible = false;
-            pnlChange.Visible = false;
+            this.Hide();
+            newForm.ShowDialog();
+            this.Close();
         }
+
+        private void dtpNgayDi_ValueChanged(object sender, EventArgs e)
+        {
+            // Update minimum date for return date picker
+            dtpNgayVe.MinDate = dtpNgayDi.Value.Date;
+
+            // If return date is before departure date, set it to departure date
+            ValidateReturnDate();
+        }
+
+        private void dtpNgayVe_ValueChanged(object sender, EventArgs e)
+        {
+            ValidateReturnDate();
+        }
+
+        private void ValidateReturnDate()
+        {
+            if (dtpNgayVe.Value < dtpNgayDi.Value)
+            {
+                dtpNgayVe.Value = dtpNgayDi.Value;
+            }
+        }
+
+        private void cbSanBayDen_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateEditButton();
+        }
+
+        private void UpdateEditButton()
+        {
+            btnEditSave.Enabled = ValidateForm();
+        }
+
+        private bool ValidateForm()
+        {
+            // Kiểm tra sân bay đi đã được chọn
+            if (cbSanBayDi.SelectedIndex < 0 || cbSanBayDi.SelectedItem == null)
+            {
+                return false;
+            }
+
+            // Kiểm tra sân bay đến đã được chọn
+            if (cbSanBayDen.SelectedIndex < 0 || cbSanBayDen.SelectedItem == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
     }
 }

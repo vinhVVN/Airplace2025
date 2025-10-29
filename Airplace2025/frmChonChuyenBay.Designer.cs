@@ -102,7 +102,6 @@
             this.pnlFlightInfo.Name = "pnlFlightInfo";
             this.pnlFlightInfo.Size = new System.Drawing.Size(1067, 70);
             this.pnlFlightInfo.TabIndex = 0;
-            //this.pnlFlightInfo.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel1_Paint);
             // 
             // pnlRoundTrip
             // 
@@ -352,7 +351,7 @@
             this.btnEditSave.TabIndex = 39;
             this.btnEditSave.Text = "Lưu chỉnh sửa";
             this.btnEditSave.TextTransform = Guna.UI2.WinForms.Enums.TextTransform.UpperCase;
-            this.btnEditSave.Click += new System.EventHandler(this.gunaEditChange_Click);
+            this.btnEditSave.Click += new System.EventHandler(this.btnEditSave_Click);
             // 
             // btnTotalCustomers
             // 
@@ -438,6 +437,7 @@
             this.dtpNgayVe.Size = new System.Drawing.Size(150, 30);
             this.dtpNgayVe.TabIndex = 32;
             this.dtpNgayVe.Value = new System.DateTime(2025, 10, 25, 15, 12, 10, 444);
+            this.dtpNgayVe.ValueChanged += new System.EventHandler(this.dtpNgayVe_ValueChanged);
             // 
             // lblReturnDate
             // 
@@ -467,6 +467,7 @@
             this.dtpNgayDi.Size = new System.Drawing.Size(150, 30);
             this.dtpNgayDi.TabIndex = 29;
             this.dtpNgayDi.Value = new System.DateTime(2025, 10, 24, 15, 12, 10, 504);
+            this.dtpNgayDi.ValueChanged += new System.EventHandler(this.dtpNgayDi_ValueChanged);
             // 
             // cbSanBayDen
             // 
@@ -527,7 +528,6 @@
             // btnRoundTrip
             // 
             this.btnRoundTrip.AutoSize = true;
-            this.btnRoundTrip.Checked = true;
             this.btnRoundTrip.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
             this.btnRoundTrip.CheckedState.BorderThickness = 1;
             this.btnRoundTrip.CheckedState.FillColor = System.Drawing.Color.White;
@@ -538,7 +538,6 @@
             this.btnRoundTrip.Name = "btnRoundTrip";
             this.btnRoundTrip.Size = new System.Drawing.Size(61, 17);
             this.btnRoundTrip.TabIndex = 0;
-            this.btnRoundTrip.TabStop = true;
             this.btnRoundTrip.Text = "Khứ hồi";
             this.btnRoundTrip.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.btnRoundTrip.UncheckedState.BorderThickness = 2;

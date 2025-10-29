@@ -38,6 +38,7 @@ namespace Airplace2025
             UpdateAllButtons();
             cbSanBayDi_SelectedIndexChanged(sender, e);
             tlpDropDown.Visible = false;
+            UpdateSearchButton();
         }
 
         private void InitializeControls()
@@ -118,6 +119,13 @@ namespace Airplace2025
 
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
+            // Kiểm tra validation trước khi xử lý
+            if (!ValidateForm())
+            {
+                MessageBox.Show("Vui lòng điền đầy đủ thông tin tìm kiếm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             // Lấy mã sân bay từ combobox
             string sanBayDi = ExtractAirportCode(cbSanBayDi.SelectedItem?.ToString());
             string sanBayDen = ExtractAirportCode(cbSanBayDen.SelectedItem?.ToString());
@@ -213,15 +221,6 @@ namespace Airplace2025
             lblDFReturn.Visible = isRoundTrip;
         }
 
-        private void btnOne_Click(object sender, EventArgs e)
-        {
-            bool isOneWay = btnOneWay.Checked;
-            dtpReturnDate.Visible = !isOneWay;
-            lblReturnDate.Visible = !isOneWay;
-            lblOneWay.Visible = isOneWay;
-            lblRoundTrip.Visible = !isOneWay;
-            lblDFReturn.Visible = !isOneWay;
-        }
 
         private void btnDropDown_Click(object sender, EventArgs e)
         {
@@ -487,6 +486,14 @@ namespace Airplace2025
         }
 
         /// <summary>
+        /// Handle change in destination airport selection
+        /// </summary>
+        private void cbSanBayDen_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateSearchButton();
+        }
+
+        /// <summary>
         /// Ensure return date is not before departure date
         /// </summary>
         private void ValidateReturnDate()
@@ -495,6 +502,34 @@ namespace Airplace2025
             {
                 dtpReturnDate.Value = dtpNgayDi.Value;
             }
+        }
+
+        /// <summary>
+        /// Validate all required fields before allowing search
+        /// </summary>
+        private bool ValidateForm()
+        {
+            // Kiểm tra sân bay đi đã được chọn
+            if (cbSanBayDi.SelectedIndex < 0 || cbSanBayDi.SelectedItem == null)
+            {
+                return false;
+            }
+
+            // Kiểm tra sân bay đến đã được chọn
+            if (cbSanBayDen.SelectedIndex < 0 || cbSanBayDen.SelectedItem == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Update search button enabled state based on form validation
+        /// </summary>
+        private void UpdateSearchButton()
+        {
+            btnTimKiem.Enabled = ValidateForm();
         }
     }
 }
