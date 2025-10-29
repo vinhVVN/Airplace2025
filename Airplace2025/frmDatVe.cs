@@ -782,7 +782,14 @@ namespace Airplace2025
             string sanBayDi = ExtractAirportCode(cbSanBayDi.SelectedItem?.ToString());
             string sanBayDen = ExtractAirportCode(cbSanBayDen.SelectedItem?.ToString());
             
-            frmChonChuyenBay frm = new frmChonChuyenBay(sanBayDi, sanBayDen);
+            // Lấy ngày đi và ngày về từ DateTimePicker
+            DateTime ngayDi = dtpNgayDi.Value;
+            DateTime ngayVe = dtpReturnDate.Value;
+            
+            // Lấy số lượng hành khách từ btnDropDown.Text
+            string soLuongHanhKhach = btnDropDown.Text;
+            
+            frmChonChuyenBay frm = new frmChonChuyenBay(sanBayDi, sanBayDen, ngayDi, ngayVe, soLuongHanhKhach);
             this.Hide();
             frm.FormClosed += (s, args) => this.Show();
             frm.Show();

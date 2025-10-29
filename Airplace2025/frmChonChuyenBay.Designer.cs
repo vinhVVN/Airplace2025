@@ -30,20 +30,23 @@
         {
             this.pnlThongTinDatCho = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblUp = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblDown = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.btnChange = new Guna.UI2.WinForms.Guna2Button();
             this.lblTotalPassengers = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblPassengers = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.dtpReturn = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblReturn = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblDeparture = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.dtpDeparture = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
             this.lblTo = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnlMotChieu = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblFrom = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnlChange = new Guna.UI2.WinForms.Guna2Panel();
             this.btnTotalCustomers = new Guna.UI2.WinForms.Guna2Button();
@@ -58,14 +61,11 @@
             this.cbSanBayDi = new Guna.UI2.WinForms.Guna2ComboBox();
             this.btnOneWay = new Guna.UI2.WinForms.Guna2RadioButton();
             this.btnRoundTrip = new Guna.UI2.WinForms.Guna2RadioButton();
-            this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnlThongTinDatCho.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
+            this.guna2Panel4.SuspendLayout();
             this.pnlMotChieu.SuspendLayout();
             this.pnlChange.SuspendLayout();
-            this.guna2Panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlThongTinDatCho
@@ -87,7 +87,7 @@
             this.guna2Panel1.Controls.Add(this.lblTotalPassengers);
             this.guna2Panel1.Controls.Add(this.lblPassengers);
             this.guna2Panel1.Controls.Add(this.guna2Panel2);
-            this.guna2Panel1.Controls.Add(this.guna2HtmlLabel5);
+            this.guna2Panel1.Controls.Add(this.dtpReturn);
             this.guna2Panel1.Controls.Add(this.lblReturn);
             this.guna2Panel1.Controls.Add(this.lblDeparture);
             this.guna2Panel1.Controls.Add(this.dtpDeparture);
@@ -100,6 +100,36 @@
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(1067, 70);
             this.guna2Panel1.TabIndex = 0;
+            // 
+            // guna2Panel4
+            // 
+            this.guna2Panel4.Controls.Add(this.guna2HtmlLabel2);
+            this.guna2Panel4.Controls.Add(this.guna2HtmlLabel1);
+            this.guna2Panel4.FillColor = System.Drawing.Color.White;
+            this.guna2Panel4.Location = new System.Drawing.Point(113, 8);
+            this.guna2Panel4.Name = "guna2Panel4";
+            this.guna2Panel4.Size = new System.Drawing.Size(121, 34);
+            this.guna2Panel4.TabIndex = 3;
+            // 
+            // guna2HtmlLabel2
+            // 
+            this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel2.Location = new System.Drawing.Point(10, 15);
+            this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
+            this.guna2HtmlLabel2.Size = new System.Drawing.Size(102, 19);
+            this.guna2HtmlLabel2.TabIndex = 3;
+            this.guna2HtmlLabel2.Text = "✈️----------------";
+            // 
+            // guna2HtmlLabel1
+            // 
+            this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(10, -1);
+            this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(102, 19);
+            this.guna2HtmlLabel1.TabIndex = 2;
+            this.guna2HtmlLabel1.Text = "----------------✈️";
             // 
             // lblUp
             // 
@@ -170,15 +200,15 @@
             this.guna2Panel2.Size = new System.Drawing.Size(1, 50);
             this.guna2Panel2.TabIndex = 9;
             // 
-            // guna2HtmlLabel5
+            // dtpReturn
             // 
-            this.guna2HtmlLabel5.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel5.Location = new System.Drawing.Point(560, 30);
-            this.guna2HtmlLabel5.Name = "guna2HtmlLabel5";
-            this.guna2HtmlLabel5.Size = new System.Drawing.Size(86, 17);
-            this.guna2HtmlLabel5.TabIndex = 8;
-            this.guna2HtmlLabel5.Text = "Th 4, 29 thg 10";
+            this.dtpReturn.BackColor = System.Drawing.Color.Transparent;
+            this.dtpReturn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpReturn.Location = new System.Drawing.Point(560, 30);
+            this.dtpReturn.Name = "dtpReturn";
+            this.dtpReturn.Size = new System.Drawing.Size(86, 17);
+            this.dtpReturn.TabIndex = 8;
+            this.dtpReturn.Text = "Th 4, 29 thg 10";
             // 
             // lblReturn
             // 
@@ -210,16 +240,6 @@
             this.dtpDeparture.TabIndex = 5;
             this.dtpDeparture.Text = "Th 4, 29 thg 10";
             // 
-            // guna2HtmlLabel3
-            // 
-            this.guna2HtmlLabel3.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel3.Location = new System.Drawing.Point(10, 8);
-            this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
-            this.guna2HtmlLabel3.Size = new System.Drawing.Size(102, 19);
-            this.guna2HtmlLabel3.TabIndex = 2;
-            this.guna2HtmlLabel3.Text = "----------------✈️";
-            // 
             // guna2Panel3
             // 
             this.guna2Panel3.FillColor = System.Drawing.Color.Black;
@@ -246,6 +266,16 @@
             this.pnlMotChieu.Name = "pnlMotChieu";
             this.pnlMotChieu.Size = new System.Drawing.Size(121, 34);
             this.pnlMotChieu.TabIndex = 1;
+            // 
+            // guna2HtmlLabel3
+            // 
+            this.guna2HtmlLabel3.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel3.Location = new System.Drawing.Point(10, 8);
+            this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
+            this.guna2HtmlLabel3.Size = new System.Drawing.Size(102, 19);
+            this.guna2HtmlLabel3.TabIndex = 2;
+            this.guna2HtmlLabel3.Text = "----------------✈️";
             // 
             // lblFrom
             // 
@@ -461,36 +491,6 @@
             this.btnRoundTrip.UncheckedState.FillColor = System.Drawing.Color.Transparent;
             this.btnRoundTrip.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
             // 
-            // guna2Panel4
-            // 
-            this.guna2Panel4.Controls.Add(this.guna2HtmlLabel2);
-            this.guna2Panel4.Controls.Add(this.guna2HtmlLabel1);
-            this.guna2Panel4.FillColor = System.Drawing.Color.White;
-            this.guna2Panel4.Location = new System.Drawing.Point(113, 8);
-            this.guna2Panel4.Name = "guna2Panel4";
-            this.guna2Panel4.Size = new System.Drawing.Size(121, 34);
-            this.guna2Panel4.TabIndex = 3;
-            // 
-            // guna2HtmlLabel1
-            // 
-            this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel1.Location = new System.Drawing.Point(10, -1);
-            this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(102, 19);
-            this.guna2HtmlLabel1.TabIndex = 2;
-            this.guna2HtmlLabel1.Text = "----------------✈️";
-            // 
-            // guna2HtmlLabel2
-            // 
-            this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel2.Location = new System.Drawing.Point(10, 15);
-            this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            this.guna2HtmlLabel2.Size = new System.Drawing.Size(102, 19);
-            this.guna2HtmlLabel2.TabIndex = 3;
-            this.guna2HtmlLabel2.Text = "✈️----------------";
-            // 
             // frmChonChuyenBay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -505,12 +505,12 @@
             this.pnlThongTinDatCho.ResumeLayout(false);
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
+            this.guna2Panel4.ResumeLayout(false);
+            this.guna2Panel4.PerformLayout();
             this.pnlMotChieu.ResumeLayout(false);
             this.pnlMotChieu.PerformLayout();
             this.pnlChange.ResumeLayout(false);
             this.pnlChange.PerformLayout();
-            this.guna2Panel4.ResumeLayout(false);
-            this.guna2Panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -527,7 +527,7 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel lblDeparture;
         private Guna.UI2.WinForms.Guna2HtmlLabel dtpDeparture;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblReturn;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
+        private Guna.UI2.WinForms.Guna2HtmlLabel dtpReturn;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel2;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblPassengers;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblTotalPassengers;
