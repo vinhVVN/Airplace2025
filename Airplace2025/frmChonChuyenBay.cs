@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data; // for DataTable
 using Airplace2025.DAL; // for ChuyenBayDAO
+using Airplace2025.State; // for PassengerSelectionState
 
 namespace Airplace2025
 {
@@ -24,16 +25,6 @@ namespace Airplace2025
         public frmChonChuyenBay()
         {
             InitializeComponent();
-        }
-
-        public frmChonChuyenBay(string sanBayDi, string sanBayDen, DateTime ngayDi, DateTime ngayVe, string soLuongHanhKhach)
-        {
-            InitializeComponent();
-            this.sanBayDi = sanBayDi;
-            this.sanBayDen = sanBayDen;
-            this.ngayDi = ngayDi;
-            this.ngayVe = ngayVe;
-            this.soLuongHanhKhach = soLuongHanhKhach;
         }
 
         public frmChonChuyenBay(string sanBayDi, string sanBayDen, DateTime ngayDi, DateTime ngayVe, string soLuongHanhKhach, bool isRoundTrip)
@@ -84,6 +75,7 @@ namespace Airplace2025
             // Hiển thị số lượng hành khách với format "{var} người"
             lblTotalPassengers.Text = FormatPassengerCount(soLuongHanhKhach);
 
+            btnTotalCustomers.Text = FormatTotalPassengerCount(soLuongHanhKhach);
             // Bật/tắt hiển thị theo loại vé
             if (isRoundTrip)
             {
@@ -214,6 +206,17 @@ namespace Airplace2025
             return $"{number} người";
         }
 
+        private string FormatTotalPassengerCount(string passengerText)
+        {
+            if (string.IsNullOrEmpty(passengerText))
+                return "1 hành khách";
+
+            // Trích xuất số từ text như "1 hành khách" -> "1"
+            string number = ExtractNumberFromText(passengerText);
+
+            return $"{number} hành khách";
+        }
+
         /// <summary>
         /// Trích xuất số từ chuỗi text
         /// </summary>
@@ -251,7 +254,13 @@ namespace Airplace2025
         private void btnTotalCustomers_Click(object sender, EventArgs e)
         {
             frmSoLuongKhachHang soLuongKhachHangForm = new frmSoLuongKhachHang();
-            soLuongKhachHangForm.Show();
+            // Open as modal to wait for user confirmation
+            soLuongKhachHangForm.ShowDialog(this);
+
+            // After dialog closes, refresh displayed totals from shared state
+            int total = PassengerSelectionState.Total;
+            lblTotalPassengers.Text = $"{total} người";
+            btnTotalCustomers.Text = $"{total} Hành khách";
         }
 
         private void btnRoundTrip_CheckedChanged(object sender, EventArgs e)
