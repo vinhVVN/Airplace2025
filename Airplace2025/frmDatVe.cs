@@ -789,7 +789,10 @@ namespace Airplace2025
             // Lấy số lượng hành khách từ btnDropDown.Text
             string soLuongHanhKhach = btnDropDown.Text;
             
-            frmChonChuyenBay frm = new frmChonChuyenBay(sanBayDi, sanBayDen, ngayDi, ngayVe, soLuongHanhKhach);
+            // Xác định loại vé: khứ hồi hay một chiều
+            bool isRoundTrip = btnRoundTrip.Checked;
+            
+            frmChonChuyenBay frm = new frmChonChuyenBay(sanBayDi, sanBayDen, ngayDi, ngayVe, soLuongHanhKhach, isRoundTrip);
             this.Hide();
             frm.FormClosed += (s, args) => this.Show();
             frm.Show();

@@ -30,10 +30,12 @@
         {
             this.pnlThongTinDatCho = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
+            this.pnlRoundTrip = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblUp = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.pnlOneWay = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblDown = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.btnChange = new Guna.UI2.WinForms.Guna2Button();
             this.lblTotalPassengers = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -45,8 +47,6 @@
             this.dtpDeparture = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
             this.lblTo = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.pnlMotChieu = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblFrom = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnlChange = new Guna.UI2.WinForms.Guna2Panel();
             this.btnTotalCustomers = new Guna.UI2.WinForms.Guna2Button();
@@ -54,17 +54,18 @@
             this.guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.label1 = new System.Windows.Forms.Label();
-            this.dtpReturnDate = new Guna.UI2.WinForms.Guna2DateTimePicker();
+            this.dtpNgayVe = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.lblReturnDate = new System.Windows.Forms.Label();
             this.dtpNgayDi = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.cbSanBayDen = new Guna.UI2.WinForms.Guna2ComboBox();
             this.cbSanBayDi = new Guna.UI2.WinForms.Guna2ComboBox();
             this.btnOneWay = new Guna.UI2.WinForms.Guna2RadioButton();
             this.btnRoundTrip = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.gunaEditSave = new Guna.UI2.WinForms.Guna2Button();
             this.pnlThongTinDatCho.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
-            this.guna2Panel4.SuspendLayout();
-            this.pnlMotChieu.SuspendLayout();
+            this.pnlRoundTrip.SuspendLayout();
+            this.pnlOneWay.SuspendLayout();
             this.pnlChange.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,12 +77,14 @@
             this.pnlThongTinDatCho.Name = "pnlThongTinDatCho";
             this.pnlThongTinDatCho.Size = new System.Drawing.Size(1123, 100);
             this.pnlThongTinDatCho.TabIndex = 0;
+            this.pnlThongTinDatCho.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlThongTinDatCho_Paint);
             // 
             // guna2Panel1
             // 
             this.guna2Panel1.BorderRadius = 8;
-            this.guna2Panel1.Controls.Add(this.guna2Panel4);
+            this.guna2Panel1.Controls.Add(this.pnlRoundTrip);
             this.guna2Panel1.Controls.Add(this.lblUp);
+            this.guna2Panel1.Controls.Add(this.pnlOneWay);
             this.guna2Panel1.Controls.Add(this.lblDown);
             this.guna2Panel1.Controls.Add(this.btnChange);
             this.guna2Panel1.Controls.Add(this.lblTotalPassengers);
@@ -93,23 +96,24 @@
             this.guna2Panel1.Controls.Add(this.dtpDeparture);
             this.guna2Panel1.Controls.Add(this.guna2Panel3);
             this.guna2Panel1.Controls.Add(this.lblTo);
-            this.guna2Panel1.Controls.Add(this.pnlMotChieu);
             this.guna2Panel1.Controls.Add(this.lblFrom);
             this.guna2Panel1.FillColor = System.Drawing.Color.White;
             this.guna2Panel1.Location = new System.Drawing.Point(30, 15);
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(1067, 70);
             this.guna2Panel1.TabIndex = 0;
+            this.guna2Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel1_Paint);
             // 
-            // guna2Panel4
+            // pnlRoundTrip
             // 
-            this.guna2Panel4.Controls.Add(this.guna2HtmlLabel2);
-            this.guna2Panel4.Controls.Add(this.guna2HtmlLabel1);
-            this.guna2Panel4.FillColor = System.Drawing.Color.White;
-            this.guna2Panel4.Location = new System.Drawing.Point(113, 8);
-            this.guna2Panel4.Name = "guna2Panel4";
-            this.guna2Panel4.Size = new System.Drawing.Size(121, 34);
-            this.guna2Panel4.TabIndex = 3;
+            this.pnlRoundTrip.Controls.Add(this.guna2HtmlLabel2);
+            this.pnlRoundTrip.Controls.Add(this.guna2HtmlLabel1);
+            this.pnlRoundTrip.FillColor = System.Drawing.Color.White;
+            this.pnlRoundTrip.Location = new System.Drawing.Point(113, 10);
+            this.pnlRoundTrip.Name = "pnlRoundTrip";
+            this.pnlRoundTrip.Size = new System.Drawing.Size(121, 34);
+            this.pnlRoundTrip.TabIndex = 3;
+            this.pnlRoundTrip.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlRoundTrip_Paint);
             // 
             // guna2HtmlLabel2
             // 
@@ -120,6 +124,7 @@
             this.guna2HtmlLabel2.Size = new System.Drawing.Size(102, 19);
             this.guna2HtmlLabel2.TabIndex = 3;
             this.guna2HtmlLabel2.Text = "✈️----------------";
+            this.guna2HtmlLabel2.Click += new System.EventHandler(this.guna2HtmlLabel2_Click);
             // 
             // guna2HtmlLabel1
             // 
@@ -130,6 +135,7 @@
             this.guna2HtmlLabel1.Size = new System.Drawing.Size(102, 19);
             this.guna2HtmlLabel1.TabIndex = 2;
             this.guna2HtmlLabel1.Text = "----------------✈️";
+            this.guna2HtmlLabel1.Click += new System.EventHandler(this.guna2HtmlLabel1_Click);
             // 
             // lblUp
             // 
@@ -140,6 +146,28 @@
             this.lblUp.TabIndex = 13;
             this.lblUp.Text = "▲";
             this.lblUp.Visible = false;
+            this.lblUp.Click += new System.EventHandler(this.lblUp_Click);
+            // 
+            // pnlOneWay
+            // 
+            this.pnlOneWay.Controls.Add(this.guna2HtmlLabel3);
+            this.pnlOneWay.FillColor = System.Drawing.Color.White;
+            this.pnlOneWay.Location = new System.Drawing.Point(113, 4);
+            this.pnlOneWay.Name = "pnlOneWay";
+            this.pnlOneWay.Size = new System.Drawing.Size(121, 47);
+            this.pnlOneWay.TabIndex = 1;
+            this.pnlOneWay.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlOneWay_Paint);
+            // 
+            // guna2HtmlLabel3
+            // 
+            this.guna2HtmlLabel3.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel3.Location = new System.Drawing.Point(10, 13);
+            this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
+            this.guna2HtmlLabel3.Size = new System.Drawing.Size(102, 19);
+            this.guna2HtmlLabel3.TabIndex = 2;
+            this.guna2HtmlLabel3.Text = "----------------✈️";
+            this.guna2HtmlLabel3.Click += new System.EventHandler(this.guna2HtmlLabel3_Click);
             // 
             // lblDown
             // 
@@ -149,6 +177,7 @@
             this.lblDown.Size = new System.Drawing.Size(12, 15);
             this.lblDown.TabIndex = 12;
             this.lblDown.Text = "▼";
+            this.lblDown.Click += new System.EventHandler(this.lblDown_Click);
             // 
             // btnChange
             // 
@@ -181,6 +210,7 @@
             this.lblTotalPassengers.Size = new System.Drawing.Size(51, 19);
             this.lblTotalPassengers.TabIndex = 11;
             this.lblTotalPassengers.Text = "3 người";
+            this.lblTotalPassengers.Click += new System.EventHandler(this.lblTotalPassengers_Click);
             // 
             // lblPassengers
             // 
@@ -191,6 +221,7 @@
             this.lblPassengers.Size = new System.Drawing.Size(68, 17);
             this.lblPassengers.TabIndex = 10;
             this.lblPassengers.Text = "Hành khách";
+            this.lblPassengers.Click += new System.EventHandler(this.lblPassengers_Click);
             // 
             // guna2Panel2
             // 
@@ -199,6 +230,7 @@
             this.guna2Panel2.Name = "guna2Panel2";
             this.guna2Panel2.Size = new System.Drawing.Size(1, 50);
             this.guna2Panel2.TabIndex = 9;
+            this.guna2Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel2_Paint);
             // 
             // dtpReturn
             // 
@@ -209,6 +241,7 @@
             this.dtpReturn.Size = new System.Drawing.Size(86, 17);
             this.dtpReturn.TabIndex = 8;
             this.dtpReturn.Text = "Th 4, 29 thg 10";
+            this.dtpReturn.Click += new System.EventHandler(this.dtpReturn_Click);
             // 
             // lblReturn
             // 
@@ -219,6 +252,7 @@
             this.lblReturn.Size = new System.Drawing.Size(61, 17);
             this.lblReturn.TabIndex = 7;
             this.lblReturn.Text = "Chuyến về";
+            this.lblReturn.Click += new System.EventHandler(this.lblReturn_Click);
             // 
             // lblDeparture
             // 
@@ -229,6 +263,7 @@
             this.lblDeparture.Size = new System.Drawing.Size(58, 17);
             this.lblDeparture.TabIndex = 6;
             this.lblDeparture.Text = "Chuyến đi";
+            this.lblDeparture.Click += new System.EventHandler(this.lblDeparture_Click);
             // 
             // dtpDeparture
             // 
@@ -239,6 +274,7 @@
             this.dtpDeparture.Size = new System.Drawing.Size(86, 17);
             this.dtpDeparture.TabIndex = 5;
             this.dtpDeparture.Text = "Th 4, 29 thg 10";
+            this.dtpDeparture.Click += new System.EventHandler(this.dtpDeparture_Click);
             // 
             // guna2Panel3
             // 
@@ -247,6 +283,7 @@
             this.guna2Panel3.Name = "guna2Panel3";
             this.guna2Panel3.Size = new System.Drawing.Size(1, 50);
             this.guna2Panel3.TabIndex = 3;
+            this.guna2Panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel3_Paint);
             // 
             // lblTo
             // 
@@ -257,25 +294,7 @@
             this.lblTo.Size = new System.Drawing.Size(52, 34);
             this.lblTo.TabIndex = 2;
             this.lblTo.Text = "SGN";
-            // 
-            // pnlMotChieu
-            // 
-            this.pnlMotChieu.Controls.Add(this.guna2HtmlLabel3);
-            this.pnlMotChieu.FillColor = System.Drawing.Color.White;
-            this.pnlMotChieu.Location = new System.Drawing.Point(113, 8);
-            this.pnlMotChieu.Name = "pnlMotChieu";
-            this.pnlMotChieu.Size = new System.Drawing.Size(121, 34);
-            this.pnlMotChieu.TabIndex = 1;
-            // 
-            // guna2HtmlLabel3
-            // 
-            this.guna2HtmlLabel3.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel3.Location = new System.Drawing.Point(10, 8);
-            this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
-            this.guna2HtmlLabel3.Size = new System.Drawing.Size(102, 19);
-            this.guna2HtmlLabel3.TabIndex = 2;
-            this.guna2HtmlLabel3.Text = "----------------✈️";
+            this.lblTo.Click += new System.EventHandler(this.lblTo_Click);
             // 
             // lblFrom
             // 
@@ -286,15 +305,17 @@
             this.lblFrom.Size = new System.Drawing.Size(57, 34);
             this.lblFrom.TabIndex = 0;
             this.lblFrom.Text = "HAN";
+            this.lblFrom.Click += new System.EventHandler(this.lblFrom_Click);
             // 
             // pnlChange
             // 
+            this.pnlChange.Controls.Add(this.gunaEditSave);
             this.pnlChange.Controls.Add(this.btnTotalCustomers);
             this.pnlChange.Controls.Add(this.guna2HtmlLabel7);
             this.pnlChange.Controls.Add(this.guna2HtmlLabel4);
             this.pnlChange.Controls.Add(this.guna2HtmlLabel6);
             this.pnlChange.Controls.Add(this.label1);
-            this.pnlChange.Controls.Add(this.dtpReturnDate);
+            this.pnlChange.Controls.Add(this.dtpNgayVe);
             this.pnlChange.Controls.Add(this.lblReturnDate);
             this.pnlChange.Controls.Add(this.dtpNgayDi);
             this.pnlChange.Controls.Add(this.cbSanBayDen);
@@ -307,6 +328,7 @@
             this.pnlChange.Size = new System.Drawing.Size(1122, 225);
             this.pnlChange.TabIndex = 1;
             this.pnlChange.Visible = false;
+            this.pnlChange.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlChange_Paint);
             // 
             // btnTotalCustomers
             // 
@@ -341,6 +363,7 @@
             this.guna2HtmlLabel7.Size = new System.Drawing.Size(62, 15);
             this.guna2HtmlLabel7.TabIndex = 37;
             this.guna2HtmlLabel7.Text = "Hành khách";
+            this.guna2HtmlLabel7.Click += new System.EventHandler(this.guna2HtmlLabel7_Click);
             // 
             // guna2HtmlLabel4
             // 
@@ -351,6 +374,7 @@
             this.guna2HtmlLabel4.Size = new System.Drawing.Size(23, 15);
             this.guna2HtmlLabel4.TabIndex = 36;
             this.guna2HtmlLabel4.Text = "Đến";
+            this.guna2HtmlLabel4.Click += new System.EventHandler(this.guna2HtmlLabel4_Click);
             // 
             // guna2HtmlLabel6
             // 
@@ -361,6 +385,7 @@
             this.guna2HtmlLabel6.Size = new System.Drawing.Size(16, 15);
             this.guna2HtmlLabel6.TabIndex = 35;
             this.guna2HtmlLabel6.Text = "Từ";
+            this.guna2HtmlLabel6.Click += new System.EventHandler(this.guna2HtmlLabel6_Click);
             // 
             // label1
             // 
@@ -371,23 +396,25 @@
             this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 34;
             this.label1.Text = "Ngày đi";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // dtpReturnDate
+            // dtpNgayVe
             // 
-            this.dtpReturnDate.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.dtpReturnDate.BorderRadius = 6;
-            this.dtpReturnDate.Checked = true;
-            this.dtpReturnDate.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.dtpReturnDate.FillColor = System.Drawing.Color.White;
-            this.dtpReturnDate.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.dtpReturnDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpReturnDate.Location = new System.Drawing.Point(897, 81);
-            this.dtpReturnDate.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
-            this.dtpReturnDate.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
-            this.dtpReturnDate.Name = "dtpReturnDate";
-            this.dtpReturnDate.Size = new System.Drawing.Size(150, 30);
-            this.dtpReturnDate.TabIndex = 32;
-            this.dtpReturnDate.Value = new System.DateTime(2025, 10, 25, 15, 12, 10, 444);
+            this.dtpNgayVe.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.dtpNgayVe.BorderRadius = 6;
+            this.dtpNgayVe.Checked = true;
+            this.dtpNgayVe.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.dtpNgayVe.FillColor = System.Drawing.Color.White;
+            this.dtpNgayVe.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.dtpNgayVe.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpNgayVe.Location = new System.Drawing.Point(897, 81);
+            this.dtpNgayVe.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
+            this.dtpNgayVe.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.dtpNgayVe.Name = "dtpNgayVe";
+            this.dtpNgayVe.Size = new System.Drawing.Size(150, 30);
+            this.dtpNgayVe.TabIndex = 32;
+            this.dtpNgayVe.Value = new System.DateTime(2025, 10, 25, 15, 12, 10, 444);
+           // this.dtpNgayVe.ValueChanged += new System.EventHandler(this.dtpReturnDate_ValueChanged);
             // 
             // lblReturnDate
             // 
@@ -398,6 +425,7 @@
             this.lblReturnDate.Size = new System.Drawing.Size(94, 13);
             this.lblReturnDate.TabIndex = 31;
             this.lblReturnDate.Text = "Ngày về (khứ hồi):";
+            this.lblReturnDate.Click += new System.EventHandler(this.lblReturnDate_Click);
             // 
             // dtpNgayDi
             // 
@@ -416,6 +444,7 @@
             this.dtpNgayDi.Size = new System.Drawing.Size(150, 30);
             this.dtpNgayDi.TabIndex = 29;
             this.dtpNgayDi.Value = new System.DateTime(2025, 10, 24, 15, 12, 10, 504);
+           // this.dtpNgayDi.ValueChanged += new System.EventHandler(this.dtpNgayDi_ValueChanged);
             // 
             // cbSanBayDen
             // 
@@ -433,6 +462,7 @@
             this.cbSanBayDen.Name = "cbSanBayDen";
             this.cbSanBayDen.Size = new System.Drawing.Size(259, 36);
             this.cbSanBayDen.TabIndex = 30;
+            this.cbSanBayDen.SelectedIndexChanged += new System.EventHandler(this.cbSanBayDen_SelectedIndexChanged);
             // 
             // cbSanBayDi
             // 
@@ -450,6 +480,7 @@
             this.cbSanBayDi.Name = "cbSanBayDi";
             this.cbSanBayDi.Size = new System.Drawing.Size(242, 36);
             this.cbSanBayDi.TabIndex = 28;
+            this.cbSanBayDi.SelectedIndexChanged += new System.EventHandler(this.cbSanBayDi_SelectedIndexChanged);
             // 
             // btnOneWay
             // 
@@ -469,6 +500,7 @@
             this.btnOneWay.UncheckedState.BorderThickness = 2;
             this.btnOneWay.UncheckedState.FillColor = System.Drawing.Color.Transparent;
             this.btnOneWay.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            this.btnOneWay.CheckedChanged += new System.EventHandler(this.btnOneWay_CheckedChanged);
             // 
             // btnRoundTrip
             // 
@@ -490,6 +522,31 @@
             this.btnRoundTrip.UncheckedState.BorderThickness = 2;
             this.btnRoundTrip.UncheckedState.FillColor = System.Drawing.Color.Transparent;
             this.btnRoundTrip.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            this.btnRoundTrip.CheckedChanged += new System.EventHandler(this.btnRoundTrip_CheckedChanged);
+            // 
+            // gunaEditSave
+            // 
+            this.gunaEditSave.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(95)))), ((int)(((byte)(110)))));
+            this.gunaEditSave.BorderRadius = 9;
+            this.gunaEditSave.BorderThickness = 3;
+            this.gunaEditSave.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.gunaEditSave.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.gunaEditSave.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.gunaEditSave.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.gunaEditSave.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.gunaEditSave.FillColor = System.Drawing.Color.White;
+            this.gunaEditSave.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gunaEditSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(95)))), ((int)(((byte)(110)))));
+            this.gunaEditSave.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(95)))), ((int)(((byte)(110)))));
+            this.gunaEditSave.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(95)))), ((int)(((byte)(110)))));
+            this.gunaEditSave.HoverState.ForeColor = System.Drawing.Color.White;
+            this.gunaEditSave.Location = new System.Drawing.Point(888, 168);
+            this.gunaEditSave.Name = "gunaEditSave";
+            this.gunaEditSave.Size = new System.Drawing.Size(201, 45);
+            this.gunaEditSave.TabIndex = 39;
+            this.gunaEditSave.Text = "Lưu chỉnh sửa";
+            this.gunaEditSave.TextTransform = Guna.UI2.WinForms.Enums.TextTransform.UpperCase;
+            this.gunaEditSave.Click += new System.EventHandler(this.gunaEditChange_Click);
             // 
             // frmChonChuyenBay
             // 
@@ -505,10 +562,10 @@
             this.pnlThongTinDatCho.ResumeLayout(false);
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
-            this.guna2Panel4.ResumeLayout(false);
-            this.guna2Panel4.PerformLayout();
-            this.pnlMotChieu.ResumeLayout(false);
-            this.pnlMotChieu.PerformLayout();
+            this.pnlRoundTrip.ResumeLayout(false);
+            this.pnlRoundTrip.PerformLayout();
+            this.pnlOneWay.ResumeLayout(false);
+            this.pnlOneWay.PerformLayout();
             this.pnlChange.ResumeLayout(false);
             this.pnlChange.PerformLayout();
             this.ResumeLayout(false);
@@ -523,7 +580,7 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel lblTo;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel3;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
-        private Guna.UI2.WinForms.Guna2Panel pnlMotChieu;
+        private Guna.UI2.WinForms.Guna2Panel pnlOneWay;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblDeparture;
         private Guna.UI2.WinForms.Guna2HtmlLabel dtpDeparture;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblReturn;
@@ -540,15 +597,16 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel6;
         private System.Windows.Forms.Label label1;
-        private Guna.UI2.WinForms.Guna2DateTimePicker dtpReturnDate;
+        private Guna.UI2.WinForms.Guna2DateTimePicker dtpNgayVe;
         private System.Windows.Forms.Label lblReturnDate;
         private Guna.UI2.WinForms.Guna2DateTimePicker dtpNgayDi;
         private Guna.UI2.WinForms.Guna2ComboBox cbSanBayDen;
         private Guna.UI2.WinForms.Guna2ComboBox cbSanBayDi;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel7;
         private Guna.UI2.WinForms.Guna2Button btnTotalCustomers;
-        private Guna.UI2.WinForms.Guna2Panel guna2Panel4;
+        private Guna.UI2.WinForms.Guna2Panel pnlRoundTrip;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
+        private Guna.UI2.WinForms.Guna2Button gunaEditSave;
     }
 }
