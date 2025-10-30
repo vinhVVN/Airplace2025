@@ -177,6 +177,7 @@
     </Compile>
     <Compile Include="State\PassengerSelectionState.cs" />
     <Compile Include="State\PassengerSelectionStateTemp.cs" />
+    <None Include="Resources\sliders-solid-full.png" />
     <EmbeddedResource Include="Controls\FlightLegControl.resx">
       <DependentUpon>FlightLegControl.cs</DependentUpon>
     </EmbeddedResource>

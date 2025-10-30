@@ -98,6 +98,8 @@ namespace Airplace2025
                 lblReturn.Visible = false;
                 dtpReturn.Visible = false;
             }
+
+            pnlChonChuyenBay.Location = new System.Drawing.Point(0, 100);
         }
 
         /// <summary>
@@ -256,7 +258,8 @@ namespace Airplace2025
            // When expanding, reflect the last saved trip type
            if (isExpanded)
            {
-               if (isRoundTrip)
+               pnlChonChuyenBay.Location = new System.Drawing.Point(0, 306);
+                if (isRoundTrip)
                {
                    btnRoundTrip.Checked = true;
                    btnOneWay.Checked = false;
@@ -266,7 +269,10 @@ namespace Airplace2025
                    btnRoundTrip.Checked = false;
                    btnOneWay.Checked = true;
                }
-           }
+           }else
+            {
+                pnlChonChuyenBay.Location = new System.Drawing.Point(0, 100);
+            }
         }
 
         private void btnTotalCustomers_Click(object sender, EventArgs e)

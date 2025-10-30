@@ -49,6 +49,7 @@
             this.lblTo = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblFrom = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnlChange = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.btnEditSave = new Guna.UI2.WinForms.Guna2Button();
             this.btnTotalCustomers = new Guna.UI2.WinForms.Guna2Button();
             this.guna2HtmlLabel7 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -62,11 +63,14 @@
             this.cbSanBayDi = new Guna.UI2.WinForms.Guna2ComboBox();
             this.btnOneWay = new Guna.UI2.WinForms.Guna2RadioButton();
             this.btnRoundTrip = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.pnlChonChuyenBay = new Guna.UI2.WinForms.Guna2Panel();
+            this.btnFilter = new Guna.UI2.WinForms.Guna2Button();
             this.pnlThongTinDatCho.SuspendLayout();
             this.pnlFlightInfo.SuspendLayout();
             this.pnlRoundTrip.SuspendLayout();
             this.pnlOneWay.SuspendLayout();
             this.pnlChange.SuspendLayout();
+            this.pnlChonChuyenBay.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlThongTinDatCho
@@ -308,6 +312,7 @@
             // 
             // pnlChange
             // 
+            this.pnlChange.Controls.Add(this.guna2Panel1);
             this.pnlChange.Controls.Add(this.btnEditSave);
             this.pnlChange.Controls.Add(this.btnTotalCustomers);
             this.pnlChange.Controls.Add(this.guna2HtmlLabel7);
@@ -322,12 +327,19 @@
             this.pnlChange.Controls.Add(this.btnOneWay);
             this.pnlChange.Controls.Add(this.btnRoundTrip);
             this.pnlChange.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(237)))), ((int)(((byte)(240)))));
-            this.pnlChange.Location = new System.Drawing.Point(1, 100);
+            this.pnlChange.Location = new System.Drawing.Point(0, 100);
             this.pnlChange.Name = "pnlChange";
             this.pnlChange.Size = new System.Drawing.Size(1122, 206);
             this.pnlChange.TabIndex = 1;
             this.pnlChange.Visible = false;
             this.pnlChange.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlChange_Paint);
+            // 
+            // guna2Panel1
+            // 
+            this.guna2Panel1.Location = new System.Drawing.Point(0, 208);
+            this.guna2Panel1.Name = "guna2Panel1";
+            this.guna2Panel1.Size = new System.Drawing.Size(200, 100);
+            this.guna2Panel1.TabIndex = 2;
             // 
             // btnEditSave
             // 
@@ -545,11 +557,47 @@
             this.btnRoundTrip.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
             this.btnRoundTrip.CheckedChanged += new System.EventHandler(this.btnRoundTrip_CheckedChanged);
             // 
+            // pnlChonChuyenBay
+            // 
+            this.pnlChonChuyenBay.Controls.Add(this.btnFilter);
+            this.pnlChonChuyenBay.Location = new System.Drawing.Point(0, 306);
+            this.pnlChonChuyenBay.Name = "pnlChonChuyenBay";
+            this.pnlChonChuyenBay.Size = new System.Drawing.Size(1122, 145);
+            this.pnlChonChuyenBay.TabIndex = 2;
+            // 
+            // btnFilter
+            // 
+            this.btnFilter.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(179)))), ((int)(((byte)(78)))));
+            this.btnFilter.BorderRadius = 8;
+            this.btnFilter.BorderThickness = 3;
+            this.btnFilter.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFilter.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnFilter.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnFilter.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnFilter.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnFilter.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(179)))), ((int)(((byte)(78)))));
+            this.btnFilter.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFilter.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnFilter.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(179)))), ((int)(((byte)(78)))));
+            this.btnFilter.HoverState.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(179)))), ((int)(((byte)(78)))));
+            this.btnFilter.HoverState.FillColor = System.Drawing.Color.DarkGray;
+            this.btnFilter.HoverState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnFilter.Image = global::Airplace2025.Properties.Resources.sliders_solid_full;
+            this.btnFilter.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnFilter.ImageOffset = new System.Drawing.Point(15, 0);
+            this.btnFilter.Location = new System.Drawing.Point(30, 30);
+            this.btnFilter.Name = "btnFilter";
+            this.btnFilter.Size = new System.Drawing.Size(200, 45);
+            this.btnFilter.TabIndex = 0;
+            this.btnFilter.Text = "HIỂN THỊ BỘ LỌC";
+            this.btnFilter.TextOffset = new System.Drawing.Point(10, 0);
+            // 
             // frmChonChuyenBay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1123, 484);
+            this.Controls.Add(this.pnlChonChuyenBay);
             this.Controls.Add(this.pnlChange);
             this.Controls.Add(this.pnlThongTinDatCho);
             this.Name = "frmChonChuyenBay";
@@ -565,6 +613,7 @@
             this.pnlOneWay.PerformLayout();
             this.pnlChange.ResumeLayout(false);
             this.pnlChange.PerformLayout();
+            this.pnlChonChuyenBay.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -605,5 +654,8 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
         private Guna.UI2.WinForms.Guna2Button btnEditSave;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
+        private Guna.UI2.WinForms.Guna2Panel pnlChonChuyenBay;
+        private Guna.UI2.WinForms.Guna2Button btnFilter;
     }
 }
