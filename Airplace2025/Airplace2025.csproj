@@ -95,6 +95,12 @@
     <Compile Include="Controls\FlightLegControl.Designer.cs">
       <DependentUpon>FlightLegControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="FilterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FilterForm.Designer.cs">
+      <DependentUpon>FilterForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,6 +186,9 @@
     <None Include="Resources\sliders-solid-full.png" />
     <EmbeddedResource Include="Controls\FlightLegControl.resx">
       <DependentUpon>FlightLegControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FilterForm.resx">
+      <DependentUpon>FilterForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

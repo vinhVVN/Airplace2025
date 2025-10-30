@@ -576,5 +576,10 @@ namespace Airplace2025
             return true;
         }
 
+        private void btnFilter_Click(object sender, EventArgs e)
+        {
+            FilterForm filterForm = new FilterForm();
+            filterForm.ShowDialog(this);
+        }
     }
 }

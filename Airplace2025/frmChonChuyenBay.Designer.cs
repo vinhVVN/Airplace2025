@@ -567,7 +567,7 @@
             // 
             // btnFilter
             // 
-            this.btnFilter.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(179)))), ((int)(((byte)(78)))));
+            this.btnFilter.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
             this.btnFilter.BorderRadius = 8;
             this.btnFilter.BorderThickness = 3;
             this.btnFilter.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -575,12 +575,12 @@
             this.btnFilter.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnFilter.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnFilter.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnFilter.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(179)))), ((int)(((byte)(78)))));
+            this.btnFilter.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
             this.btnFilter.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFilter.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnFilter.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(179)))), ((int)(((byte)(78)))));
-            this.btnFilter.HoverState.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(179)))), ((int)(((byte)(78)))));
-            this.btnFilter.HoverState.FillColor = System.Drawing.Color.DarkGray;
+            this.btnFilter.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.btnFilter.HoverState.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.btnFilter.HoverState.FillColor = System.Drawing.SystemColors.Control;
             this.btnFilter.HoverState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnFilter.Image = global::Airplace2025.Properties.Resources.sliders_solid_full;
             this.btnFilter.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -591,6 +591,7 @@
             this.btnFilter.TabIndex = 0;
             this.btnFilter.Text = "HIỂN THỊ BỘ LỌC";
             this.btnFilter.TextOffset = new System.Drawing.Point(10, 0);
+            this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
             // 
             // frmChonChuyenBay
             // 
