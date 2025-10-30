@@ -35,6 +35,12 @@
             this.lblFlightCount = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.scrollPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.pnlFlightTime = new Guna.UI2.WinForms.Guna2Panel();
+            this.pnlGioDi = new System.Windows.Forms.Panel();
+            this.rbDepartureEvening = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.rbDepartureAfternoon = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.rbDepartureMorning = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.rbDepartureAny = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.lblDepartureTime = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.rbArrivalAny = new Guna.UI2.WinForms.Guna2RadioButton();
             this.lblArrivalTime = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -56,18 +62,16 @@
             this.btnClose = new Guna.UI2.WinForms.Guna2Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.vScrollBar = new Guna.UI2.WinForms.Guna2VScrollBar();
-            this.pnlGioDi = new System.Windows.Forms.Panel();
-            this.rbDepartureEvening = new Guna.UI2.WinForms.Guna2RadioButton();
-            this.rbDepartureAfternoon = new Guna.UI2.WinForms.Guna2RadioButton();
-            this.rbDepartureMorning = new Guna.UI2.WinForms.Guna2RadioButton();
-            this.rbDepartureAny = new Guna.UI2.WinForms.Guna2RadioButton();
-            this.lblDepartureTime = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.rbArrivalMorning = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.rbArrivalAfternoon = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.rbArrivalEvening = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.pnlAirlines = new Guna.UI2.WinForms.Guna2Panel();
             this.mainPanel.SuspendLayout();
             this.scrollPanel.SuspendLayout();
             this.pnlFlightTime.SuspendLayout();
+            this.pnlGioDi.SuspendLayout();
             this.pnlStops.SuspendLayout();
             this.pnlBudget.SuspendLayout();
-            this.pnlGioDi.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPanel
@@ -148,6 +152,7 @@
             // scrollPanel
             // 
             this.scrollPanel.BackColor = System.Drawing.Color.White;
+            this.scrollPanel.Controls.Add(this.pnlAirlines);
             this.scrollPanel.Controls.Add(this.pnlFlightTime);
             this.scrollPanel.Controls.Add(this.pnlStops);
             this.scrollPanel.Controls.Add(this.pnlBudget);
@@ -160,6 +165,9 @@
             // 
             // pnlFlightTime
             // 
+            this.pnlFlightTime.Controls.Add(this.rbArrivalEvening);
+            this.pnlFlightTime.Controls.Add(this.rbArrivalAfternoon);
+            this.pnlFlightTime.Controls.Add(this.rbArrivalMorning);
             this.pnlFlightTime.Controls.Add(this.pnlGioDi);
             this.pnlFlightTime.Controls.Add(this.rbArrivalAny);
             this.pnlFlightTime.Controls.Add(this.lblArrivalTime);
@@ -168,8 +176,102 @@
             this.pnlFlightTime.Controls.Add(this.lblFlightTime);
             this.pnlFlightTime.Location = new System.Drawing.Point(0, 315);
             this.pnlFlightTime.Name = "pnlFlightTime";
-            this.pnlFlightTime.Size = new System.Drawing.Size(300, 310);
+            this.pnlFlightTime.Size = new System.Drawing.Size(300, 373);
             this.pnlFlightTime.TabIndex = 4;
+            // 
+            // pnlGioDi
+            // 
+            this.pnlGioDi.Controls.Add(this.rbDepartureEvening);
+            this.pnlGioDi.Controls.Add(this.rbDepartureAfternoon);
+            this.pnlGioDi.Controls.Add(this.rbDepartureMorning);
+            this.pnlGioDi.Controls.Add(this.rbDepartureAny);
+            this.pnlGioDi.Controls.Add(this.lblDepartureTime);
+            this.pnlGioDi.Location = new System.Drawing.Point(7, 43);
+            this.pnlGioDi.Name = "pnlGioDi";
+            this.pnlGioDi.Size = new System.Drawing.Size(200, 148);
+            this.pnlGioDi.TabIndex = 9;
+            // 
+            // rbDepartureEvening
+            // 
+            this.rbDepartureEvening.AutoSize = true;
+            this.rbDepartureEvening.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbDepartureEvening.CheckedState.BorderThickness = 0;
+            this.rbDepartureEvening.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbDepartureEvening.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.rbDepartureEvening.CheckedState.InnerOffset = -4;
+            this.rbDepartureEvening.Location = new System.Drawing.Point(3, 116);
+            this.rbDepartureEvening.Name = "rbDepartureEvening";
+            this.rbDepartureEvening.Size = new System.Drawing.Size(106, 17);
+            this.rbDepartureEvening.TabIndex = 11;
+            this.rbDepartureEvening.Text = "18:00 - 23:59 Tối";
+            this.rbDepartureEvening.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.rbDepartureEvening.UncheckedState.BorderThickness = 2;
+            this.rbDepartureEvening.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.rbDepartureEvening.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            // 
+            // rbDepartureAfternoon
+            // 
+            this.rbDepartureAfternoon.AutoSize = true;
+            this.rbDepartureAfternoon.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbDepartureAfternoon.CheckedState.BorderThickness = 0;
+            this.rbDepartureAfternoon.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbDepartureAfternoon.Location = new System.Drawing.Point(3, 86);
+            this.rbDepartureAfternoon.Name = "rbDepartureAfternoon";
+            this.rbDepartureAfternoon.Size = new System.Drawing.Size(112, 17);
+            this.rbDepartureAfternoon.TabIndex = 10;
+            this.rbDepartureAfternoon.Text = "2:00 - 17:59 Chiều";
+            this.rbDepartureAfternoon.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.rbDepartureAfternoon.UncheckedState.BorderThickness = 2;
+            this.rbDepartureAfternoon.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.rbDepartureAfternoon.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            // 
+            // rbDepartureMorning
+            // 
+            this.rbDepartureMorning.AutoSize = true;
+            this.rbDepartureMorning.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbDepartureMorning.CheckedState.BorderThickness = 0;
+            this.rbDepartureMorning.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbDepartureMorning.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.rbDepartureMorning.CheckedState.InnerOffset = -4;
+            this.rbDepartureMorning.Location = new System.Drawing.Point(3, 56);
+            this.rbDepartureMorning.Name = "rbDepartureMorning";
+            this.rbDepartureMorning.Size = new System.Drawing.Size(116, 17);
+            this.rbDepartureMorning.TabIndex = 9;
+            this.rbDepartureMorning.Text = "00:00 - 11:59 Sáng";
+            this.rbDepartureMorning.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.rbDepartureMorning.UncheckedState.BorderThickness = 2;
+            this.rbDepartureMorning.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.rbDepartureMorning.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            // 
+            // rbDepartureAny
+            // 
+            this.rbDepartureAny.AutoSize = true;
+            this.rbDepartureAny.Checked = true;
+            this.rbDepartureAny.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbDepartureAny.CheckedState.BorderThickness = 0;
+            this.rbDepartureAny.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbDepartureAny.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.rbDepartureAny.CheckedState.InnerOffset = -4;
+            this.rbDepartureAny.Location = new System.Drawing.Point(3, 26);
+            this.rbDepartureAny.Name = "rbDepartureAny";
+            this.rbDepartureAny.Size = new System.Drawing.Size(115, 17);
+            this.rbDepartureAny.TabIndex = 8;
+            this.rbDepartureAny.TabStop = true;
+            this.rbDepartureAny.Text = "Không có tùy chọn";
+            this.rbDepartureAny.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.rbDepartureAny.UncheckedState.BorderThickness = 2;
+            this.rbDepartureAny.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.rbDepartureAny.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            // 
+            // lblDepartureTime
+            // 
+            this.lblDepartureTime.BackColor = System.Drawing.Color.Transparent;
+            this.lblDepartureTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDepartureTime.Location = new System.Drawing.Point(3, 1);
+            this.lblDepartureTime.Name = "lblDepartureTime";
+            this.lblDepartureTime.Size = new System.Drawing.Size(81, 17);
+            this.lblDepartureTime.TabIndex = 7;
+            this.lblDepartureTime.Text = "Giờ khởi hành";
             // 
             // rbArrivalAny
             // 
@@ -472,106 +574,73 @@
             this.vScrollBar.ThumbColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(95)))), ((int)(((byte)(110)))));
             this.vScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vScrollBar_Scroll);
             // 
-            // pnlGioDi
+            // rbArrivalMorning
             // 
-            this.pnlGioDi.Controls.Add(this.rbDepartureEvening);
-            this.pnlGioDi.Controls.Add(this.rbDepartureAfternoon);
-            this.pnlGioDi.Controls.Add(this.rbDepartureMorning);
-            this.pnlGioDi.Controls.Add(this.rbDepartureAny);
-            this.pnlGioDi.Controls.Add(this.lblDepartureTime);
-            this.pnlGioDi.Location = new System.Drawing.Point(7, 43);
-            this.pnlGioDi.Name = "pnlGioDi";
-            this.pnlGioDi.Size = new System.Drawing.Size(200, 148);
-            this.pnlGioDi.TabIndex = 9;
+            this.rbArrivalMorning.AutoSize = true;
+            this.rbArrivalMorning.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbArrivalMorning.CheckedState.BorderThickness = 0;
+            this.rbArrivalMorning.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbArrivalMorning.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.rbArrivalMorning.CheckedState.InnerOffset = -4;
+            this.rbArrivalMorning.Location = new System.Drawing.Point(10, 245);
+            this.rbArrivalMorning.Name = "rbArrivalMorning";
+            this.rbArrivalMorning.Size = new System.Drawing.Size(116, 17);
+            this.rbArrivalMorning.TabIndex = 10;
+            this.rbArrivalMorning.Text = "00:00 - 11:59 Sáng";
+            this.rbArrivalMorning.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.rbArrivalMorning.UncheckedState.BorderThickness = 2;
+            this.rbArrivalMorning.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.rbArrivalMorning.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
             // 
-            // rbDepartureEvening
+            // rbArrivalAfternoon
             // 
-            this.rbDepartureEvening.AutoSize = true;
-            this.rbDepartureEvening.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
-            this.rbDepartureEvening.CheckedState.BorderThickness = 0;
-            this.rbDepartureEvening.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
-            this.rbDepartureEvening.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.rbDepartureEvening.CheckedState.InnerOffset = -4;
-            this.rbDepartureEvening.Location = new System.Drawing.Point(3, 116);
-            this.rbDepartureEvening.Name = "rbDepartureEvening";
-            this.rbDepartureEvening.Size = new System.Drawing.Size(106, 17);
-            this.rbDepartureEvening.TabIndex = 11;
-            this.rbDepartureEvening.Text = "18:00 - 23:59 Tối";
-            this.rbDepartureEvening.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.rbDepartureEvening.UncheckedState.BorderThickness = 2;
-            this.rbDepartureEvening.UncheckedState.FillColor = System.Drawing.Color.Transparent;
-            this.rbDepartureEvening.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            this.rbArrivalAfternoon.AutoSize = true;
+            this.rbArrivalAfternoon.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbArrivalAfternoon.CheckedState.BorderThickness = 0;
+            this.rbArrivalAfternoon.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbArrivalAfternoon.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.rbArrivalAfternoon.CheckedState.InnerOffset = -4;
+            this.rbArrivalAfternoon.Location = new System.Drawing.Point(10, 275);
+            this.rbArrivalAfternoon.Name = "rbArrivalAfternoon";
+            this.rbArrivalAfternoon.Size = new System.Drawing.Size(118, 17);
+            this.rbArrivalAfternoon.TabIndex = 11;
+            this.rbArrivalAfternoon.Text = "12:00 - 17:59 Chiều";
+            this.rbArrivalAfternoon.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.rbArrivalAfternoon.UncheckedState.BorderThickness = 2;
+            this.rbArrivalAfternoon.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.rbArrivalAfternoon.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
             // 
-            // rbDepartureAfternoon
+            // rbArrivalEvening
             // 
-            this.rbDepartureAfternoon.AutoSize = true;
-            this.rbDepartureAfternoon.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
-            this.rbDepartureAfternoon.CheckedState.BorderThickness = 0;
-            this.rbDepartureAfternoon.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
-            this.rbDepartureAfternoon.Location = new System.Drawing.Point(3, 86);
-            this.rbDepartureAfternoon.Name = "rbDepartureAfternoon";
-            this.rbDepartureAfternoon.Size = new System.Drawing.Size(112, 17);
-            this.rbDepartureAfternoon.TabIndex = 10;
-            this.rbDepartureAfternoon.Text = "2:00 - 17:59 Chiều";
-            this.rbDepartureAfternoon.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.rbDepartureAfternoon.UncheckedState.BorderThickness = 2;
-            this.rbDepartureAfternoon.UncheckedState.FillColor = System.Drawing.Color.Transparent;
-            this.rbDepartureAfternoon.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            this.rbArrivalEvening.AutoSize = true;
+            this.rbArrivalEvening.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbArrivalEvening.CheckedState.BorderThickness = 0;
+            this.rbArrivalEvening.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbArrivalEvening.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.rbArrivalEvening.CheckedState.InnerOffset = -4;
+            this.rbArrivalEvening.Location = new System.Drawing.Point(10, 305);
+            this.rbArrivalEvening.Name = "rbArrivalEvening";
+            this.rbArrivalEvening.Size = new System.Drawing.Size(106, 17);
+            this.rbArrivalEvening.TabIndex = 12;
+            this.rbArrivalEvening.Text = "18:00 - 23:59 Tối";
+            this.rbArrivalEvening.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.rbArrivalEvening.UncheckedState.BorderThickness = 2;
+            this.rbArrivalEvening.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.rbArrivalEvening.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
             // 
-            // rbDepartureMorning
+            // pnlAirlines
             // 
-            this.rbDepartureMorning.AutoSize = true;
-            this.rbDepartureMorning.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
-            this.rbDepartureMorning.CheckedState.BorderThickness = 0;
-            this.rbDepartureMorning.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
-            this.rbDepartureMorning.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.rbDepartureMorning.CheckedState.InnerOffset = -4;
-            this.rbDepartureMorning.Location = new System.Drawing.Point(3, 56);
-            this.rbDepartureMorning.Name = "rbDepartureMorning";
-            this.rbDepartureMorning.Size = new System.Drawing.Size(116, 17);
-            this.rbDepartureMorning.TabIndex = 9;
-            this.rbDepartureMorning.Text = "00:00 - 11:59 Sáng";
-            this.rbDepartureMorning.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.rbDepartureMorning.UncheckedState.BorderThickness = 2;
-            this.rbDepartureMorning.UncheckedState.FillColor = System.Drawing.Color.Transparent;
-            this.rbDepartureMorning.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
-            // 
-            // rbDepartureAny
-            // 
-            this.rbDepartureAny.AutoSize = true;
-            this.rbDepartureAny.Checked = true;
-            this.rbDepartureAny.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
-            this.rbDepartureAny.CheckedState.BorderThickness = 0;
-            this.rbDepartureAny.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
-            this.rbDepartureAny.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.rbDepartureAny.CheckedState.InnerOffset = -4;
-            this.rbDepartureAny.Location = new System.Drawing.Point(3, 26);
-            this.rbDepartureAny.Name = "rbDepartureAny";
-            this.rbDepartureAny.Size = new System.Drawing.Size(115, 17);
-            this.rbDepartureAny.TabIndex = 8;
-            this.rbDepartureAny.TabStop = true;
-            this.rbDepartureAny.Text = "Không có tùy chọn";
-            this.rbDepartureAny.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.rbDepartureAny.UncheckedState.BorderThickness = 2;
-            this.rbDepartureAny.UncheckedState.FillColor = System.Drawing.Color.Transparent;
-            this.rbDepartureAny.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
-            // 
-            // lblDepartureTime
-            // 
-            this.lblDepartureTime.BackColor = System.Drawing.Color.Transparent;
-            this.lblDepartureTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDepartureTime.Location = new System.Drawing.Point(3, 1);
-            this.lblDepartureTime.Name = "lblDepartureTime";
-            this.lblDepartureTime.Size = new System.Drawing.Size(81, 17);
-            this.lblDepartureTime.TabIndex = 7;
-            this.lblDepartureTime.Text = "Giờ khởi hành";
+            this.pnlAirlines.Location = new System.Drawing.Point(0, 800);
+            this.pnlAirlines.Name = "pnlAirlines";
+            this.pnlAirlines.Size = new System.Drawing.Size(300, 140);
+            this.pnlAirlines.TabIndex = 5;
             // 
             // FilterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.ClientSize = new System.Drawing.Size(400, 600);
+            this.ClientSize = new System.Drawing.Size(400, 788);
             this.Controls.Add(this.mainPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FilterForm";
@@ -584,12 +653,12 @@
             this.scrollPanel.PerformLayout();
             this.pnlFlightTime.ResumeLayout(false);
             this.pnlFlightTime.PerformLayout();
+            this.pnlGioDi.ResumeLayout(false);
+            this.pnlGioDi.PerformLayout();
             this.pnlStops.ResumeLayout(false);
             this.pnlStops.PerformLayout();
             this.pnlBudget.ResumeLayout(false);
             this.pnlBudget.PerformLayout();
-            this.pnlGioDi.ResumeLayout(false);
-            this.pnlGioDi.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -629,5 +698,9 @@
         private Guna.UI2.WinForms.Guna2RadioButton rbDepartureMorning;
         private Guna.UI2.WinForms.Guna2RadioButton rbDepartureAny;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblDepartureTime;
+        private Guna.UI2.WinForms.Guna2RadioButton rbArrivalMorning;
+        private Guna.UI2.WinForms.Guna2RadioButton rbArrivalAfternoon;
+        private Guna.UI2.WinForms.Guna2RadioButton rbArrivalEvening;
+        private Guna.UI2.WinForms.Guna2Panel pnlAirlines;
     }
 }

@@ -63,6 +63,7 @@ namespace Airplace2025
             btnBudgetToggle.Image = CreateArrowIcon(true);
             btnStopsToggle.Image = CreateArrowIcon(true);
             btnFlightTimeToggle.Image = CreateArrowIcon(true);
+            trackBudget.Value = trackBudget.Maximum;
         }
 
         private Image CreateArrowIcon(bool isDown)
