@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Guna.UI2.WinForms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,8 @@ namespace Airplace2025
 {
     public partial class FilterForm : Form
     {
+        private int scrollOffset = 0;
+        private const int SCROLL_AMOUNT = 30;
         public FilterForm()
         {
             InitializeComponent();
@@ -40,6 +43,9 @@ namespace Airplace2025
         private void FilterForm_Load(object sender, EventArgs e)
         {
             btnBudgetToggle.Image = CreateArrowIcon(true);
+            btnStopsToggle.Image = CreateArrowIcon(true);
+            this.MouseWheel += FilterForm_MouseWheel;
+            scrollPanel.MouseWheel += FilterForm_MouseWheel;
         }
 
         private Image CreateArrowIcon(bool isDown)
@@ -56,9 +62,25 @@ namespace Airplace2025
             return bmp;
         }
 
+        private void FilterForm_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (vScrollBar.Visible)
+            {
+                int newValue = vScrollBar.Value - (e.Delta / 120 * SCROLL_AMOUNT);
+                newValue = Math.Max(vScrollBar.Minimum, Math.Min(newValue, vScrollBar.Maximum));
+                vScrollBar.Value = newValue;
+
+                foreach (Control ctrl in scrollPanel.Controls)
+                {
+                    if (ctrl.Tag == null) ctrl.Tag = ctrl.Top + vScrollBar.Value;
+                    ctrl.Top = (int)ctrl.Tag - vScrollBar.Value;
+                }
+            }
+        }
+
         private void btnBudgetToggle_Click(object sender, EventArgs e)
         {
-
+            ToggleSection(pnlBudget, btnBudgetToggle);
         }
 
         private void trackBudget_Scroll(object sender, ScrollEventArgs e)
@@ -84,6 +106,66 @@ namespace Airplace2025
                 lblMaxPrice.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
                 lblMinPrice.ForeColor = System.Drawing.Color.Black;
             }
+        }
+
+        private void btnStopsToggle_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ToggleSection(Guna2Panel panel, Guna2ImageButton btn)
+        {
+            bool isExpanded = panel.Height > 50;
+            if (isExpanded)
+            {
+                panel.Height = 40;
+                btn.Image = CreateArrowIcon(false);
+                foreach (Control ctrl in panel.Controls)
+                {
+                    if (ctrl != lblBudget && ctrl != btn)
+                    {
+                        ctrl.Visible = false;
+                    }
+                }
+            }
+            else
+            {
+                if (panel == pnlBudget) panel.Height = 120;
+                else if (panel == pnlStops) panel.Height = 100;
+
+                btn.Image = CreateArrowIcon(true);
+                foreach (Control ctrl in panel.Controls)
+                {
+                    ctrl.Visible = true;
+                }
+            }
+            UpdateScrollBar(GetTotalContentHeight());
+        }
+
+        private void UpdateScrollBar(int contentHeight)
+        {
+            int visibleHeight = scrollPanel.Height;
+            if (contentHeight > visibleHeight)
+            {
+                vScrollBar.Visible = true;
+                vScrollBar.Maximum = contentHeight - visibleHeight + 100;
+                vScrollBar.LargeChange = visibleHeight / 10;
+            }
+            else
+            {
+                vScrollBar.Visible = false;
+            }
+        }
+
+        private int GetTotalContentHeight()
+        {
+            int maxY = 0;
+            foreach (Control ctrl in scrollPanel.Controls)
+            {
+                int bottom = ctrl.Location.Y + ctrl.Height;
+                if (bottom > maxY) maxY = bottom;
+            }
+            return maxY;
         }
     }
 }

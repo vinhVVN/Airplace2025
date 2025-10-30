@@ -45,9 +45,15 @@
             this.btnClose = new Guna.UI2.WinForms.Guna2Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.vScrollBar = new Guna.UI2.WinForms.Guna2VScrollBar();
+            this.pnlStops = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.btnStopsToggle = new Guna.UI2.WinForms.Guna2ImageButton();
+            this.rbNoStop = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.rbDirectOnly = new Guna.UI2.WinForms.Guna2RadioButton();
             this.mainPanel.SuspendLayout();
             this.scrollPanel.SuspendLayout();
             this.pnlBudget.SuspendLayout();
+            this.pnlStops.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPanel
@@ -128,6 +134,7 @@
             // scrollPanel
             // 
             this.scrollPanel.BackColor = System.Drawing.Color.White;
+            this.scrollPanel.Controls.Add(this.pnlStops);
             this.scrollPanel.Controls.Add(this.pnlBudget);
             this.scrollPanel.Controls.Add(this.guna2ComboBox1);
             this.scrollPanel.Controls.Add(this.lblKhoang);
@@ -143,7 +150,7 @@
             this.pnlBudget.Controls.Add(this.trackBudget);
             this.pnlBudget.Controls.Add(this.btnBudgetToggle);
             this.pnlBudget.Controls.Add(this.lblBudget);
-            this.pnlBudget.Location = new System.Drawing.Point(0, 85);
+            this.pnlBudget.Location = new System.Drawing.Point(0, 75);
             this.pnlBudget.Name = "pnlBudget";
             this.pnlBudget.Size = new System.Drawing.Size(300, 120);
             this.pnlBudget.TabIndex = 2;
@@ -179,7 +186,7 @@
             this.trackBudget.Name = "trackBudget";
             this.trackBudget.Size = new System.Drawing.Size(270, 23);
             this.trackBudget.TabIndex = 2;
-            this.trackBudget.ThumbColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
+            this.trackBudget.ThumbColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
             this.trackBudget.Value = 3063;
             this.trackBudget.ValueChanged += new System.EventHandler(this.trackBudget_ValueChanged);
             this.trackBudget.Scroll += new System.Windows.Forms.ScrollEventHandler(this.trackBudget_Scroll);
@@ -291,6 +298,84 @@
             this.vScrollBar.ThumbColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(95)))), ((int)(((byte)(110)))));
             this.vScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vScrollBar_Scroll);
             // 
+            // pnlStops
+            // 
+            this.pnlStops.Controls.Add(this.rbDirectOnly);
+            this.pnlStops.Controls.Add(this.rbNoStop);
+            this.pnlStops.Controls.Add(this.btnStopsToggle);
+            this.pnlStops.Controls.Add(this.guna2HtmlLabel1);
+            this.pnlStops.Location = new System.Drawing.Point(0, 205);
+            this.pnlStops.Name = "pnlStops";
+            this.pnlStops.Size = new System.Drawing.Size(300, 100);
+            this.pnlStops.TabIndex = 3;
+            // 
+            // guna2HtmlLabel1
+            // 
+            this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(11, 18);
+            this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(141, 19);
+            this.guna2HtmlLabel1.TabIndex = 0;
+            this.guna2HtmlLabel1.Text = "Số sân bay nối chuyến";
+            // 
+            // btnStopsToggle
+            // 
+            this.btnStopsToggle.BackColor = System.Drawing.Color.Transparent;
+            this.btnStopsToggle.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.btnStopsToggle.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStopsToggle.HoverState.ImageSize = new System.Drawing.Size(64, 64);
+            this.btnStopsToggle.Image = ((System.Drawing.Image)(resources.GetObject("btnStopsToggle.Image")));
+            this.btnStopsToggle.ImageOffset = new System.Drawing.Point(0, 0);
+            this.btnStopsToggle.ImageRotate = 0F;
+            this.btnStopsToggle.ImageSize = new System.Drawing.Size(15, 15);
+            this.btnStopsToggle.Location = new System.Drawing.Point(265, 8);
+            this.btnStopsToggle.Name = "btnStopsToggle";
+            this.btnStopsToggle.PressedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.btnStopsToggle.Size = new System.Drawing.Size(20, 20);
+            this.btnStopsToggle.TabIndex = 1;
+            this.btnStopsToggle.Click += new System.EventHandler(this.btnStopsToggle_Click);
+            // 
+            // rbNoStop
+            // 
+            this.rbNoStop.AutoSize = true;
+            this.rbNoStop.Checked = true;
+            this.rbNoStop.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbNoStop.CheckedState.BorderThickness = 0;
+            this.rbNoStop.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbNoStop.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.rbNoStop.CheckedState.InnerOffset = -4;
+            this.rbNoStop.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.rbNoStop.Location = new System.Drawing.Point(10, 45);
+            this.rbNoStop.Name = "rbNoStop";
+            this.rbNoStop.Size = new System.Drawing.Size(115, 17);
+            this.rbNoStop.TabIndex = 2;
+            this.rbNoStop.TabStop = true;
+            this.rbNoStop.Text = "Không có tùy chọn";
+            this.rbNoStop.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.rbNoStop.UncheckedState.BorderThickness = 2;
+            this.rbNoStop.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.rbNoStop.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            // 
+            // rbDirectOnly
+            // 
+            this.rbDirectOnly.AutoSize = true;
+            this.rbDirectOnly.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbDirectOnly.CheckedState.BorderThickness = 0;
+            this.rbDirectOnly.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbDirectOnly.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.rbDirectOnly.CheckedState.InnerOffset = -4;
+            this.rbDirectOnly.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.rbDirectOnly.Location = new System.Drawing.Point(10, 70);
+            this.rbDirectOnly.Name = "rbDirectOnly";
+            this.rbDirectOnly.Size = new System.Drawing.Size(143, 17);
+            this.rbDirectOnly.TabIndex = 3;
+            this.rbDirectOnly.Text = "Chỉ có chuyến bay thẳng";
+            this.rbDirectOnly.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.rbDirectOnly.UncheckedState.BorderThickness = 2;
+            this.rbDirectOnly.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.rbDirectOnly.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            // 
             // FilterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -309,6 +394,8 @@
             this.scrollPanel.PerformLayout();
             this.pnlBudget.ResumeLayout(false);
             this.pnlBudget.PerformLayout();
+            this.pnlStops.ResumeLayout(false);
+            this.pnlStops.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -331,5 +418,10 @@
         private Guna.UI2.WinForms.Guna2TrackBar trackBudget;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblMinPrice;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblMaxPrice;
+        private Guna.UI2.WinForms.Guna2Panel pnlStops;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
+        private Guna.UI2.WinForms.Guna2ImageButton btnStopsToggle;
+        private Guna.UI2.WinForms.Guna2RadioButton rbNoStop;
+        private Guna.UI2.WinForms.Guna2RadioButton rbDirectOnly;
     }
 }
