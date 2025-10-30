@@ -20,9 +20,26 @@ namespace Airplace2025
             InitializeComponent();
         }
 
+        private void SetupForm()
+        {
+            // Set initial positions as tags for all controls
+            foreach (Control ctrl in scrollPanel.Controls)
+            {
+                ctrl.Tag = ctrl.Top;
+            }
+
+            // Enable mouse wheel scrolling
+            this.MouseWheel += FilterForm_MouseWheel;
+            scrollPanel.MouseWheel += FilterForm_MouseWheel;
+        }
+
         private void vScrollBar_Scroll(object sender, ScrollEventArgs e)
         {
-
+            scrollOffset = e.NewValue;
+            foreach (Control ctrl in scrollPanel.Controls)
+            {
+                ctrl.Top = ctrl.Tag != null ? (int)ctrl.Tag - scrollOffset : ctrl.Top;
+            }
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -42,10 +59,10 @@ namespace Airplace2025
 
         private void FilterForm_Load(object sender, EventArgs e)
         {
+            SetupForm();
             btnBudgetToggle.Image = CreateArrowIcon(true);
             btnStopsToggle.Image = CreateArrowIcon(true);
-            this.MouseWheel += FilterForm_MouseWheel;
-            scrollPanel.MouseWheel += FilterForm_MouseWheel;
+            btnFlightTimeToggle.Image = CreateArrowIcon(true);
         }
 
         private Image CreateArrowIcon(bool isDown)

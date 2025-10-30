@@ -34,6 +34,17 @@
             this.btnReset = new Guna.UI2.WinForms.Guna2Button();
             this.lblFlightCount = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.scrollPanel = new Guna.UI2.WinForms.Guna2Panel();
+            this.pnlFlightTime = new Guna.UI2.WinForms.Guna2Panel();
+            this.rbArrivalAny = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.lblArrivalTime = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.btnFlightTimeToggle = new Guna.UI2.WinForms.Guna2ImageButton();
+            this.lblFlightTime = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.pnlStops = new Guna.UI2.WinForms.Guna2Panel();
+            this.rbDirectOnly = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.rbNoStop = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.btnStopsToggle = new Guna.UI2.WinForms.Guna2ImageButton();
+            this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnlBudget = new Guna.UI2.WinForms.Guna2Panel();
             this.lblMaxPrice = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblMinPrice = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -45,15 +56,18 @@
             this.btnClose = new Guna.UI2.WinForms.Guna2Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.vScrollBar = new Guna.UI2.WinForms.Guna2VScrollBar();
-            this.pnlStops = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.btnStopsToggle = new Guna.UI2.WinForms.Guna2ImageButton();
-            this.rbNoStop = new Guna.UI2.WinForms.Guna2RadioButton();
-            this.rbDirectOnly = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.pnlGioDi = new System.Windows.Forms.Panel();
+            this.rbDepartureEvening = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.rbDepartureAfternoon = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.rbDepartureMorning = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.rbDepartureAny = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.lblDepartureTime = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.mainPanel.SuspendLayout();
             this.scrollPanel.SuspendLayout();
-            this.pnlBudget.SuspendLayout();
+            this.pnlFlightTime.SuspendLayout();
             this.pnlStops.SuspendLayout();
+            this.pnlBudget.SuspendLayout();
+            this.pnlGioDi.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPanel
@@ -134,6 +148,7 @@
             // scrollPanel
             // 
             this.scrollPanel.BackColor = System.Drawing.Color.White;
+            this.scrollPanel.Controls.Add(this.pnlFlightTime);
             this.scrollPanel.Controls.Add(this.pnlStops);
             this.scrollPanel.Controls.Add(this.pnlBudget);
             this.scrollPanel.Controls.Add(this.guna2ComboBox1);
@@ -142,6 +157,164 @@
             this.scrollPanel.Name = "scrollPanel";
             this.scrollPanel.Size = new System.Drawing.Size(310, 430);
             this.scrollPanel.TabIndex = 2;
+            // 
+            // pnlFlightTime
+            // 
+            this.pnlFlightTime.Controls.Add(this.pnlGioDi);
+            this.pnlFlightTime.Controls.Add(this.rbArrivalAny);
+            this.pnlFlightTime.Controls.Add(this.lblArrivalTime);
+            this.pnlFlightTime.Controls.Add(this.guna2HtmlLabel2);
+            this.pnlFlightTime.Controls.Add(this.btnFlightTimeToggle);
+            this.pnlFlightTime.Controls.Add(this.lblFlightTime);
+            this.pnlFlightTime.Location = new System.Drawing.Point(0, 315);
+            this.pnlFlightTime.Name = "pnlFlightTime";
+            this.pnlFlightTime.Size = new System.Drawing.Size(300, 310);
+            this.pnlFlightTime.TabIndex = 4;
+            // 
+            // rbArrivalAny
+            // 
+            this.rbArrivalAny.AutoSize = true;
+            this.rbArrivalAny.Checked = true;
+            this.rbArrivalAny.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
+            this.rbArrivalAny.CheckedState.BorderThickness = 0;
+            this.rbArrivalAny.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
+            this.rbArrivalAny.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.rbArrivalAny.CheckedState.InnerOffset = -4;
+            this.rbArrivalAny.Location = new System.Drawing.Point(10, 215);
+            this.rbArrivalAny.Name = "rbArrivalAny";
+            this.rbArrivalAny.Size = new System.Drawing.Size(115, 17);
+            this.rbArrivalAny.TabIndex = 8;
+            this.rbArrivalAny.TabStop = true;
+            this.rbArrivalAny.Text = "Không có tùy chọn";
+            this.rbArrivalAny.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.rbArrivalAny.UncheckedState.BorderThickness = 2;
+            this.rbArrivalAny.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.rbArrivalAny.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            // 
+            // lblArrivalTime
+            // 
+            this.lblArrivalTime.BackColor = System.Drawing.Color.Transparent;
+            this.lblArrivalTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblArrivalTime.Location = new System.Drawing.Point(10, 190);
+            this.lblArrivalTime.Name = "lblArrivalTime";
+            this.lblArrivalTime.Size = new System.Drawing.Size(53, 17);
+            this.lblArrivalTime.TabIndex = 7;
+            this.lblArrivalTime.Text = "Giờ đến";
+            // 
+            // guna2HtmlLabel2
+            // 
+            this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel2.Location = new System.Drawing.Point(0, 0);
+            this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
+            this.guna2HtmlLabel2.Size = new System.Drawing.Size(3, 2);
+            this.guna2HtmlLabel2.TabIndex = 0;
+            this.guna2HtmlLabel2.Text = null;
+            // 
+            // btnFlightTimeToggle
+            // 
+            this.btnFlightTimeToggle.BackColor = System.Drawing.Color.Transparent;
+            this.btnFlightTimeToggle.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.btnFlightTimeToggle.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFlightTimeToggle.HoverState.ImageSize = new System.Drawing.Size(64, 64);
+            this.btnFlightTimeToggle.Image = ((System.Drawing.Image)(resources.GetObject("btnFlightTimeToggle.Image")));
+            this.btnFlightTimeToggle.ImageOffset = new System.Drawing.Point(0, 0);
+            this.btnFlightTimeToggle.ImageRotate = 0F;
+            this.btnFlightTimeToggle.ImageSize = new System.Drawing.Size(15, 15);
+            this.btnFlightTimeToggle.Location = new System.Drawing.Point(265, 8);
+            this.btnFlightTimeToggle.Name = "btnFlightTimeToggle";
+            this.btnFlightTimeToggle.PressedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.btnFlightTimeToggle.Size = new System.Drawing.Size(20, 20);
+            this.btnFlightTimeToggle.TabIndex = 1;
+            // 
+            // lblFlightTime
+            // 
+            this.lblFlightTime.BackColor = System.Drawing.Color.Transparent;
+            this.lblFlightTime.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFlightTime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(95)))), ((int)(((byte)(110)))));
+            this.lblFlightTime.Location = new System.Drawing.Point(10, 10);
+            this.lblFlightTime.Name = "lblFlightTime";
+            this.lblFlightTime.Size = new System.Drawing.Size(88, 19);
+            this.lblFlightTime.TabIndex = 0;
+            this.lblFlightTime.Text = "Thời gian bay";
+            // 
+            // pnlStops
+            // 
+            this.pnlStops.Controls.Add(this.rbDirectOnly);
+            this.pnlStops.Controls.Add(this.rbNoStop);
+            this.pnlStops.Controls.Add(this.btnStopsToggle);
+            this.pnlStops.Controls.Add(this.guna2HtmlLabel1);
+            this.pnlStops.Location = new System.Drawing.Point(0, 205);
+            this.pnlStops.Name = "pnlStops";
+            this.pnlStops.Size = new System.Drawing.Size(300, 100);
+            this.pnlStops.TabIndex = 3;
+            // 
+            // rbDirectOnly
+            // 
+            this.rbDirectOnly.AutoSize = true;
+            this.rbDirectOnly.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbDirectOnly.CheckedState.BorderThickness = 0;
+            this.rbDirectOnly.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbDirectOnly.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.rbDirectOnly.CheckedState.InnerOffset = -4;
+            this.rbDirectOnly.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.rbDirectOnly.Location = new System.Drawing.Point(10, 70);
+            this.rbDirectOnly.Name = "rbDirectOnly";
+            this.rbDirectOnly.Size = new System.Drawing.Size(143, 17);
+            this.rbDirectOnly.TabIndex = 3;
+            this.rbDirectOnly.Text = "Chỉ có chuyến bay thẳng";
+            this.rbDirectOnly.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.rbDirectOnly.UncheckedState.BorderThickness = 2;
+            this.rbDirectOnly.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.rbDirectOnly.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            // 
+            // rbNoStop
+            // 
+            this.rbNoStop.AutoSize = true;
+            this.rbNoStop.Checked = true;
+            this.rbNoStop.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbNoStop.CheckedState.BorderThickness = 0;
+            this.rbNoStop.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbNoStop.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.rbNoStop.CheckedState.InnerOffset = -4;
+            this.rbNoStop.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.rbNoStop.Location = new System.Drawing.Point(10, 45);
+            this.rbNoStop.Name = "rbNoStop";
+            this.rbNoStop.Size = new System.Drawing.Size(115, 17);
+            this.rbNoStop.TabIndex = 2;
+            this.rbNoStop.TabStop = true;
+            this.rbNoStop.Text = "Không có tùy chọn";
+            this.rbNoStop.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.rbNoStop.UncheckedState.BorderThickness = 2;
+            this.rbNoStop.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.rbNoStop.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            // 
+            // btnStopsToggle
+            // 
+            this.btnStopsToggle.BackColor = System.Drawing.Color.Transparent;
+            this.btnStopsToggle.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.btnStopsToggle.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStopsToggle.HoverState.ImageSize = new System.Drawing.Size(64, 64);
+            this.btnStopsToggle.Image = ((System.Drawing.Image)(resources.GetObject("btnStopsToggle.Image")));
+            this.btnStopsToggle.ImageOffset = new System.Drawing.Point(0, 0);
+            this.btnStopsToggle.ImageRotate = 0F;
+            this.btnStopsToggle.ImageSize = new System.Drawing.Size(15, 15);
+            this.btnStopsToggle.Location = new System.Drawing.Point(265, 8);
+            this.btnStopsToggle.Name = "btnStopsToggle";
+            this.btnStopsToggle.PressedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.btnStopsToggle.Size = new System.Drawing.Size(20, 20);
+            this.btnStopsToggle.TabIndex = 1;
+            this.btnStopsToggle.Click += new System.EventHandler(this.btnStopsToggle_Click);
+            // 
+            // guna2HtmlLabel1
+            // 
+            this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(95)))), ((int)(((byte)(110)))));
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(11, 18);
+            this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(141, 19);
+            this.guna2HtmlLabel1.TabIndex = 0;
+            this.guna2HtmlLabel1.Text = "Số sân bay nối chuyến";
             // 
             // pnlBudget
             // 
@@ -291,6 +464,7 @@
             this.vScrollBar.InUpdate = false;
             this.vScrollBar.LargeChange = 10;
             this.vScrollBar.Location = new System.Drawing.Point(330, 60);
+            this.vScrollBar.Maximum = 999;
             this.vScrollBar.Name = "vScrollBar";
             this.vScrollBar.ScrollbarSize = 15;
             this.vScrollBar.Size = new System.Drawing.Size(15, 430);
@@ -298,83 +472,99 @@
             this.vScrollBar.ThumbColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(95)))), ((int)(((byte)(110)))));
             this.vScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vScrollBar_Scroll);
             // 
-            // pnlStops
+            // pnlGioDi
             // 
-            this.pnlStops.Controls.Add(this.rbDirectOnly);
-            this.pnlStops.Controls.Add(this.rbNoStop);
-            this.pnlStops.Controls.Add(this.btnStopsToggle);
-            this.pnlStops.Controls.Add(this.guna2HtmlLabel1);
-            this.pnlStops.Location = new System.Drawing.Point(0, 205);
-            this.pnlStops.Name = "pnlStops";
-            this.pnlStops.Size = new System.Drawing.Size(300, 100);
-            this.pnlStops.TabIndex = 3;
+            this.pnlGioDi.Controls.Add(this.rbDepartureEvening);
+            this.pnlGioDi.Controls.Add(this.rbDepartureAfternoon);
+            this.pnlGioDi.Controls.Add(this.rbDepartureMorning);
+            this.pnlGioDi.Controls.Add(this.rbDepartureAny);
+            this.pnlGioDi.Controls.Add(this.lblDepartureTime);
+            this.pnlGioDi.Location = new System.Drawing.Point(7, 43);
+            this.pnlGioDi.Name = "pnlGioDi";
+            this.pnlGioDi.Size = new System.Drawing.Size(200, 148);
+            this.pnlGioDi.TabIndex = 9;
             // 
-            // guna2HtmlLabel1
+            // rbDepartureEvening
             // 
-            this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel1.Location = new System.Drawing.Point(11, 18);
-            this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(141, 19);
-            this.guna2HtmlLabel1.TabIndex = 0;
-            this.guna2HtmlLabel1.Text = "Số sân bay nối chuyến";
+            this.rbDepartureEvening.AutoSize = true;
+            this.rbDepartureEvening.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbDepartureEvening.CheckedState.BorderThickness = 0;
+            this.rbDepartureEvening.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbDepartureEvening.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.rbDepartureEvening.CheckedState.InnerOffset = -4;
+            this.rbDepartureEvening.Location = new System.Drawing.Point(3, 116);
+            this.rbDepartureEvening.Name = "rbDepartureEvening";
+            this.rbDepartureEvening.Size = new System.Drawing.Size(106, 17);
+            this.rbDepartureEvening.TabIndex = 11;
+            this.rbDepartureEvening.Text = "18:00 - 23:59 Tối";
+            this.rbDepartureEvening.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.rbDepartureEvening.UncheckedState.BorderThickness = 2;
+            this.rbDepartureEvening.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.rbDepartureEvening.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
             // 
-            // btnStopsToggle
+            // rbDepartureAfternoon
             // 
-            this.btnStopsToggle.BackColor = System.Drawing.Color.Transparent;
-            this.btnStopsToggle.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.btnStopsToggle.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnStopsToggle.HoverState.ImageSize = new System.Drawing.Size(64, 64);
-            this.btnStopsToggle.Image = ((System.Drawing.Image)(resources.GetObject("btnStopsToggle.Image")));
-            this.btnStopsToggle.ImageOffset = new System.Drawing.Point(0, 0);
-            this.btnStopsToggle.ImageRotate = 0F;
-            this.btnStopsToggle.ImageSize = new System.Drawing.Size(15, 15);
-            this.btnStopsToggle.Location = new System.Drawing.Point(265, 8);
-            this.btnStopsToggle.Name = "btnStopsToggle";
-            this.btnStopsToggle.PressedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.btnStopsToggle.Size = new System.Drawing.Size(20, 20);
-            this.btnStopsToggle.TabIndex = 1;
-            this.btnStopsToggle.Click += new System.EventHandler(this.btnStopsToggle_Click);
+            this.rbDepartureAfternoon.AutoSize = true;
+            this.rbDepartureAfternoon.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbDepartureAfternoon.CheckedState.BorderThickness = 0;
+            this.rbDepartureAfternoon.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbDepartureAfternoon.Location = new System.Drawing.Point(3, 86);
+            this.rbDepartureAfternoon.Name = "rbDepartureAfternoon";
+            this.rbDepartureAfternoon.Size = new System.Drawing.Size(112, 17);
+            this.rbDepartureAfternoon.TabIndex = 10;
+            this.rbDepartureAfternoon.Text = "2:00 - 17:59 Chiều";
+            this.rbDepartureAfternoon.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.rbDepartureAfternoon.UncheckedState.BorderThickness = 2;
+            this.rbDepartureAfternoon.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.rbDepartureAfternoon.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
             // 
-            // rbNoStop
+            // rbDepartureMorning
             // 
-            this.rbNoStop.AutoSize = true;
-            this.rbNoStop.Checked = true;
-            this.rbNoStop.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
-            this.rbNoStop.CheckedState.BorderThickness = 0;
-            this.rbNoStop.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
-            this.rbNoStop.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.rbNoStop.CheckedState.InnerOffset = -4;
-            this.rbNoStop.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.rbNoStop.Location = new System.Drawing.Point(10, 45);
-            this.rbNoStop.Name = "rbNoStop";
-            this.rbNoStop.Size = new System.Drawing.Size(115, 17);
-            this.rbNoStop.TabIndex = 2;
-            this.rbNoStop.TabStop = true;
-            this.rbNoStop.Text = "Không có tùy chọn";
-            this.rbNoStop.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.rbNoStop.UncheckedState.BorderThickness = 2;
-            this.rbNoStop.UncheckedState.FillColor = System.Drawing.Color.Transparent;
-            this.rbNoStop.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            this.rbDepartureMorning.AutoSize = true;
+            this.rbDepartureMorning.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbDepartureMorning.CheckedState.BorderThickness = 0;
+            this.rbDepartureMorning.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbDepartureMorning.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.rbDepartureMorning.CheckedState.InnerOffset = -4;
+            this.rbDepartureMorning.Location = new System.Drawing.Point(3, 56);
+            this.rbDepartureMorning.Name = "rbDepartureMorning";
+            this.rbDepartureMorning.Size = new System.Drawing.Size(116, 17);
+            this.rbDepartureMorning.TabIndex = 9;
+            this.rbDepartureMorning.Text = "00:00 - 11:59 Sáng";
+            this.rbDepartureMorning.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.rbDepartureMorning.UncheckedState.BorderThickness = 2;
+            this.rbDepartureMorning.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.rbDepartureMorning.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
             // 
-            // rbDirectOnly
+            // rbDepartureAny
             // 
-            this.rbDirectOnly.AutoSize = true;
-            this.rbDirectOnly.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
-            this.rbDirectOnly.CheckedState.BorderThickness = 0;
-            this.rbDirectOnly.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
-            this.rbDirectOnly.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.rbDirectOnly.CheckedState.InnerOffset = -4;
-            this.rbDirectOnly.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.rbDirectOnly.Location = new System.Drawing.Point(10, 70);
-            this.rbDirectOnly.Name = "rbDirectOnly";
-            this.rbDirectOnly.Size = new System.Drawing.Size(143, 17);
-            this.rbDirectOnly.TabIndex = 3;
-            this.rbDirectOnly.Text = "Chỉ có chuyến bay thẳng";
-            this.rbDirectOnly.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.rbDirectOnly.UncheckedState.BorderThickness = 2;
-            this.rbDirectOnly.UncheckedState.FillColor = System.Drawing.Color.Transparent;
-            this.rbDirectOnly.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            this.rbDepartureAny.AutoSize = true;
+            this.rbDepartureAny.Checked = true;
+            this.rbDepartureAny.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbDepartureAny.CheckedState.BorderThickness = 0;
+            this.rbDepartureAny.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.rbDepartureAny.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.rbDepartureAny.CheckedState.InnerOffset = -4;
+            this.rbDepartureAny.Location = new System.Drawing.Point(3, 26);
+            this.rbDepartureAny.Name = "rbDepartureAny";
+            this.rbDepartureAny.Size = new System.Drawing.Size(115, 17);
+            this.rbDepartureAny.TabIndex = 8;
+            this.rbDepartureAny.TabStop = true;
+            this.rbDepartureAny.Text = "Không có tùy chọn";
+            this.rbDepartureAny.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.rbDepartureAny.UncheckedState.BorderThickness = 2;
+            this.rbDepartureAny.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.rbDepartureAny.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            // 
+            // lblDepartureTime
+            // 
+            this.lblDepartureTime.BackColor = System.Drawing.Color.Transparent;
+            this.lblDepartureTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDepartureTime.Location = new System.Drawing.Point(3, 1);
+            this.lblDepartureTime.Name = "lblDepartureTime";
+            this.lblDepartureTime.Size = new System.Drawing.Size(81, 17);
+            this.lblDepartureTime.TabIndex = 7;
+            this.lblDepartureTime.Text = "Giờ khởi hành";
             // 
             // FilterForm
             // 
@@ -392,10 +582,14 @@
             this.mainPanel.PerformLayout();
             this.scrollPanel.ResumeLayout(false);
             this.scrollPanel.PerformLayout();
-            this.pnlBudget.ResumeLayout(false);
-            this.pnlBudget.PerformLayout();
+            this.pnlFlightTime.ResumeLayout(false);
+            this.pnlFlightTime.PerformLayout();
             this.pnlStops.ResumeLayout(false);
             this.pnlStops.PerformLayout();
+            this.pnlBudget.ResumeLayout(false);
+            this.pnlBudget.PerformLayout();
+            this.pnlGioDi.ResumeLayout(false);
+            this.pnlGioDi.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -423,5 +617,17 @@
         private Guna.UI2.WinForms.Guna2ImageButton btnStopsToggle;
         private Guna.UI2.WinForms.Guna2RadioButton rbNoStop;
         private Guna.UI2.WinForms.Guna2RadioButton rbDirectOnly;
+        private Guna.UI2.WinForms.Guna2Panel pnlFlightTime;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblFlightTime;
+        private Guna.UI2.WinForms.Guna2ImageButton btnFlightTimeToggle;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblArrivalTime;
+        private Guna.UI2.WinForms.Guna2RadioButton rbArrivalAny;
+        private System.Windows.Forms.Panel pnlGioDi;
+        private Guna.UI2.WinForms.Guna2RadioButton rbDepartureEvening;
+        private Guna.UI2.WinForms.Guna2RadioButton rbDepartureAfternoon;
+        private Guna.UI2.WinForms.Guna2RadioButton rbDepartureMorning;
+        private Guna.UI2.WinForms.Guna2RadioButton rbDepartureAny;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblDepartureTime;
     }
 }
