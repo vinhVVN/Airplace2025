@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata" />
+          <xsd:element name="assembly" />
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader" />
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </schema>
+  
+  <data name="pnlLeft.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+      iVBORw0KGgoAAAANSUhEUgAAASwAAACeCAIAAAC0f3+kAAAAA3NCSVQICAjb4U/gAAAD1ElEQVR4nO3dy27bSBQG4f/A...[CHUỖI BASE64 CỦA ẢNH MÁY BAY]...
+    </value>
+    <comment>Hình ảnh nền máy bay cho panel bên trái.</comment>
+  </data>
+  
+  <data name="txtMatKhau.IconRight" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+      iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpfaeQAAADrklEQVR4nO3d4VlbVxoH4H/d+25r+27...[CHUỖI BASE64 CỦA ICON CON MẮT]...
+    </value>
+    <comment>Icon con mắt (hiển thị/ẩn mật khẩu) cho TextBox mật khẩu.</comment>
+  </data>
+  
+  <data name="$this.Text" xml:space="preserve">
+    <value>Đăng nhập</value>
+    <comment>Tiêu đề của Form</comment>
+  </data>
+  
+  <data name="lblDangNhapTitle.Text" xml:space="preserve">
+    <value>Đăng nhập</value>
+    <comment>Tiêu đề trong panel bên phải</comment>
+  </data>
+
+  <data name="lblQuenMatKhau.Text" xml:space="preserve">
+    <value>Quên mật khẩu</value>
+  </data>
+  <data name="btnDangNhap.Text" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+  <data name="txtEmail.PlaceholderText" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="txtMatKhau.PlaceholderText" xml:space="preserve">
+    <value>Mật khẩu</value>
+  </data>
+
+</root>
