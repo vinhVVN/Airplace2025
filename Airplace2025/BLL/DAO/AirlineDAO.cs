@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Airplace2025.DAL;
+using System.Windows.Forms;
 
 namespace Airplace2025.BLL.DAO
 {
@@ -33,6 +34,37 @@ namespace Airplace2025.BLL.DAO
             }
             return dt;
         }
+
+        public void InsertAirline(string MaHangBay, string TenHangBay, string MoTa)
+        {
+            using (SqlConnection con = DBConnection.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand("sp_ThemHangBay", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@MaHangBay", MaHangBay);
+                cmd.Parameters.AddWithValue("@TenHangBay", TenHangBay);
+                cmd.Parameters.AddWithValue("@MoTa", MoTa);
+
+                try
+                {
+                    con.Open();
+
+                    if (cmd.ExecuteNonQuery() > 0)
+                    {
+                        MessageBox.Show("Thêm hãng bay thành công!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Thêm hãng bay thất bại, vui lòng kiểm tra lại dữ liệu.");
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine($"Lỗi khi thêm hãng bay: {ex.Message}");
+                }
+            }
+        }
+
 
     }
 }

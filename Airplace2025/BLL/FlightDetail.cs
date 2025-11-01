@@ -41,7 +41,6 @@ namespace Airplace2025.BLL
                 }
                 using (var ms = new MemoryStream(byteArray, 0, byteArray.Length))
                 {
-                    ms.Write(byteArray, 0, byteArray.Length);
                     return Image.FromStream(ms, true);
                 }
             }
