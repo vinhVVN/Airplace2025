@@ -157,7 +157,10 @@
   <data name="noun-entertainment-6988208" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\noun-entertainment-6988208.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pngaaa.com-791768" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pngaaa.com-791768.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+	<data name="pngaaa.com-791768" type="System.Resources.ResXFileRef, System.Windows.Forms">
+		<value>..\Resources\pngaaa.com-791768.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+	</data>
+  <data name="sliders-solid-full" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sliders-solid-full.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
