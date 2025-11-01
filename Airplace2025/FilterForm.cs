@@ -49,7 +49,12 @@ namespace Airplace2025
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-
+            cboKhoang.SelectedIndex = 0;
+            trackBudget.Value = trackBudget.Maximum;
+            rbNoStop.Checked = true;
+            rbDepartureAny.Checked = true;
+            rbArrivalAny.Checked = true;
+            chkAllAirlines.Checked = true;
         }
 
         private void mainPanel_Paint(object sender, PaintEventArgs e)
@@ -60,9 +65,6 @@ namespace Airplace2025
         private void FilterForm_Load(object sender, EventArgs e)
         {
             SetupForm();
-            btnBudgetToggle.Image = CreateArrowIcon(true);
-            btnStopsToggle.Image = CreateArrowIcon(true);
-            btnFlightTimeToggle.Image = CreateArrowIcon(true);
             trackBudget.Value = trackBudget.Maximum;
         }
 
@@ -96,11 +98,6 @@ namespace Airplace2025
             }
         }
 
-        private void btnBudgetToggle_Click(object sender, EventArgs e)
-        {
-            ToggleSection(pnlBudget, btnBudgetToggle);
-        }
-
         private void trackBudget_Scroll(object sender, ScrollEventArgs e)
         {
 
@@ -126,11 +123,6 @@ namespace Airplace2025
             }
         }
 
-        private void btnStopsToggle_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void ToggleSection(Guna2Panel panel, Guna2ImageButton btn)
         {
             bool isExpanded = panel.Height > 50;
@@ -140,7 +132,8 @@ namespace Airplace2025
                 btn.Image = CreateArrowIcon(false);
                 foreach (Control ctrl in panel.Controls)
                 {
-                    if (ctrl != lblBudget && ctrl != btn)
+                    if (ctrl != lblBudget && ctrl != lblStops && ctrl != lblFlightTime &&
+                        ctrl != lblAirlines && ctrl != btn)
                     {
                         ctrl.Visible = false;
                     }
@@ -150,6 +143,8 @@ namespace Airplace2025
             {
                 if (panel == pnlBudget) panel.Height = 120;
                 else if (panel == pnlStops) panel.Height = 100;
+                else if (panel == pnlFlightTime) panel.Height = 280;
+                else if (panel == pnlAirlines) panel.Height = 140;
 
                 btn.Image = CreateArrowIcon(true);
                 foreach (Control ctrl in panel.Controls)
@@ -173,6 +168,7 @@ namespace Airplace2025
             {
                 vScrollBar.Visible = false;
             }
+            vScrollBar.Maximum = 999;
         }
 
         private int GetTotalContentHeight()
@@ -184,6 +180,23 @@ namespace Airplace2025
                 if (bottom > maxY) maxY = bottom;
             }
             return maxY;
+        }
+
+        private void chkAllAirlines_CheckedChanged(object sender, EventArgs e)
+        {
+            chkPacificAirlines.Checked = chkAllAirlines.Checked;
+            chkVietnamAirlines.Checked = chkAllAirlines.Checked;
+        }
+
+        private void btnApply_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Đã áp dụng bộ lọc!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Close();
+        }
+
+        private void FilterForm_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
         }
     }
 }
