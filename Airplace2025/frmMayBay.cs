@@ -56,7 +56,7 @@ namespace Airplace2025
                 rowDangSua = null;
                 KichHoatControl(false);
                 btnFind.Enabled = true;
-                btnAdd.Enabled = true;
+                btnAddAirplane.Enabled = true;
             }
 
             if (dgvAirplane.SelectedRows.Count > 0)
@@ -131,7 +131,7 @@ namespace Airplace2025
                     rowDangSua = rowHienTai;
                     KichHoatControl(true);
                     btnFind.Enabled = false;
-                    btnAdd.Enabled = false;
+                    btnAddAirplane.Enabled = false;
 
                 }
                 else if (rowDangSua == rowHienTai)
@@ -189,7 +189,7 @@ namespace Airplace2025
                             rowDangSua = null;
                             KichHoatControl(false);
                             btnFind.Enabled = true;
-                            btnAdd.Enabled = true;
+                            btnAddAirplane.Enabled = true;
                             MessageBox.Show("Cập nhật thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             LoadAirplane("Tất cả");
                         }
@@ -264,6 +264,20 @@ namespace Airplace2025
         private void btnFind_Click(object sender, EventArgs e)
         {
             LoadAirplane(cbHangBay.Text);
+        }
+
+        private void btnAddAirplane_Click(object sender, EventArgs e)
+        {
+            frmAddAirplane frm = new frmAddAirplane();
+            frm.ShowDialog();
+            LoadAirplane("Tất cả");
+        }
+
+        private void btnAddAirline_Click(object sender, EventArgs e)
+        {
+            frmAddAirline frm = new frmAddAirline();
+            frm.ShowDialog();
+            LoadAllAirline();
         }
     }
 }

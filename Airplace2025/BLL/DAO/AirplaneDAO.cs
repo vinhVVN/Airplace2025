@@ -120,5 +120,37 @@ namespace Airplace2025.BLL.DAO
             }
         }
 
+
+        public void InsertAirplane(string MaMayBay, string TenMayBay, int SoGhe, string MaHangBay)
+        {
+            using (SqlConnection con = DBConnection.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand("sp_ThemMayBay", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@MaMayBay", MaMayBay);
+                cmd.Parameters.AddWithValue("@TenMayBay", TenMayBay);
+                cmd.Parameters.AddWithValue("@SoGhe", SoGhe);
+                cmd.Parameters.AddWithValue("@MaHangBay", MaHangBay);
+
+                try
+                {
+                    con.Open();
+
+                    if (cmd.ExecuteNonQuery() > 0)
+                    {
+                        MessageBox.Show("Thêm máy bay thành công!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Thêm máy bay thất bại, vui lòng kiểm tra lại dữ liệu.");
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine($"Lỗi khi thêm máy bay: {ex.Message}");
+                }
+            }
+        }
+
     }
 }
