@@ -103,6 +103,16 @@ namespace Airplace2025.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap noun_backspace_8069349 {
+            get {
+                object obj = ResourceManager.GetObject("noun-backspace-8069349", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap noun_entertainment_6988208 {
             get {
                 object obj = ResourceManager.GetObject("noun-entertainment-6988208", resourceCulture);
@@ -116,6 +126,16 @@ namespace Airplace2025.Properties {
         internal static System.Drawing.Bitmap noun_meal_8091868 {
             get {
                 object obj = ResourceManager.GetObject("noun-meal-8091868", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap noun_pen_6860043 {
+            get {
+                object obj = ResourceManager.GetObject("noun-pen-6860043", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -163,9 +183,29 @@ namespace Airplace2025.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap pngaaa_com_791768 {
+            get {
+                object obj = ResourceManager.GetObject("pngaaa.com-791768", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap pngwing_com__1_ {
             get {
                 object obj = ResourceManager.GetObject("pngwing.com (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap sliders_solid_full {
+            get {
+                object obj = ResourceManager.GetObject("sliders-solid-full", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

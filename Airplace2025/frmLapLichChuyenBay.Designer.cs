@@ -66,10 +66,15 @@
             this.guna2GroupBox1 = new Guna.UI2.WinForms.Guna2GroupBox();
             this.dgvFareClass = new Guna.UI2.WinForms.Guna2DataGridView();
             this.dgvTrungGian = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.MaSanBay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ThuTu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TenSanBay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ThoiGianDung = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ThoiGianChuyen = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GhiChu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label6 = new System.Windows.Forms.Label();
             this.gbHangBay = new Guna.UI2.WinForms.Guna2GroupBox();
             this.txtMoTaHangBay = new System.Windows.Forms.TextBox();
-            this.imgLogo = new System.Windows.Forms.PictureBox();
             this.txtSeat = new Guna.UI2.WinForms.Guna2TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.cbAirplane = new Guna.UI2.WinForms.Guna2ComboBox();
@@ -83,24 +88,19 @@
             this.btnAddAirport = new Guna.UI2.WinForms.Guna2Button();
             this.btnNew = new Guna.UI2.WinForms.Guna2Button();
             this.txtQuyTac = new System.Windows.Forms.TextBox();
+            this.imgLogo = new System.Windows.Forms.PictureBox();
             this.btnAdd = new System.Windows.Forms.PictureBox();
             this.btnDel = new System.Windows.Forms.PictureBox();
             this.btnEditFlight = new System.Windows.Forms.PictureBox();
             this.txtTimKiemChuyenBay = new Guna.UI2.WinForms.Guna2TextBox();
-            this.MaSanBay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ThuTu = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TenSanBay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ThoiGianDung = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ThoiGianChuyen = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GhiChu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbTim.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvChuyenBay)).BeginInit();
             this.guna2GroupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFareClass)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrungGian)).BeginInit();
             this.gbHangBay.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             this.gbChucNang.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnEditFlight)).BeginInit();
@@ -603,6 +603,57 @@
             this.dgvTrungGian.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvTrungGian.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             // 
+            // MaSanBay
+            // 
+            this.MaSanBay.DataPropertyName = "MaSanBay";
+            this.MaSanBay.HeaderText = "Mã Sân Bay";
+            this.MaSanBay.Name = "MaSanBay";
+            this.MaSanBay.ReadOnly = true;
+            this.MaSanBay.Visible = false;
+            // 
+            // ThuTu
+            // 
+            this.ThuTu.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ThuTu.DataPropertyName = "ThuTu";
+            this.ThuTu.HeaderText = "STT";
+            this.ThuTu.Name = "ThuTu";
+            this.ThuTu.ReadOnly = true;
+            this.ThuTu.Width = 30;
+            // 
+            // TenSanBay
+            // 
+            this.TenSanBay.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.TenSanBay.DataPropertyName = "TenSanBay";
+            this.TenSanBay.HeaderText = "Tên Sân Bay";
+            this.TenSanBay.Name = "TenSanBay";
+            this.TenSanBay.ReadOnly = true;
+            this.TenSanBay.Width = 200;
+            // 
+            // ThoiGianDung
+            // 
+            this.ThoiGianDung.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ThoiGianDung.DataPropertyName = "ThoiGianDung";
+            this.ThoiGianDung.HeaderText = "Thời Gian Dừng";
+            this.ThoiGianDung.Name = "ThoiGianDung";
+            this.ThoiGianDung.ReadOnly = true;
+            this.ThoiGianDung.Width = 70;
+            // 
+            // ThoiGianChuyen
+            // 
+            this.ThoiGianChuyen.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ThoiGianChuyen.DataPropertyName = "ThoiGianChuyen";
+            this.ThoiGianChuyen.HeaderText = "Thời Gian Chuyển";
+            this.ThoiGianChuyen.Name = "ThoiGianChuyen";
+            this.ThoiGianChuyen.ReadOnly = true;
+            this.ThoiGianChuyen.Width = 70;
+            // 
+            // GhiChu
+            // 
+            this.GhiChu.DataPropertyName = "GhiChu";
+            this.GhiChu.HeaderText = "Ghi Chú";
+            this.GhiChu.Name = "GhiChu";
+            this.GhiChu.ReadOnly = true;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -648,15 +699,6 @@
             this.txtMoTaHangBay.Size = new System.Drawing.Size(169, 62);
             this.txtMoTaHangBay.TabIndex = 26;
             this.txtMoTaHangBay.Visible = false;
-            // 
-            // imgLogo
-            // 
-            this.imgLogo.Location = new System.Drawing.Point(9, 101);
-            this.imgLogo.Name = "imgLogo";
-            this.imgLogo.Size = new System.Drawing.Size(50, 42);
-            this.imgLogo.TabIndex = 25;
-            this.imgLogo.TabStop = false;
-            this.imgLogo.Visible = false;
             // 
             // txtSeat
             // 
@@ -833,6 +875,15 @@
             this.txtQuyTac.TabIndex = 27;
             this.txtQuyTac.Text = "Quy tắc:\r\n";
             // 
+            // imgLogo
+            // 
+            this.imgLogo.Location = new System.Drawing.Point(9, 101);
+            this.imgLogo.Name = "imgLogo";
+            this.imgLogo.Size = new System.Drawing.Size(50, 42);
+            this.imgLogo.TabIndex = 25;
+            this.imgLogo.TabStop = false;
+            this.imgLogo.Visible = false;
+            // 
             // btnAdd
             // 
             this.btnAdd.Image = global::Airplace2025.Properties.Resources.add_square_512x512;
@@ -883,57 +934,6 @@
             this.txtTimKiemChuyenBay.TabIndex = 11;
             this.txtTimKiemChuyenBay.TextChanged += new System.EventHandler(this.txtTimKiemChuyenBay_TextChanged);
             // 
-            // MaSanBay
-            // 
-            this.MaSanBay.DataPropertyName = "MaSanBay";
-            this.MaSanBay.HeaderText = "Mã Sân Bay";
-            this.MaSanBay.Name = "MaSanBay";
-            this.MaSanBay.ReadOnly = true;
-            this.MaSanBay.Visible = false;
-            // 
-            // ThuTu
-            // 
-            this.ThuTu.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ThuTu.DataPropertyName = "ThuTu";
-            this.ThuTu.HeaderText = "STT";
-            this.ThuTu.Name = "ThuTu";
-            this.ThuTu.ReadOnly = true;
-            this.ThuTu.Width = 30;
-            // 
-            // TenSanBay
-            // 
-            this.TenSanBay.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.TenSanBay.DataPropertyName = "TenSanBay";
-            this.TenSanBay.HeaderText = "Tên Sân Bay";
-            this.TenSanBay.Name = "TenSanBay";
-            this.TenSanBay.ReadOnly = true;
-            this.TenSanBay.Width = 200;
-            // 
-            // ThoiGianDung
-            // 
-            this.ThoiGianDung.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ThoiGianDung.DataPropertyName = "ThoiGianDung";
-            this.ThoiGianDung.HeaderText = "Thời Gian Dừng";
-            this.ThoiGianDung.Name = "ThoiGianDung";
-            this.ThoiGianDung.ReadOnly = true;
-            this.ThoiGianDung.Width = 70;
-            // 
-            // ThoiGianChuyen
-            // 
-            this.ThoiGianChuyen.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ThoiGianChuyen.DataPropertyName = "ThoiGianChuyen";
-            this.ThoiGianChuyen.HeaderText = "Thời Gian Chuyển";
-            this.ThoiGianChuyen.Name = "ThoiGianChuyen";
-            this.ThoiGianChuyen.ReadOnly = true;
-            this.ThoiGianChuyen.Width = 70;
-            // 
-            // GhiChu
-            // 
-            this.GhiChu.DataPropertyName = "GhiChu";
-            this.GhiChu.HeaderText = "Ghi Chú";
-            this.GhiChu.Name = "GhiChu";
-            this.GhiChu.ReadOnly = true;
-            // 
             // frmLapLichChuyenBay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -966,8 +966,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrungGian)).EndInit();
             this.gbHangBay.ResumeLayout(false);
             this.gbHangBay.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).EndInit();
             this.gbChucNang.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnEditFlight)).EndInit();

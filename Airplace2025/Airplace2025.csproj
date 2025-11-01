@@ -51,11 +51,14 @@
     <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.3537.50, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.WebView2.1.0.3537.50\lib\net462\Microsoft.Web.WebView2.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
     <Reference Include="System.Management" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -65,6 +68,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\DAO\StopDAO.cs" />
@@ -91,17 +95,47 @@
     <Compile Include="Controls\FlightLegControl.Designer.cs">
       <DependentUpon>FlightLegControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="FilterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FilterForm.Designer.cs">
+      <DependentUpon>FilterForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmAddAirline.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddAirline.Designer.cs">
+      <DependentUpon>frmAddAirline.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddAirplane.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddAirplane.Designer.cs">
+      <DependentUpon>frmAddAirplane.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmChonChuyenBay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChonChuyenBay.Designer.cs">
+      <DependentUpon>frmChonChuyenBay.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmChonKhachHang.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmChonKhachHang.Designer.cs">
       <DependentUpon>frmChonKhachHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMayBay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMayBay.Designer.cs">
+      <DependentUpon>frmMayBay.cs</DependentUpon>
     </Compile>
     <Compile Include="frmPassengerDetails.cs">
       <SubType>Form</SubType>
@@ -114,6 +148,12 @@
     </Compile>
     <Compile Include="frmSeatSelection.Designer.cs">
       <DependentUpon>frmSeatSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSoLuongKhachHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSoLuongKhachHang.Designer.cs">
+      <DependentUpon>frmSoLuongKhachHang.cs</DependentUpon>
     </Compile>
     <Compile Include="frmThemTrungGian.cs">
       <SubType>Form</SubType>
@@ -159,17 +199,38 @@
     <Compile Include="Controls\StopControl.Designer.cs">
       <DependentUpon>StopControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="State\PassengerSelectionState.cs" />
+    <Compile Include="State\PassengerSelectionStateTemp.cs" />
+    <None Include="Resources\sliders-solid-full.png" />
     <EmbeddedResource Include="Controls\FlightLegControl.resx">
       <DependentUpon>FlightLegControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FilterForm.resx">
+      <DependentUpon>FilterForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmAddAirline.resx">
+      <DependentUpon>frmAddAirline.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddAirplane.resx">
+      <DependentUpon>frmAddAirplane.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmChonChuyenBay.resx">
+      <DependentUpon>frmChonChuyenBay.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmChonKhachHang.resx">
       <DependentUpon>frmChonKhachHang.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmMayBay.resx">
+      <DependentUpon>frmMayBay.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmPassengerDetails.resx">
       <DependentUpon>frmPassengerDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSoLuongKhachHang.resx">
+      <DependentUpon>frmSoLuongKhachHang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmThemTrungGian.resx">
       <DependentUpon>frmThemTrungGian.cs</DependentUpon>
@@ -224,6 +285,9 @@
     <Content Include="map.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\pngaaa.com-791768.png" />
+    <None Include="Resources\noun-backspace-8069349.png" />
+    <None Include="Resources\noun-pen-6860043.png" />
     <None Include="Resources\add-square.512x512.png" />
     <None Include="Resources\noun-setting-8140887.png" />
     <None Include="Resources\dustbin.png" />
@@ -236,7 +300,6 @@
     <None Include="Resources\noun-x-4572560.png" />
     <None Include="Resources\plane-icon.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Web.WebView2.1.0.3537.50\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\packages\Microsoft.Web.WebView2.1.0.3537.50\build\Microsoft.Web.WebView2.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
