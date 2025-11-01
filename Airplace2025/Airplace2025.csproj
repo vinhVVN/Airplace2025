@@ -103,6 +103,12 @@
     <Compile Include="frmChonKhachHang.Designer.cs">
       <DependentUpon>frmChonKhachHang.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMayBay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMayBay.Designer.cs">
+      <DependentUpon>frmMayBay.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPassengerDetails.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -168,6 +174,9 @@
     <EmbeddedResource Include="frmChonKhachHang.resx">
       <DependentUpon>frmChonKhachHang.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmMayBay.resx">
+      <DependentUpon>frmMayBay.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmPassengerDetails.resx">
       <DependentUpon>frmPassengerDetails.cs</DependentUpon>
     </EmbeddedResource>
@@ -224,6 +233,9 @@
     <Content Include="map.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\pngaaa.com-791768.png" />
+    <None Include="Resources\noun-backspace-8069349.png" />
+    <None Include="Resources\noun-pen-6860043.png" />
     <None Include="Resources\add-square.512x512.png" />
     <None Include="Resources\noun-setting-8140887.png" />
     <None Include="Resources\dustbin.png" />
