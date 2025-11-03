@@ -103,6 +103,16 @@ namespace Airplace2025.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap mb1 {
+            get {
+                object obj = ResourceManager.GetObject("mb1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap noun_backspace_8069349 {
             get {
                 object obj = ResourceManager.GetObject("noun-backspace-8069349", resourceCulture);

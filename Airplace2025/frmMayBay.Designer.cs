@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gbTim = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.btnAddAirplane = new System.Windows.Forms.PictureBox();
             this.txtAirplaneId = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtSeat = new Guna.UI2.WinForms.Guna2TextBox();
             this.lbThoiGianBay = new System.Windows.Forms.Label();
@@ -50,7 +51,11 @@
             this.TenHangBay = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MoTa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Logo = new System.Windows.Forms.DataGridViewImageColumn();
+            this.btnEdit = new System.Windows.Forms.DataGridViewImageColumn();
+            this.btnDel = new System.Windows.Forms.DataGridViewImageColumn();
             this.guna2GroupBox2 = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.btnAddAirline = new System.Windows.Forms.PictureBox();
+            this.imgLogo = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtAirlineId = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtDescrip = new Guna.UI2.WinForms.Guna2TextBox();
@@ -60,18 +65,13 @@
             this.label5 = new System.Windows.Forms.Label();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.btnAddAirline = new System.Windows.Forms.PictureBox();
-            this.imgLogo = new System.Windows.Forms.PictureBox();
-            this.btnEdit = new System.Windows.Forms.DataGridViewImageColumn();
-            this.btnDel = new System.Windows.Forms.DataGridViewImageColumn();
-            this.btnAddAirplane = new System.Windows.Forms.PictureBox();
             this.gbTim.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAddAirplane)).BeginInit();
             this.guna2GroupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAirplane)).BeginInit();
             this.guna2GroupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddAirline)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnAddAirplane)).BeginInit();
             this.SuspendLayout();
             // 
             // gbTim
@@ -88,11 +88,23 @@
             this.gbTim.CustomBorderColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.gbTim.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbTim.ForeColor = System.Drawing.Color.Black;
-            this.gbTim.Location = new System.Drawing.Point(19, 111);
+            this.gbTim.Location = new System.Drawing.Point(19, 128);
             this.gbTim.Name = "gbTim";
             this.gbTim.Size = new System.Drawing.Size(423, 166);
             this.gbTim.TabIndex = 2;
             this.gbTim.Text = "Thông tin máy bay";
+            // 
+            // btnAddAirplane
+            // 
+            this.btnAddAirplane.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.btnAddAirplane.Image = global::Airplace2025.Properties.Resources.add_square_512x512;
+            this.btnAddAirplane.Location = new System.Drawing.Point(374, 8);
+            this.btnAddAirplane.Name = "btnAddAirplane";
+            this.btnAddAirplane.Size = new System.Drawing.Size(37, 25);
+            this.btnAddAirplane.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnAddAirplane.TabIndex = 34;
+            this.btnAddAirplane.TabStop = false;
+            this.btnAddAirplane.Click += new System.EventHandler(this.btnAddAirplane_Click);
             // 
             // txtAirplaneId
             // 
@@ -228,18 +240,18 @@
             this.dgvAirplane.AllowUserToDeleteRows = false;
             this.dgvAirplane.AllowUserToResizeColumns = false;
             this.dgvAirplane.AllowUserToResizeRows = false;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgvAirplane.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(64)))), ((int)(((byte)(86)))));
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(90)))), ((int)(((byte)(120)))));
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAirplane.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvAirplane.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(64)))), ((int)(((byte)(86)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(90)))), ((int)(((byte)(120)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAirplane.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvAirplane.ColumnHeadersHeight = 50;
             this.dgvAirplane.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.MaMayBay,
@@ -252,14 +264,14 @@
             this.btnEdit,
             this.btnDel});
             this.dgvAirplane.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Segoe UI", 10F);
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvAirplane.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 10F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAirplane.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvAirplane.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
             this.dgvAirplane.Location = new System.Drawing.Point(451, 14);
             this.dgvAirplane.Name = "dgvAirplane";
@@ -268,7 +280,7 @@
             this.dgvAirplane.RowHeadersWidth = 123;
             this.dgvAirplane.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvAirplane.RowTemplate.Height = 60;
-            this.dgvAirplane.Size = new System.Drawing.Size(679, 480);
+            this.dgvAirplane.Size = new System.Drawing.Size(737, 529);
             this.dgvAirplane.TabIndex = 32;
             this.dgvAirplane.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.dgvAirplane.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -357,6 +369,26 @@
             this.Logo.Name = "Logo";
             this.Logo.ReadOnly = true;
             // 
+            // btnEdit
+            // 
+            this.btnEdit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.btnEdit.HeaderText = "";
+            this.btnEdit.Image = global::Airplace2025.Properties.Resources.noun_pen_6860043;
+            this.btnEdit.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.ReadOnly = true;
+            this.btnEdit.Width = 50;
+            // 
+            // btnDel
+            // 
+            this.btnDel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.btnDel.HeaderText = "";
+            this.btnDel.Image = global::Airplace2025.Properties.Resources.noun_backspace_8069349;
+            this.btnDel.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.btnDel.Name = "btnDel";
+            this.btnDel.ReadOnly = true;
+            this.btnDel.Width = 50;
+            // 
             // guna2GroupBox2
             // 
             this.guna2GroupBox2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -373,11 +405,34 @@
             this.guna2GroupBox2.CustomBorderColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.guna2GroupBox2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2GroupBox2.ForeColor = System.Drawing.Color.Black;
-            this.guna2GroupBox2.Location = new System.Drawing.Point(22, 289);
+            this.guna2GroupBox2.Location = new System.Drawing.Point(19, 321);
             this.guna2GroupBox2.Name = "guna2GroupBox2";
             this.guna2GroupBox2.Size = new System.Drawing.Size(423, 222);
             this.guna2GroupBox2.TabIndex = 33;
             this.guna2GroupBox2.Text = "Thông tin hãng bay";
+            // 
+            // btnAddAirline
+            // 
+            this.btnAddAirline.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.btnAddAirline.Image = global::Airplace2025.Properties.Resources.add_square_512x512;
+            this.btnAddAirline.Location = new System.Drawing.Point(371, 9);
+            this.btnAddAirline.Name = "btnAddAirline";
+            this.btnAddAirline.Size = new System.Drawing.Size(37, 25);
+            this.btnAddAirline.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnAddAirline.TabIndex = 35;
+            this.btnAddAirline.TabStop = false;
+            this.btnAddAirline.Click += new System.EventHandler(this.btnAddAirline_Click);
+            // 
+            // imgLogo
+            // 
+            this.imgLogo.Image = global::Airplace2025.Properties.Resources.pngaaa_com_791768;
+            this.imgLogo.Location = new System.Drawing.Point(326, 107);
+            this.imgLogo.Name = "imgLogo";
+            this.imgLogo.Size = new System.Drawing.Size(66, 58);
+            this.imgLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.imgLogo.TabIndex = 26;
+            this.imgLogo.TabStop = false;
+            this.imgLogo.DoubleClick += new System.EventHandler(this.imgLogo_DoubleClick);
             // 
             // label1
             // 
@@ -485,67 +540,12 @@
             this.dataGridViewImageColumn2.ReadOnly = true;
             this.dataGridViewImageColumn2.Width = 50;
             // 
-            // btnAddAirline
-            // 
-            this.btnAddAirline.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.btnAddAirline.Image = global::Airplace2025.Properties.Resources.add_square_512x512;
-            this.btnAddAirline.Location = new System.Drawing.Point(371, 9);
-            this.btnAddAirline.Name = "btnAddAirline";
-            this.btnAddAirline.Size = new System.Drawing.Size(37, 25);
-            this.btnAddAirline.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnAddAirline.TabIndex = 35;
-            this.btnAddAirline.TabStop = false;
-            this.btnAddAirline.Click += new System.EventHandler(this.btnAddAirline_Click);
-            // 
-            // imgLogo
-            // 
-            this.imgLogo.Image = global::Airplace2025.Properties.Resources.pngaaa_com_791768;
-            this.imgLogo.Location = new System.Drawing.Point(326, 107);
-            this.imgLogo.Name = "imgLogo";
-            this.imgLogo.Size = new System.Drawing.Size(66, 58);
-            this.imgLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.imgLogo.TabIndex = 26;
-            this.imgLogo.TabStop = false;
-            this.imgLogo.DoubleClick += new System.EventHandler(this.imgLogo_DoubleClick);
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.btnEdit.HeaderText = "";
-            this.btnEdit.Image = global::Airplace2025.Properties.Resources.noun_pen_6860043;
-            this.btnEdit.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.ReadOnly = true;
-            this.btnEdit.Width = 50;
-            // 
-            // btnDel
-            // 
-            this.btnDel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.btnDel.HeaderText = "";
-            this.btnDel.Image = global::Airplace2025.Properties.Resources.noun_backspace_8069349;
-            this.btnDel.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.btnDel.Name = "btnDel";
-            this.btnDel.ReadOnly = true;
-            this.btnDel.Width = 50;
-            // 
-            // btnAddAirplane
-            // 
-            this.btnAddAirplane.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.btnAddAirplane.Image = global::Airplace2025.Properties.Resources.add_square_512x512;
-            this.btnAddAirplane.Location = new System.Drawing.Point(374, 8);
-            this.btnAddAirplane.Name = "btnAddAirplane";
-            this.btnAddAirplane.Size = new System.Drawing.Size(37, 25);
-            this.btnAddAirplane.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnAddAirplane.TabIndex = 34;
-            this.btnAddAirplane.TabStop = false;
-            this.btnAddAirplane.Click += new System.EventHandler(this.btnAddAirplane_Click);
-            // 
             // frmMayBay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1142, 523);
+            this.ClientSize = new System.Drawing.Size(1200, 555);
             this.Controls.Add(this.guna2GroupBox2);
             this.Controls.Add(this.dgvAirplane);
             this.Controls.Add(this.guna2GroupBox1);
@@ -556,6 +556,7 @@
             this.Load += new System.EventHandler(this.frmMayBay_Load);
             this.gbTim.ResumeLayout(false);
             this.gbTim.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAddAirplane)).EndInit();
             this.guna2GroupBox1.ResumeLayout(false);
             this.guna2GroupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAirplane)).EndInit();
@@ -563,7 +564,6 @@
             this.guna2GroupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddAirline)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnAddAirplane)).EndInit();
             this.ResumeLayout(false);
 
         }
