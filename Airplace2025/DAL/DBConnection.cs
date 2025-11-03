@@ -10,7 +10,7 @@ namespace Airplace2025.DAL
 {
     class DBConnection
     {
-        private static string connectionString = "Data Source=(local);Initial Catalog=QuanLyBanVeMayBay;Integrated Security=True";
+        private static string connectionString = "Data Source=(local)\\SQLEXPRESS;Initial Catalog=QuanLyBanVeMayBay;Integrated Security=True";
         public static SqlConnection GetConnection()
         {
             return new SqlConnection(connectionString);
