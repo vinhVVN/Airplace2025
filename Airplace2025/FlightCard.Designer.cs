@@ -41,20 +41,26 @@
             this.lblDepartureCity = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblDepartureTime = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pricePanel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.lblSeatsEco = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblCurrency = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblPrice = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblFrom = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblClassEco = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pricePanel2 = new Guna.UI2.WinForms.Guna2Panel();
-            this.lblClassPre = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblFromPre = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblPricePre = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblCurrencyPre = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblSeatsEco = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.pricePanel3 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblCurrencyPre = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblPricePre = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblFromPre = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblClassPre = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblClassBus = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblFromBus = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblPriceBus = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.leftPanel.SuspendLayout();
             this.pricePanel1.SuspendLayout();
             this.pricePanel2.SuspendLayout();
+            this.pricePanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // leftPanel
@@ -96,6 +102,7 @@
             this.btnDetails.Size = new System.Drawing.Size(180, 30);
             this.btnDetails.TabIndex = 10;
             this.btnDetails.Text = "Chi tiết hành trình ⓘ";
+            this.btnDetails.Click += new System.EventHandler(this.btnDetails_Click);
             // 
             // lblAirline
             // 
@@ -214,6 +221,18 @@
             this.pricePanel1.Size = new System.Drawing.Size(150, 140);
             this.pricePanel1.TabIndex = 1;
             // 
+            // lblSeatsEco
+            // 
+            this.lblSeatsEco.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(180)))));
+            this.lblSeatsEco.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeatsEco.ForeColor = System.Drawing.Color.White;
+            this.lblSeatsEco.Location = new System.Drawing.Point(36, 115);
+            this.lblSeatsEco.Name = "lblSeatsEco";
+            this.lblSeatsEco.Size = new System.Drawing.Size(69, 15);
+            this.lblSeatsEco.TabIndex = 4;
+            this.lblSeatsEco.Text = "5 ghế còn lại";
+            this.lblSeatsEco.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // lblCurrency
             // 
             this.lblCurrency.BackColor = System.Drawing.Color.Transparent;
@@ -275,64 +294,18 @@
             this.pricePanel2.Size = new System.Drawing.Size(150, 140);
             this.pricePanel2.TabIndex = 2;
             // 
-            // lblClassPre
+            // pricePanel3
             // 
-            this.lblClassPre.BackColor = System.Drawing.Color.Transparent;
-            this.lblClassPre.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblClassPre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.lblClassPre.Location = new System.Drawing.Point(10, 15);
-            this.lblClassPre.Name = "lblClassPre";
-            this.lblClassPre.Size = new System.Drawing.Size(129, 17);
-            this.lblClassPre.TabIndex = 0;
-            this.lblClassPre.Text = "PHỔ THÔNG ĐẶC BIỆT";
-            this.lblClassPre.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblFromPre
-            // 
-            this.lblFromPre.BackColor = System.Drawing.Color.Transparent;
-            this.lblFromPre.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFromPre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.lblFromPre.Location = new System.Drawing.Point(69, 50);
-            this.lblFromPre.Name = "lblFromPre";
-            this.lblFromPre.Size = new System.Drawing.Size(14, 15);
-            this.lblFromPre.TabIndex = 1;
-            this.lblFromPre.Text = "từ";
-            this.lblFromPre.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblPricePre
-            // 
-            this.lblPricePre.BackColor = System.Drawing.Color.Transparent;
-            this.lblPricePre.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPricePre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.lblPricePre.Location = new System.Drawing.Point(32, 65);
-            this.lblPricePre.Name = "lblPricePre";
-            this.lblPricePre.Size = new System.Drawing.Size(90, 27);
-            this.lblPricePre.TabIndex = 2;
-            this.lblPricePre.Text = "3.449.000";
-            // 
-            // lblCurrencyPre
-            // 
-            this.lblCurrencyPre.BackColor = System.Drawing.Color.Transparent;
-            this.lblCurrencyPre.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCurrencyPre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.lblCurrencyPre.Location = new System.Drawing.Point(62, 90);
-            this.lblCurrencyPre.Name = "lblCurrencyPre";
-            this.lblCurrencyPre.Size = new System.Drawing.Size(26, 15);
-            this.lblCurrencyPre.TabIndex = 3;
-            this.lblCurrencyPre.Text = "VND";
-            this.lblCurrencyPre.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblSeatsEco
-            // 
-            this.lblSeatsEco.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(180)))));
-            this.lblSeatsEco.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSeatsEco.ForeColor = System.Drawing.Color.White;
-            this.lblSeatsEco.Location = new System.Drawing.Point(36, 115);
-            this.lblSeatsEco.Name = "lblSeatsEco";
-            this.lblSeatsEco.Size = new System.Drawing.Size(69, 15);
-            this.lblSeatsEco.TabIndex = 4;
-            this.lblSeatsEco.Text = "5 ghế còn lại";
-            this.lblSeatsEco.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.pricePanel3.BorderRadius = 10;
+            this.pricePanel3.Controls.Add(this.guna2HtmlLabel2);
+            this.pricePanel3.Controls.Add(this.lblPriceBus);
+            this.pricePanel3.Controls.Add(this.lblFromBus);
+            this.pricePanel3.Controls.Add(this.lblClassBus);
+            this.pricePanel3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.pricePanel3.Location = new System.Drawing.Point(783, 0);
+            this.pricePanel3.Name = "pricePanel3";
+            this.pricePanel3.Size = new System.Drawing.Size(150, 140);
+            this.pricePanel3.TabIndex = 3;
             // 
             // guna2HtmlLabel1
             // 
@@ -346,23 +319,118 @@
             this.guna2HtmlLabel1.Text = "1 ghế còn lại";
             this.guna2HtmlLabel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lblCurrencyPre
+            // 
+            this.lblCurrencyPre.BackColor = System.Drawing.Color.Transparent;
+            this.lblCurrencyPre.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrencyPre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.lblCurrencyPre.Location = new System.Drawing.Point(62, 90);
+            this.lblCurrencyPre.Name = "lblCurrencyPre";
+            this.lblCurrencyPre.Size = new System.Drawing.Size(26, 15);
+            this.lblCurrencyPre.TabIndex = 3;
+            this.lblCurrencyPre.Text = "VND";
+            this.lblCurrencyPre.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblPricePre
+            // 
+            this.lblPricePre.BackColor = System.Drawing.Color.Transparent;
+            this.lblPricePre.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPricePre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.lblPricePre.Location = new System.Drawing.Point(32, 65);
+            this.lblPricePre.Name = "lblPricePre";
+            this.lblPricePre.Size = new System.Drawing.Size(90, 27);
+            this.lblPricePre.TabIndex = 2;
+            this.lblPricePre.Text = "3.449.000";
+            // 
+            // lblFromPre
+            // 
+            this.lblFromPre.BackColor = System.Drawing.Color.Transparent;
+            this.lblFromPre.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFromPre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.lblFromPre.Location = new System.Drawing.Point(69, 50);
+            this.lblFromPre.Name = "lblFromPre";
+            this.lblFromPre.Size = new System.Drawing.Size(14, 15);
+            this.lblFromPre.TabIndex = 1;
+            this.lblFromPre.Text = "từ";
+            this.lblFromPre.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblClassPre
+            // 
+            this.lblClassPre.BackColor = System.Drawing.Color.Transparent;
+            this.lblClassPre.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClassPre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.lblClassPre.Location = new System.Drawing.Point(10, 15);
+            this.lblClassPre.Name = "lblClassPre";
+            this.lblClassPre.Size = new System.Drawing.Size(129, 17);
+            this.lblClassPre.TabIndex = 0;
+            this.lblClassPre.Text = "PHỔ THÔNG ĐẶC BIỆT";
+            this.lblClassPre.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblClassBus
+            // 
+            this.lblClassBus.BackColor = System.Drawing.Color.Transparent;
+            this.lblClassBus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClassBus.Location = new System.Drawing.Point(35, 15);
+            this.lblClassBus.Name = "lblClassBus";
+            this.lblClassBus.Size = new System.Drawing.Size(79, 17);
+            this.lblClassBus.TabIndex = 0;
+            this.lblClassBus.Text = "THƯƠNG GIA";
+            // 
+            // lblFromBus
+            // 
+            this.lblFromBus.BackColor = System.Drawing.Color.Transparent;
+            this.lblFromBus.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFromBus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.lblFromBus.Location = new System.Drawing.Point(69, 50);
+            this.lblFromBus.Name = "lblFromBus";
+            this.lblFromBus.Size = new System.Drawing.Size(14, 15);
+            this.lblFromBus.TabIndex = 2;
+            this.lblFromBus.Text = "từ";
+            this.lblFromBus.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblPriceBus
+            // 
+            this.lblPriceBus.BackColor = System.Drawing.Color.Transparent;
+            this.lblPriceBus.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPriceBus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.lblPriceBus.Location = new System.Drawing.Point(31, 65);
+            this.lblPriceBus.Name = "lblPriceBus";
+            this.lblPriceBus.Size = new System.Drawing.Size(90, 27);
+            this.lblPriceBus.TabIndex = 3;
+            this.lblPriceBus.Text = "5.067.000";
+            // 
+            // guna2HtmlLabel2
+            // 
+            this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.guna2HtmlLabel2.Location = new System.Drawing.Point(60, 90);
+            this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
+            this.guna2HtmlLabel2.Size = new System.Drawing.Size(26, 15);
+            this.guna2HtmlLabel2.TabIndex = 4;
+            this.guna2HtmlLabel2.Text = "VND";
+            this.guna2HtmlLabel2.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // FlightCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.pricePanel3);
             this.Controls.Add(this.pricePanel2);
             this.Controls.Add(this.pricePanel1);
             this.Controls.Add(this.leftPanel);
             this.Name = "FlightCard";
             this.Padding = new System.Windows.Forms.Padding(10);
-            this.Size = new System.Drawing.Size(920, 140);
+            this.Size = new System.Drawing.Size(932, 140);
             this.leftPanel.ResumeLayout(false);
             this.leftPanel.PerformLayout();
             this.pricePanel1.ResumeLayout(false);
             this.pricePanel1.PerformLayout();
             this.pricePanel2.ResumeLayout(false);
             this.pricePanel2.PerformLayout();
+            this.pricePanel3.ResumeLayout(false);
+            this.pricePanel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -393,5 +461,10 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel lblCurrencyPre;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblSeatsEco;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
+        private Guna.UI2.WinForms.Guna2Panel pricePanel3;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblClassBus;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblFromBus;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblPriceBus;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
     }
 }

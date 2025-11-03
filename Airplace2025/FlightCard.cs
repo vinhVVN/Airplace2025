@@ -16,5 +16,10 @@ namespace Airplace2025
         {
             InitializeComponent();
         }
+
+        private void btnDetails_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
