@@ -111,7 +111,7 @@ namespace Airplace2025
             }
         }
 
-        private void guna2Button1_Click(object sender, EventArgs e)
+        private void btnLogin_Click(object sender, EventArgs e)
         {
             string tenDangNhap = txtUserName.Text;
             string matKhau = txtPassword.Text;
@@ -158,6 +158,24 @@ namespace Airplace2025
             catch (Exception ex)
             {
                 MessageBox.Show("Đã xảy ra lỗi kết nối CSDL: " + ex.Message, "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void txtUserName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtPassword.Focus();
+                e.SuppressKeyPress = true; // optional để chặn bing sound
+            }
+        }
+
+        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnLogin.PerformClick();
+                e.SuppressKeyPress = true;
             }
         }
     }

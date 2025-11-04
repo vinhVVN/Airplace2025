@@ -34,7 +34,7 @@
             this.guna2ImageButton1 = new Guna.UI2.WinForms.Guna2ImageButton();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
+            this.btnLogin = new Guna.UI2.WinForms.Guna2Button();
             this.txtPassword = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtUserName = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(this.components);
@@ -65,7 +65,7 @@
             this.pnlLogin.Controls.Add(this.guna2ImageButton1);
             this.pnlLogin.Controls.Add(this.label2);
             this.pnlLogin.Controls.Add(this.label1);
-            this.pnlLogin.Controls.Add(this.guna2Button1);
+            this.pnlLogin.Controls.Add(this.btnLogin);
             this.pnlLogin.Controls.Add(this.txtPassword);
             this.pnlLogin.Controls.Add(this.txtUserName);
             this.pnlLogin.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -118,22 +118,22 @@
             this.label1.Text = "Đăng Nhập";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // guna2Button1
+            // btnLogin
             // 
-            this.guna2Button1.BorderRadius = 20;
-            this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button1.ForeColor = System.Drawing.Color.White;
-            this.guna2Button1.Location = new System.Drawing.Point(43, 274);
-            this.guna2Button1.Margin = new System.Windows.Forms.Padding(2);
-            this.guna2Button1.Name = "guna2Button1";
-            this.guna2Button1.Size = new System.Drawing.Size(200, 36);
-            this.guna2Button1.TabIndex = 5;
-            this.guna2Button1.Text = "Đăng Nhập";
-            this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
+            this.btnLogin.BorderRadius = 20;
+            this.btnLogin.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnLogin.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnLogin.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnLogin.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnLogin.ForeColor = System.Drawing.Color.White;
+            this.btnLogin.Location = new System.Drawing.Point(43, 274);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(200, 36);
+            this.btnLogin.TabIndex = 5;
+            this.btnLogin.Text = "Đăng Nhập";
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // txtPassword
             // 
@@ -161,6 +161,7 @@
             this.txtPassword.Size = new System.Drawing.Size(200, 39);
             this.txtPassword.TabIndex = 2;
             this.txtPassword.UseSystemPasswordChar = true;
+            this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPassword_KeyDown);
             // 
             // txtUserName
             // 
@@ -185,6 +186,7 @@
             this.txtUserName.SelectedText = "";
             this.txtUserName.Size = new System.Drawing.Size(200, 39);
             this.txtUserName.TabIndex = 1;
+            this.txtUserName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtUserName_KeyDown);
             // 
             // guna2BorderlessForm1
             // 
@@ -248,7 +250,7 @@
         private Guna.UI2.WinForms.Guna2ShadowPanel pnlLogin;
         private Guna.UI2.WinForms.Guna2TextBox txtUserName;
         private Guna.UI2.WinForms.Guna2TextBox txtPassword;
-        private Guna.UI2.WinForms.Guna2Button guna2Button1;
+        private Guna.UI2.WinForms.Guna2Button btnLogin;
         private System.Windows.Forms.Label label1;
         private Guna.UI2.WinForms.Guna2BorderlessForm guna2BorderlessForm1;
         private System.Windows.Forms.Label label2;
