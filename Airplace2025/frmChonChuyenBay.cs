@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Airplace2025.DAL; // for ChuyenBayDAO
+using Airplace2025.State; // for PassengerSelectionState
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,9 +8,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Forms;
-using Airplace2025.DAL; // for ChuyenBayDAO
-using Airplace2025.State; // for PassengerSelectionState
 
 namespace Airplace2025
 {
@@ -38,6 +40,7 @@ namespace Airplace2025
             this.ngayVe = ngayVe;
             this.soLuongHanhKhach = soLuongHanhKhach;
             this.isRoundTrip = isRoundTrip;
+            //LoadFlights();
         }
 
         private void frmChonChuyenBay_Load(object sender, EventArgs e)
@@ -51,7 +54,7 @@ namespace Airplace2025
                 lblFrom.Text = sanBayDi;
                 TrySelectComboValue(cbSanBayDi, sanBayDi);
             }
-            
+
             if (!string.IsNullOrEmpty(sanBayDen))
             {
                 lblTo.Text = sanBayDen;
@@ -70,7 +73,7 @@ namespace Airplace2025
             dtpNgayVe.Value = safeNgayVe;
 
             dtpDeparture.Text = FormatDate(dtpNgayDi.Value);
-            
+
             // Hiển thị ngày về với format "Th t, dd thg mm"
             dtpReturn.Text = FormatDate(dtpNgayVe.Value);
 
@@ -141,7 +144,7 @@ namespace Airplace2025
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi tải danh sách sân bay: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                System.Windows.Forms.MessageBox.Show($"Lỗi tải danh sách sân bay: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -192,7 +195,7 @@ namespace Airplace2025
         {
             string[] thuViet = { "CN", "T2", "T3", "T4", "T5", "T6", "T7" };
             string thu = thuViet[(int)date.DayOfWeek];
-            
+
             return $"{thu}, {date.Day:D2} thg {date.Month:D2}";
         }
 
@@ -206,7 +209,7 @@ namespace Airplace2025
 
             // Trích xuất số từ text như "1 hành khách" -> "1"
             string number = ExtractNumberFromText(passengerText);
-            
+
             return $"{number} người";
         }
 
@@ -243,32 +246,32 @@ namespace Airplace2025
                     return text.Substring(start, i - start);
                 }
             }
-            
+
             return "1"; // Mặc định là 1 nếu không tìm thấy số
         }
 
         private void btnChange_Click(object sender, EventArgs e)
         {
-           bool isExpanded = btnChange.Checked;
-           lblDown.Visible = !isExpanded;
-           lblUp.Visible = isExpanded;
-           pnlChange.Visible = isExpanded;
+            bool isExpanded = btnChange.Checked;
+            lblDown.Visible = !isExpanded;
+            lblUp.Visible = isExpanded;
+            pnlChange.Visible = isExpanded;
 
-           // When expanding, reflect the last saved trip type
-           if (isExpanded)
-           {
-               pnlChonChuyenBay.Location = new System.Drawing.Point(0, 306);
+            // When expanding, reflect the last saved trip type
+            if (isExpanded)
+            {
+                pnlChonChuyenBay.Location = new System.Drawing.Point(0, 306);
                 if (isRoundTrip)
-               {
-                   btnRoundTrip.Checked = true;
-                   btnOneWay.Checked = false;
-               }
-               else
-               {
-                   btnRoundTrip.Checked = false;
-                   btnOneWay.Checked = true;
-               }
-           }else
+                {
+                    btnRoundTrip.Checked = true;
+                    btnOneWay.Checked = false;
+                }
+                else
+                {
+                    btnRoundTrip.Checked = false;
+                    btnOneWay.Checked = true;
+                }
+            } else
             {
                 pnlChonChuyenBay.Location = new System.Drawing.Point(0, 100);
             }
@@ -579,6 +582,127 @@ namespace Airplace2025
         {
             FilterForm filterForm = new FilterForm();
             filterForm.ShowDialog(this);
+        }
+
+        //private void LoadFlights()
+        //{
+        //    flightListPanel.Controls.Clear();
+
+        //    List<Flight> flights = GetFlightsFromDatabase();
+
+        //    //Flightcard cho mỗi chuyến bay
+        //    foreach(var flight in flights)
+        //    {
+        //        //FlightCard card = new FlightCard
+        //        //{
+        //        //    lblDepartureTime = flight.DepartureTime,
+        //        //    DepartureCity = flight.DepartureCity,
+        //        //    DepartureTerminal = flight.DepartureTerminal,
+        //        //    ArrivalTime = flight.ArrivalTime,
+        //        //    ArrivalCity = flight.ArrivalCity,
+        //        //    ArrivalTerminal = flight.ArrivalTerminal,
+        //        //    FlightNumber = flight.FlightNumber,
+        //        //    Airline = flight.Airline,
+        //        //    Duration = flight.Duration,
+        //        //    EconomyPrice = FormatPrice(flight.EconomyPrice),
+        //        //    PremiumPrice = FormatPrice(flight.PremiumPrice),
+        //        //    BusinessPrice = FormatPrice(flight.BusinessPrice),
+        //        //    EconomySeats = flight.EconomySeats,
+        //        //    PremiumSeats = flight.PremiumSeats,
+        //        //    BusinessSeats = flight.BusinessSeats
+        //        //};
+        //        //card.PriceSelected += Card_PriceSelected;
+        //    }
+        //}
+
+        private string FormatPrice(decimal price)
+        {
+            return price.ToString("#,##0");
+        }
+
+        // Hàm lấy dữ liệu từ database
+        //private List<Flight> GetFlightsFromDatabase()
+        //{
+        //    List<Flight> flights = new List<Flight>();
+
+        //    // VÍ DỤ: Kết nối SQL Server
+        //    string connectionString = "your_connection_string_here";
+
+        //    using (var connection = new System.Data.SqlClient.SqlConnection(connectionString))
+        //    {
+        //        connection.Open();
+        //        string query = @"
+        //            SELECT 
+        //                FlightNumber,
+        //                DepartureTime,
+        //                DepartureCity,
+        //                DepartureTerminal,
+        //                ArrivalTime,
+        //                ArrivalCity,
+        //                ArrivalTerminal,
+        //                Airline,
+        //                Duration,
+        //                EconomyPrice,
+        //                PremiumPrice,
+        //                BusinessPrice,
+        //                EconomySeats,
+        //                PremiumSeats,
+        //                BusinessSeats
+        //            FROM Flights
+        //            WHERE DepartureDate = @Date
+        //            ORDER BY DepartureTime";
+
+        //        using (var command = new System.Data.SqlClient.SqlCommand(query, connection))
+        //        {
+        //            command.Parameters.AddWithValue("@Date", DateTime.Now.Date);
+
+        //            using (var reader = command.ExecuteReader())
+        //            {
+        //                while (reader.Read())
+        //                {
+        //                    flights.Add(new Flight
+        //                    {
+        //                        FlightNumber = reader["FlightNumber"].ToString(),
+        //                        DepartureTime = reader["DepartureTime"].ToString(),
+        //                        DepartureCity = reader["DepartureCity"].ToString(),
+        //                        DepartureTerminal = reader["DepartureTerminal"].ToString(),
+        //                        ArrivalTime = reader["ArrivalTime"].ToString(),
+        //                        ArrivalCity = reader["ArrivalCity"].ToString(),
+        //                        ArrivalTerminal = reader["ArrivalTerminal"].ToString(),
+        //                        Airline = reader["Airline"].ToString(),
+        //                        Duration = reader["Duration"].ToString(),
+        //                        EconomyPrice = Convert.ToDecimal(reader["EconomyPrice"]),
+        //                        PremiumPrice = Convert.ToDecimal(reader["PremiumPrice"]),
+        //                        BusinessPrice = Convert.ToDecimal(reader["BusinessPrice"]),
+        //                        EconomySeats = Convert.ToInt32(reader["EconomySeats"]),
+        //                        PremiumSeats = Convert.ToInt32(reader["PremiumSeats"]),
+        //                        BusinessSeats = Convert.ToInt32(reader["BusinessSeats"])
+        //                    });
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    return flights;
+        //}
+
+        public class Flight
+        {
+            public string FlightNumber { get; set; }
+            public string DepartureTime { get; set; }
+            public string DepartureCity { get; set; }
+            public string DepartureTerminal { get; set; }
+            public string ArrivalTime { get; set; }
+            public string ArrivalCity { get; set; }
+            public string ArrivalTerminal { get; set; }
+            public string Airline { get; set; }
+            public string Duration { get; set; }
+            public decimal EconomyPrice { get; set; }
+            public decimal PremiumPrice { get; set; }
+            public decimal BusinessPrice { get; set; }
+            public int EconomySeats { get; set; }
+            public int PremiumSeats { get; set; }
+            public int BusinessSeats { get; set; }
         }
     }
 }

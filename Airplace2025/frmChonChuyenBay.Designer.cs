@@ -67,6 +67,7 @@
             this.cboSortType = new Guna.UI2.WinForms.Guna2ComboBox();
             this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.btnFilter = new Guna.UI2.WinForms.Guna2Button();
+            this.flightListPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlThongTinDatCho.SuspendLayout();
             this.pnlFlightInfo.SuspendLayout();
             this.pnlRoundTrip.SuspendLayout();
@@ -561,12 +562,13 @@
             // 
             // pnlChonChuyenBay
             // 
+            this.pnlChonChuyenBay.Controls.Add(this.flightListPanel);
             this.pnlChonChuyenBay.Controls.Add(this.cboSortType);
             this.pnlChonChuyenBay.Controls.Add(this.guna2HtmlLabel5);
             this.pnlChonChuyenBay.Controls.Add(this.btnFilter);
             this.pnlChonChuyenBay.Location = new System.Drawing.Point(0, 306);
             this.pnlChonChuyenBay.Name = "pnlChonChuyenBay";
-            this.pnlChonChuyenBay.Size = new System.Drawing.Size(1122, 145);
+            this.pnlChonChuyenBay.Size = new System.Drawing.Size(1122, 317);
             this.pnlChonChuyenBay.TabIndex = 2;
             // 
             // cboSortType
@@ -637,11 +639,22 @@
             this.btnFilter.TextOffset = new System.Drawing.Point(10, 0);
             this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
             // 
+            // flightListPanel
+            // 
+            this.flightListPanel.AutoScroll = true;
+            this.flightListPanel.BackColor = System.Drawing.Color.White;
+            this.flightListPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flightListPanel.Location = new System.Drawing.Point(20, 100);
+            this.flightListPanel.Name = "flightListPanel";
+            this.flightListPanel.Size = new System.Drawing.Size(1070, 100);
+            this.flightListPanel.TabIndex = 5;
+            this.flightListPanel.WrapContents = false;
+            // 
             // frmChonChuyenBay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1123, 484);
+            this.ClientSize = new System.Drawing.Size(1123, 621);
             this.Controls.Add(this.pnlChonChuyenBay);
             this.Controls.Add(this.pnlChange);
             this.Controls.Add(this.pnlThongTinDatCho);
@@ -705,5 +718,6 @@
         private Guna.UI2.WinForms.Guna2Button btnFilter;
         private Guna.UI2.WinForms.Guna2ComboBox cboSortType;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
+        private System.Windows.Forms.FlowLayoutPanel flightListPanel;
     }
 }
