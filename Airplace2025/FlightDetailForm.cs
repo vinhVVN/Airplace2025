@@ -21,5 +21,10 @@ namespace Airplace2025
         {
             this.Close();
         }
+
+        private void guna2HtmlLabel1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

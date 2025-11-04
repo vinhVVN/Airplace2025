@@ -30,6 +30,10 @@
         {
             this.mainPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.timelinePanel = new Guna.UI2.WinForms.Guna2Panel();
+            this.lblDepartureTerminal = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblDepartureAirport = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblDepartureTime = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblFlightDuration = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.timelineLine = new System.Windows.Forms.Panel();
             this.lblDuration = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblArrivalDate = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -37,8 +41,12 @@
             this.headerPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.btnClose = new Guna.UI2.WinForms.Guna2Button();
             this.lblTitle = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblFlightDuration = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblDepartureTime = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblArrivalTime = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblNextDay = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblArrivalAirport = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblArrivalTerminal = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.circleStart = new Guna.UI2.WinForms.Guna2CircleButton();
+            this.circleEnd = new Guna.UI2.WinForms.Guna2CircleButton();
             this.mainPanel.SuspendLayout();
             this.timelinePanel.SuspendLayout();
             this.headerPanel.SuspendLayout();
@@ -63,6 +71,14 @@
             // timelinePanel
             // 
             this.timelinePanel.BorderRadius = 10;
+            this.timelinePanel.Controls.Add(this.circleEnd);
+            this.timelinePanel.Controls.Add(this.circleStart);
+            this.timelinePanel.Controls.Add(this.lblArrivalTerminal);
+            this.timelinePanel.Controls.Add(this.lblArrivalAirport);
+            this.timelinePanel.Controls.Add(this.lblNextDay);
+            this.timelinePanel.Controls.Add(this.lblArrivalTime);
+            this.timelinePanel.Controls.Add(this.lblDepartureTerminal);
+            this.timelinePanel.Controls.Add(this.lblDepartureAirport);
             this.timelinePanel.Controls.Add(this.lblDepartureTime);
             this.timelinePanel.Controls.Add(this.lblFlightDuration);
             this.timelinePanel.Controls.Add(this.timelineLine);
@@ -71,6 +87,50 @@
             this.timelinePanel.Name = "timelinePanel";
             this.timelinePanel.Size = new System.Drawing.Size(370, 200);
             this.timelinePanel.TabIndex = 4;
+            // 
+            // lblDepartureTerminal
+            // 
+            this.lblDepartureTerminal.BackColor = System.Drawing.Color.Transparent;
+            this.lblDepartureTerminal.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDepartureTerminal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.lblDepartureTerminal.Location = new System.Drawing.Point(125, 60);
+            this.lblDepartureTerminal.Name = "lblDepartureTerminal";
+            this.lblDepartureTerminal.Size = new System.Drawing.Size(49, 15);
+            this.lblDepartureTerminal.TabIndex = 4;
+            this.lblDepartureTerminal.Text = "Nhà ga 1";
+            // 
+            // lblDepartureAirport
+            // 
+            this.lblDepartureAirport.BackColor = System.Drawing.Color.Transparent;
+            this.lblDepartureAirport.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDepartureAirport.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.lblDepartureAirport.Location = new System.Drawing.Point(125, 37);
+            this.lblDepartureAirport.Name = "lblDepartureAirport";
+            this.lblDepartureAirport.Size = new System.Drawing.Size(184, 23);
+            this.lblDepartureAirport.TabIndex = 3;
+            this.lblDepartureAirport.Text = "Sân bay Nội Bài, Việt Nam";
+            // 
+            // lblDepartureTime
+            // 
+            this.lblDepartureTime.BackColor = System.Drawing.Color.Transparent;
+            this.lblDepartureTime.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDepartureTime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(85)))), ((int)(((byte)(114)))));
+            this.lblDepartureTime.Location = new System.Drawing.Point(125, 15);
+            this.lblDepartureTime.Name = "lblDepartureTime";
+            this.lblDepartureTime.Size = new System.Drawing.Size(104, 23);
+            this.lblDepartureTime.TabIndex = 2;
+            this.lblDepartureTime.Text = "23:00 HÀ NỘI";
+            // 
+            // lblFlightDuration
+            // 
+            this.lblFlightDuration.BackColor = System.Drawing.Color.Transparent;
+            this.lblFlightDuration.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFlightDuration.Location = new System.Drawing.Point(45, 85);
+            this.lblFlightDuration.Name = "lblFlightDuration";
+            this.lblFlightDuration.Size = new System.Drawing.Size(44, 32);
+            this.lblFlightDuration.TabIndex = 1;
+            this.lblFlightDuration.Text = "2 giờ 10<br>phút";
+            this.lblFlightDuration.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // timelineLine
             // 
@@ -154,27 +214,85 @@
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Hà Nội - TP. Hồ Chí Minh";
             // 
-            // lblFlightDuration
+            // lblArrivalTime
             // 
-            this.lblFlightDuration.BackColor = System.Drawing.Color.Transparent;
-            this.lblFlightDuration.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFlightDuration.Location = new System.Drawing.Point(45, 85);
-            this.lblFlightDuration.Name = "lblFlightDuration";
-            this.lblFlightDuration.Size = new System.Drawing.Size(44, 32);
-            this.lblFlightDuration.TabIndex = 1;
-            this.lblFlightDuration.Text = "2 giờ 10<br>phút";
-            this.lblFlightDuration.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblArrivalTime.BackColor = System.Drawing.Color.Transparent;
+            this.lblArrivalTime.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblArrivalTime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(85)))), ((int)(((byte)(114)))));
+            this.lblArrivalTime.Location = new System.Drawing.Point(125, 90);
+            this.lblArrivalTime.Name = "lblArrivalTime";
+            this.lblArrivalTime.Size = new System.Drawing.Size(169, 23);
+            this.lblArrivalTime.TabIndex = 5;
+            this.lblArrivalTime.Text = "01:10 TP. Hồ Chí Minh";
             // 
-            // lblDepartureTime
+            // lblNextDay
             // 
-            this.lblDepartureTime.BackColor = System.Drawing.Color.Transparent;
-            this.lblDepartureTime.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDepartureTime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(85)))), ((int)(((byte)(114)))));
-            this.lblDepartureTime.Location = new System.Drawing.Point(125, 15);
-            this.lblDepartureTime.Name = "lblDepartureTime";
-            this.lblDepartureTime.Size = new System.Drawing.Size(104, 23);
-            this.lblDepartureTime.TabIndex = 2;
-            this.lblDepartureTime.Text = "23:00 HÀ NỘI";
+            this.lblNextDay.BackColor = System.Drawing.Color.Transparent;
+            this.lblNextDay.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNextDay.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(85)))), ((int)(((byte)(114)))));
+            this.lblNextDay.Location = new System.Drawing.Point(125, 115);
+            this.lblNextDay.Name = "lblNextDay";
+            this.lblNextDay.Size = new System.Drawing.Size(51, 15);
+            this.lblNextDay.TabIndex = 6;
+            this.lblNextDay.Text = "(+1 ngày)";
+            this.lblNextDay.Click += new System.EventHandler(this.guna2HtmlLabel1_Click);
+            // 
+            // lblArrivalAirport
+            // 
+            this.lblArrivalAirport.BackColor = System.Drawing.Color.Transparent;
+            this.lblArrivalAirport.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblArrivalAirport.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.lblArrivalAirport.Location = new System.Drawing.Point(125, 135);
+            this.lblArrivalAirport.Name = "lblArrivalAirport";
+            this.lblArrivalAirport.Size = new System.Drawing.Size(229, 23);
+            this.lblArrivalAirport.TabIndex = 7;
+            this.lblArrivalAirport.Text = "Sân bay Tân Sơn Nhất, Việt Nam";
+            // 
+            // lblArrivalTerminal
+            // 
+            this.lblArrivalTerminal.BackColor = System.Drawing.Color.Transparent;
+            this.lblArrivalTerminal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.lblArrivalTerminal.Location = new System.Drawing.Point(125, 158);
+            this.lblArrivalTerminal.Name = "lblArrivalTerminal";
+            this.lblArrivalTerminal.Size = new System.Drawing.Size(47, 15);
+            this.lblArrivalTerminal.TabIndex = 8;
+            this.lblArrivalTerminal.Text = "Nhà ga 3";
+            // 
+            // circleStart
+            // 
+            this.circleStart.BackColor = System.Drawing.Color.Transparent;
+            this.circleStart.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.circleStart.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.circleStart.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.circleStart.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.circleStart.Enabled = false;
+            this.circleStart.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(128)))));
+            this.circleStart.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.circleStart.ForeColor = System.Drawing.Color.White;
+            this.circleStart.Location = new System.Drawing.Point(103, 20);
+            this.circleStart.Name = "circleStart";
+            this.circleStart.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.circleStart.Size = new System.Drawing.Size(16, 16);
+            this.circleStart.TabIndex = 9;
+            this.circleStart.Text = "guna2CircleButton1";
+            // 
+            // circleEnd
+            // 
+            this.circleEnd.BackColor = System.Drawing.Color.Transparent;
+            this.circleEnd.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.circleEnd.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.circleEnd.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.circleEnd.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.circleEnd.Enabled = false;
+            this.circleEnd.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(128)))));
+            this.circleEnd.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.circleEnd.ForeColor = System.Drawing.Color.White;
+            this.circleEnd.Location = new System.Drawing.Point(103, 164);
+            this.circleEnd.Name = "circleEnd";
+            this.circleEnd.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.circleEnd.Size = new System.Drawing.Size(16, 16);
+            this.circleEnd.TabIndex = 10;
+            this.circleEnd.Text = "guna2CircleButton1";
             // 
             // FlightDetailForm
             // 
@@ -210,5 +328,13 @@
         private System.Windows.Forms.Panel timelineLine;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblFlightDuration;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblDepartureTime;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblDepartureAirport;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblDepartureTerminal;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblArrivalTime;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblNextDay;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblArrivalAirport;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblArrivalTerminal;
+        private Guna.UI2.WinForms.Guna2CircleButton circleStart;
+        private Guna.UI2.WinForms.Guna2CircleButton circleEnd;
     }
 }
