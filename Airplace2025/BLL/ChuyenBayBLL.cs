@@ -26,6 +26,28 @@ namespace Airplace2025.BLL
         private ChuyenBayBLL() { }
 
         /// <summary>
+        /// Tìm kiếm nhanh theo mã sân bay đi/đến, ngày đi, số hành khách
+        /// (wrapper xây dựng SearchFlightParams và tái sử dụng SearchFlights)
+        /// </summary>
+        public List<ChuyenBayDTO> TimKiemChuyenBay(string maSanBayDi, string maSanBayDen, DateTime ngayDi, int soHanhKhach)
+        {
+            var p = new SearchFlightParams
+            {
+                MaSanBayDi = maSanBayDi,
+                MaSanBayDen = maSanBayDen,
+                NgayDi = ngayDi.Date,
+                NgayVe = null,
+                SoNguoiLon = Math.Max(0, soHanhKhach),
+                SoTreEm = 0,
+                SoEmBe = 0,
+                HangDichVu = "Economy",
+                LaKhuHoi = false
+            };
+
+            return SearchFlights(p);
+        }
+
+        /// <summary>
         /// Lọc chuyến bay theo số ghế còn lại của hạng vé cụ thể
         /// </summary>
         private List<ChuyenBayDTO> FilterByServiceClassAvailability(List<ChuyenBayDTO> flights, string hangDichVu, int soHanhKhach)
@@ -285,6 +307,8 @@ namespace Airplace2025.BLL
 
             return tongGia;
         }
+
+
     }
 }
 

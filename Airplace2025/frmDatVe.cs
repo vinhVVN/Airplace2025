@@ -14,8 +14,6 @@ namespace Airplace2025
 {
     public partial class frmDatVe : Form
     {
-        //Danh sách hành khách
-        private List<PassengerInfo> passengerList = new List<PassengerInfo>();
         // Danh sách đầy đủ sân bay (để lọc hiển thị giữa 2 combobox)
         private List<string> airportOptions = new List<string>();
         // Cờ tránh vòng lặp khi đồng bộ 2 combobox
@@ -178,39 +176,6 @@ namespace Airplace2025
             return airportString.Trim();
         }
 
-        /// <summary>
-        /// Passenger info structure
-        /// </summary>
-        public class PassengerInfo
-        {
-            public string MaKH { get; set; }
-            public string HoTen { get; set; }
-            public DateTime NgaySinh { get; set; }
-            public string LoaiHK { get; set; } // ADT, CHD, INF
-            public string GioiTinh { get; set; }
-            public string DocNo { get; set; }
-            public string Ghe { get; set; }
-            public int HanhLy { get; set; }
-            public string GhiChu { get; set; }
-        }
-
-        /// <summary>
-        /// Price breakdown structure
-        /// </summary>
-        public class PriceBreakdown
-        {
-            public decimal BaseFare { get; set; }
-            public decimal TaxAndFees { get; set; }
-            public decimal Surcharges { get; set; }
-            public decimal OptionalServices { get; set; }  // Ghế, hành lý
-            public decimal Discount { get; set; }
-            public decimal VAT { get; set; }
-
-            public decimal SubTotal => BaseFare + TaxAndFees + Surcharges + OptionalServices;
-            public decimal Total => SubTotal - Discount + VAT;
-        }
-
-
         private void btnRoundTrip_Click(object sender, EventArgs e)
         {
             bool isRoundTrip = btnRoundTrip.Checked;
@@ -220,7 +185,6 @@ namespace Airplace2025
             lblOneWay.Visible = !isRoundTrip;
             lblDFReturn.Visible = isRoundTrip;
         }
-
 
         private void btnDropDown_Click(object sender, EventArgs e)
         {
@@ -517,6 +481,16 @@ namespace Airplace2025
 
             // Kiểm tra sân bay đến đã được chọn
             if (cbSanBayDen.SelectedIndex < 0 || cbSanBayDen.SelectedItem == null)
+            {
+                return false;
+            }
+
+            // Kiểm tra sân bay đi và đến không được trùng nhau
+            string fromCode = ExtractAirportCode(cbSanBayDi.SelectedItem?.ToString());
+            string toCode = ExtractAirportCode(cbSanBayDen.SelectedItem?.ToString());
+            
+            if (!string.IsNullOrEmpty(fromCode) && !string.IsNullOrEmpty(toCode) && 
+                string.Equals(fromCode, toCode, StringComparison.OrdinalIgnoreCase))
             {
                 return false;
             }
