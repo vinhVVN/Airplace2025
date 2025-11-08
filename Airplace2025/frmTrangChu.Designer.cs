@@ -54,7 +54,7 @@
             this.guna2Panel1.Controls.Add(this.btnChuyenBay);
             this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
-            this.guna2Panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.guna2Panel1.Margin = new System.Windows.Forms.Padding(2);
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(1184, 53);
             this.guna2Panel1.TabIndex = 0;
@@ -65,7 +65,7 @@
             this.guna2PictureBox1.Image = global::Airplace2025.Properties.Resources.mb1;
             this.guna2PictureBox1.ImageRotate = 0F;
             this.guna2PictureBox1.Location = new System.Drawing.Point(9, 10);
-            this.guna2PictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.guna2PictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.guna2PictureBox1.Name = "guna2PictureBox1";
             this.guna2PictureBox1.Size = new System.Drawing.Size(87, 31);
             this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -87,7 +87,7 @@
             this.btnCaiDat.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCaiDat.ForeColor = System.Drawing.Color.Black;
             this.btnCaiDat.Location = new System.Drawing.Point(800, 12);
-            this.btnCaiDat.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCaiDat.Margin = new System.Windows.Forms.Padding(2);
             this.btnCaiDat.Name = "btnCaiDat";
             this.btnCaiDat.Size = new System.Drawing.Size(97, 28);
             this.btnCaiDat.TabIndex = 6;
@@ -108,7 +108,7 @@
             this.btnTaiKhoanvaQuyen.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTaiKhoanvaQuyen.ForeColor = System.Drawing.Color.Black;
             this.btnTaiKhoanvaQuyen.Location = new System.Drawing.Point(629, 12);
-            this.btnTaiKhoanvaQuyen.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnTaiKhoanvaQuyen.Margin = new System.Windows.Forms.Padding(2);
             this.btnTaiKhoanvaQuyen.Name = "btnTaiKhoanvaQuyen";
             this.btnTaiKhoanvaQuyen.Size = new System.Drawing.Size(166, 28);
             this.btnTaiKhoanvaQuyen.TabIndex = 5;
@@ -129,7 +129,7 @@
             this.btnMayBay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMayBay.ForeColor = System.Drawing.Color.Black;
             this.btnMayBay.Location = new System.Drawing.Point(506, 12);
-            this.btnMayBay.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnMayBay.Margin = new System.Windows.Forms.Padding(2);
             this.btnMayBay.Name = "btnMayBay";
             this.btnMayBay.Size = new System.Drawing.Size(112, 28);
             this.btnMayBay.TabIndex = 4;
@@ -150,7 +150,7 @@
             this.btnBaoCao.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBaoCao.ForeColor = System.Drawing.Color.Black;
             this.btnBaoCao.Location = new System.Drawing.Point(388, 12);
-            this.btnBaoCao.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnBaoCao.Margin = new System.Windows.Forms.Padding(2);
             this.btnBaoCao.Name = "btnBaoCao";
             this.btnBaoCao.Size = new System.Drawing.Size(107, 28);
             this.btnBaoCao.TabIndex = 3;
@@ -171,7 +171,7 @@
             this.btnVeMayBay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVeMayBay.ForeColor = System.Drawing.Color.Black;
             this.btnVeMayBay.Location = new System.Drawing.Point(229, 12);
-            this.btnVeMayBay.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnVeMayBay.Margin = new System.Windows.Forms.Padding(2);
             this.btnVeMayBay.Name = "btnVeMayBay";
             this.btnVeMayBay.Size = new System.Drawing.Size(151, 28);
             this.btnVeMayBay.TabIndex = 2;
@@ -192,7 +192,7 @@
             this.btnChuyenBay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChuyenBay.ForeColor = System.Drawing.Color.Black;
             this.btnChuyenBay.Location = new System.Drawing.Point(100, 12);
-            this.btnChuyenBay.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnChuyenBay.Margin = new System.Windows.Forms.Padding(2);
             this.btnChuyenBay.Name = "btnChuyenBay";
             this.btnChuyenBay.Size = new System.Drawing.Size(124, 28);
             this.btnChuyenBay.TabIndex = 0;
@@ -215,8 +215,9 @@
             this.ClientSize = new System.Drawing.Size(1184, 701);
             this.Controls.Add(this.pnlCommon);
             this.Controls.Add(this.guna2Panel1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmTrangChu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Trangchu";
             this.guna2Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();

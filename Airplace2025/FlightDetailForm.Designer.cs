@@ -29,7 +29,9 @@
         private void InitializeComponent()
         {
             this.mainPanel = new Guna.UI2.WinForms.Guna2Panel();
+            this.btnConfirm = new Guna.UI2.WinForms.Guna2Button();
             this.flightInfoPanel = new Guna.UI2.WinForms.Guna2Panel();
+            this.lblAircraft = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblAirline = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblFlightNumberTitle = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.timelinePanel = new Guna.UI2.WinForms.Guna2Panel();
@@ -50,8 +52,6 @@
             this.headerPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.btnClose = new Guna.UI2.WinForms.Guna2Button();
             this.lblTitle = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblAircraft = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.btnConfirm = new Guna.UI2.WinForms.Guna2Button();
             this.mainPanel.SuspendLayout();
             this.flightInfoPanel.SuspendLayout();
             this.timelinePanel.SuspendLayout();
@@ -76,6 +76,24 @@
             this.mainPanel.Size = new System.Drawing.Size(420, 500);
             this.mainPanel.TabIndex = 0;
             // 
+            // btnConfirm
+            // 
+            this.btnConfirm.BorderRadius = 8;
+            this.btnConfirm.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnConfirm.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnConfirm.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnConfirm.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnConfirm.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnConfirm.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.btnConfirm.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirm.ForeColor = System.Drawing.Color.Black;
+            this.btnConfirm.Location = new System.Drawing.Point(300, 445);
+            this.btnConfirm.Name = "btnConfirm";
+            this.btnConfirm.Size = new System.Drawing.Size(95, 40);
+            this.btnConfirm.TabIndex = 6;
+            this.btnConfirm.Text = "ĐÓNG";
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
+            // 
             // flightInfoPanel
             // 
             this.flightInfoPanel.BorderRadius = 8;
@@ -87,6 +105,17 @@
             this.flightInfoPanel.Name = "flightInfoPanel";
             this.flightInfoPanel.Size = new System.Drawing.Size(370, 70);
             this.flightInfoPanel.TabIndex = 5;
+            // 
+            // lblAircraft
+            // 
+            this.lblAircraft.BackColor = System.Drawing.Color.Transparent;
+            this.lblAircraft.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAircraft.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.lblAircraft.Location = new System.Drawing.Point(10, 50);
+            this.lblAircraft.Name = "lblAircraft";
+            this.lblAircraft.Size = new System.Drawing.Size(71, 17);
+            this.lblAircraft.TabIndex = 2;
+            this.lblAircraft.Text = "AIRBUS A321";
             // 
             // lblAirline
             // 
@@ -247,7 +276,7 @@
             // 
             this.lblFlightDuration.BackColor = System.Drawing.Color.Transparent;
             this.lblFlightDuration.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFlightDuration.Location = new System.Drawing.Point(45, 85);
+            this.lblFlightDuration.Location = new System.Drawing.Point(42, 85);
             this.lblFlightDuration.Name = "lblFlightDuration";
             this.lblFlightDuration.Size = new System.Drawing.Size(44, 32);
             this.lblFlightDuration.TabIndex = 1;
@@ -335,35 +364,6 @@
             this.lblTitle.Size = new System.Drawing.Size(254, 32);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Hà Nội - TP. Hồ Chí Minh";
-            // 
-            // lblAircraft
-            // 
-            this.lblAircraft.BackColor = System.Drawing.Color.Transparent;
-            this.lblAircraft.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAircraft.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.lblAircraft.Location = new System.Drawing.Point(10, 50);
-            this.lblAircraft.Name = "lblAircraft";
-            this.lblAircraft.Size = new System.Drawing.Size(71, 17);
-            this.lblAircraft.TabIndex = 2;
-            this.lblAircraft.Text = "AIRBUS A321";
-            // 
-            // btnConfirm
-            // 
-            this.btnConfirm.BorderRadius = 8;
-            this.btnConfirm.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnConfirm.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnConfirm.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnConfirm.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnConfirm.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnConfirm.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
-            this.btnConfirm.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConfirm.ForeColor = System.Drawing.Color.Black;
-            this.btnConfirm.Location = new System.Drawing.Point(300, 445);
-            this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(95, 40);
-            this.btnConfirm.TabIndex = 6;
-            this.btnConfirm.Text = "ĐÓNG";
-            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
             // FlightDetailForm
             // 

@@ -58,6 +58,7 @@ namespace Airplace2025
 
             // Set next day indicator
             lblNextDay.Visible = data.IsNextDay;
+            lblArrivalDate.Visible = data.IsNextDay;
 
             // Set flight duration
             lblFlightDuration.Text = data.FlightDuration?.Replace("⏱ Thời gian bay ", "")

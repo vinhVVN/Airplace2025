@@ -23,7 +23,7 @@ namespace Airplace2025
         {
             // Tạo FlightDetailForm và truyền dữ liệu
             FlightDetailForm detailForm = new FlightDetailForm();
-            
+
             // Populate dữ liệu vào form
             detailForm.SetFlightData(new FlightDetailData
             {
@@ -45,7 +45,7 @@ namespace Airplace2025
                 FlightDuration = Duration,
                 IsNextDay = IsNextDay
             });
-            
+
             // Hiển thị form chi tiết
             detailForm.ShowDialog();
         }
@@ -118,7 +118,29 @@ namespace Airplace2025
 
         public int EconomySeats
         {
-            set => lblSeatsEco.Text = value > 0 ? $"{value} ghế còn lại" : "Hết chỗ";
+            set
+            {
+                lblSeatsEco.Visible = value < 10;
+                lblSeatsEco.Text = value > 0 ? $"{value} ghế còn lại" : "Hết chỗ";
+            }
+        }
+
+        public int PremiumSeats
+        {
+            set
+            {
+                lblSeatsPre.Visible = value < 10;
+                lblSeatsPre.Text = value > 0 ? $"{value} ghế còn lại" : "Hết chỗ";
+            }
+        }
+
+        public int BusinessSeats
+        {
+            set
+            {
+                lblSeatsBus.Visible = value < 10;
+                lblSeatsBus.Text = value > 0 ? $"{value} ghế còn lại" : "Hết chỗ";
+            }
         }
 
         // Thêm các property để lưu trữ dữ liệu chi tiết

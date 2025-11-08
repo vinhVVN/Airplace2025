@@ -705,6 +705,8 @@ namespace Airplace2025
                         card.PremiumPrice = string.Format("{0:#,##0}", flight.GiaPremium ?? (flight.GiaCoBan * 1.5m));
                         card.BusinessPrice = string.Format("{0:#,##0}", flight.GiaBusiness ?? (flight.GiaCoBan * 2.5m));
                         card.EconomySeats = flight.GheEconomy ?? flight.SoGheTrong;
+                        card.PremiumSeats = flight.GhePremium ?? 0;
+                        card.BusinessSeats = flight.GheBusiness ?? 0;
 
                         // Gán dữ liệu chi tiết cho FlightDetailForm
                         card.DepartureDate = "Khởi hành vào " + flight.NgayGioBay.ToString("dddd, dd 'tháng' MM, yyyy", new System.Globalization.CultureInfo("vi-VN"));
