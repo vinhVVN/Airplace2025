@@ -6,9 +6,7 @@ using System.Data.SqlClient;
 
 namespace Airplace2025.DAL
 {
-    /// <summary>
-    /// Data Access Layer cho ChuyenBay
-    /// </summary>
+    // Data Access Layer cho ChuyenBay
     public class ChuyenBayDAO
     {
         private static ChuyenBayDAO _instance;
@@ -25,8 +23,7 @@ namespace Airplace2025.DAL
         private ChuyenBayDAO() { }
 
         /// <summary>
-        /// Tìm kiếm chuyến bay theo các tiêu chí
-        /// </summary>
+        // Tìm kiếm chuyến bay theo các tiêu chí
         public List<ChuyenBayDTO> SearchFlights(SearchFlightParams searchParams)
         {
             List<ChuyenBayDTO> flights = new List<ChuyenBayDTO>();

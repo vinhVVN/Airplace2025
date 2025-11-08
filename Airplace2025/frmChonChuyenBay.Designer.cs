@@ -64,11 +64,9 @@
             this.btnOneWay = new Guna.UI2.WinForms.Guna2RadioButton();
             this.btnRoundTrip = new Guna.UI2.WinForms.Guna2RadioButton();
             this.pnlChonChuyenBay = new Guna.UI2.WinForms.Guna2Panel();
-            //this.flightListPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.cboSortType = new Guna.UI2.WinForms.Guna2ComboBox();
             this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.btnFilter = new Guna.UI2.WinForms.Guna2Button();
-            this.lblDetailFrom = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnlThongTinDatCho.SuspendLayout();
             this.pnlFlightInfo.SuspendLayout();
             this.pnlRoundTrip.SuspendLayout();
@@ -90,7 +88,6 @@
             // pnlFlightInfo
             // 
             this.pnlFlightInfo.BorderRadius = 8;
-            this.pnlFlightInfo.Controls.Add(this.lblDetailFrom);
             this.pnlFlightInfo.Controls.Add(this.pnlRoundTrip);
             this.pnlFlightInfo.Controls.Add(this.lblUp);
             this.pnlFlightInfo.Controls.Add(this.pnlOneWay);
@@ -640,15 +637,6 @@
             this.btnFilter.TextOffset = new System.Drawing.Point(10, 0);
             this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
             // 
-            // lblDetailFrom
-            // 
-            this.lblDetailFrom.BackColor = System.Drawing.Color.Transparent;
-            this.lblDetailFrom.Location = new System.Drawing.Point(21, 45);
-            this.lblDetailFrom.Name = "lblDetailFrom";
-            this.lblDetailFrom.Size = new System.Drawing.Size(37, 15);
-            this.lblDetailFrom.TabIndex = 14;
-            this.lblDetailFrom.Text = "Nội Bài";
-            // 
             // frmChonChuyenBay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -717,6 +705,5 @@
         private Guna.UI2.WinForms.Guna2Button btnFilter;
         private Guna.UI2.WinForms.Guna2ComboBox cboSortType;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
-        private Guna.UI2.WinForms.Guna2HtmlLabel lblDetailFrom;
     }
 }

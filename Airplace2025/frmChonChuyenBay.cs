@@ -1,6 +1,6 @@
-﻿using Airplace2025.DAL; // for ChuyenBayDAO
-using Airplace2025.BLL; // for ChuyenBayBLL
+﻿using Airplace2025.BLL; // for ChuyenBayBLL
 using Airplace2025.BLL.DTO; // for ChuyenBayDTO
+using Airplace2025.DAL; // for ChuyenBayDAO
 using Airplace2025.State; // for PassengerSelectionState
 using System;
 using System.Collections.Generic;
@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Caching;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Forms;
@@ -26,20 +27,15 @@ namespace Airplace2025
         private bool isRoundTrip;
         private bool isUpdatingCombos = false;
         private List<string> airportOptions = new List<string>();
-        private DataTable airportsDisplayTable; // cached source for combo filtering
-        private TableLayoutPanel flightsTable; // runtime table to host FlightCard rows
-
-        public frmChonChuyenBay()
-        {
-            InitializeComponent();
-        }
+        private DataTable airportsDisplayTable; //Nguồn được lưu vào bộ nhớ cache cho việc lọc combo.
+        private TableLayoutPanel flightsTable; // Bảng thời gian chạy để lưu trữ các hàng (dòng) FlightCard.
 
         public frmChonChuyenBay(string sanBayDi, string sanBayDen, DateTime ngayDi, DateTime ngayVe, string soLuongHanhKhach, bool isRoundTrip)
         {
             InitializeComponent();
             this.sanBayDi = sanBayDi;
             this.sanBayDen = sanBayDen;
-            // Validate dates immediately to prevent past dates
+            // Xác thực ngày tháng ngay lập tức để ngăn chặn (người dùng chọn) các ngày trong quá khứ.
             this.ngayDi = ngayDi < DateTime.Today ? DateTime.Today : ngayDi;
             this.ngayVe = ngayVe < DateTime.Today ? DateTime.Today : ngayVe;
             this.soLuongHanhKhach = soLuongHanhKhach;
@@ -49,7 +45,7 @@ namespace Airplace2025
 
         private void frmChonChuyenBay_Load(object sender, EventArgs e)
         {
-            // Load airports to combo boxes from database and sync with labels
+            // Tải các sân bay vào hộp tổ hợp (combo box) từ cơ sở dữ liệu
             LoadAirportsToCombos();
 
             // Hiển thị mã sân bay từ frmDatVe
@@ -105,10 +101,10 @@ namespace Airplace2025
 
             pnlChonChuyenBay.Location = new System.Drawing.Point(0, 100);
 
-            // Initialize flights table (TableLayoutPanel) inside existing panel
+            // Khởi tạo bảng chuyến bay (TableLayoutPanel) bên trong panel đã có.
             EnsureFlightsTable();
 
-            // Load initial list of flights
+            // Tải danh sách chuyến bay ban đầu.
             SafeLoadFlights();
         }
 
@@ -162,8 +158,6 @@ namespace Airplace2025
             if (!string.IsNullOrWhiteSpace(code))
             {
                 lblFrom.Text = code;
-                // Update the detail label with full airport name
-                UpdateAirportDetailLabel();
             }
         }
 
@@ -171,27 +165,6 @@ namespace Airplace2025
         {
             string code = GetSelectedAirportCode(cbSanBayDen.SelectedValue, cbSanBayDen.SelectedItem);
             if (!string.IsNullOrWhiteSpace(code)) lblTo.Text = code;
-        }
-
-        private void UpdateAirportDetailLabel()
-        {
-            try
-            {
-                if (cbSanBayDi.SelectedItem != null && airportsDisplayTable != null)
-                {
-                    string selectedCode = GetSelectedAirportCode(cbSanBayDi.SelectedValue, cbSanBayDi.SelectedItem);
-                    DataRow[] rows = airportsDisplayTable.Select($"MaSanBay = '{selectedCode.Replace("'", "''")}'");
-                    if (rows.Length > 0)
-                    {
-                        string airportName = rows[0]["TenSanBay"].ToString();
-                        lblDetailFrom.Text = airportName;
-                    }
-                }
-            }
-            catch
-            {
-                // Ignore errors in updating detail label
-            }
         }
 
         private string GetSelectedAirportCode(object selectedValue, object selectedItem)
@@ -328,12 +301,6 @@ namespace Airplace2025
             // Edit panel controls
             lblReturnDate.Visible = isRoundTrip;
             dtpNgayVe.Visible = isRoundTrip;
-
-            // Header controls
-            pnlRoundTrip.Visible = isRoundTrip;
-            pnlOneWay.Visible = !isRoundTrip;
-            lblReturn.Visible = isRoundTrip;
-            dtpReturn.Visible = isRoundTrip;
         }
 
         private void pnlRoundTrip_Paint(object sender, PaintEventArgs e)
@@ -521,12 +488,6 @@ namespace Airplace2025
                 // Edit panel controls
                 lblReturnDate.Visible = false;
                 dtpNgayVe.Visible = false;
-
-                // Header controls
-                pnlRoundTrip.Visible = false;
-                pnlOneWay.Visible = true;
-                lblReturn.Visible = false;
-                dtpReturn.Visible = false;
             }
         }
 
@@ -599,7 +560,6 @@ namespace Airplace2025
 
         private void cbSanBayDen_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateToLabel();
             UpdateEditButton();
             SafeLoadFlights();
         }
@@ -680,9 +640,9 @@ namespace Airplace2025
                     date = DateTime.Today;
                 }
 
-                int soKhach = Math.Max(1, PassengerSelectionStateTemp.Total);
+                int soGheCan = Math.Max(1, PassengerSelectionStateTemp.Adult + PassengerSelectionStateTemp.Child);
 
-                var list = ChuyenBayBLL.Instance.TimKiemChuyenBay(from, to, date, soKhach);
+                var list = ChuyenBayBLL.Instance.TimKiemChuyenBay(from, to, date, soGheCan);
                 RenderFlights(list);
             }
             catch (Exception ex)
