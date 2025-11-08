@@ -524,9 +524,6 @@ namespace Airplace2025
 
             // If return date is before departure date, set it to departure date
             ValidateReturnDate();
-
-            // Refresh flights as departure date changes
-            LoadFlights();
         }
 
         private void dtpNgayVe_ValueChanged(object sender, EventArgs e)
@@ -715,8 +712,8 @@ namespace Airplace2025
                         card.FlightNumber = flight.MaChuyenBay;
                         card.Aircraft = flight.TenMayBay ?? "N/A";
                         card.IsNextDay = isNextDay;
-                        card.DepartureAirport = $"Sân bay {flight.TenSanBayDi}";
-                        card.ArrivalAirport = $"Sân bay {flight.TenSanBayDen}";
+                        card.DepartureAirport = flight.TenSanBayDi;
+                        card.ArrivalAirport = flight.TenSanBayDen;
 
                         // Cấu hình card
                         card.Margin = new Padding(5, 10, 5, 10);
@@ -776,8 +773,8 @@ namespace Airplace2025
                         FlightNumber = "VN 267",
                         Aircraft = "AIRBUS A321",
                         IsNextDay = true,
-                        DepartureAirport = "Sân bay Nội Bài, Việt Nam",
-                        ArrivalAirport = "Sân bay Tân Sơn Nhất, Việt Nam"
+                        DepartureAirport = "Nội Bài, Việt Nam",
+                        ArrivalAirport = "Tân Sơn Nhất, Việt Nam"
                     },
                     new {
                         DepartureTime = "06:00",
@@ -797,8 +794,8 @@ namespace Airplace2025
                         FlightNumber = "VJ 123",
                         Aircraft = "AIRBUS A320",
                         IsNextDay = false,
-                        DepartureAirport = "Sân bay Nội Bài, Việt Nam",
-                        ArrivalAirport = "Sân bay Tân Sơn Nhất, Việt Nam"
+                        DepartureAirport = "Nội Bài, Việt Nam",
+                        ArrivalAirport = "Tân Sơn Nhất, Việt Nam"
                     },
                     new {
                         DepartureTime = "14:30",
@@ -818,8 +815,8 @@ namespace Airplace2025
                         FlightNumber = "BL 456",
                         Aircraft = "BOEING 787",
                         IsNextDay = false,
-                        DepartureAirport = "Sân bay Nội Bài, Việt Nam",
-                        ArrivalAirport = "Sân bay Tân Sơn Nhất, Việt Nam"
+                        DepartureAirport = "Nội Bài, Việt Nam",
+                        ArrivalAirport = "Tân Sơn Nhất, Việt Nam"
                     }
                 };
 
