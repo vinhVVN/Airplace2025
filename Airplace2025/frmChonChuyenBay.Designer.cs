@@ -613,6 +613,7 @@
             this.cboSortType.Size = new System.Drawing.Size(253, 36);
             this.cboSortType.StartIndex = 4;
             this.cboSortType.TabIndex = 4;
+            this.cboSortType.SelectedIndexChanged += new System.EventHandler(this.cboSortType_SelectedIndexChanged);
             // 
             // guna2HtmlLabel5
             // 

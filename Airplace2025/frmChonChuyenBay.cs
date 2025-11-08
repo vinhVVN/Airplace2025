@@ -28,7 +28,7 @@ namespace Airplace2025
         private bool isUpdatingCombos = false;
         private List<string> airportOptions = new List<string>();
         private DataTable airportsDisplayTable; //Nguồn được lưu vào bộ nhớ cache cho việc lọc combo.
-        private TableLayoutPanel flightsTable; // Bảng thời gian chạy để lưu trữ các hàng (dòng) FlightCard.
+        private List<ChuyenBayDTO> currentFlights = new List<ChuyenBayDTO>(); // Lưu danh sách chuyến bay hiện tại để sắp xếp
 
         public frmChonChuyenBay(string sanBayDi, string sanBayDen, DateTime ngayDi, DateTime ngayVe, string soLuongHanhKhach, bool isRoundTrip)
         {
@@ -626,8 +626,14 @@ namespace Airplace2025
                 // Gọi BLL để tìm kiếm chuyến bay
                 var flights = ChuyenBayBLL.Instance.TimKiemChuyenBay(maSanBayDi, maSanBayDen, ngayDi, soGheCan);
 
+                // Lưu danh sách chuyến bay hiện tại
+                currentFlights = flights ?? new List<ChuyenBayDTO>();
+
+                // Áp dụng sắp xếp nếu có
+                ApplySorting();
+
                 // Render kết quả
-                RenderFlights(flights);
+                RenderFlights(currentFlights);
             }
             catch (Exception ex)
             {
@@ -736,136 +742,61 @@ namespace Airplace2025
             }
         }
 
-        /// <summary>
-        /// Load dữ liệu mẫu các FlightCard để test hiển thị
-        /// </summary>
-        private void LoadSampleFlights()
+        // Áp dụng sắp xếp cho danh sách chuyến bay hiện tại
+        private void ApplySorting()
         {
-            try
+            if (currentFlights == null || currentFlights.Count == 0)
+                return;
+
+            string sortType = cboSortType.SelectedItem?.ToString() ?? "Mặc định";
+
+            switch (sortType)
             {
-                // Cấu hình tlpFlights
-                tlpFlights.SuspendLayout();
-                tlpFlights.Controls.Clear();
-                tlpFlights.RowStyles.Clear();
-                tlpFlights.AutoScroll = true;
-                tlpFlights.ColumnCount = 1;
-                tlpFlights.RowCount = 0;
-                tlpFlights.Dock = DockStyle.None;
-                tlpFlights.ColumnStyles.Clear();
-                tlpFlights.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+                case "Rẻ nhất":
+                    // Sắp xếp theo giá Economy tăng dần
+                    currentFlights = currentFlights
+                        .OrderBy(f => f.GiaEconomy ?? f.GiaCoBan)
+                        .ToList();
+                    break;
 
-                // Tạo dữ liệu mẫu cho 3 chuyến bay
-                var sampleFlights = new[]
-                {
-                    new {
-                        DepartureTime = "22:00",
-                        DepartureCity = "HAN",
-                        DepartureTerminal = "Nhà ga 1",
-                        ArrivalTime = "00:10",
-                        ArrivalCity = "SGN",
-                        ArrivalTerminal = "Nhà ga 3",
-                        Duration = "⏱ Thời gian bay 2h 10phút",
-                        Airline = "✈ VN 267 Khai thác bởi Vietnam Airlines",
-                        EconomyPrice = "2.690.000",
-                        PremiumPrice = "3.449.000",
-                        BusinessPrice = "5.067.000",
-                        EconomySeats = 5,
-                        DepartureDate = "Khởi hành vào " + dtpNgayDi.Value.ToString("dddd, dd 'tháng' MM, yyyy", new System.Globalization.CultureInfo("vi-VN")),
-                        ArrivalDate = "Đến vào " + dtpNgayDi.Value.AddDays(1).ToString("dddd, dd 'tháng' MM, yyyy", new System.Globalization.CultureInfo("vi-VN")),
-                        FlightNumber = "VN 267",
-                        Aircraft = "AIRBUS A321",
-                        IsNextDay = true,
-                        DepartureAirport = "Nội Bài, Việt Nam",
-                        ArrivalAirport = "Tân Sơn Nhất, Việt Nam"
-                    },
-                    new {
-                        DepartureTime = "06:00",
-                        DepartureCity = "HAN",
-                        DepartureTerminal = "Nhà ga 1",
-                        ArrivalTime = "08:05",
-                        ArrivalCity = "SGN",
-                        ArrivalTerminal = "Nhà ga 2",
-                        Duration = "⏱ Thời gian bay 2h 5phút",
-                        Airline = "✈ VJ 123 Khai thác bởi Vietjet Air",
-                        EconomyPrice = "1.890.000",
-                        PremiumPrice = "2.835.000",
-                        BusinessPrice = "4.725.000",
-                        EconomySeats = 12,
-                        DepartureDate = "Khởi hành vào " + dtpNgayDi.Value.ToString("dddd, dd 'tháng' MM, yyyy", new System.Globalization.CultureInfo("vi-VN")),
-                        ArrivalDate = "Đến vào " + dtpNgayDi.Value.ToString("dddd, dd 'tháng' MM, yyyy", new System.Globalization.CultureInfo("vi-VN")),
-                        FlightNumber = "VJ 123",
-                        Aircraft = "AIRBUS A320",
-                        IsNextDay = false,
-                        DepartureAirport = "Nội Bài, Việt Nam",
-                        ArrivalAirport = "Tân Sơn Nhất, Việt Nam"
-                    },
-                    new {
-                        DepartureTime = "14:30",
-                        DepartureCity = "HAN",
-                        DepartureTerminal = "Nhà ga 1",
-                        ArrivalTime = "16:40",
-                        ArrivalCity = "SGN",
-                        ArrivalTerminal = "Nhà ga 1",
-                        Duration = "⏱ Thời gian bay 2h 10phút",
-                        Airline = "✈ BL 456 Khai thác bởi Bamboo Airways",
-                        EconomyPrice = "2.190.000",
-                        PremiumPrice = "3.285.000",
-                        BusinessPrice = "5.475.000",
-                        EconomySeats = 8,
-                        DepartureDate = "Khởi hành vào " + dtpNgayDi.Value.ToString("dddd, dd 'tháng' MM, yyyy", new System.Globalization.CultureInfo("vi-VN")),
-                        ArrivalDate = "Đến vào " + dtpNgayDi.Value.ToString("dddd, dd 'tháng' MM, yyyy", new System.Globalization.CultureInfo("vi-VN")),
-                        FlightNumber = "BL 456",
-                        Aircraft = "BOEING 787",
-                        IsNextDay = false,
-                        DepartureAirport = "Nội Bài, Việt Nam",
-                        ArrivalAirport = "Tân Sơn Nhất, Việt Nam"
-                    }
-                };
+                case "Thời gian khởi hành tăng dần":
+                    // Sắp xếp theo thời gian khởi hành tăng dần
+                    currentFlights = currentFlights
+                        .OrderBy(f => f.NgayGioBay)
+                        .ToList();
+                    break;
 
-                // Thêm từng FlightCard vào tlpFlights
-                foreach (var flight in sampleFlights)
-                {
-                    var card = new FlightCard();
+                case "Thời gian khởi hành giảm dần":
+                    // Sắp xếp theo thời gian khởi hành giảm dần
+                    currentFlights = currentFlights
+                        .OrderByDescending(f => f.NgayGioBay)
+                        .ToList();
+                    break;
 
-                    // Gán dữ liệu mẫu cho card
-                    card.DepartureTime = flight.DepartureTime;
-                    card.DepartureCity = flight.DepartureCity;
-                    card.DepartureTerminal = flight.DepartureTerminal;
-                    card.ArrivalTime = flight.ArrivalTime;
-                    card.ArrivalCity = flight.ArrivalCity;
-                    card.ArrivalTerminal = flight.ArrivalTerminal;
-                    card.Duration = flight.Duration;
-                    card.Airline = flight.Airline;
-                    card.EconomyPrice = flight.EconomyPrice;
-                    card.PremiumPrice = flight.PremiumPrice;
-                    card.BusinessPrice = flight.BusinessPrice;
-                    card.EconomySeats = flight.EconomySeats;
-                    
-                    // Gán dữ liệu chi tiết cho FlightDetailForm
-                    card.DepartureDate = flight.DepartureDate;
-                    card.ArrivalDate = flight.ArrivalDate;
-                    card.FlightNumber = flight.FlightNumber;
-                    card.Aircraft = flight.Aircraft;
-                    card.IsNextDay = flight.IsNextDay;
-                    card.DepartureAirport = flight.DepartureAirport;
-                    card.ArrivalAirport = flight.ArrivalAirport;
+                case "Thời gian bay tăng dần":
+                    // Sắp xếp theo thời gian bay tăng dần
+                    currentFlights = currentFlights
+                        .OrderBy(f => {
+                            if (f.NgayGioDen > f.NgayGioBay)
+                                return (f.NgayGioDen - f.NgayGioBay).TotalMinutes;
+                            return f.ThoiGianBay;
+                        })
+                        .ToList();
+                    break;
 
-                    // Cấu hình card
-                    card.Margin = new Padding(5, 10, 5, 10);
-                    card.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
-
-                    // Thêm row mới vào table
-                    tlpFlights.RowCount += 1;
-                    tlpFlights.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-                    tlpFlights.Controls.Add(card, 0, tlpFlights.RowCount - 1);
-                }
-
-                tlpFlights.ResumeLayout();
+                case "Mặc định":
+                default:
+                    // Không sắp xếp, giữ nguyên thứ tự từ database
+                    break;
             }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show($"Lỗi load dữ liệu mẫu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+        }
+
+        // Event handler khi thay đổi kiểu sắp xếp
+        private void cboSortType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Áp dụng sắp xếp và render lại
+            ApplySorting();
+            RenderFlights(currentFlights);
         }
     }
 }
