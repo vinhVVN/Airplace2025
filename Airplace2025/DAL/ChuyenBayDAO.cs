@@ -59,7 +59,8 @@ namespace Airplace2025.DAL
                                     TrangThai = reader["TrangThai"].ToString(),
                                     MaHangBay = reader["MaHangBay"] != DBNull.Value ? reader["MaHangBay"].ToString() : "",
                                     TenHangBay = reader["TenHangBay"].ToString(),
-                                    Logo = reader["Logo"] != DBNull.Value ? reader["Logo"].ToString() : "",
+                                    // Logo là VARBINARY, không đọc trực tiếp - để null hoặc xử lý riêng nếu cần
+                                    Logo = null, 
                                     MaMayBay = reader["MaMayBay"] != DBNull.Value ? reader["MaMayBay"].ToString() : "",
                                     TenMayBay = reader["TenMayBay"] != DBNull.Value ? reader["TenMayBay"].ToString() : "",
                                     SoGheTrong = reader["SoGheTrong"] != DBNull.Value 

@@ -101,8 +101,8 @@ namespace Airplace2025
 
             pnlChonChuyenBay.Location = new System.Drawing.Point(0, 100);
 
-            // Load dữ liệu mẫu để test
-            LoadSampleFlights();
+            // Load chuyến bay từ database
+            LoadFlights();
         }
 
         /// Load airports into cbSanBayDi and cbSanBayDen from database.
@@ -465,7 +465,7 @@ namespace Airplace2025
             }
             cbSanBayDi.Invalidate();
             UpdateEditButton();
-            //SafeLoadFlights();
+            LoadFlights();
         }
 
         private void btnOneWay_CheckedChanged(object sender, EventArgs e)
@@ -526,7 +526,7 @@ namespace Airplace2025
             ValidateReturnDate();
 
             // Refresh flights as departure date changes
-            //SafeLoadFlights();
+            LoadFlights();
         }
 
         private void dtpNgayVe_ValueChanged(object sender, EventArgs e)
@@ -549,7 +549,7 @@ namespace Airplace2025
         private void cbSanBayDen_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateEditButton();
-            //SafeLoadFlights();
+            LoadFlights();
         }
 
         private void UpdateEditButton()
@@ -592,6 +592,149 @@ namespace Airplace2025
         private void pnlChonChuyenBay_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// Load chuyến bay từ database dựa trên tiêu chí tìm kiếm
+        /// </summary>
+        private void LoadFlights()
+        {
+            try
+            {
+                // Kiểm tra validation trước khi tìm kiếm
+                if (!ValidateForm())
+                {
+                    // Nếu không hợp lệ, hiển thị danh sách rỗng
+                    RenderFlights(new List<ChuyenBayDTO>());
+                    return;
+                }
+
+                // Lấy thông tin tìm kiếm
+                string maSanBayDi = GetSelectedAirportCode(cbSanBayDi.SelectedValue, cbSanBayDi.SelectedItem);
+                string maSanBayDen = GetSelectedAirportCode(cbSanBayDen.SelectedValue, cbSanBayDen.SelectedItem);
+                DateTime ngayDi = dtpNgayDi.Value.Date;
+
+                // Validate date không trong quá khứ
+                if (ngayDi < DateTime.Today)
+                {
+                    dtpNgayDi.Value = DateTime.Today;
+                    ngayDi = DateTime.Today;
+                }
+
+                // Tính tổng số hành khách cần ghế (không tính em bé)
+                int soNguoiLon = PassengerSelectionStateTemp.Adult;
+                int soTreEm = PassengerSelectionStateTemp.Child;
+                int soGheCan = Math.Max(1, soNguoiLon + soTreEm);
+
+                // Gọi BLL để tìm kiếm chuyến bay
+                var flights = ChuyenBayBLL.Instance.TimKiemChuyenBay(maSanBayDi, maSanBayDen, ngayDi, soGheCan);
+
+                // Render kết quả
+                RenderFlights(flights);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show($"Lỗi tải chuyến bay: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Hiển thị danh sách rỗng khi có lỗi
+                RenderFlights(new List<ChuyenBayDTO>());
+            }
+        }
+
+        /// <summary>
+        /// Render danh sách chuyến bay lên tlpFlights
+        /// </summary>
+        private void RenderFlights(List<ChuyenBayDTO> flights)
+        {
+            try
+            {
+                // Cấu hình tlpFlights
+                tlpFlights.SuspendLayout();
+                tlpFlights.Controls.Clear();
+                tlpFlights.RowStyles.Clear();
+                tlpFlights.AutoScroll = true;
+                tlpFlights.ColumnCount = 1;
+                tlpFlights.RowCount = 0;
+                tlpFlights.Dock = DockStyle.None;
+                tlpFlights.ColumnStyles.Clear();
+                tlpFlights.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+
+                if (flights == null || flights.Count == 0)
+                {
+                    // Hiển thị thông báo không tìm thấy chuyến bay
+                    Label lblNoFlights = new Label
+                    {
+                        Text = "Không tìm thấy chuyến bay phù hợp",
+                        Font = new Font("Segoe UI", 12, System.Drawing.FontStyle.Regular),
+                        ForeColor = Color.Gray,
+                        AutoSize = false,
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        Dock = DockStyle.Fill,
+                        Height = 100
+                    };
+                    tlpFlights.RowCount = 1;
+                    tlpFlights.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                    tlpFlights.Controls.Add(lblNoFlights, 0, 0);
+                }
+                else
+                {
+                    // Thêm từng FlightCard vào tlpFlights
+                    foreach (var flight in flights)
+                    {
+                        var card = new FlightCard();
+
+                        // Tính thời gian bay
+                        var duration = flight.NgayGioDen > flight.NgayGioBay 
+                            ? (flight.NgayGioDen - flight.NgayGioBay) 
+                            : TimeSpan.FromMinutes(Math.Max(0, flight.ThoiGianBay));
+                        
+                        int hours = (int)duration.TotalHours;
+                        int minutes = duration.Minutes;
+
+                        // Kiểm tra có sang ngày hôm sau không
+                        bool isNextDay = flight.NgayGioDen.Date > flight.NgayGioBay.Date;
+
+                        // Gán dữ liệu cho card
+                        card.DepartureTime = flight.NgayGioBay.ToString("HH:mm");
+                        card.DepartureCity = flight.MaSanBayDi;
+                        card.DepartureTerminal = ""; // Có thể lấy từ DB nếu có
+                        card.ArrivalTime = flight.NgayGioDen.ToString("HH:mm");
+                        card.ArrivalCity = flight.MaSanBayDen;
+                        card.ArrivalTerminal = ""; // Có thể lấy từ DB nếu có
+                        card.Duration = $"⏱ Thời gian bay {hours}h {minutes}phút";
+                        card.Airline = $"✈ {flight.MaChuyenBay} Khai thác bởi {flight.TenHangBay}";
+                        
+                        // Format giá tiền
+                        card.EconomyPrice = string.Format("{0:#,##0}", flight.GiaEconomy ?? flight.GiaCoBan);
+                        card.PremiumPrice = string.Format("{0:#,##0}", flight.GiaPremium ?? (flight.GiaCoBan * 1.5m));
+                        card.BusinessPrice = string.Format("{0:#,##0}", flight.GiaBusiness ?? (flight.GiaCoBan * 2.5m));
+                        card.EconomySeats = flight.GheEconomy ?? flight.SoGheTrong;
+
+                        // Gán dữ liệu chi tiết cho FlightDetailForm
+                        card.DepartureDate = "Khởi hành vào " + flight.NgayGioBay.ToString("dddd, dd 'tháng' MM, yyyy", new System.Globalization.CultureInfo("vi-VN"));
+                        card.ArrivalDate = "Đến vào " + flight.NgayGioDen.ToString("dddd, dd 'tháng' MM, yyyy", new System.Globalization.CultureInfo("vi-VN"));
+                        card.FlightNumber = flight.MaChuyenBay;
+                        card.Aircraft = flight.TenMayBay ?? "N/A";
+                        card.IsNextDay = isNextDay;
+                        card.DepartureAirport = $"Sân bay {flight.TenSanBayDi}";
+                        card.ArrivalAirport = $"Sân bay {flight.TenSanBayDen}";
+
+                        // Cấu hình card
+                        card.Margin = new Padding(5, 10, 5, 10);
+                        card.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+
+                        // Thêm row mới vào table
+                        tlpFlights.RowCount += 1;
+                        tlpFlights.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                        tlpFlights.Controls.Add(card, 0, tlpFlights.RowCount - 1);
+                    }
+                }
+
+                tlpFlights.ResumeLayout();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show($"Lỗi hiển thị chuyến bay: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /// <summary>

@@ -37,7 +37,8 @@ namespace Airplace2025.BLL
                 SoNguoiLon = Math.Max(0, soHanhKhach),
                 SoTreEm = 0,
                 SoEmBe = 0,
-                HangDichVu = "Economy",
+                // Không filter theo hạng vé cụ thể - để user chọn trên UI
+                HangDichVu = null,
                 LaKhuHoi = false
             };
 
