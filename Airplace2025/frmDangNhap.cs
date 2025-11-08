@@ -94,7 +94,7 @@ namespace Airplace2025
                 txtPassword.PasswordChar = HIDE_CHAR;
 
                 // 3. Thay đổi biểu tượng con mắt thành trạng thái ĐÓNG
-                // guna2ImageButton1.Image = Properties.Resources.eye_closed_icon;
+                guna2ImageButton1.Image = Properties.Resources.noun_closed_eye_5269901;
             }
             else
             {
@@ -107,7 +107,7 @@ namespace Airplace2025
                 txtPassword.PasswordChar = '\0';
 
                 // 3. Thay đổi biểu tượng con mắt thành trạng thái MỞ
-                // guna2ImageButton1.Image = Properties.Resources.eye_open_icon;
+                guna2ImageButton1.Image = Properties.Resources.eye_removebg_preview;
             }
         }
 

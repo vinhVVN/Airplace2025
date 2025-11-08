@@ -304,6 +304,7 @@
     <Content Include="map.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\noun-closed-eye-5269901.png" />
     <None Include="Resources\plane.jpg" />
     <None Include="Resources\eye-removebg-preview.png" />
     <None Include="Resources\mb11.png" />

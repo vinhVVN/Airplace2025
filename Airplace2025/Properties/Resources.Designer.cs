@@ -133,6 +133,16 @@ namespace Airplace2025.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap noun_closed_eye_5269901 {
+            get {
+                object obj = ResourceManager.GetObject("noun-closed-eye-5269901", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap noun_entertainment_6988208 {
             get {
                 object obj = ResourceManager.GetObject("noun-entertainment-6988208", resourceCulture);
