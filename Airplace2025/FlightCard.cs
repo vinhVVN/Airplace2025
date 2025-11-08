@@ -15,11 +15,39 @@ namespace Airplace2025
         public FlightCard()
         {
             InitializeComponent();
+            // Ẩn label +1 ngày mặc định
+            lblNextDay.Visible = false;
         }
 
         private void btnDetails_Click(object sender, EventArgs e)
         {
-
+            // Tạo FlightDetailForm và truyền dữ liệu
+            FlightDetailForm detailForm = new FlightDetailForm();
+            
+            // Populate dữ liệu vào form
+            detailForm.SetFlightData(new FlightDetailData
+            {
+                RouteTitle = $"{DepartureCity} - {ArrivalCity}",
+                DepartureDate = DepartureDate,
+                ArrivalDate = ArrivalDate,
+                TotalDuration = Duration,
+                DepartureTime = DepartureTime,
+                DepartureCity = DepartureCity,
+                DepartureAirport = DepartureAirport,
+                DepartureTerminal = DepartureTerminal,
+                ArrivalTime = ArrivalTime,
+                ArrivalCity = ArrivalCity,
+                ArrivalAirport = ArrivalAirport,
+                ArrivalTerminal = ArrivalTerminal,
+                FlightNumber = FlightNumber,
+                Airline = Airline,
+                Aircraft = Aircraft,
+                FlightDuration = Duration,
+                IsNextDay = IsNextDay
+            });
+            
+            // Hiển thị form chi tiết
+            detailForm.ShowDialog();
         }
 
         public string DepartureTime
@@ -92,5 +120,25 @@ namespace Airplace2025
         {
             set => lblSeatsEco.Text = value > 0 ? $"{value} ghế còn lại" : "Hết chỗ";
         }
+
+        // Thêm các property để lưu trữ dữ liệu chi tiết
+        public string DepartureDate { get; set; }
+        public string ArrivalDate { get; set; }
+        public string FlightNumber { get; set; }
+        public string Aircraft { get; set; }
+        
+        private bool _isNextDay;
+        public bool IsNextDay 
+        { 
+            get => _isNextDay;
+            set 
+            {
+                _isNextDay = value;
+                lblNextDay.Visible = value;
+            }
+        }
+        
+        public string DepartureAirport { get; set; }
+        public string ArrivalAirport { get; set; }
     }
 }

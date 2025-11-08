@@ -31,6 +31,44 @@ namespace Airplace2025
         {
             this.Close();
         }
+
+        public void SetFlightData(FlightDetailData data)
+        {
+            if (data == null) return;
+
+            // Set header title
+            lblTitle.Text = data.RouteTitle;
+
+            // Set dates
+            lblDepartureDate.Text = data.DepartureDate;
+            lblArrivalDate.Text = data.ArrivalDate;
+
+            // Set duration
+            lblDuration.Text = data.TotalDuration;
+
+            // Set departure information
+            lblDepartureTime.Text = $"{data.DepartureTime} {data.DepartureCity}";
+            lblDepartureAirport.Text = data.DepartureAirport;
+            lblDepartureTerminal.Text = data.DepartureTerminal;
+
+            // Set arrival information
+            lblArrivalTime.Text = $"{data.ArrivalTime} {data.ArrivalCity}";
+            lblArrivalAirport.Text = data.ArrivalAirport;
+            lblArrivalTerminal.Text = data.ArrivalTerminal;
+
+            // Set next day indicator
+            lblNextDay.Visible = data.IsNextDay;
+
+            // Set flight duration
+            lblFlightDuration.Text = data.FlightDuration?.Replace("⏱ Thời gian bay ", "")
+                .Replace("h ", " giờ\n")
+                .Replace("phút", " phút");
+
+            // Set flight information
+            lblFlightNumberTitle.Text = $"Số hiệu chuyến bay {data.FlightNumber}";
+            lblAirline.Text = data.Airline?.Replace("✈", "Khai thác bởi");
+            lblAircraft.Text = data.Aircraft;
+        }
     }
 
     public class FlightDetailData

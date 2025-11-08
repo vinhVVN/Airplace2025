@@ -101,18 +101,12 @@ namespace Airplace2025
 
             pnlChonChuyenBay.Location = new System.Drawing.Point(0, 100);
 
-            // Khởi tạo bảng chuyến bay (TableLayoutPanel) bên trong panel đã có.
-            EnsureFlightsTable();
-
-            // Tải danh sách chuyến bay ban đầu.
-            SafeLoadFlights();
+            // Load dữ liệu mẫu để test
+            LoadSampleFlights();
         }
 
-        /// <summary>
         /// Load airports into cbSanBayDi and cbSanBayDen from database.
         /// Display as "MaSanBay - TenSanBay" and value as MaSanBay.
-        /// Keep labels in sync when user changes selection.
-        /// </summary>
         private void LoadAirportsToCombos()
         {
             try
@@ -159,12 +153,6 @@ namespace Airplace2025
             {
                 lblFrom.Text = code;
             }
-        }
-
-        private void UpdateToLabel()
-        {
-            string code = GetSelectedAirportCode(cbSanBayDen.SelectedValue, cbSanBayDen.SelectedItem);
-            if (!string.IsNullOrWhiteSpace(code)) lblTo.Text = code;
         }
 
         private string GetSelectedAirportCode(object selectedValue, object selectedItem)
@@ -477,7 +465,7 @@ namespace Airplace2025
             }
             cbSanBayDi.Invalidate();
             UpdateEditButton();
-            SafeLoadFlights();
+            //SafeLoadFlights();
         }
 
         private void btnOneWay_CheckedChanged(object sender, EventArgs e)
@@ -538,16 +526,16 @@ namespace Airplace2025
             ValidateReturnDate();
 
             // Refresh flights as departure date changes
-            SafeLoadFlights();
+            //SafeLoadFlights();
         }
 
         private void dtpNgayVe_ValueChanged(object sender, EventArgs e)
         {
             ValidateReturnDate();
-            if (btnRoundTrip.Checked)
-            {
-                SafeLoadFlights();
-            }
+            //if (btnRoundTrip.Checked)
+            //{
+            //    SafeLoadFlights();
+            //}
         }
 
         private void ValidateReturnDate()
@@ -561,7 +549,7 @@ namespace Airplace2025
         private void cbSanBayDen_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateEditButton();
-            SafeLoadFlights();
+            //SafeLoadFlights();
         }
 
         private void UpdateEditButton()
@@ -601,92 +589,141 @@ namespace Airplace2025
             filterForm.ShowDialog(this);
         }
 
-        private void EnsureFlightsTable()
+        private void pnlChonChuyenBay_Paint(object sender, PaintEventArgs e)
         {
-            if (flightsTable != null) return;
-            flightsTable = new TableLayoutPanel();
-            flightsTable.Name = "flightsTable";
-            flightsTable.AutoScroll = true;
-            flightsTable.Dock = DockStyle.Fill;
-            flightsTable.ColumnCount = 1;
-            flightsTable.RowCount = 0;
-            flightsTable.ColumnStyles.Clear();
-            flightsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
 
-            // host inside existing container
-            pnlChonChuyenBay.Controls.Add(flightsTable);
-            flightsTable.BringToFront();
         }
 
-        private void SafeLoadFlights()
+        /// <summary>
+        /// Load dữ liệu mẫu các FlightCard để test hiển thị
+        /// </summary>
+        private void LoadSampleFlights()
         {
             try
             {
-                if (!ValidateForm())
+                // Cấu hình tlpFlights
+                tlpFlights.SuspendLayout();
+                tlpFlights.Controls.Clear();
+                tlpFlights.RowStyles.Clear();
+                tlpFlights.AutoScroll = true;
+                tlpFlights.ColumnCount = 1;
+                tlpFlights.RowCount = 0;
+                tlpFlights.Dock = DockStyle.None;
+                tlpFlights.ColumnStyles.Clear();
+                tlpFlights.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+
+                // Tạo dữ liệu mẫu cho 3 chuyến bay
+                var sampleFlights = new[]
                 {
-                    RenderFlights(new List<ChuyenBayDTO>());
-                    return;
+                    new {
+                        DepartureTime = "22:00",
+                        DepartureCity = "HAN",
+                        DepartureTerminal = "Nhà ga 1",
+                        ArrivalTime = "00:10",
+                        ArrivalCity = "SGN",
+                        ArrivalTerminal = "Nhà ga 3",
+                        Duration = "⏱ Thời gian bay 2h 10phút",
+                        Airline = "✈ VN 267 Khai thác bởi Vietnam Airlines",
+                        EconomyPrice = "2.690.000",
+                        PremiumPrice = "3.449.000",
+                        BusinessPrice = "5.067.000",
+                        EconomySeats = 5,
+                        DepartureDate = "Khởi hành vào " + dtpNgayDi.Value.ToString("dddd, dd 'tháng' MM, yyyy", new System.Globalization.CultureInfo("vi-VN")),
+                        ArrivalDate = "Đến vào " + dtpNgayDi.Value.AddDays(1).ToString("dddd, dd 'tháng' MM, yyyy", new System.Globalization.CultureInfo("vi-VN")),
+                        FlightNumber = "VN 267",
+                        Aircraft = "AIRBUS A321",
+                        IsNextDay = true,
+                        DepartureAirport = "Sân bay Nội Bài, Việt Nam",
+                        ArrivalAirport = "Sân bay Tân Sơn Nhất, Việt Nam"
+                    },
+                    new {
+                        DepartureTime = "06:00",
+                        DepartureCity = "HAN",
+                        DepartureTerminal = "Nhà ga 1",
+                        ArrivalTime = "08:05",
+                        ArrivalCity = "SGN",
+                        ArrivalTerminal = "Nhà ga 2",
+                        Duration = "⏱ Thời gian bay 2h 5phút",
+                        Airline = "✈ VJ 123 Khai thác bởi Vietjet Air",
+                        EconomyPrice = "1.890.000",
+                        PremiumPrice = "2.835.000",
+                        BusinessPrice = "4.725.000",
+                        EconomySeats = 12,
+                        DepartureDate = "Khởi hành vào " + dtpNgayDi.Value.ToString("dddd, dd 'tháng' MM, yyyy", new System.Globalization.CultureInfo("vi-VN")),
+                        ArrivalDate = "Đến vào " + dtpNgayDi.Value.ToString("dddd, dd 'tháng' MM, yyyy", new System.Globalization.CultureInfo("vi-VN")),
+                        FlightNumber = "VJ 123",
+                        Aircraft = "AIRBUS A320",
+                        IsNextDay = false,
+                        DepartureAirport = "Sân bay Nội Bài, Việt Nam",
+                        ArrivalAirport = "Sân bay Tân Sơn Nhất, Việt Nam"
+                    },
+                    new {
+                        DepartureTime = "14:30",
+                        DepartureCity = "HAN",
+                        DepartureTerminal = "Nhà ga 1",
+                        ArrivalTime = "16:40",
+                        ArrivalCity = "SGN",
+                        ArrivalTerminal = "Nhà ga 1",
+                        Duration = "⏱ Thời gian bay 2h 10phút",
+                        Airline = "✈ BL 456 Khai thác bởi Bamboo Airways",
+                        EconomyPrice = "2.190.000",
+                        PremiumPrice = "3.285.000",
+                        BusinessPrice = "5.475.000",
+                        EconomySeats = 8,
+                        DepartureDate = "Khởi hành vào " + dtpNgayDi.Value.ToString("dddd, dd 'tháng' MM, yyyy", new System.Globalization.CultureInfo("vi-VN")),
+                        ArrivalDate = "Đến vào " + dtpNgayDi.Value.ToString("dddd, dd 'tháng' MM, yyyy", new System.Globalization.CultureInfo("vi-VN")),
+                        FlightNumber = "BL 456",
+                        Aircraft = "BOEING 787",
+                        IsNextDay = false,
+                        DepartureAirport = "Sân bay Nội Bài, Việt Nam",
+                        ArrivalAirport = "Sân bay Tân Sơn Nhất, Việt Nam"
+                    }
+                };
+
+                // Thêm từng FlightCard vào tlpFlights
+                foreach (var flight in sampleFlights)
+                {
+                    var card = new FlightCard();
+
+                    // Gán dữ liệu mẫu cho card
+                    card.DepartureTime = flight.DepartureTime;
+                    card.DepartureCity = flight.DepartureCity;
+                    card.DepartureTerminal = flight.DepartureTerminal;
+                    card.ArrivalTime = flight.ArrivalTime;
+                    card.ArrivalCity = flight.ArrivalCity;
+                    card.ArrivalTerminal = flight.ArrivalTerminal;
+                    card.Duration = flight.Duration;
+                    card.Airline = flight.Airline;
+                    card.EconomyPrice = flight.EconomyPrice;
+                    card.PremiumPrice = flight.PremiumPrice;
+                    card.BusinessPrice = flight.BusinessPrice;
+                    card.EconomySeats = flight.EconomySeats;
+                    
+                    // Gán dữ liệu chi tiết cho FlightDetailForm
+                    card.DepartureDate = flight.DepartureDate;
+                    card.ArrivalDate = flight.ArrivalDate;
+                    card.FlightNumber = flight.FlightNumber;
+                    card.Aircraft = flight.Aircraft;
+                    card.IsNextDay = flight.IsNextDay;
+                    card.DepartureAirport = flight.DepartureAirport;
+                    card.ArrivalAirport = flight.ArrivalAirport;
+
+                    // Cấu hình card
+                    card.Margin = new Padding(5, 10, 5, 10);
+                    card.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+
+                    // Thêm row mới vào table
+                    tlpFlights.RowCount += 1;
+                    tlpFlights.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                    tlpFlights.Controls.Add(card, 0, tlpFlights.RowCount - 1);
                 }
 
-                string from = GetSelectedAirportCode(cbSanBayDi.SelectedValue, cbSanBayDi.SelectedItem);
-                string to = GetSelectedAirportCode(cbSanBayDen.SelectedValue, cbSanBayDen.SelectedItem);
-                DateTime date = dtpNgayDi.Value.Date;
-
-                // Validate date is not in the past before calling BLL
-                if (date < DateTime.Today)
-                {
-                    // Automatically correct to today's date
-                    dtpNgayDi.Value = DateTime.Today;
-                    date = DateTime.Today;
-                }
-
-                int soGheCan = Math.Max(1, PassengerSelectionStateTemp.Adult + PassengerSelectionStateTemp.Child);
-
-                var list = ChuyenBayBLL.Instance.TimKiemChuyenBay(from, to, date, soGheCan);
-                RenderFlights(list);
+                tlpFlights.ResumeLayout();
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show($"Lỗi tải chuyến bay: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                System.Windows.Forms.MessageBox.Show($"Lỗi load dữ liệu mẫu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void RenderFlights(IList<ChuyenBayDTO> flights)
-        {
-            EnsureFlightsTable();
-            flightsTable.SuspendLayout();
-            flightsTable.Controls.Clear();
-            flightsTable.RowStyles.Clear();
-            flightsTable.RowCount = 0;
-
-            foreach (var f in flights)
-            {
-                var card = new FlightCard();
-
-                card.DepartureTime = f.NgayGioBay.ToString("HH:mm");
-                card.DepartureCity = f.MaSanBayDi;
-                card.DepartureTerminal = ""; // optional
-                card.ArrivalTime = f.NgayGioDen.ToString("HH:mm");
-                card.ArrivalCity = f.MaSanBayDen;
-                card.ArrivalTerminal = "";
-                card.Airline = $"✈ {f.TenHangBay} - {f.TenMayBay}";
-                var dur = f.NgayGioDen > f.NgayGioBay ? (f.NgayGioDen - f.NgayGioBay) : TimeSpan.FromMinutes(Math.Max(0, f.ThoiGianBay));
-                card.Duration = $"⏱ Thời gian bay {Math.Max(0, (int)dur.TotalHours)}h {Math.Max(0, dur.Minutes)}phút";
-                card.EconomyPrice = string.Format("{0:#,##0}", f.GiaCoBan);
-                card.PremiumPrice = string.Format("{0:#,##0}", Math.Round(f.GiaCoBan * 1.5m, 0));
-                card.BusinessPrice = string.Format("{0:#,##0}", Math.Round(f.GiaCoBan * 2.5m, 0));
-                card.EconomySeats = f.SoGheTrong;
-
-                card.Margin = new Padding(20, 10, 20, 10);
-                card.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
-                card.Width = flightsTable.ClientSize.Width - 40;
-
-                flightsTable.RowCount += 1;
-                flightsTable.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-                flightsTable.Controls.Add(card, 0, flightsTable.RowCount - 1);
-            }
-
-            flightsTable.ResumeLayout();
         }
     }
 }
