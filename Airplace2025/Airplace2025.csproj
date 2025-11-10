@@ -58,6 +58,7 @@
     <Reference Include="System.Design" />
     <Reference Include="System.Management" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -168,6 +169,12 @@
     <Compile Include="frmThemTrungGian.Designer.cs">
       <DependentUpon>frmThemTrungGian.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmThongKe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmThongKe.Designer.cs">
+      <DependentUpon>frmThongKe.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmTimKiemKhachHang.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -254,6 +261,9 @@
     <EmbeddedResource Include="frmSeatSelection.resx">
       <DependentUpon>frmSeatSelection.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmThongKe.resx">
+      <DependentUpon>frmThongKe.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmTimKiemKhachHang.resx">
       <DependentUpon>frmTimKiemKhachHang.cs</DependentUpon>
     </EmbeddedResource>
@@ -304,6 +314,9 @@
     <Content Include="map.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\noun-flight-7053311.png" />
+    <None Include="Resources\noun-flight-ticket-6637983.png" />
+    <None Include="Resources\noun-money-5633622.png" />
     <None Include="Resources\noun-closed-eye-5269901.png" />
     <None Include="Resources\plane.jpg" />
     <None Include="Resources\eye-removebg-preview.png" />

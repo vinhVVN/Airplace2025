@@ -153,9 +153,39 @@ namespace Airplace2025.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap noun_flight_7053311 {
+            get {
+                object obj = ResourceManager.GetObject("noun-flight-7053311", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap noun_flight_ticket_6637983 {
+            get {
+                object obj = ResourceManager.GetObject("noun-flight-ticket-6637983", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap noun_meal_8091868 {
             get {
                 object obj = ResourceManager.GetObject("noun-meal-8091868", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap noun_money_5633622 {
+            get {
+                object obj = ResourceManager.GetObject("noun-money-5633622", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
