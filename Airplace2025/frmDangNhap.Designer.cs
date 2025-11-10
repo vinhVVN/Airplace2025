@@ -83,7 +83,7 @@
             this.guna2ImageButton1.BackColor = System.Drawing.Color.Pink;
             this.guna2ImageButton1.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
             this.guna2ImageButton1.HoverState.ImageSize = new System.Drawing.Size(64, 64);
-            this.guna2ImageButton1.Image = global::Airplace2025.Properties.Resources.eye_removebg_preview;
+            this.guna2ImageButton1.Image = global::Airplace2025.Properties.Resources.noun_closed_eye_5269901;
             this.guna2ImageButton1.ImageOffset = new System.Drawing.Point(0, 0);
             this.guna2ImageButton1.ImageRotate = 0F;
             this.guna2ImageButton1.Location = new System.Drawing.Point(202, 174);
