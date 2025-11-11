@@ -29,6 +29,15 @@ namespace Airplace2025
         private List<string> airportOptions = new List<string>();
         private DataTable airportsDisplayTable; //Nguồn được lưu vào bộ nhớ cache cho việc lọc combo.
         private List<ChuyenBayDTO> currentFlights = new List<ChuyenBayDTO>(); // Lưu danh sách chuyến bay hiện tại để sắp xếp
+        private string filterCabin = "Tất cả";
+        private decimal filterMaxBudget = decimal.MaxValue;
+        private bool filterDirectFlightOnly = false;
+        private int filterDepartureTimeSlot = 0; // 0: Any, 1: Morning, 2: Afternoon, 3: Evening
+        private int filterArrivalTimeSlot = 0; // 0: Any, 1: Morning, 2: Afternoon, 3: Evening
+        private List<string> filterAirlines = new List<string>();
+        private List<ChuyenBayDTO> originalFlights = new List<ChuyenBayDTO>(); // Store original unfiltered flights
+        private decimal minFlightPrice = 0;
+        private decimal maxFlightPrice = 0;
 
         public frmChonChuyenBay(string sanBayDi, string sanBayDen, DateTime ngayDi, DateTime ngayVe, string soLuongHanhKhach, bool isRoundTrip)
         {
@@ -40,7 +49,7 @@ namespace Airplace2025
             this.ngayVe = ngayVe < DateTime.Today ? DateTime.Today : ngayVe;
             this.soLuongHanhKhach = soLuongHanhKhach;
             this.isRoundTrip = isRoundTrip;
-            //LoadFlights();
+            LoadFlights();
         }
 
         private void frmChonChuyenBay_Load(object sender, EventArgs e)
@@ -583,7 +592,28 @@ namespace Airplace2025
         private void btnFilter_Click(object sender, EventArgs e)
         {
             FilterForm filterForm = new FilterForm();
-            filterForm.ShowDialog(this);
+            
+            // Truyền giá trị min/max vào FilterForm
+            filterForm.SetPriceRange(minFlightPrice, maxFlightPrice);
+            
+            if (filterForm.ShowDialog(this) == DialogResult.OK)
+            {
+                // Lấy các giá trị bộ lọc từ FilterForm
+                filterCabin = filterForm.SelectedCabin;
+                filterMaxBudget = filterForm.MaxBudget;
+                filterDirectFlightOnly = filterForm.DirectFlightOnly;
+                filterDepartureTimeSlot = filterForm.DepartureTimeSlot;
+                filterArrivalTimeSlot = filterForm.ArrivalTimeSlot;
+                filterAirlines = filterForm.SelectedAirlines;
+
+                // Reset currentFlights từ originalFlights
+                currentFlights = new List<ChuyenBayDTO>(originalFlights);
+
+                // Áp dụng bộ lọc và sắp xếp, sau đó render lại
+                ApplyFilters();
+                ApplySorting();
+                RenderFlights(currentFlights);
+            }
         }
 
         private void pnlChonChuyenBay_Paint(object sender, PaintEventArgs e)
@@ -626,8 +656,20 @@ namespace Airplace2025
                 // Gọi BLL để tìm kiếm chuyến bay
                 var flights = ChuyenBayBLL.Instance.TimKiemChuyenBay(maSanBayDi, maSanBayDen, ngayDi, soGheCan);
 
+                // Lưu danh sách chuyến bay gốc (chưa lọc)
+                originalFlights = flights != null ? new List<ChuyenBayDTO>(flights) : new List<ChuyenBayDTO>();
+
                 // Lưu danh sách chuyến bay hiện tại
                 currentFlights = flights ?? new List<ChuyenBayDTO>();
+
+                // Tính min/max giá vé từ danh sách chuyến bay gốc
+                CalculateMinMaxPrice();
+
+                // Cập nhật visibility của các control filter và sort
+                UpdateFilterSortVisibility();
+
+                // Áp dụng bộ lọc nếu có
+                ApplyFilters();
 
                 // Áp dụng sắp xếp nếu có
                 ApplySorting();
@@ -641,6 +683,37 @@ namespace Airplace2025
                 // Hiển thị danh sách rỗng khi có lỗi
                 RenderFlights(new List<ChuyenBayDTO>());
             }
+        }
+
+        /// <summary>
+        /// Tính min/max giá vé từ danh sách chuyến bay
+        /// </summary>
+        private void CalculateMinMaxPrice()
+        {
+            if (originalFlights == null || originalFlights.Count == 0)
+            {
+                minFlightPrice = 0;
+                maxFlightPrice = 0;
+                return;
+            }
+
+            // Tính giá Economy cho mỗi chuyến bay
+            var prices = originalFlights.Select(f => f.GiaEconomy ?? f.GiaCoBan).ToList();
+            
+            minFlightPrice = prices.Min();
+            maxFlightPrice = prices.Max();
+        }
+
+        /// <summary>
+        /// Cập nhật visibility của các control filter và sort dựa trên có chuyến bay hay không
+        /// </summary>
+        private void UpdateFilterSortVisibility()
+        {
+            bool hasFlights = originalFlights != null && originalFlights.Count > 0;
+            
+            btnFilter.Visible = hasFlights;
+            cboSortType.Visible = hasFlights;
+            lblSapXep.Visible = hasFlights;
         }
 
         /// <summary>
@@ -740,6 +813,100 @@ namespace Airplace2025
             {
                 System.Windows.Forms.MessageBox.Show($"Lỗi hiển thị chuyến bay: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        //Áp dụng bộ lọc cho danh sách chuyến bay
+        private void ApplyFilters()
+        {
+            if (originalFlights == null || originalFlights.Count == 0)
+            {
+                currentFlights = new List<ChuyenBayDTO>();
+                return;
+            }
+
+            // Bắt đầu từ danh sách gốc
+            var filteredFlights = originalFlights.AsEnumerable();
+
+            // Lọc theo Khoang (Cabin)
+            if (filterCabin != "Tất cả")
+            {
+                filteredFlights = filteredFlights.Where(f =>
+                {
+                    if (filterCabin == "PHỔ THÔNG")
+                        return (f.GheEconomy ?? 0) > 0;
+                    else if (filterCabin == "PHỔ THÔNG ĐẶC BIỆT")
+                        return (f.GhePremium ?? 0) > 0;
+                    else if (filterCabin == "THƯƠNG GIA")
+                        return (f.GheBusiness ?? 0) > 0;
+                    return true;
+                });
+            }
+
+            // Lọc theo Ngân sách (lấy giá Economy)
+            if (filterMaxBudget != decimal.MaxValue)
+            {
+                filteredFlights = filteredFlights.Where(f =>
+                {
+                    decimal economyPrice = f.GiaEconomy ?? f.GiaCoBan;
+                    return economyPrice <= filterMaxBudget;
+                });
+            }
+
+            // Lọc theo Chuyến bay thẳng (giả sử ThoiGianBay > 0 là chuyến bay thẳng)
+            if (filterDirectFlightOnly)
+            {
+                filteredFlights = filteredFlights.Where(f => f.ThoiGianBay > 0);
+            }
+
+            // Lọc theo Thời gian khởi hành
+            if (filterDepartureTimeSlot != 0)
+            {
+                filteredFlights = filteredFlights.Where(f =>
+                {
+                    int hour = f.NgayGioBay.Hour;
+                    switch (filterDepartureTimeSlot)
+                    {
+                        case 1: // Morning (00:00 - 11:59)
+                            return hour >= 0 && hour < 12;
+                        case 2: // Afternoon (12:00 - 17:59)
+                            return hour >= 12 && hour < 18;
+                        case 3: // Evening (18:00 - 23:59)
+                            return hour >= 18 && hour < 24;
+                        default:
+                            return true;
+                    }
+                });
+            }
+
+            // Lọc theo Thời gian đến
+            if (filterArrivalTimeSlot != 0)
+            {
+                filteredFlights = filteredFlights.Where(f =>
+                {
+                    int hour = f.NgayGioDen.Hour;
+                    switch (filterArrivalTimeSlot)
+                    {
+                        case 1: // Morning (00:00 - 11:59)
+                            return hour >= 0 && hour < 12;
+                        case 2: // Afternoon (12:00 - 17:59)
+                            return hour >= 12 && hour < 18;
+                        case 3: // Evening (18:00 - 23:59)
+                            return hour >= 18 && hour < 24;
+                        default:
+                            return true;
+                    }
+                });
+            }
+
+            // Lọc theo Hãng hàng không
+            if (filterAirlines != null && filterAirlines.Count > 0 && !filterAirlines.Contains("All"))
+            {
+                filteredFlights = filteredFlights.Where(f =>
+                    filterAirlines.Any(airline => f.TenHangBay?.Contains(airline) == true)
+                );
+            }
+
+            currentFlights = filteredFlights.ToList();
         }
 
         // Áp dụng sắp xếp cho danh sách chuyến bay hiện tại
