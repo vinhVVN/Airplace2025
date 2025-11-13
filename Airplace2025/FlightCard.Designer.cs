@@ -53,11 +53,11 @@
             this.lblFromPre = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblClassPre = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pricePanel3 = new Guna.UI2.WinForms.Guna2Panel();
+            this.lblSeatsBus = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblPriceBus = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblFromBus = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblClassBus = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblSeatsBus = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.leftPanel.SuspendLayout();
             this.pricePanel1.SuspendLayout();
             this.pricePanel2.SuspendLayout();
@@ -216,11 +216,16 @@
             this.pricePanel1.Controls.Add(this.lblPrice);
             this.pricePanel1.Controls.Add(this.lblFrom);
             this.pricePanel1.Controls.Add(this.lblClassEco);
+            this.pricePanel1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pricePanel1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(95)))), ((int)(((byte)(110)))));
             this.pricePanel1.Location = new System.Drawing.Point(483, 0);
             this.pricePanel1.Name = "pricePanel1";
             this.pricePanel1.Size = new System.Drawing.Size(150, 140);
             this.pricePanel1.TabIndex = 1;
+            this.pricePanel1.Click += new System.EventHandler(this.pricePanel1_Click);
+            this.pricePanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.pricePanel1_Paint);
+           // this.pricePanel1.MouseLeave += new System.EventHandler(this.pricePanel1_MouseLeave);
+            //this.pricePanel1.MouseHover += new System.EventHandler(this.pricePanel1_MouseHover);
             // 
             // lblSeatsEco
             // 
@@ -294,6 +299,7 @@
             this.pricePanel2.Name = "pricePanel2";
             this.pricePanel2.Size = new System.Drawing.Size(150, 140);
             this.pricePanel2.TabIndex = 2;
+            this.pricePanel2.Click += new System.EventHandler(this.pricePanel2_Click);
             // 
             // lblSeatsPre
             // 
@@ -367,6 +373,19 @@
             this.pricePanel3.Name = "pricePanel3";
             this.pricePanel3.Size = new System.Drawing.Size(150, 140);
             this.pricePanel3.TabIndex = 3;
+            this.pricePanel3.Click += new System.EventHandler(this.pricePanel3_Click);
+            // 
+            // lblSeatsBus
+            // 
+            this.lblSeatsBus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(180)))));
+            this.lblSeatsBus.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeatsBus.ForeColor = System.Drawing.Color.White;
+            this.lblSeatsBus.Location = new System.Drawing.Point(41, 115);
+            this.lblSeatsBus.Name = "lblSeatsBus";
+            this.lblSeatsBus.Size = new System.Drawing.Size(69, 15);
+            this.lblSeatsBus.TabIndex = 6;
+            this.lblSeatsBus.Text = "1 ghế còn lại";
+            this.lblSeatsBus.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // guna2HtmlLabel2
             // 
@@ -412,18 +431,6 @@
             this.lblClassBus.Size = new System.Drawing.Size(79, 17);
             this.lblClassBus.TabIndex = 0;
             this.lblClassBus.Text = "THƯƠNG GIA";
-            // 
-            // lblSeatsBus
-            // 
-            this.lblSeatsBus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(180)))));
-            this.lblSeatsBus.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSeatsBus.ForeColor = System.Drawing.Color.White;
-            this.lblSeatsBus.Location = new System.Drawing.Point(41, 115);
-            this.lblSeatsBus.Name = "lblSeatsBus";
-            this.lblSeatsBus.Size = new System.Drawing.Size(69, 15);
-            this.lblSeatsBus.TabIndex = 6;
-            this.lblSeatsBus.Text = "1 ghế còn lại";
-            this.lblSeatsBus.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FlightCard
             // 

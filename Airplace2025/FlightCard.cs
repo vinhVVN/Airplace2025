@@ -12,11 +12,121 @@ namespace Airplace2025
 {
     public partial class FlightCard : UserControl
     {
+
+        private Color originalColor1;
+        private Color originalColor2;
+        private Color originalColor3;
+        private Size originalSize1;
+        private Point originalLocation1;
         public FlightCard()
         {
             InitializeComponent();
             // Ẩn label +1 ngày mặc định
             lblNextDay.Visible = false;
+
+            originalColor1 = pricePanel1.FillColor;
+            originalColor2 = pricePanel2.FillColor;
+            originalColor3 = pricePanel3.FillColor;
+            originalSize1 = pricePanel1.Size;
+            originalLocation1 = pricePanel1.Location;
+
+            // Thêm sự kiện MouseEnter và MouseLeave cho cả 3 panel
+            SetupHoverEffects();
+        }
+
+        private void SetupHoverEffects()
+        {
+            // Panel 1
+            pricePanel1.MouseEnter += PricePanel1_MouseEnter;
+            pricePanel1.MouseLeave += PricePanel1_MouseLeave;
+
+            // Panel 2
+            pricePanel2.MouseEnter += PricePanel2_MouseEnter;
+            pricePanel2.MouseLeave += PricePanel2_MouseLeave;
+
+            // Panel 3
+            pricePanel3.MouseEnter += PricePanel3_MouseEnter;
+            pricePanel3.MouseLeave += PricePanel3_MouseLeave;
+        }
+
+        private void PricePanel1_MouseEnter(object sender, EventArgs e)
+        {
+            // Panel được hover - nổi bật
+            pricePanel1.Size = new Size(originalSize1.Width + 6, originalSize1.Height + 6);
+            pricePanel1.Location = new Point(originalLocation1.X - 3, originalLocation1.Y - 3);
+            pricePanel1.BringToFront();
+
+            // Làm mờ 2 panel còn lại
+            pricePanel2.FillColor = Color.FromArgb(180, pricePanel2.FillColor);
+            pricePanel3.FillColor = Color.FromArgb(180, pricePanel3.FillColor);
+
+            this.Cursor = Cursors.Hand;
+        }
+
+        private void PricePanel1_MouseLeave(object sender, EventArgs e)
+        {
+            // Trả về trạng thái ban đầu
+            pricePanel1.Size = originalSize1;
+            pricePanel1.Location = originalLocation1;
+
+            pricePanel2.FillColor = originalColor2;
+            pricePanel3.FillColor = originalColor3;
+
+            this.Cursor = Cursors.Default;
+        }
+
+        // ===== PANEL 2 =====
+        private void PricePanel2_MouseEnter(object sender, EventArgs e)
+        {
+            // Panel được hover - nổi bật
+            pricePanel2.Size = new Size(pricePanel2.Width + 6, pricePanel2.Height + 6);
+            pricePanel2.Location = new Point(pricePanel2.Location.X - 3, pricePanel2.Location.Y - 3);
+            pricePanel2.BringToFront();
+
+            // Làm mờ 2 panel còn lại
+            pricePanel1.FillColor = Color.FromArgb(180, pricePanel1.FillColor);
+            pricePanel3.FillColor = Color.FromArgb(180, pricePanel3.FillColor);
+
+            this.Cursor = Cursors.Hand;
+        }
+
+        private void PricePanel2_MouseLeave(object sender, EventArgs e)
+        {
+            // Trả về trạng thái ban đầu
+            pricePanel2.Size = new Size(150, 140);
+            pricePanel2.Location = new Point(633, 0);
+
+            pricePanel1.FillColor = originalColor1;
+            pricePanel3.FillColor = originalColor3;
+
+            this.Cursor = Cursors.Default;
+        }
+
+        // ===== PANEL 3 =====
+        private void PricePanel3_MouseEnter(object sender, EventArgs e)
+        {
+            // Panel được hover - nổi bật
+            pricePanel3.Size = new Size(pricePanel3.Width + 6, pricePanel3.Height + 6);
+            pricePanel3.Location = new Point(pricePanel3.Location.X - 3, pricePanel3.Location.Y - 3);
+            pricePanel3.BringToFront();
+
+            // Làm mờ 2 panel còn lại
+            pricePanel1.FillColor = Color.FromArgb(180, pricePanel1.FillColor);
+            pricePanel2.FillColor = Color.FromArgb(180, pricePanel2.FillColor);
+
+            this.Cursor = Cursors.Hand;
+        }
+
+        private void PricePanel3_MouseLeave(object sender, EventArgs e)
+        {
+            // Trả về trạng thái ban đầu
+            pricePanel3.Size = new Size(150, 140);
+            pricePanel3.Location = new Point(783, 0);
+
+            pricePanel1.FillColor = originalColor1;
+            pricePanel2.FillColor = originalColor2;
+
+            this.Cursor = Cursors.Default;
         }
 
         private void btnDetails_Click(object sender, EventArgs e)
@@ -162,5 +272,28 @@ namespace Airplace2025
         
         public string DepartureAirport { get; set; }
         public string ArrivalAirport { get; set; }
+
+        private void pricePanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void pricePanel1_Click(object sender, EventArgs e)
+        {
+            frmChiTietVe frmChiTietVe = new frmChiTietVe();
+            frmChiTietVe.Show();
+        }
+
+        private void pricePanel2_Click(object sender, EventArgs e)
+        {
+            frmChiTietVe frmChiTietVe = new frmChiTietVe();
+            frmChiTietVe.Show();
+        }
+
+        private void pricePanel3_Click(object sender, EventArgs e)
+        {
+            frmChiTietVe frmChiTietVe = new frmChiTietVe();
+            frmChiTietVe.Show();
+        }
     }
 }
