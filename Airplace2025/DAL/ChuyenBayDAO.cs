@@ -6,9 +6,7 @@ using System.Data.SqlClient;
 
 namespace Airplace2025.DAL
 {
-    /// <summary>
-    /// Data Access Layer cho ChuyenBay
-    /// </summary>
+    // Data Access Layer cho ChuyenBay
     public class ChuyenBayDAO
     {
         private static ChuyenBayDAO _instance;
@@ -25,8 +23,7 @@ namespace Airplace2025.DAL
         private ChuyenBayDAO() { }
 
         /// <summary>
-        /// Tìm kiếm chuyến bay theo các tiêu chí
-        /// </summary>
+        // Tìm kiếm chuyến bay theo các tiêu chí
         public List<ChuyenBayDTO> SearchFlights(SearchFlightParams searchParams)
         {
             List<ChuyenBayDTO> flights = new List<ChuyenBayDTO>();
@@ -60,18 +57,29 @@ namespace Airplace2025.DAL
                                     TenSanBayDen = reader["TenSanBayDen"].ToString(),
                                     NgayGioBay = Convert.ToDateTime(reader["NgayGioBay"]),
                                     TrangThai = reader["TrangThai"].ToString(),
+                                    MaHangBay = reader["MaHangBay"] != DBNull.Value ? reader["MaHangBay"].ToString() : "",
                                     TenHangBay = reader["TenHangBay"].ToString(),
+                                    // Logo là VARBINARY, không đọc trực tiếp - để null hoặc xử lý riêng nếu cần
+                                    Logo = null, 
+                                    MaMayBay = reader["MaMayBay"] != DBNull.Value ? reader["MaMayBay"].ToString() : "",
+                                    TenMayBay = reader["TenMayBay"] != DBNull.Value ? reader["TenMayBay"].ToString() : "",
                                     SoGheTrong = reader["SoGheTrong"] != DBNull.Value 
                                         ? Convert.ToInt32(reader["SoGheTrong"]) : 0,
                                     GiaCoBan = reader["GiaCoBan"] != DBNull.Value 
-                                        ? Convert.ToDecimal(reader["GiaCoBan"]) : 0
+                                        ? Convert.ToDecimal(reader["GiaCoBan"]) : 0,
+                                    ThoiGianBay = reader["ThoiGianBay"] != DBNull.Value 
+                                        ? Convert.ToInt32(reader["ThoiGianBay"]) : 0
                                 };
 
-                                // Tính thời gian bay (giả sử có cột ThoiGianBay hoặc tính từ NgayGioDen)
+                                // Set NgayGioDen từ stored procedure
                                 if (reader["NgayGioDen"] != DBNull.Value)
                                 {
                                     flight.NgayGioDen = Convert.ToDateTime(reader["NgayGioDen"]);
-                                    flight.ThoiGianBay = (int)(flight.NgayGioDen - flight.NgayGioBay).TotalMinutes;
+                                }
+                                else
+                                {
+                                    // Tính NgayGioDen nếu không có
+                                    flight.NgayGioDen = flight.NgayGioBay.AddMinutes(flight.ThoiGianBay);
                                 }
 
                                 flights.Add(flight);

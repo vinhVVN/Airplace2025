@@ -14,8 +14,6 @@ namespace Airplace2025
 {
     public partial class frmDatVe : Form
     {
-        //Danh sách hành khách
-        private List<PassengerInfo> passengerList = new List<PassengerInfo>();
         // Danh sách đầy đủ sân bay (để lọc hiển thị giữa 2 combobox)
         private List<string> airportOptions = new List<string>();
         // Cờ tránh vòng lặp khi đồng bộ 2 combobox
@@ -25,7 +23,7 @@ namespace Airplace2025
         private const int CHILD_MIN = 0;
         private const int CHILD_MAX = 8;
         private const int INFANT_MIN = 0;
-        private const int TOTAL_PASSENGER_MAX = 9;
+        private const int ADULT_CHILD_MAX = 9;
 
         public frmDatVe()
         {
@@ -47,16 +45,14 @@ namespace Airplace2025
             {
                 LoadAirports();
 
-                //LoadServiceClasses();
-
                 dtpReturnDate.Visible = btnRoundTrip.Checked;
                 lblReturnDate.Visible = btnRoundTrip.Checked;
 
-                // Set minimum date for date pickers
+                // Đặt ngày tối thiểu cho bộ chọn ngày
                 dtpNgayDi.MinDate = DateTime.Now.Date;
                 dtpReturnDate.MinDate = DateTime.Now.Date;
 
-                // Ensure return date is not before departure date
+                // Đảm bảo ngày về không trước ngày đi
                 ValidateReturnDate();
             }
             catch (Exception ex)
@@ -65,9 +61,6 @@ namespace Airplace2025
             }
         }
 
-        /// <summary>
-        /// Load airports from database
-        /// </summary>
         private void LoadAirports()
         {
             try
@@ -105,15 +98,6 @@ namespace Airplace2025
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi tải danh sách sân bay: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                // Fallback to hardcoded data
-                string[] fallback = new string[] { "HAN - Nội Bài (Hà Nội)", "SGN - Tân Sơn Nhất (TP.HCM)", "DAD - Đà Nẵng", "CXR - Cam Ranh (Khánh Hòa)" };
-                airportOptions = fallback.ToList();
-                cbSanBayDi.Items.AddRange(fallback);
-                cbSanBayDen.Items.AddRange(fallback);
-                cbSanBayDi.SelectedIndex = 0;
-                try { cbSanBayDen.SelectedIndex = -1; } catch { }
-                try { cbSanBayDen.StartIndex = -1; } catch { }
             }
         }
 
@@ -158,10 +142,8 @@ namespace Airplace2025
             frm.Show();
         }
 
-        /// <summary>
-        /// Trích xuất mã sân bay từ chuỗi sân bay
-        /// Ví dụ: "HAN - Nội Bài (Hà Nội)" -> "HAN"
-        /// </summary>
+        // Trích xuất mã sân bay từ chuỗi sân bay
+        // Ví dụ: "HAN - Nội Bài (Hà Nội)" -> "HAN"
         private string ExtractAirportCode(string airportString)
         {
             if (string.IsNullOrEmpty(airportString))
@@ -178,39 +160,6 @@ namespace Airplace2025
             return airportString.Trim();
         }
 
-        /// <summary>
-        /// Passenger info structure
-        /// </summary>
-        public class PassengerInfo
-        {
-            public string MaKH { get; set; }
-            public string HoTen { get; set; }
-            public DateTime NgaySinh { get; set; }
-            public string LoaiHK { get; set; } // ADT, CHD, INF
-            public string GioiTinh { get; set; }
-            public string DocNo { get; set; }
-            public string Ghe { get; set; }
-            public int HanhLy { get; set; }
-            public string GhiChu { get; set; }
-        }
-
-        /// <summary>
-        /// Price breakdown structure
-        /// </summary>
-        public class PriceBreakdown
-        {
-            public decimal BaseFare { get; set; }
-            public decimal TaxAndFees { get; set; }
-            public decimal Surcharges { get; set; }
-            public decimal OptionalServices { get; set; }  // Ghế, hành lý
-            public decimal Discount { get; set; }
-            public decimal VAT { get; set; }
-
-            public decimal SubTotal => BaseFare + TaxAndFees + Surcharges + OptionalServices;
-            public decimal Total => SubTotal - Discount + VAT;
-        }
-
-
         private void btnRoundTrip_Click(object sender, EventArgs e)
         {
             bool isRoundTrip = btnRoundTrip.Checked;
@@ -220,7 +169,6 @@ namespace Airplace2025
             lblOneWay.Visible = !isRoundTrip;
             lblDFReturn.Visible = isRoundTrip;
         }
-
 
         private void btnDropDown_Click(object sender, EventArgs e)
         {
@@ -239,9 +187,9 @@ namespace Airplace2025
             int currentInfant = GetInfantCount();
 
             // Đảm bảo Adult + Child ≤ 9
-            if (value + currentChild > TOTAL_PASSENGER_MAX)
+            if (value + currentChild > ADULT_CHILD_MAX)
             {
-                currentChild = TOTAL_PASSENGER_MAX - value;
+                currentChild = ADULT_CHILD_MAX - value;
                 SetChildCount(currentChild);
             }
 
@@ -265,7 +213,7 @@ namespace Airplace2025
             int child = GetChildCount();
 
             btnMinusAdult.Enabled = adult > ADULT_MIN;
-            btnPlusAdult.Enabled = adult < ADULT_MAX && (adult + child) < TOTAL_PASSENGER_MAX;
+            btnPlusAdult.Enabled = adult < ADULT_MAX && (adult + child) < ADULT_CHILD_MAX;
 
             btnMinusAdult.Invalidate();
             btnPlusAdult.Invalidate();
@@ -303,7 +251,7 @@ namespace Airplace2025
             if (value > CHILD_MAX) value = CHILD_MAX;
 
             // Đảm bảo Adult + Child ≤ 9
-            int maxChild = TOTAL_PASSENGER_MAX - currentAdult;
+            int maxChild = ADULT_CHILD_MAX - currentAdult;
             if (value > maxChild) value = maxChild;
 
             // Cập nhật UI
@@ -320,7 +268,7 @@ namespace Airplace2025
             int child = GetChildCount();
 
             btnMinusChild.Enabled = child > CHILD_MIN;
-            btnPlusChild.Enabled = child < CHILD_MAX && (adult + child) < TOTAL_PASSENGER_MAX;
+            btnPlusChild.Enabled = child < CHILD_MAX && (adult + child) < ADULT_CHILD_MAX;
 
             btnMinusChild.Invalidate();
             btnPlusChild.Invalidate();
@@ -465,37 +413,28 @@ namespace Airplace2025
             cbSanBayDi.Invalidate();
         }
 
-        /// <summary>
-        /// Validate and update return date when departure date changes
-        /// </summary>
+        // Xác thực và cập nhật ngày về khi ngày đi thay đổi
         private void dtpNgayDi_ValueChanged(object sender, EventArgs e)
         {
-            // Update minimum date for return date picker
+            // Cập nhật ngày tối thiểu cho bộ chọn ngày về
             dtpReturnDate.MinDate = dtpNgayDi.Value.Date;
-            
-            // If return date is before departure date, set it to departure date
+
+            // Nếu ngày về trước ngày đi, đặt lại ngày về
             ValidateReturnDate();
         }
 
-        /// <summary>
-        /// Validate return date when it changes
-        /// </summary>
+        /// Xác thực ngày về khi thay đổi
         private void dtpReturnDate_ValueChanged(object sender, EventArgs e)
         {
             ValidateReturnDate();
         }
 
-        /// <summary>
-        /// Handle change in destination airport selection
-        /// </summary>
+        /// Xử lý khi sân bay đến thay đổi
         private void cbSanBayDen_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateSearchButton();
         }
 
-        /// <summary>
-        /// Ensure return date is not before departure date
-        /// </summary>
         private void ValidateReturnDate()
         {
             if (dtpReturnDate.Value < dtpNgayDi.Value)
@@ -504,9 +443,6 @@ namespace Airplace2025
             }
         }
 
-        /// <summary>
-        /// Validate all required fields before allowing search
-        /// </summary>
         private bool ValidateForm()
         {
             // Kiểm tra sân bay đi đã được chọn
@@ -521,12 +457,19 @@ namespace Airplace2025
                 return false;
             }
 
+            // Kiểm tra sân bay đi và đến không được trùng nhau
+            string fromCode = ExtractAirportCode(cbSanBayDi.SelectedItem?.ToString());
+            string toCode = ExtractAirportCode(cbSanBayDen.SelectedItem?.ToString());
+            
+            if (!string.IsNullOrEmpty(fromCode) && !string.IsNullOrEmpty(toCode) && 
+                string.Equals(fromCode, toCode, StringComparison.OrdinalIgnoreCase))
+            {
+                return false;
+            }
+
             return true;
         }
 
-        /// <summary>
-        /// Update search button enabled state based on form validation
-        /// </summary>
         private void UpdateSearchButton()
         {
             btnTimKiem.Enabled = ValidateForm();

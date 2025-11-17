@@ -32,7 +32,7 @@
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.btnCaiDat = new Guna.UI2.WinForms.Guna2Button();
-            this.btnTaiKhoanvaQuyen = new Guna.UI2.WinForms.Guna2Button();
+            this.btnLapLichBay = new Guna.UI2.WinForms.Guna2Button();
             this.btnMayBay = new Guna.UI2.WinForms.Guna2Button();
             this.btnBaoCao = new Guna.UI2.WinForms.Guna2Button();
             this.btnVeMayBay = new Guna.UI2.WinForms.Guna2Button();
@@ -47,14 +47,14 @@
             // 
             this.guna2Panel1.Controls.Add(this.guna2PictureBox1);
             this.guna2Panel1.Controls.Add(this.btnCaiDat);
-            this.guna2Panel1.Controls.Add(this.btnTaiKhoanvaQuyen);
+            this.guna2Panel1.Controls.Add(this.btnLapLichBay);
             this.guna2Panel1.Controls.Add(this.btnMayBay);
             this.guna2Panel1.Controls.Add(this.btnBaoCao);
             this.guna2Panel1.Controls.Add(this.btnVeMayBay);
             this.guna2Panel1.Controls.Add(this.btnChuyenBay);
             this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
-            this.guna2Panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.guna2Panel1.Margin = new System.Windows.Forms.Padding(2);
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(1184, 53);
             this.guna2Panel1.TabIndex = 0;
@@ -65,7 +65,7 @@
             this.guna2PictureBox1.Image = global::Airplace2025.Properties.Resources.mb1;
             this.guna2PictureBox1.ImageRotate = 0F;
             this.guna2PictureBox1.Location = new System.Drawing.Point(9, 10);
-            this.guna2PictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.guna2PictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.guna2PictureBox1.Name = "guna2PictureBox1";
             this.guna2PictureBox1.Size = new System.Drawing.Size(87, 31);
             this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -87,33 +87,33 @@
             this.btnCaiDat.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCaiDat.ForeColor = System.Drawing.Color.Black;
             this.btnCaiDat.Location = new System.Drawing.Point(800, 12);
-            this.btnCaiDat.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCaiDat.Margin = new System.Windows.Forms.Padding(2);
             this.btnCaiDat.Name = "btnCaiDat";
             this.btnCaiDat.Size = new System.Drawing.Size(97, 28);
             this.btnCaiDat.TabIndex = 6;
             this.btnCaiDat.Text = "Cài đặt";
             this.btnCaiDat.Click += new System.EventHandler(this.guna2Button6_Click);
             // 
-            // btnTaiKhoanvaQuyen
+            // btnLapLichBay
             // 
-            this.btnTaiKhoanvaQuyen.BorderColor = System.Drawing.Color.DeepSkyBlue;
-            this.btnTaiKhoanvaQuyen.BorderThickness = 3;
-            this.btnTaiKhoanvaQuyen.CustomBorderColor = System.Drawing.Color.Black;
-            this.btnTaiKhoanvaQuyen.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnTaiKhoanvaQuyen.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnTaiKhoanvaQuyen.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnTaiKhoanvaQuyen.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnTaiKhoanvaQuyen.FillColor = System.Drawing.Color.Transparent;
-            this.btnTaiKhoanvaQuyen.FocusedColor = System.Drawing.Color.Transparent;
-            this.btnTaiKhoanvaQuyen.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTaiKhoanvaQuyen.ForeColor = System.Drawing.Color.Black;
-            this.btnTaiKhoanvaQuyen.Location = new System.Drawing.Point(629, 12);
-            this.btnTaiKhoanvaQuyen.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.btnTaiKhoanvaQuyen.Name = "btnTaiKhoanvaQuyen";
-            this.btnTaiKhoanvaQuyen.Size = new System.Drawing.Size(166, 28);
-            this.btnTaiKhoanvaQuyen.TabIndex = 5;
-            this.btnTaiKhoanvaQuyen.Text = "Tài khoản & Quyền";
-            this.btnTaiKhoanvaQuyen.Click += new System.EventHandler(this.guna2Button5_Click);
+            this.btnLapLichBay.BorderColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnLapLichBay.BorderThickness = 3;
+            this.btnLapLichBay.CustomBorderColor = System.Drawing.Color.Black;
+            this.btnLapLichBay.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnLapLichBay.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnLapLichBay.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnLapLichBay.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnLapLichBay.FillColor = System.Drawing.Color.Transparent;
+            this.btnLapLichBay.FocusedColor = System.Drawing.Color.Transparent;
+            this.btnLapLichBay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLapLichBay.ForeColor = System.Drawing.Color.Black;
+            this.btnLapLichBay.Location = new System.Drawing.Point(629, 12);
+            this.btnLapLichBay.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLapLichBay.Name = "btnLapLichBay";
+            this.btnLapLichBay.Size = new System.Drawing.Size(166, 28);
+            this.btnLapLichBay.TabIndex = 5;
+            this.btnLapLichBay.Text = "Lập lịch bay";
+            this.btnLapLichBay.Click += new System.EventHandler(this.guna2Button5_Click);
             // 
             // btnMayBay
             // 
@@ -129,7 +129,7 @@
             this.btnMayBay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMayBay.ForeColor = System.Drawing.Color.Black;
             this.btnMayBay.Location = new System.Drawing.Point(506, 12);
-            this.btnMayBay.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnMayBay.Margin = new System.Windows.Forms.Padding(2);
             this.btnMayBay.Name = "btnMayBay";
             this.btnMayBay.Size = new System.Drawing.Size(112, 28);
             this.btnMayBay.TabIndex = 4;
@@ -150,7 +150,7 @@
             this.btnBaoCao.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBaoCao.ForeColor = System.Drawing.Color.Black;
             this.btnBaoCao.Location = new System.Drawing.Point(388, 12);
-            this.btnBaoCao.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnBaoCao.Margin = new System.Windows.Forms.Padding(2);
             this.btnBaoCao.Name = "btnBaoCao";
             this.btnBaoCao.Size = new System.Drawing.Size(107, 28);
             this.btnBaoCao.TabIndex = 3;
@@ -171,7 +171,7 @@
             this.btnVeMayBay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVeMayBay.ForeColor = System.Drawing.Color.Black;
             this.btnVeMayBay.Location = new System.Drawing.Point(229, 12);
-            this.btnVeMayBay.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnVeMayBay.Margin = new System.Windows.Forms.Padding(2);
             this.btnVeMayBay.Name = "btnVeMayBay";
             this.btnVeMayBay.Size = new System.Drawing.Size(151, 28);
             this.btnVeMayBay.TabIndex = 2;
@@ -192,7 +192,7 @@
             this.btnChuyenBay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChuyenBay.ForeColor = System.Drawing.Color.Black;
             this.btnChuyenBay.Location = new System.Drawing.Point(100, 12);
-            this.btnChuyenBay.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnChuyenBay.Margin = new System.Windows.Forms.Padding(2);
             this.btnChuyenBay.Name = "btnChuyenBay";
             this.btnChuyenBay.Size = new System.Drawing.Size(124, 28);
             this.btnChuyenBay.TabIndex = 0;
@@ -215,8 +215,9 @@
             this.ClientSize = new System.Drawing.Size(1184, 701);
             this.Controls.Add(this.pnlCommon);
             this.Controls.Add(this.guna2Panel1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmTrangChu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Trangchu";
             this.guna2Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
@@ -230,7 +231,7 @@
         private Guna.UI2.WinForms.Guna2Button btnChuyenBay;
         private Guna.UI2.WinForms.Guna2Button btnVeMayBay;
         private Guna.UI2.WinForms.Guna2Button btnCaiDat;
-        private Guna.UI2.WinForms.Guna2Button btnTaiKhoanvaQuyen;
+        private Guna.UI2.WinForms.Guna2Button btnLapLichBay;
         private Guna.UI2.WinForms.Guna2Button btnMayBay;
         private Guna.UI2.WinForms.Guna2Button btnBaoCao;
         private Guna.UI2.WinForms.Guna2AnimateWindow guna2AnimateWindow1;

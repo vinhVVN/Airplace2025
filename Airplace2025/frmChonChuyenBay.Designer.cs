@@ -64,6 +64,9 @@
             this.btnOneWay = new Guna.UI2.WinForms.Guna2RadioButton();
             this.btnRoundTrip = new Guna.UI2.WinForms.Guna2RadioButton();
             this.pnlChonChuyenBay = new Guna.UI2.WinForms.Guna2Panel();
+            this.tlpFlights = new System.Windows.Forms.TableLayoutPanel();
+            this.cboSortType = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.btnFilter = new Guna.UI2.WinForms.Guna2Button();
             this.pnlThongTinDatCho.SuspendLayout();
             this.pnlFlightInfo.SuspendLayout();
@@ -559,11 +562,68 @@
             // 
             // pnlChonChuyenBay
             // 
+            this.pnlChonChuyenBay.Controls.Add(this.tlpFlights);
+            this.pnlChonChuyenBay.Controls.Add(this.cboSortType);
+            this.pnlChonChuyenBay.Controls.Add(this.guna2HtmlLabel5);
             this.pnlChonChuyenBay.Controls.Add(this.btnFilter);
             this.pnlChonChuyenBay.Location = new System.Drawing.Point(0, 306);
             this.pnlChonChuyenBay.Name = "pnlChonChuyenBay";
-            this.pnlChonChuyenBay.Size = new System.Drawing.Size(1122, 145);
+            this.pnlChonChuyenBay.Size = new System.Drawing.Size(1122, 435);
             this.pnlChonChuyenBay.TabIndex = 2;
+            this.pnlChonChuyenBay.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlChonChuyenBay_Paint);
+            // 
+            // tlpFlights
+            // 
+            this.tlpFlights.ColumnCount = 1;
+            this.tlpFlights.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpFlights.Location = new System.Drawing.Point(60, 100);
+            this.tlpFlights.Name = "tlpFlights";
+            this.tlpFlights.RowCount = 1;
+            this.tlpFlights.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpFlights.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 140F));
+            this.tlpFlights.Size = new System.Drawing.Size(940, 320);
+            this.tlpFlights.TabIndex = 5;
+            // 
+            // cboSortType
+            // 
+            this.cboSortType.BackColor = System.Drawing.Color.Transparent;
+            this.cboSortType.BorderThickness = 0;
+            this.cboSortType.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cboSortType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cboSortType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboSortType.FillColor = System.Drawing.SystemColors.Control;
+            this.cboSortType.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cboSortType.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cboSortType.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboSortType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(95)))), ((int)(((byte)(110)))));
+            this.cboSortType.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.cboSortType.ItemHeight = 30;
+            this.cboSortType.Items.AddRange(new object[] {
+            "Rẻ nhất",
+            "Thời gian khởi hành tăng dần",
+            "Thời gian khởi hành giảm dần",
+            "Thời gian bay tăng dần",
+            "Mặc định"});
+            this.cboSortType.ItemsAppearance.BackColor = System.Drawing.Color.White;
+            this.cboSortType.ItemsAppearance.ForeColor = System.Drawing.Color.Black;
+            this.cboSortType.ItemsAppearance.SelectedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(180)))), ((int)(((byte)(65)))));
+            this.cboSortType.ItemsAppearance.SelectedForeColor = System.Drawing.Color.Black;
+            this.cboSortType.Location = new System.Drawing.Point(835, 49);
+            this.cboSortType.Name = "cboSortType";
+            this.cboSortType.Size = new System.Drawing.Size(253, 36);
+            this.cboSortType.StartIndex = 4;
+            this.cboSortType.TabIndex = 4;
+            this.cboSortType.SelectedIndexChanged += new System.EventHandler(this.cboSortType_SelectedIndexChanged);
+            // 
+            // guna2HtmlLabel5
+            // 
+            this.guna2HtmlLabel5.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel5.Location = new System.Drawing.Point(745, 56);
+            this.guna2HtmlLabel5.Name = "guna2HtmlLabel5";
+            this.guna2HtmlLabel5.Size = new System.Drawing.Size(87, 19);
+            this.guna2HtmlLabel5.TabIndex = 3;
+            this.guna2HtmlLabel5.Text = "Sắp xếp theo:";
             // 
             // btnFilter
             // 
@@ -597,7 +657,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1123, 484);
+            this.ClientSize = new System.Drawing.Size(1123, 742);
             this.Controls.Add(this.pnlChonChuyenBay);
             this.Controls.Add(this.pnlChange);
             this.Controls.Add(this.pnlThongTinDatCho);
@@ -615,6 +675,7 @@
             this.pnlChange.ResumeLayout(false);
             this.pnlChange.PerformLayout();
             this.pnlChonChuyenBay.ResumeLayout(false);
+            this.pnlChonChuyenBay.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -658,5 +719,8 @@
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private Guna.UI2.WinForms.Guna2Panel pnlChonChuyenBay;
         private Guna.UI2.WinForms.Guna2Button btnFilter;
+        private Guna.UI2.WinForms.Guna2ComboBox cboSortType;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
+        private System.Windows.Forms.TableLayoutPanel tlpFlights;
     }
 }

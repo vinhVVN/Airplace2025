@@ -7,9 +7,7 @@ using System.Linq;
 
 namespace Airplace2025.BLL
 {
-    /// <summary>
-    /// Business Logic Layer cho ChuyenBay
-    /// </summary>
+    //Business Logic Layer cho ChuyenBay
     public class ChuyenBayBLL
     {
         private static ChuyenBayBLL _instance;
@@ -24,6 +22,28 @@ namespace Airplace2025.BLL
         }
 
         private ChuyenBayBLL() { }
+
+
+        /// Tìm kiếm theo mã sân bay đi/đến, ngày đi, số hành khách
+        /// (wrapper xây dựng SearchFlightParams và tái sử dụng SearchFlights)
+        public List<ChuyenBayDTO> TimKiemChuyenBay(string maSanBayDi, string maSanBayDen, DateTime ngayDi, int soHanhKhach)
+        {
+            var p = new SearchFlightParams
+            {
+                MaSanBayDi = maSanBayDi,
+                MaSanBayDen = maSanBayDen,
+                NgayDi = ngayDi.Date,
+                NgayVe = null,
+                SoNguoiLon = Math.Max(0, soHanhKhach),
+                SoTreEm = 0,
+                SoEmBe = 0,
+                // Không filter theo hạng vé cụ thể - để user chọn trên UI
+                HangDichVu = null,
+                LaKhuHoi = false
+            };
+
+            return SearchFlights(p);
+        }
 
         /// <summary>
         /// Lọc chuyến bay theo số ghế còn lại của hạng vé cụ thể
@@ -90,12 +110,11 @@ namespace Airplace2025.BLL
             if (tongHanhKhach == 0)
                 throw new Exception("Phải có ít nhất 1 hành khách");
 
-            if (tongHanhKhach > 9)
-                throw new Exception("Tối đa 9 hành khách cho một lần đặt");
-
             // Kiểm tra ràng buộc INF
             if (searchParams.SoEmBe > searchParams.SoNguoiLon)
                 throw new Exception("Số em bé không được vượt quá số người lớn");
+
+            int soNguoiCanGhe = searchParams.SoNguoiLon + searchParams.SoTreEm; // Không tính SoEmBe
 
             // Gọi DAL để tìm kiếm
             List<ChuyenBayDTO> flights = ChuyenBayDAO.Instance.SearchFlights(searchParams);
@@ -149,22 +168,18 @@ namespace Airplace2025.BLL
             }
 
             // Lọc theo số ghế của hạng vé đang tìm
-            flights = FilterByServiceClassAvailability(flights, searchParams.HangDichVu, tongHanhKhach);
+            flights = FilterByServiceClassAvailability(flights, searchParams.HangDichVu, soNguoiCanGhe);
 
             return flights;
         }
 
-        /// <summary>
-        /// Lấy danh sách sân bay để hiển thị trên ComboBox
-        /// </summary>
+        // Lấy danh sách sân bay để hiển thị trên ComboBox
         public DataTable GetAirports()
         {
             return ChuyenBayDAO.Instance.GetAirports();
         }
 
-        /// <summary>
-        /// Format thông tin sân bay cho ComboBox (Mã - Tên - Thành phố)
-        /// </summary>
+        // Format thông tin sân bay cho ComboBox (Mã - Tên)
         public List<string> GetFormattedAirportList()
         {
             List<string> result = new List<string>();
@@ -285,6 +300,8 @@ namespace Airplace2025.BLL
 
             return tongGia;
         }
+
+
     }
 }
 

@@ -94,7 +94,7 @@ namespace Airplace2025
                 txtPassword.PasswordChar = HIDE_CHAR;
 
                 // 3. Thay đổi biểu tượng con mắt thành trạng thái ĐÓNG
-                // guna2ImageButton1.Image = Properties.Resources.eye_closed_icon;
+                guna2ImageButton1.Image = Properties.Resources.noun_closed_eye_5269901;
             }
             else
             {
@@ -107,11 +107,11 @@ namespace Airplace2025
                 txtPassword.PasswordChar = '\0';
 
                 // 3. Thay đổi biểu tượng con mắt thành trạng thái MỞ
-                // guna2ImageButton1.Image = Properties.Resources.eye_open_icon;
+                guna2ImageButton1.Image = Properties.Resources.eye_removebg_preview;
             }
         }
 
-        private void guna2Button1_Click(object sender, EventArgs e)
+        private void btnLogin_Click(object sender, EventArgs e)
         {
             string tenDangNhap = txtUserName.Text;
             string matKhau = txtPassword.Text;
@@ -158,6 +158,24 @@ namespace Airplace2025
             catch (Exception ex)
             {
                 MessageBox.Show("Đã xảy ra lỗi kết nối CSDL: " + ex.Message, "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void txtUserName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtPassword.Focus();
+                e.SuppressKeyPress = true; // optional để chặn bing sound
+            }
+        }
+
+        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnLogin.PerformClick();
+                e.SuppressKeyPress = true;
             }
         }
     }
