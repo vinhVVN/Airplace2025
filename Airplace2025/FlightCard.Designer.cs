@@ -224,8 +224,6 @@
             this.pricePanel1.TabIndex = 1;
             this.pricePanel1.Click += new System.EventHandler(this.pricePanel1_Click);
             this.pricePanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.pricePanel1_Paint);
-           // this.pricePanel1.MouseLeave += new System.EventHandler(this.pricePanel1_MouseLeave);
-            //this.pricePanel1.MouseHover += new System.EventHandler(this.pricePanel1_MouseHover);
             // 
             // lblSeatsEco
             // 

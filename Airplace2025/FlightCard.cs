@@ -281,18 +281,21 @@ namespace Airplace2025
         private void pricePanel1_Click(object sender, EventArgs e)
         {
             frmChiTietVe frmChiTietVe = new frmChiTietVe();
+            frmChiTietVe.SetClassType("Economy");
             frmChiTietVe.Show();
         }
 
         private void pricePanel2_Click(object sender, EventArgs e)
         {
             frmChiTietVe frmChiTietVe = new frmChiTietVe();
+            frmChiTietVe.SetClassType("Premium");
             frmChiTietVe.Show();
         }
 
         private void pricePanel3_Click(object sender, EventArgs e)
         {
             frmChiTietVe frmChiTietVe = new frmChiTietVe();
+            frmChiTietVe.SetClassType("Business");
             frmChiTietVe.Show();
         }
     }
