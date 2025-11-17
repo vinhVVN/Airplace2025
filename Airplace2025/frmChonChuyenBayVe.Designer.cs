@@ -112,6 +112,7 @@
             this.dtpNgayVe.Size = new System.Drawing.Size(150, 30);
             this.dtpNgayVe.TabIndex = 32;
             this.dtpNgayVe.Value = new System.DateTime(2025, 10, 25, 15, 12, 10, 444);
+            this.dtpNgayVe.ValueChanged += new System.EventHandler(this.dtpNgayVe_ValueChanged);
             // 
             // pnlRoundTrip
             // 
@@ -170,6 +171,7 @@
             this.dtpNgayDi.Size = new System.Drawing.Size(150, 30);
             this.dtpNgayDi.TabIndex = 29;
             this.dtpNgayDi.Value = new System.DateTime(2025, 10, 24, 15, 12, 10, 504);
+            this.dtpNgayDi.ValueChanged += new System.EventHandler(this.dtpNgayDi_ValueChanged);
             // 
             // lblUp
             // 
@@ -216,6 +218,7 @@
             this.cbSanBayDen.Name = "cbSanBayDen";
             this.cbSanBayDen.Size = new System.Drawing.Size(259, 36);
             this.cbSanBayDen.TabIndex = 30;
+            this.cbSanBayDen.SelectedIndexChanged += new System.EventHandler(this.cbSanBayDen_SelectedIndexChanged);
             // 
             // lblDown
             // 
@@ -246,6 +249,7 @@
             this.btnChange.Size = new System.Drawing.Size(160, 35);
             this.btnChange.TabIndex = 3;
             this.btnChange.Text = "Thay đổi";
+            this.btnChange.Click += new System.EventHandler(this.btnChange_Click);
             // 
             // lblTotalPassengers
             // 
@@ -339,6 +343,7 @@
             this.cbSanBayDi.Name = "cbSanBayDi";
             this.cbSanBayDi.Size = new System.Drawing.Size(242, 36);
             this.cbSanBayDi.TabIndex = 28;
+            this.cbSanBayDi.SelectedIndexChanged += new System.EventHandler(this.cbSanBayDi_SelectedIndexChanged);
             // 
             // btnOneWay
             // 
@@ -358,6 +363,7 @@
             this.btnOneWay.UncheckedState.BorderThickness = 2;
             this.btnOneWay.UncheckedState.FillColor = System.Drawing.Color.Transparent;
             this.btnOneWay.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            this.btnOneWay.CheckedChanged += new System.EventHandler(this.btnOneWay_CheckedChanged);
             // 
             // btnRoundTrip
             // 
@@ -377,6 +383,7 @@
             this.btnRoundTrip.UncheckedState.BorderThickness = 2;
             this.btnRoundTrip.UncheckedState.FillColor = System.Drawing.Color.Transparent;
             this.btnRoundTrip.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            this.btnRoundTrip.CheckedChanged += new System.EventHandler(this.btnRoundTrip_CheckedChanged);
             // 
             // pnlChonChuyenBay
             // 
@@ -430,6 +437,7 @@
             this.cboSortType.Size = new System.Drawing.Size(253, 36);
             this.cboSortType.StartIndex = 4;
             this.cboSortType.TabIndex = 4;
+            this.cboSortType.SelectedIndexChanged += new System.EventHandler(this.cboSortType_SelectedIndexChanged);
             // 
             // lblSapXep
             // 
@@ -467,6 +475,7 @@
             this.btnFilter.TabIndex = 0;
             this.btnFilter.Text = "HIỂN THỊ BỘ LỌC";
             this.btnFilter.TextOffset = new System.Drawing.Point(10, 0);
+            this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
             // 
             // guna2HtmlLabel6
             // 
@@ -517,6 +526,7 @@
             this.btnEditSave.TabIndex = 39;
             this.btnEditSave.Text = "Lưu chỉnh sửa";
             this.btnEditSave.TextTransform = Guna.UI2.WinForms.Enums.TextTransform.UpperCase;
+            this.btnEditSave.Click += new System.EventHandler(this.btnEditSave_Click);
             // 
             // btnTotalCustomers
             // 
@@ -540,6 +550,7 @@
             this.btnTotalCustomers.TabIndex = 38;
             this.btnTotalCustomers.Text = "1 Hành khách";
             this.btnTotalCustomers.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnTotalCustomers.Click += new System.EventHandler(this.btnTotalCustomers_Click);
             // 
             // pnlChange
             // 
@@ -627,6 +638,7 @@
             this.Controls.Add(this.pnlThongTinDatCho);
             this.Name = "frmChonChuyenBayVe";
             this.Text = "Chọn chuyến bay về";
+            this.Load += new System.EventHandler(this.frmChonChuyenBayVe_Load);
             this.pnlRoundTrip.ResumeLayout(false);
             this.pnlRoundTrip.PerformLayout();
             this.pnlOneWay.ResumeLayout(false);

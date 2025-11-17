@@ -16,25 +16,31 @@ namespace Airplace2025
     {
         private const int CollapsedHeight = 160;
         private const int ExpandedHeight = 453;
+        private const int ReturnPanelCollapsedY = 242;
+        private const int ReturnPanelExpandedY = 551;
         private const int AnimationStep = 25;
         private readonly Timer animationTimer;
+        private readonly Timer returnAnimationTimer;
         private int targetHeight;
-        private SelectedFareInfo selectedFare;
+        private int returnTargetHeight;
+        private SelectedFareInfo departureFare;
+        private SelectedFareInfo returnFare;
 
         public frmShoppingCart()
         {
             InitializeComponent();
-            animationTimer = new Timer
-            {
-                Interval = 15
-            };
+            animationTimer = new Timer { Interval = 15 };
             animationTimer.Tick += AnimationTimer_Tick;
+            returnAnimationTimer = new Timer { Interval = 15 };
+            returnAnimationTimer.Tick += ReturnAnimationTimer_Tick;
             InitializeCollapsedState();
+            InitializeReturnCollapsedState();
         }
 
-        public frmShoppingCart(SelectedFareInfo fareInfo) : this()
+        public frmShoppingCart(SelectedFareInfo departureFare, SelectedFareInfo returnFare = null) : this()
         {
-            PopulateFareDetails(fareInfo);
+            PopulateDepartureFare(departureFare);
+            PopulateReturnFare(returnFare);
         }
 
         private void pnlArriveFlight_Paint(object sender, PaintEventArgs e)
@@ -42,14 +48,14 @@ namespace Airplace2025
 
         }
 
-        private void PopulateFareDetails(SelectedFareInfo fareInfo)
+        private void PopulateDepartureFare(SelectedFareInfo fareInfo)
         {
             if (fareInfo?.Flight == null)
             {
                 return;
             }
 
-            selectedFare = fareInfo;
+            departureFare = fareInfo;
             var flight = fareInfo.Flight;
             var culture = new CultureInfo("vi-VN");
             TimeSpan duration = CalculateDuration(flight);
@@ -59,39 +65,98 @@ namespace Airplace2025
             string toName = FormatAirportName(flight.TenSanBayDen, flight.MaSanBayDen);
 
             lblRoute1.Text = $"{fromName} đến {toName}";
-            lblDate.Text = flight.NgayGioBay.ToString("dddd, dd 'tháng' MM, yyyy", culture);
-            depTimeLabel.Text = flight.NgayGioBay.ToString("HH:mm");
-            depCodeLabel.Text = flight.MaSanBayDi;
-            depTerminalLabel.Text = string.Empty;
+            lblDate1.Text = flight.NgayGioBay.ToString("dddd, dd 'tháng' MM, yyyy", culture);
+            depTimeLabel1.Text = flight.NgayGioBay.ToString("HH:mm");
+            depCodeLabel1.Text = flight.MaSanBayDi;
+            depTerminalLabel1.Text = string.Empty;
 
-            arrTimeLabel.Text = flight.NgayGioDen.ToString("HH:mm");
-            arrCodeLabel.Text = flight.MaSanBayDen;
-            arrTerminalLabel.Text = string.Empty;
+            arrTimeLabel1.Text = flight.NgayGioDen.ToString("HH:mm");
+            arrCodeLabel1.Text = flight.MaSanBayDen;
+            arrTerminalLabel1.Text = string.Empty;
 
             durationLabel.Text = "Bay thẳng";
-            durationTime.Text = $"Thời gian bay {durationHours}h {durationMinutes}phút";
-            airlineLabel.Text = $" ✈️ {flight.MaChuyenBay} khai thác bởi {flight.TenHangBay}";
-            TypeLabel.Text = fareInfo.CabinClass;
-            fareType.Text = fareInfo.CabinClass;
-            ApplyFarePerks(fareInfo.CabinClass);
+            durationTime1.Text = $"Thời gian bay {durationHours}h {durationMinutes}phút";
+            airlineLabel1.Text = $" ✈️ {flight.MaChuyenBay} khai thác bởi {flight.TenHangBay}";
+            TypeLabel1.Text = fareInfo.CabinClass;
+            fareType1.Text = fareInfo.CabinClass;
+            ApplyFarePerks(fareInfo.CabinClass, lblThayVe1, lblHoanVe1, lblHanhLyKyGui1, lblHanhLyXachTay1);
 
             string departureTimeline = $"{flight.NgayGioBay:HH:mm} {fromName}";
             string arrivalTimeline = $"{flight.NgayGioDen:HH:mm} {toName}";
 
-            lblDepartureTime.Text = departureTimeline;
-            lblDepartureAirport.Text = fromName;
-            lblDepartureTerminal.Text = string.Empty;
+            lblDepartureTime1.Text = departureTimeline;
+            lblDepartureAirport1.Text = fromName;
+            lblDepartureTerminal1.Text = string.Empty;
 
-            lblArrivalTime.Text = arrivalTimeline;
-            lblArrivalAirport.Text = toName;
-            lblArrivalTerminal.Text = string.Empty;
-            lblNextDay.Visible = flight.NgayGioDen.Date > flight.NgayGioBay.Date;
-            lblNextDay.Text = lblNextDay.Visible ? "(+1 ngày)" : string.Empty;
+            lblArrivalTime1.Text = arrivalTimeline;
+            lblArrivalAirport1.Text = toName;
+            lblArrivalTerminal1.Text = string.Empty;
+            lblNextDay1.Visible = flight.NgayGioDen.Date > flight.NgayGioBay.Date;
+            lblNextDay1.Text = lblNextDay1.Visible ? "(+1 ngày)" : string.Empty;
 
-            lblAirline.Text = $"Khai thác bởi {flight.TenHangBay}";
-            lblFlightNumberTitle.Text = $"Số hiệu chuyến bay {flight.MaChuyenBay}";
-            lblAircraft.Text = flight.TenMayBay ?? "Đang cập nhật";
-            lblFlightDuration.Text = $"{durationHours} giờ {durationMinutes} phút";
+            lblAirline1.Text = $"Khai thác bởi {flight.TenHangBay}";
+            lblFlightNumberTitle1.Text = $"Số hiệu chuyến bay {flight.MaChuyenBay}";
+            lblAircraft1.Text = flight.TenMayBay ?? "Đang cập nhật";
+            lblFlightDuration1.Text = $"{durationHours} giờ {durationMinutes} phút";
+        }
+
+        private void PopulateReturnFare(SelectedFareInfo fareInfo)
+        {
+            returnFare = fareInfo;
+
+            if (fareInfo?.Flight == null)
+            {
+                returnAnimationTimer.Stop();
+                pnlReturnFlight.Visible = false;
+                guna2Panel2.Visible = false;
+                return;
+            }
+
+            pnlReturnFlight.Visible = true;
+            InitializeReturnCollapsedState();
+
+            var flight = fareInfo.Flight;
+            var culture = new CultureInfo("vi-VN");
+            TimeSpan duration = CalculateDuration(flight);
+            int durationHours = (int)duration.TotalHours;
+            int durationMinutes = duration.Minutes;
+            string fromName = FormatAirportName(flight.TenSanBayDi, flight.MaSanBayDi);
+            string toName = FormatAirportName(flight.TenSanBayDen, flight.MaSanBayDen);
+
+            lblRoute2.Text = $"{fromName} đến {toName}";
+            lblDate2.Text = flight.NgayGioBay.ToString("dddd, dd 'tháng' MM, yyyy", culture);
+            depTimeLabel2.Text = flight.NgayGioBay.ToString("HH:mm");
+            depCodeLabel2.Text = flight.MaSanBayDi;
+            depTerminalLabel2.Text = string.Empty;
+
+            arrTimeLabel2.Text = flight.NgayGioDen.ToString("HH:mm");
+            arrCodeLabel2.Text = flight.MaSanBayDen;
+            arrTerminalLabel2.Text = string.Empty;
+
+            label15.Text = "Bay thẳng";
+            durationTime2.Text = $"Thời gian bay {durationHours}h {durationMinutes}phút";
+            airlineLabel2.Text = $" ✈️ {flight.MaChuyenBay} khai thác bởi {flight.TenHangBay}";
+            TypeLabel2.Text = fareInfo.CabinClass;
+            fareType2.Text = fareInfo.CabinClass;
+
+            string departureTimeline = $"{flight.NgayGioBay:HH:mm} {fromName}";
+            string arrivalTimeline = $"{flight.NgayGioDen:HH:mm} {toName}";
+
+            lblDepartureTime2.Text = departureTimeline;
+            lblDepartureAirport2.Text = fromName;
+            lblDepartureTerminal2.Text = string.Empty;
+
+            lblArrivalTime2.Text = arrivalTimeline;
+            lblArrivalAirport2.Text = toName;
+            lblArrivalTerminal2.Text = string.Empty;
+            lblNextDay2.Visible = flight.NgayGioDen.Date > flight.NgayGioBay.Date;
+            lblNextDay2.Text = lblNextDay2.Visible ? "(+1 ngày)" : string.Empty;
+
+            lblAirline2.Text = $"Khai thác bởi {flight.TenHangBay}";
+            lblFlightNumberTitle2.Text = $"Số hiệu chuyến bay {flight.MaChuyenBay}";
+            lblAircraft2.Text = flight.TenMayBay ?? "Đang cập nhật";
+            lblFlightDuration2.Text = $"{durationHours} giờ {durationMinutes} phút";
+            ApplyFarePerks(fareInfo.CabinClass, lblThayVe2, lblHoanVe2, lblHanhLyKyGui2, lblHanhLyXachTay2);
         }
 
         private static TimeSpan CalculateDuration(ChuyenBayDTO flight)
@@ -114,28 +179,28 @@ namespace Airplace2025
             return code ?? string.Empty;
         }
 
-        private void ApplyFarePerks(string cabinClass)
+        private void ApplyFarePerks(string cabinClass, Label thayVeLabel, Label hoanVeLabel, Label hanhLyKyGuiLabel, Label hanhLyXachTayLabel)
         {
             string normalized = NormalizeCabinClass(cabinClass);
             switch (normalized)
             {
                 case "Premium":
-                    lblThayVe.Text = "🔄 Thay đổi vé: Được phép";
-                    lblHoanVe.Text = "🎫 Hoàn vé: Phí hoàn tối đa 500.000 VND mỗi hành khách cho toàn bộ vé";
-                    lblHanhLyKyGui.Text = "💼 Hành lý ký gửi: 1 × 32 kg";
-                    lblHanhLyXachTay.Text = "🎒 Hành lý xách tay: 1 × 10 kg";
+                    thayVeLabel.Text = "🔄 Thay đổi vé: Được phép";
+                    hoanVeLabel.Text = "🎫 Hoàn vé: Phí hoàn tối đa 500.000 VND mỗi hành khách cho toàn bộ vé";
+                    hanhLyKyGuiLabel.Text = "💼 Hành lý ký gửi: 1 × 32 kg";
+                    hanhLyXachTayLabel.Text = "🎒 Hành lý xách tay: 1 × 10 kg";
                     break;
                 case "Business":
-                    lblThayVe.Text = "🔄 Thay đổi vé: Phí đổi tối đa 860.000 VND mỗi hành khách cho toàn bộ vé";
-                    lblHoanVe.Text = "🎫 Hoàn vé: Phí hoàn tối đa 1.000.000 VND mỗi hành khách cho toàn bộ vé";
-                    lblHanhLyKyGui.Text = "💼 Hành lý ký gửi: 1 × 32 kg";
-                    lblHanhLyXachTay.Text = "🎒 Hành lý xách tay: 1 × 18 kg";
+                    thayVeLabel.Text = "🔄 Thay đổi vé: Phí đổi tối đa 860.000 VND mỗi hành khách cho toàn bộ vé";
+                    hoanVeLabel.Text = "🎫 Hoàn vé: Phí hoàn tối đa 1.000.000 VND mỗi hành khách cho toàn bộ vé";
+                    hanhLyKyGuiLabel.Text = "💼 Hành lý ký gửi: 1 × 32 kg";
+                    hanhLyXachTayLabel.Text = "🎒 Hành lý xách tay: 1 × 18 kg";
                     break;
                 default:
-                    lblThayVe.Text = "🔄 Thay đổi vé: Phí đổi tối đa 860.000 VND mỗi hành khách cho toàn bộ vé";
-                    lblHoanVe.Text = "🎫 Hoàn vé: Phí hoàn tối đa 860.000 VND mỗi hành khách cho toàn bộ vé";
-                    lblHanhLyKyGui.Text = "💼 Hành lý ký gửi: 1 × 23 kg";
-                    lblHanhLyXachTay.Text = "🎒 Hành lý xách tay: 1 × 10 kg";
+                    thayVeLabel.Text = "🔄 Thay đổi vé: Phí đổi tối đa 860.000 VND mỗi hành khách cho toàn bộ vé";
+                    hoanVeLabel.Text = "🎫 Hoàn vé: Phí hoàn tối đa 860.000 VND mỗi hành khách cho toàn bộ vé";
+                    hanhLyKyGuiLabel.Text = "💼 Hành lý ký gửi: 1 × 23 kg";
+                    hanhLyXachTayLabel.Text = "🎒 Hành lý xách tay: 1 × 10 kg";
                     break;
             }
         }
@@ -168,6 +233,15 @@ namespace Airplace2025
             detailsPanel.Visible = false;
             expandBtn.Text = "˅";
             targetHeight = CollapsedHeight;
+            UpdateReturnPanelLocation();
+        }
+
+        private void InitializeReturnCollapsedState()
+        {
+            pnlReturnFlight.Height = CollapsedHeight;
+            guna2Panel2.Visible = false;
+            expandbtn2.Text = "˅";
+            returnTargetHeight = CollapsedHeight;
         }
 
         private void expandBtn_Click(object sender, EventArgs e)
@@ -207,7 +281,62 @@ namespace Airplace2025
                 {
                     detailsPanel.Visible = false;
                 }
+                UpdateReturnPanelLocation();
             }
+        }
+
+        private void expandbtn2_Click(object sender, EventArgs e)
+        {
+            if (!pnlReturnFlight.Visible || returnAnimationTimer.Enabled)
+            {
+                return;
+            }
+
+            bool expanding = pnlReturnFlight.Height <= CollapsedHeight;
+            returnTargetHeight = expanding ? ExpandedHeight : CollapsedHeight;
+            expandbtn2.Text = expanding ? "˄" : "˅";
+
+            if (expanding)
+            {
+                guna2Panel2.Visible = true;
+            }
+
+            returnAnimationTimer.Start();
+        }
+
+        private void ReturnAnimationTimer_Tick(object sender, EventArgs e)
+        {
+            int direction = returnTargetHeight > pnlReturnFlight.Height ? 1 : -1;
+            int nextHeight = pnlReturnFlight.Height + direction * AnimationStep;
+
+            bool reachedTarget = direction > 0
+                ? nextHeight >= returnTargetHeight
+                : nextHeight <= returnTargetHeight;
+
+            pnlReturnFlight.Height = reachedTarget ? returnTargetHeight : nextHeight;
+
+            if (reachedTarget)
+            {
+                returnAnimationTimer.Stop();
+                if (returnTargetHeight == CollapsedHeight)
+                {
+                    guna2Panel2.Visible = false;
+                }
+            }
+        }
+
+        private void UpdateReturnPanelLocation()
+        {
+            if (pnlReturnFlight == null)
+            {
+                return;
+            }
+
+            int newY = pnlArriveFlight.Height > CollapsedHeight
+                ? ReturnPanelExpandedY
+                : ReturnPanelCollapsedY;
+
+            pnlReturnFlight.Location = new Point(pnlReturnFlight.Location.X, newY);
         }
     }
 }

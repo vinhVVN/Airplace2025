@@ -982,9 +982,44 @@ namespace Airplace2025
                 return;
             }
 
+            void HandleRoundTripTransition(SelectedFareInfo fareInfo)
+            {
+                var returnForm = new frmChonChuyenBayVe(
+                    sanBayDen,
+                    sanBayDi,
+                    ngayDi,
+                    ngayVe,
+                    soLuongHanhKhach,
+                    true,
+                    fareInfo);
+
+                returnForm.FormClosed += (s, args) =>
+                {
+                    this.Close();
+                };
+
+                this.Hide();
+                returnForm.Show();
+            }
+
             void ShowTicketDetails()
             {
-                using (var detail = new frmChiTietVe(e.FareInfo))
+                Action<SelectedFareInfo> onConfirm = info =>
+                {
+                    if (isRoundTrip)
+                    {
+                        HandleRoundTripTransition(info);
+                    }
+                    else
+                    {
+                        using (var frmShoppingCart = new frmShoppingCart(info))
+                        {
+                            frmShoppingCart.ShowDialog(this);
+                        }
+                    }
+                };
+
+                using (var detail = new frmChiTietVe(e.FareInfo, onConfirm))
                 {
                     detail.ShowDialog(this);
                 }
