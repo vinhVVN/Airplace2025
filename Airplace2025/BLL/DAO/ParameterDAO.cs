@@ -33,5 +33,53 @@ namespace Airplace2025.BLL.DAO
             }
             return dt;
         }
+
+        public bool UpdateParameter(
+            int maxTransitCount,
+            string minFlightTime,
+            string minTransitDuration,
+            string maxTransitDuration,
+            int latestBookingDays,
+            int latestCancelDays)
+        {
+            string query = @"
+                UPDATE dbo.ThamSo 
+                SET 
+                    SoSanBayTrungGianToiDa = @MaxTransitCount, 
+                    ThoiGianBayToiThieu = @MinFlightTime, 
+                    ThoiGianDungToiThieu = @MinTransitDuration, 
+                    ThoiGianDungToiDa = @MaxTransitDuration,
+                    ThoiGianDatVeChamNhat = @LatestBookingDays,
+                    ThoiGianHuyChamNhat = @LatestCancelDays
+                WHERE ID = 1"; // Giả sử hàng tham số duy nhất có ID = 1
+
+            using (SqlConnection con = DBConnection.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand(query, con);
+
+                // Thêm các tham số (Parameters) để tránh SQL Injection
+                cmd.Parameters.AddWithValue("@MaxTransitCount", maxTransitCount);
+                cmd.Parameters.AddWithValue("@MinFlightTime", minFlightTime);
+                cmd.Parameters.AddWithValue("@MinTransitDuration", minTransitDuration);
+                cmd.Parameters.AddWithValue("@MaxTransitDuration", maxTransitDuration);
+                cmd.Parameters.AddWithValue("@LatestBookingDays", latestBookingDays);
+                cmd.Parameters.AddWithValue("@LatestCancelDays", latestCancelDays);
+
+                try
+                {
+                    con.Open();
+                    // ExecuteNonQuery trả về số dòng bị ảnh hưởng
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    return rowsAffected > 0;
+                }
+                catch (Exception ex)
+                {
+                    // Ghi log lỗi tại đây (tùy chọn)
+                    Console.WriteLine("Lỗi UpdateParameter: " + ex.Message);
+                    return false;
+                }
+            }
+        }
+
     }
 }
