@@ -138,17 +138,12 @@
     </Compile>
     <Compile Include="frmCaiDat.Designer.cs">
       <DependentUpon>frmCaiDat.cs</DependentUpon>
-    <Compile Include="frmChiTietVe.cs">
+    </Compile>
+    <Compile Include="frmChonChuyenBay.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmChiTietVe.Designer.cs">
-      <DependentUpon>frmChiTietVe.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmChonChuyenBayDi.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmChonChuyenBayDi.Designer.cs">
-      <DependentUpon>frmChonChuyenBayDi.cs</DependentUpon>
+    <Compile Include="frmChonChuyenBay.Designer.cs">
+      <DependentUpon>frmChonChuyenBay.cs</DependentUpon>
     </Compile>
     <Compile Include="frmChonKhachHang.cs">
       <SubType>Form</SubType>
@@ -179,12 +174,6 @@
     </Compile>
     <Compile Include="frmSeatSelection.Designer.cs">
       <DependentUpon>frmSeatSelection.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmShoppingCart.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmShoppingCart.Designer.cs">
-      <DependentUpon>frmShoppingCart.cs</DependentUpon>
     </Compile>
     <Compile Include="frmSoLuongKhachHang.cs">
       <SubType>Form</SubType>
@@ -248,7 +237,6 @@
     <Compile Include="Controls\StopControl.Designer.cs">
       <DependentUpon>StopControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="SelectedFareInfo.cs" />
     <Compile Include="State\PassengerSelectionState.cs" />
     <Compile Include="State\PassengerSelectionStateTemp.cs" />
     <None Include="Resources\sliders-solid-full.png" />
@@ -276,11 +264,8 @@
     <EmbeddedResource Include="frmCaiDat.resx">
       <DependentUpon>frmCaiDat.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmChiTietVe.resx">
-      <DependentUpon>frmChiTietVe.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmChonChuyenBayDi.resx">
-      <DependentUpon>frmChonChuyenBayDi.cs</DependentUpon>
+    <EmbeddedResource Include="frmChonChuyenBay.resx">
+      <DependentUpon>frmChonChuyenBay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmChonKhachHang.resx">
       <DependentUpon>frmChonKhachHang.cs</DependentUpon>
@@ -293,9 +278,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmPassengerDetails.resx">
       <DependentUpon>frmPassengerDetails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmShoppingCart.resx">
-      <DependentUpon>frmShoppingCart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSoLuongKhachHang.resx">
       <DependentUpon>frmSoLuongKhachHang.cs</DependentUpon>
