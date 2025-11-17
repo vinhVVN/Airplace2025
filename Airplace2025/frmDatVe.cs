@@ -136,7 +136,7 @@ namespace Airplace2025
             PassengerSelectionStateTemp.SetChild(childCount);
             PassengerSelectionStateTemp.SetInfant(infantCount);
 
-            frmChonChuyenBay frm = new frmChonChuyenBay(sanBayDi, sanBayDen, ngayDi, ngayVe, soLuongHanhKhach, isRoundTrip);
+            frmChonChuyenBayDi frm = new frmChonChuyenBayDi(sanBayDi, sanBayDen, ngayDi, ngayVe, soLuongHanhKhach, isRoundTrip);
             this.Hide();
             frm.FormClosed += (s, args) => this.Show();
             frm.Show();

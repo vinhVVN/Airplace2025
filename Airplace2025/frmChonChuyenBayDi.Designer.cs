@@ -1,6 +1,6 @@
 ﻿namespace Airplace2025
 {
-    partial class frmChonChuyenBay
+    partial class frmChonChuyenBayDi
     {
         /// <summary>
         /// Required designer variable.
@@ -66,7 +66,7 @@
             this.pnlChonChuyenBay = new Guna.UI2.WinForms.Guna2Panel();
             this.tlpFlights = new System.Windows.Forms.TableLayoutPanel();
             this.cboSortType = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblSapXep = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.btnFilter = new Guna.UI2.WinForms.Guna2Button();
             this.pnlThongTinDatCho.SuspendLayout();
             this.pnlFlightInfo.SuspendLayout();
@@ -564,7 +564,7 @@
             // 
             this.pnlChonChuyenBay.Controls.Add(this.tlpFlights);
             this.pnlChonChuyenBay.Controls.Add(this.cboSortType);
-            this.pnlChonChuyenBay.Controls.Add(this.guna2HtmlLabel5);
+            this.pnlChonChuyenBay.Controls.Add(this.lblSapXep);
             this.pnlChonChuyenBay.Controls.Add(this.btnFilter);
             this.pnlChonChuyenBay.Location = new System.Drawing.Point(0, 306);
             this.pnlChonChuyenBay.Name = "pnlChonChuyenBay";
@@ -580,7 +580,7 @@
             this.tlpFlights.Name = "tlpFlights";
             this.tlpFlights.RowCount = 1;
             this.tlpFlights.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpFlights.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 140F));
+            this.tlpFlights.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 320F));
             this.tlpFlights.Size = new System.Drawing.Size(940, 320);
             this.tlpFlights.TabIndex = 5;
             // 
@@ -615,15 +615,15 @@
             this.cboSortType.TabIndex = 4;
             this.cboSortType.SelectedIndexChanged += new System.EventHandler(this.cboSortType_SelectedIndexChanged);
             // 
-            // guna2HtmlLabel5
+            // lblSapXep
             // 
-            this.guna2HtmlLabel5.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel5.Location = new System.Drawing.Point(745, 56);
-            this.guna2HtmlLabel5.Name = "guna2HtmlLabel5";
-            this.guna2HtmlLabel5.Size = new System.Drawing.Size(87, 19);
-            this.guna2HtmlLabel5.TabIndex = 3;
-            this.guna2HtmlLabel5.Text = "Sắp xếp theo:";
+            this.lblSapXep.BackColor = System.Drawing.Color.Transparent;
+            this.lblSapXep.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSapXep.Location = new System.Drawing.Point(745, 56);
+            this.lblSapXep.Name = "lblSapXep";
+            this.lblSapXep.Size = new System.Drawing.Size(87, 19);
+            this.lblSapXep.TabIndex = 3;
+            this.lblSapXep.Text = "Sắp xếp theo:";
             // 
             // btnFilter
             // 
@@ -720,7 +720,7 @@
         private Guna.UI2.WinForms.Guna2Panel pnlChonChuyenBay;
         private Guna.UI2.WinForms.Guna2Button btnFilter;
         private Guna.UI2.WinForms.Guna2ComboBox cboSortType;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblSapXep;
         private System.Windows.Forms.TableLayoutPanel tlpFlights;
     }
 }
