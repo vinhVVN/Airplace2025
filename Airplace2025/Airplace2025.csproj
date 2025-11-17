@@ -138,6 +138,7 @@
     </Compile>
     <Compile Include="frmCaiDat.Designer.cs">
       <DependentUpon>frmCaiDat.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmChiTietVe.cs">
       <SubType>Form</SubType>
     </Compile>
