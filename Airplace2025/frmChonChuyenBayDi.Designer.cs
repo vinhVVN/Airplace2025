@@ -1,6 +1,6 @@
 ﻿namespace Airplace2025
 {
-    partial class frmChonChuyenBay
+    partial class frmChonChuyenBayDi
     {
         /// <summary>
         /// Required designer variable.

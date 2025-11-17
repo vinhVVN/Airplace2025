@@ -31,8 +31,32 @@
             this.mainScrollPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.containerPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.pnlArriveFlight = new Guna.UI2.WinForms.Guna2Panel();
+            this.detailsPanel = new Guna.UI2.WinForms.Guna2Panel();
+            this.fareType = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblHanhLyXachTay = new System.Windows.Forms.Label();
+            this.lblHanhLyKyGui = new System.Windows.Forms.Label();
+            this.lblHoanVe = new System.Windows.Forms.Label();
+            this.lblThayVe = new System.Windows.Forms.Label();
+            this.fareDetailsTitle = new System.Windows.Forms.Label();
+            this.timelinePanel = new Guna.UI2.WinForms.Guna2Panel();
+            this.lblAircraft = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblFlightNumberTitle = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblAirline = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.circleEnd = new Guna.UI2.WinForms.Guna2CircleButton();
+            this.circleStart = new Guna.UI2.WinForms.Guna2CircleButton();
+            this.lblArrivalTerminal = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblArrivalAirport = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblNextDay = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblArrivalTime = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblDepartureTerminal = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblDepartureAirport = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblDepartureTime = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblFlightDuration = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.timelineLine = new System.Windows.Forms.Panel();
+            this.detailsTitle = new System.Windows.Forms.Label();
+            this.expandBtn = new System.Windows.Forms.Button();
             this.TypeLabel = new System.Windows.Forms.Label();
-            this.detailsLink = new System.Windows.Forms.LinkLabel();
             this.airlineLabel = new System.Windows.Forms.Label();
             this.durationTime = new System.Windows.Forms.Label();
             this.clockIcon = new System.Windows.Forms.Label();
@@ -47,26 +71,6 @@
             this.lblDate = new System.Windows.Forms.Label();
             this.lblRoute1 = new System.Windows.Forms.Label();
             this.titleLabel = new System.Windows.Forms.Label();
-            this.expandBtn = new System.Windows.Forms.Button();
-            this.detailsPanel = new Guna.UI2.WinForms.Guna2Panel();
-            this.detailsTitle = new System.Windows.Forms.Label();
-            this.timelinePanel = new Guna.UI2.WinForms.Guna2Panel();
-            this.circleEnd = new Guna.UI2.WinForms.Guna2CircleButton();
-            this.circleStart = new Guna.UI2.WinForms.Guna2CircleButton();
-            this.lblArrivalTerminal = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblArrivalAirport = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblNextDay = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblArrivalTime = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblDepartureTerminal = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblDepartureAirport = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblDepartureTime = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblFlightDuration = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.timelineLine = new System.Windows.Forms.Panel();
-            this.lblFlightNumberTitle = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblAirline = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblAircraft = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.fareDetailsTitle = new System.Windows.Forms.Label();
-            this.fareType = new System.Windows.Forms.Label();
             this.mainScrollPanel.SuspendLayout();
             this.containerPanel.SuspendLayout();
             this.pnlArriveFlight.SuspendLayout();
@@ -101,7 +105,6 @@
             this.pnlArriveFlight.Controls.Add(this.detailsPanel);
             this.pnlArriveFlight.Controls.Add(this.expandBtn);
             this.pnlArriveFlight.Controls.Add(this.TypeLabel);
-            this.pnlArriveFlight.Controls.Add(this.detailsLink);
             this.pnlArriveFlight.Controls.Add(this.airlineLabel);
             this.pnlArriveFlight.Controls.Add(this.durationTime);
             this.pnlArriveFlight.Controls.Add(this.clockIcon);
@@ -120,189 +123,19 @@
             this.pnlArriveFlight.Name = "pnlArriveFlight";
             this.pnlArriveFlight.ShadowDecoration.Depth = 10;
             this.pnlArriveFlight.ShadowDecoration.Enabled = true;
-            this.pnlArriveFlight.Size = new System.Drawing.Size(1000, 453);
+            this.pnlArriveFlight.Size = new System.Drawing.Size(1000, 312);
             this.pnlArriveFlight.TabIndex = 1;
-            // 
-            // TypeLabel
-            // 
-            this.TypeLabel.AutoSize = true;
-            this.TypeLabel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TypeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(153)))));
-            this.TypeLabel.Location = new System.Drawing.Point(750, 15);
-            this.TypeLabel.Name = "TypeLabel";
-            this.TypeLabel.Size = new System.Drawing.Size(76, 17);
-            this.TypeLabel.TabIndex = 14;
-            this.TypeLabel.Text = "Phổ Thông";
-            // 
-            // detailsLink
-            // 
-            this.detailsLink.AutoSize = true;
-            this.detailsLink.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(170)))));
-            this.detailsLink.Location = new System.Drawing.Point(530, 120);
-            this.detailsLink.Name = "detailsLink";
-            this.detailsLink.Size = new System.Drawing.Size(118, 15);
-            this.detailsLink.TabIndex = 13;
-            this.detailsLink.TabStop = true;
-            this.detailsLink.Text = "Chi tiết hành trình ⧉";
-            // 
-            // airlineLabel
-            // 
-            this.airlineLabel.AutoSize = true;
-            this.airlineLabel.Location = new System.Drawing.Point(533, 101);
-            this.airlineLabel.Name = "airlineLabel";
-            this.airlineLabel.Size = new System.Drawing.Size(223, 15);
-            this.airlineLabel.TabIndex = 12;
-            this.airlineLabel.Text = " ✈️ VN 205 khai thác bởi Vietname Airline";
-            // 
-            // durationTime
-            // 
-            this.durationTime.AutoSize = true;
-            this.durationTime.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.durationTime.Location = new System.Drawing.Point(555, 68);
-            this.durationTime.Name = "durationTime";
-            this.durationTime.Size = new System.Drawing.Size(133, 13);
-            this.durationTime.TabIndex = 11;
-            this.durationTime.Text = "Thời gian bay 2h 10phút";
-            // 
-            // clockIcon
-            // 
-            this.clockIcon.AutoSize = true;
-            this.clockIcon.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clockIcon.Location = new System.Drawing.Point(530, 65);
-            this.clockIcon.Name = "clockIcon";
-            this.clockIcon.Size = new System.Drawing.Size(26, 17);
-            this.clockIcon.TabIndex = 10;
-            this.clockIcon.Text = "🕐";
-            // 
-            // arrTerminalLabel
-            // 
-            this.arrTerminalLabel.AutoSize = true;
-            this.arrTerminalLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.arrTerminalLabel.ForeColor = System.Drawing.Color.Gray;
-            this.arrTerminalLabel.Location = new System.Drawing.Point(420, 120);
-            this.arrTerminalLabel.Name = "arrTerminalLabel";
-            this.arrTerminalLabel.Size = new System.Drawing.Size(53, 13);
-            this.arrTerminalLabel.TabIndex = 9;
-            this.arrTerminalLabel.Text = "Nhà ga 1";
-            // 
-            // arrCodeLabel
-            // 
-            this.arrCodeLabel.AutoSize = true;
-            this.arrCodeLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.arrCodeLabel.Location = new System.Drawing.Point(420, 95);
-            this.arrCodeLabel.Name = "arrCodeLabel";
-            this.arrCodeLabel.Size = new System.Drawing.Size(43, 20);
-            this.arrCodeLabel.TabIndex = 8;
-            this.arrCodeLabel.Text = "HAN";
-            // 
-            // arrTimeLabel
-            // 
-            this.arrTimeLabel.AutoSize = true;
-            this.arrTimeLabel.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.arrTimeLabel.Location = new System.Drawing.Point(420, 60);
-            this.arrTimeLabel.Name = "arrTimeLabel";
-            this.arrTimeLabel.Size = new System.Drawing.Size(67, 30);
-            this.arrTimeLabel.TabIndex = 7;
-            this.arrTimeLabel.Text = "07:05";
-            // 
-            // linePanel
-            // 
-            this.linePanel.FillColor = System.Drawing.Color.LightGray;
-            this.linePanel.Location = new System.Drawing.Point(180, 75);
-            this.linePanel.Name = "linePanel";
-            this.linePanel.Size = new System.Drawing.Size(200, 2);
-            this.linePanel.TabIndex = 6;
-            // 
-            // durationLabel
-            // 
-            this.durationLabel.AutoSize = true;
-            this.durationLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.durationLabel.ForeColor = System.Drawing.Color.Gray;
-            this.durationLabel.Location = new System.Drawing.Point(230, 55);
-            this.durationLabel.Name = "durationLabel";
-            this.durationLabel.Size = new System.Drawing.Size(58, 13);
-            this.durationLabel.TabIndex = 5;
-            this.durationLabel.Text = "Bay thẳng";
-            this.durationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // depTerminalLabel
-            // 
-            this.depTerminalLabel.AutoSize = true;
-            this.depTerminalLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.depTerminalLabel.ForeColor = System.Drawing.Color.Gray;
-            this.depTerminalLabel.Location = new System.Drawing.Point(20, 120);
-            this.depTerminalLabel.Name = "depTerminalLabel";
-            this.depTerminalLabel.Size = new System.Drawing.Size(53, 13);
-            this.depTerminalLabel.TabIndex = 4;
-            this.depTerminalLabel.Text = "Nhà ga 3";
-            // 
-            // depCodeLabel
-            // 
-            this.depCodeLabel.AutoSize = true;
-            this.depCodeLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.depCodeLabel.Location = new System.Drawing.Point(20, 95);
-            this.depCodeLabel.Name = "depCodeLabel";
-            this.depCodeLabel.Size = new System.Drawing.Size(40, 20);
-            this.depCodeLabel.TabIndex = 3;
-            this.depCodeLabel.Text = "SGN";
-            // 
-            // depTimeLabel
-            // 
-            this.depTimeLabel.AutoSize = true;
-            this.depTimeLabel.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.depTimeLabel.Location = new System.Drawing.Point(20, 60);
-            this.depTimeLabel.Name = "depTimeLabel";
-            this.depTimeLabel.Size = new System.Drawing.Size(67, 30);
-            this.depTimeLabel.TabIndex = 2;
-            this.depTimeLabel.Text = "04:55";
-            // 
-            // lblDate
-            // 
-            this.lblDate.AutoSize = true;
-            this.lblDate.ForeColor = System.Drawing.Color.Gray;
-            this.lblDate.Location = new System.Drawing.Point(250, 18);
-            this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(140, 15);
-            this.lblDate.TabIndex = 1;
-            this.lblDate.Text = "Thứ Ba, 18 tháng 11, 2025";
-            // 
-            // lblRoute1
-            // 
-            this.lblRoute1.AutoSize = true;
-            this.lblRoute1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRoute1.Location = new System.Drawing.Point(20, 15);
-            this.lblRoute1.Name = "lblRoute1";
-            this.lblRoute1.Size = new System.Drawing.Size(201, 20);
-            this.lblRoute1.TabIndex = 0;
-            this.lblRoute1.Text = "TP. Hồ Chí Minh đến Hà Nội";
-            // 
-            // titleLabel
-            // 
-            this.titleLabel.AutoSize = true;
-            this.titleLabel.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.titleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(153)))));
-            this.titleLabel.Location = new System.Drawing.Point(20, 10);
-            this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(191, 32);
-            this.titleLabel.TabIndex = 0;
-            this.titleLabel.Text = "Các chuyến bay";
-            // 
-            // expandBtn
-            // 
-            this.expandBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.expandBtn.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.expandBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(153)))));
-            this.expandBtn.Location = new System.Drawing.Point(950, 10);
-            this.expandBtn.Name = "expandBtn";
-            this.expandBtn.Size = new System.Drawing.Size(30, 30);
-            this.expandBtn.TabIndex = 15;
-            this.expandBtn.Text = "˅";
-            this.expandBtn.UseVisualStyleBackColor = true;
+            this.pnlArriveFlight.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlArriveFlight_Paint);
             // 
             // detailsPanel
             // 
             this.detailsPanel.BorderRadius = 5;
             this.detailsPanel.Controls.Add(this.fareType);
+            this.detailsPanel.Controls.Add(this.panel1);
+            this.detailsPanel.Controls.Add(this.lblHanhLyXachTay);
+            this.detailsPanel.Controls.Add(this.lblHanhLyKyGui);
+            this.detailsPanel.Controls.Add(this.lblHoanVe);
+            this.detailsPanel.Controls.Add(this.lblThayVe);
             this.detailsPanel.Controls.Add(this.fareDetailsTitle);
             this.detailsPanel.Controls.Add(this.timelinePanel);
             this.detailsPanel.Controls.Add(this.detailsTitle);
@@ -311,17 +144,70 @@
             this.detailsPanel.Name = "detailsPanel";
             this.detailsPanel.Size = new System.Drawing.Size(960, 293);
             this.detailsPanel.TabIndex = 16;
+            this.detailsPanel.Visible = false;
             // 
-            // detailsTitle
+            // fareType
             // 
-            this.detailsTitle.AutoSize = true;
-            this.detailsTitle.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.detailsTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(85)))), ((int)(((byte)(114)))));
-            this.detailsTitle.Location = new System.Drawing.Point(125, 10);
-            this.detailsTitle.Name = "detailsTitle";
-            this.detailsTitle.Size = new System.Drawing.Size(122, 17);
-            this.detailsTitle.TabIndex = 0;
-            this.detailsTitle.Text = "Chi tiết hành trình";
+            this.fareType.AutoSize = true;
+            this.fareType.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fareType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(153)))));
+            this.fareType.Location = new System.Drawing.Point(686, 35);
+            this.fareType.Name = "fareType";
+            this.fareType.Size = new System.Drawing.Size(80, 17);
+            this.fareType.TabIndex = 13;
+            this.fareType.Text = "Phổ Thông ";
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(85)))), ((int)(((byte)(114)))));
+            this.panel1.Location = new System.Drawing.Point(504, 36);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(3, 236);
+            this.panel1.TabIndex = 12;
+            // 
+            // lblHanhLyXachTay
+            // 
+            this.lblHanhLyXachTay.Location = new System.Drawing.Point(522, 105);
+            this.lblHanhLyXachTay.Name = "lblHanhLyXachTay";
+            this.lblHanhLyXachTay.Size = new System.Drawing.Size(450, 15);
+            this.lblHanhLyXachTay.TabIndex = 11;
+            this.lblHanhLyXachTay.Text = "🎒 Hành lý xách tay: 1 × 10 kg";
+            // 
+            // lblHanhLyKyGui
+            // 
+            this.lblHanhLyKyGui.Location = new System.Drawing.Point(522, 90);
+            this.lblHanhLyKyGui.Name = "lblHanhLyKyGui";
+            this.lblHanhLyKyGui.Size = new System.Drawing.Size(450, 15);
+            this.lblHanhLyKyGui.TabIndex = 10;
+            this.lblHanhLyKyGui.Text = "💼 Hành lý ký gửi: 1 × 23 kg";
+            // 
+            // lblHoanVe
+            // 
+            this.lblHoanVe.Location = new System.Drawing.Point(522, 75);
+            this.lblHoanVe.Name = "lblHoanVe";
+            this.lblHoanVe.Size = new System.Drawing.Size(450, 15);
+            this.lblHoanVe.TabIndex = 9;
+            this.lblHoanVe.Text = "🎫 Hoàn vé: Phí hoàn tối đa 860.000 VND mỗi hành khách cho toàn bộ vé ";
+            // 
+            // lblThayVe
+            // 
+            this.lblThayVe.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblThayVe.Location = new System.Drawing.Point(522, 60);
+            this.lblThayVe.Name = "lblThayVe";
+            this.lblThayVe.Size = new System.Drawing.Size(450, 15);
+            this.lblThayVe.TabIndex = 8;
+            this.lblThayVe.Text = "🔄 Thay đổi vé: Phí đổi tối đa 860.000 VND mỗi hành khách cho toàn bộ vé";
+            // 
+            // fareDetailsTitle
+            // 
+            this.fareDetailsTitle.AutoSize = true;
+            this.fareDetailsTitle.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fareDetailsTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(85)))), ((int)(((byte)(114)))));
+            this.fareDetailsTitle.Location = new System.Drawing.Point(651, 10);
+            this.fareDetailsTitle.Name = "fareDetailsTitle";
+            this.fareDetailsTitle.Size = new System.Drawing.Size(147, 17);
+            this.fareDetailsTitle.TabIndex = 7;
+            this.fareDetailsTitle.Text = "Giá vé của Khách hàng";
             // 
             // timelinePanel
             // 
@@ -345,6 +231,39 @@
             this.timelinePanel.Name = "timelinePanel";
             this.timelinePanel.Size = new System.Drawing.Size(360, 257);
             this.timelinePanel.TabIndex = 6;
+            // 
+            // lblAircraft
+            // 
+            this.lblAircraft.BackColor = System.Drawing.Color.Transparent;
+            this.lblAircraft.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAircraft.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.lblAircraft.Location = new System.Drawing.Point(10, 232);
+            this.lblAircraft.Name = "lblAircraft";
+            this.lblAircraft.Size = new System.Drawing.Size(71, 17);
+            this.lblAircraft.TabIndex = 9;
+            this.lblAircraft.Text = "AIRBUS A321";
+            // 
+            // lblFlightNumberTitle
+            // 
+            this.lblFlightNumberTitle.BackColor = System.Drawing.Color.Transparent;
+            this.lblFlightNumberTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFlightNumberTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.lblFlightNumberTitle.Location = new System.Drawing.Point(10, 186);
+            this.lblFlightNumberTitle.Name = "lblFlightNumberTitle";
+            this.lblFlightNumberTitle.Size = new System.Drawing.Size(160, 17);
+            this.lblFlightNumberTitle.TabIndex = 11;
+            this.lblFlightNumberTitle.Text = "Số hiệu chuyến bay VN 6025";
+            // 
+            // lblAirline
+            // 
+            this.lblAirline.BackColor = System.Drawing.Color.Transparent;
+            this.lblAirline.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAirline.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.lblAirline.Location = new System.Drawing.Point(10, 209);
+            this.lblAirline.Name = "lblAirline";
+            this.lblAirline.Size = new System.Drawing.Size(167, 17);
+            this.lblAirline.TabIndex = 8;
+            this.lblAirline.Text = "Khai thác bởi Pacific Airlines ✈";
             // 
             // circleEnd
             // 
@@ -477,57 +396,182 @@
             this.timelineLine.Size = new System.Drawing.Size(3, 160);
             this.timelineLine.TabIndex = 0;
             // 
-            // lblFlightNumberTitle
+            // detailsTitle
             // 
-            this.lblFlightNumberTitle.BackColor = System.Drawing.Color.Transparent;
-            this.lblFlightNumberTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFlightNumberTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.lblFlightNumberTitle.Location = new System.Drawing.Point(10, 186);
-            this.lblFlightNumberTitle.Name = "lblFlightNumberTitle";
-            this.lblFlightNumberTitle.Size = new System.Drawing.Size(160, 17);
-            this.lblFlightNumberTitle.TabIndex = 11;
-            this.lblFlightNumberTitle.Text = "Số hiệu chuyến bay VN 6025";
+            this.detailsTitle.AutoSize = true;
+            this.detailsTitle.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.detailsTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(85)))), ((int)(((byte)(114)))));
+            this.detailsTitle.Location = new System.Drawing.Point(125, 10);
+            this.detailsTitle.Name = "detailsTitle";
+            this.detailsTitle.Size = new System.Drawing.Size(122, 17);
+            this.detailsTitle.TabIndex = 0;
+            this.detailsTitle.Text = "Chi tiết hành trình";
             // 
-            // lblAirline
+            // expandBtn
             // 
-            this.lblAirline.BackColor = System.Drawing.Color.Transparent;
-            this.lblAirline.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAirline.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.lblAirline.Location = new System.Drawing.Point(10, 209);
-            this.lblAirline.Name = "lblAirline";
-            this.lblAirline.Size = new System.Drawing.Size(167, 17);
-            this.lblAirline.TabIndex = 8;
-            this.lblAirline.Text = "Khai thác bởi Pacific Airlines ✈";
+            this.expandBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.expandBtn.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.expandBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(153)))));
+            this.expandBtn.Location = new System.Drawing.Point(950, 10);
+            this.expandBtn.Name = "expandBtn";
+            this.expandBtn.Size = new System.Drawing.Size(30, 30);
+            this.expandBtn.TabIndex = 15;
+            this.expandBtn.Text = "˅";
+            this.expandBtn.UseVisualStyleBackColor = true;
+            this.expandBtn.Click += new System.EventHandler(this.expandBtn_Click);
             // 
-            // lblAircraft
+            // TypeLabel
             // 
-            this.lblAircraft.BackColor = System.Drawing.Color.Transparent;
-            this.lblAircraft.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAircraft.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.lblAircraft.Location = new System.Drawing.Point(10, 232);
-            this.lblAircraft.Name = "lblAircraft";
-            this.lblAircraft.Size = new System.Drawing.Size(71, 17);
-            this.lblAircraft.TabIndex = 9;
-            this.lblAircraft.Text = "AIRBUS A321";
+            this.TypeLabel.AutoSize = true;
+            this.TypeLabel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TypeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(153)))));
+            this.TypeLabel.Location = new System.Drawing.Point(750, 15);
+            this.TypeLabel.Name = "TypeLabel";
+            this.TypeLabel.Size = new System.Drawing.Size(76, 17);
+            this.TypeLabel.TabIndex = 14;
+            this.TypeLabel.Text = "Phổ Thông";
             // 
-            // fareDetailsTitle
+            // airlineLabel
             // 
-            this.fareDetailsTitle.AutoSize = true;
-            this.fareDetailsTitle.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fareDetailsTitle.Location = new System.Drawing.Point(480, 10);
-            this.fareDetailsTitle.Name = "fareDetailsTitle";
-            this.fareDetailsTitle.Size = new System.Drawing.Size(140, 17);
-            this.fareDetailsTitle.TabIndex = 7;
-            this.fareDetailsTitle.Text = "Giá vé của Quý khách";
+            this.airlineLabel.AutoSize = true;
+            this.airlineLabel.Location = new System.Drawing.Point(533, 101);
+            this.airlineLabel.Name = "airlineLabel";
+            this.airlineLabel.Size = new System.Drawing.Size(223, 15);
+            this.airlineLabel.TabIndex = 12;
+            this.airlineLabel.Text = " ✈️ VN 205 khai thác bởi Vietname Airline";
             // 
-            // fareType
+            // durationTime
             // 
-            this.fareType.AutoSize = true;
-            this.fareType.Location = new System.Drawing.Point(561, 67);
-            this.fareType.Name = "fareType";
-            this.fareType.Size = new System.Drawing.Size(38, 15);
-            this.fareType.TabIndex = 8;
-            this.fareType.Text = "label1";
+            this.durationTime.AutoSize = true;
+            this.durationTime.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.durationTime.Location = new System.Drawing.Point(555, 68);
+            this.durationTime.Name = "durationTime";
+            this.durationTime.Size = new System.Drawing.Size(133, 13);
+            this.durationTime.TabIndex = 11;
+            this.durationTime.Text = "Thời gian bay 2h 10phút";
+            // 
+            // clockIcon
+            // 
+            this.clockIcon.AutoSize = true;
+            this.clockIcon.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clockIcon.Location = new System.Drawing.Point(530, 65);
+            this.clockIcon.Name = "clockIcon";
+            this.clockIcon.Size = new System.Drawing.Size(26, 17);
+            this.clockIcon.TabIndex = 10;
+            this.clockIcon.Text = "🕐";
+            // 
+            // arrTerminalLabel
+            // 
+            this.arrTerminalLabel.AutoSize = true;
+            this.arrTerminalLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.arrTerminalLabel.ForeColor = System.Drawing.Color.Gray;
+            this.arrTerminalLabel.Location = new System.Drawing.Point(420, 120);
+            this.arrTerminalLabel.Name = "arrTerminalLabel";
+            this.arrTerminalLabel.Size = new System.Drawing.Size(53, 13);
+            this.arrTerminalLabel.TabIndex = 9;
+            this.arrTerminalLabel.Text = "Nhà ga 1";
+            // 
+            // arrCodeLabel
+            // 
+            this.arrCodeLabel.AutoSize = true;
+            this.arrCodeLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.arrCodeLabel.Location = new System.Drawing.Point(420, 95);
+            this.arrCodeLabel.Name = "arrCodeLabel";
+            this.arrCodeLabel.Size = new System.Drawing.Size(43, 20);
+            this.arrCodeLabel.TabIndex = 8;
+            this.arrCodeLabel.Text = "HAN";
+            // 
+            // arrTimeLabel
+            // 
+            this.arrTimeLabel.AutoSize = true;
+            this.arrTimeLabel.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.arrTimeLabel.Location = new System.Drawing.Point(420, 60);
+            this.arrTimeLabel.Name = "arrTimeLabel";
+            this.arrTimeLabel.Size = new System.Drawing.Size(67, 30);
+            this.arrTimeLabel.TabIndex = 7;
+            this.arrTimeLabel.Text = "07:05";
+            // 
+            // linePanel
+            // 
+            this.linePanel.FillColor = System.Drawing.Color.LightGray;
+            this.linePanel.Location = new System.Drawing.Point(180, 75);
+            this.linePanel.Name = "linePanel";
+            this.linePanel.Size = new System.Drawing.Size(200, 2);
+            this.linePanel.TabIndex = 6;
+            // 
+            // durationLabel
+            // 
+            this.durationLabel.AutoSize = true;
+            this.durationLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.durationLabel.ForeColor = System.Drawing.Color.Gray;
+            this.durationLabel.Location = new System.Drawing.Point(230, 55);
+            this.durationLabel.Name = "durationLabel";
+            this.durationLabel.Size = new System.Drawing.Size(58, 13);
+            this.durationLabel.TabIndex = 5;
+            this.durationLabel.Text = "Bay thẳng";
+            this.durationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // depTerminalLabel
+            // 
+            this.depTerminalLabel.AutoSize = true;
+            this.depTerminalLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.depTerminalLabel.ForeColor = System.Drawing.Color.Gray;
+            this.depTerminalLabel.Location = new System.Drawing.Point(20, 120);
+            this.depTerminalLabel.Name = "depTerminalLabel";
+            this.depTerminalLabel.Size = new System.Drawing.Size(53, 13);
+            this.depTerminalLabel.TabIndex = 4;
+            this.depTerminalLabel.Text = "Nhà ga 3";
+            // 
+            // depCodeLabel
+            // 
+            this.depCodeLabel.AutoSize = true;
+            this.depCodeLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.depCodeLabel.Location = new System.Drawing.Point(20, 95);
+            this.depCodeLabel.Name = "depCodeLabel";
+            this.depCodeLabel.Size = new System.Drawing.Size(40, 20);
+            this.depCodeLabel.TabIndex = 3;
+            this.depCodeLabel.Text = "SGN";
+            // 
+            // depTimeLabel
+            // 
+            this.depTimeLabel.AutoSize = true;
+            this.depTimeLabel.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.depTimeLabel.Location = new System.Drawing.Point(20, 60);
+            this.depTimeLabel.Name = "depTimeLabel";
+            this.depTimeLabel.Size = new System.Drawing.Size(67, 30);
+            this.depTimeLabel.TabIndex = 2;
+            this.depTimeLabel.Text = "04:55";
+            // 
+            // lblDate
+            // 
+            this.lblDate.AutoSize = true;
+            this.lblDate.ForeColor = System.Drawing.Color.Gray;
+            this.lblDate.Location = new System.Drawing.Point(22, 43);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(140, 15);
+            this.lblDate.TabIndex = 1;
+            this.lblDate.Text = "Thứ Ba, 18 tháng 11, 2025";
+            // 
+            // lblRoute1
+            // 
+            this.lblRoute1.AutoSize = true;
+            this.lblRoute1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRoute1.Location = new System.Drawing.Point(20, 15);
+            this.lblRoute1.Name = "lblRoute1";
+            this.lblRoute1.Size = new System.Drawing.Size(201, 20);
+            this.lblRoute1.TabIndex = 0;
+            this.lblRoute1.Text = "TP. Hồ Chí Minh đến Hà Nội";
+            // 
+            // titleLabel
+            // 
+            this.titleLabel.AutoSize = true;
+            this.titleLabel.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.titleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(153)))));
+            this.titleLabel.Location = new System.Drawing.Point(20, 10);
+            this.titleLabel.Name = "titleLabel";
+            this.titleLabel.Size = new System.Drawing.Size(191, 32);
+            this.titleLabel.TabIndex = 0;
+            this.titleLabel.Text = "Các chuyến bay";
             // 
             // frmShoppingCart
             // 
@@ -573,7 +617,6 @@
         private System.Windows.Forms.Label clockIcon;
         private System.Windows.Forms.Label durationTime;
         private System.Windows.Forms.Label airlineLabel;
-        private System.Windows.Forms.LinkLabel detailsLink;
         private System.Windows.Forms.Label TypeLabel;
         private System.Windows.Forms.Button expandBtn;
         private Guna.UI2.WinForms.Guna2Panel detailsPanel;
@@ -594,5 +637,11 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel lblFlightNumberTitle;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblAirline;
         private System.Windows.Forms.Label fareDetailsTitle;
+        private System.Windows.Forms.Label lblThayVe;
+        private System.Windows.Forms.Label lblHoanVe;
+        private System.Windows.Forms.Label lblHanhLyKyGui;
+        private System.Windows.Forms.Label lblHanhLyXachTay;
+        private System.Windows.Forms.Label fareType;
+        private System.Windows.Forms.Panel panel1;
     }
 }

@@ -138,11 +138,11 @@
     <Compile Include="frmChiTietVe.Designer.cs">
       <DependentUpon>frmChiTietVe.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmChonChuyenBay.cs">
+    <Compile Include="frmChonChuyenBayDi.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmChonChuyenBay.Designer.cs">
-      <DependentUpon>frmChonChuyenBay.cs</DependentUpon>
+    <Compile Include="frmChonChuyenBayDi.Designer.cs">
+      <DependentUpon>frmChonChuyenBayDi.cs</DependentUpon>
     </Compile>
     <Compile Include="frmChonKhachHang.cs">
       <SubType>Form</SubType>
@@ -236,6 +236,7 @@
     <Compile Include="Controls\StopControl.Designer.cs">
       <DependentUpon>StopControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectedFareInfo.cs" />
     <Compile Include="State\PassengerSelectionState.cs" />
     <Compile Include="State\PassengerSelectionStateTemp.cs" />
     <None Include="Resources\sliders-solid-full.png" />
@@ -263,8 +264,8 @@
     <EmbeddedResource Include="frmChiTietVe.resx">
       <DependentUpon>frmChiTietVe.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmChonChuyenBay.resx">
-      <DependentUpon>frmChonChuyenBay.cs</DependentUpon>
+    <EmbeddedResource Include="frmChonChuyenBayDi.resx">
+      <DependentUpon>frmChonChuyenBayDi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmChonKhachHang.resx">
       <DependentUpon>frmChonKhachHang.cs</DependentUpon>

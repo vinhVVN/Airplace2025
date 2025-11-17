@@ -17,7 +17,7 @@ using System.Windows.Forms;
 
 namespace Airplace2025
 {
-    public partial class frmChonChuyenBay : Form
+    public partial class frmChonChuyenBayDi : Form
     {
         private string sanBayDi;
         private string sanBayDen;
@@ -39,7 +39,7 @@ namespace Airplace2025
         private decimal minFlightPrice = 0;
         private decimal maxFlightPrice = 0;
 
-        public frmChonChuyenBay(string sanBayDi, string sanBayDen, DateTime ngayDi, DateTime ngayVe, string soLuongHanhKhach, bool isRoundTrip)
+        public frmChonChuyenBayDi(string sanBayDi, string sanBayDen, DateTime ngayDi, DateTime ngayVe, string soLuongHanhKhach, bool isRoundTrip)
         {
             InitializeComponent();
             this.sanBayDi = sanBayDi;
@@ -512,7 +512,7 @@ namespace Airplace2025
             this.DialogResult = DialogResult.OK;
 
             // Tạo và hiển thị form mới với dữ liệu đã chỉnh sửa
-            frmChonChuyenBay newForm = new frmChonChuyenBay(
+            frmChonChuyenBayDi newForm = new frmChonChuyenBayDi(
                 newSanBayDi,
                 newSanBayDen,
                 newNgayDi,
@@ -780,9 +780,17 @@ namespace Airplace2025
                         card.Airline = $"✈ {flight.MaChuyenBay} Khai thác bởi {flight.TenHangBay}";
                         
                         // Format giá tiền
-                        card.EconomyPrice = string.Format("{0:#,##0}", flight.GiaEconomy ?? flight.GiaCoBan);
-                        card.PremiumPrice = string.Format("{0:#,##0}", flight.GiaPremium ?? (flight.GiaCoBan * 1.5m));
-                        card.BusinessPrice = string.Format("{0:#,##0}", flight.GiaBusiness ?? (flight.GiaCoBan * 2.5m));
+                        decimal economyPrice = flight.GiaEconomy ?? flight.GiaCoBan;
+                        decimal premiumPrice = flight.GiaPremium ?? (flight.GiaCoBan * 1.5m);
+                        decimal businessPrice = flight.GiaBusiness ?? (flight.GiaCoBan * 2.5m);
+
+                        card.EconomyPrice = string.Format("{0:#,##0}", economyPrice);
+                        card.PremiumPrice = string.Format("{0:#,##0}", premiumPrice);
+                        card.BusinessPrice = string.Format("{0:#,##0}", businessPrice);
+                        card.EconomyPriceValue = economyPrice;
+                        card.PremiumPriceValue = premiumPrice;
+                        card.BusinessPriceValue = businessPrice;
+                        card.FlightData = flight;
                         card.EconomySeats = flight.GheEconomy ?? flight.SoGheTrong;
                         card.PremiumSeats = flight.GhePremium ?? 0;
                         card.BusinessSeats = flight.GheBusiness ?? 0;
@@ -799,6 +807,7 @@ namespace Airplace2025
                         // Cấu hình card
                         card.Margin = new Padding(5, 10, 5, 10);
                         card.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+                        card.FareSelected += FlightCard_FareSelected;
 
                         // Thêm row mới vào table
                         tlpFlights.RowCount += 1;
@@ -964,6 +973,31 @@ namespace Airplace2025
             // Áp dụng sắp xếp và render lại
             ApplySorting();
             RenderFlights(currentFlights);
+        }
+
+        private void FlightCard_FareSelected(object sender, SelectedFareEventArgs e)
+        {
+            if (e?.FareInfo == null)
+            {
+                return;
+            }
+
+            void ShowTicketDetails()
+            {
+                using (var detail = new frmChiTietVe(e.FareInfo))
+                {
+                    detail.ShowDialog(this);
+                }
+            }
+
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action(ShowTicketDetails));
+            }
+            else
+            {
+                ShowTicketDetails();
+            }
         }
     }
 }

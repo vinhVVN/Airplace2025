@@ -12,9 +12,57 @@ namespace Airplace2025
 {
     public partial class frmChiTietVe : Form
     {
+        private SelectedFareInfo currentFare;
+
         public frmChiTietVe()
         {
             InitializeComponent();
+        }
+
+        public frmChiTietVe(SelectedFareInfo fareInfo) : this()
+        {
+            ApplyFareInfo(fareInfo);
+        }
+
+        private void ApplyFareInfo(SelectedFareInfo fareInfo)
+        {
+            currentFare = fareInfo;
+            string cabinCode = NormalizeCabinClass(fareInfo?.CabinClass);
+            SetClassType(cabinCode);
+            if (!string.IsNullOrWhiteSpace(fareInfo?.CabinClass))
+            {
+                commonButton.Text = fareInfo.CabinClass;
+            }
+        }
+
+        private static string NormalizeCabinClass(string cabinClass)
+        {
+            if (string.IsNullOrWhiteSpace(cabinClass))
+            {
+                return "Economy";
+            }
+
+            if (Matches(cabinClass, "Phổ Thông") || Matches(cabinClass, "Economy"))
+            {
+                return "Economy";
+            }
+
+            if (Matches(cabinClass, "Phổ Thông Đặc Biệt") || Matches(cabinClass, "Premium"))
+            {
+                return "Premium";
+            }
+
+            if (Matches(cabinClass, "Thương Gia") || Matches(cabinClass, "Business"))
+            {
+                return "Business";
+            }
+
+            return "Economy";
+        }
+
+        private static bool Matches(string input, string target)
+        {
+            return string.Equals(input, target, StringComparison.OrdinalIgnoreCase);
         }
 
         public void SetClassType(string classType)
@@ -63,8 +111,18 @@ namespace Airplace2025
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            frmShoppingCart frmShoppingCart = new frmShoppingCart();
-            frmShoppingCart.Show();
+            if (currentFare == null)
+            {
+                MessageBox.Show("Vui lòng chọn một hạng vé trước khi tiếp tục.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            using (var frmShoppingCart = new frmShoppingCart(currentFare))
+            {
+                frmShoppingCart.ShowDialog(this);
+            }
+
+            this.Close();
         }
     }
 }

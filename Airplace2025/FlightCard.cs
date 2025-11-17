@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Airplace2025.BLL.DTO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,12 +13,21 @@ namespace Airplace2025
 {
     public partial class FlightCard : UserControl
     {
-
+        private const string EconomyLabel = "Phổ Thông";
+        private const string PremiumLabel = "Phổ Thông Đặc Biệt";
+        private const string BusinessLabel = "Thương Gia";
         private Color originalColor1;
         private Color originalColor2;
         private Color originalColor3;
         private Size originalSize1;
         private Point originalLocation1;
+        public event EventHandler<SelectedFareEventArgs> FareSelected;
+
+        public ChuyenBayDTO FlightData { get; set; }
+        public decimal EconomyPriceValue { get; set; }
+        public decimal PremiumPriceValue { get; set; }
+        public decimal BusinessPriceValue { get; set; }
+
         public FlightCard()
         {
             InitializeComponent();
@@ -280,23 +290,28 @@ namespace Airplace2025
 
         private void pricePanel1_Click(object sender, EventArgs e)
         {
-            frmChiTietVe frmChiTietVe = new frmChiTietVe();
-            frmChiTietVe.SetClassType("Economy");
-            frmChiTietVe.Show();
+            NotifyFareSelected(EconomyLabel, EconomyPriceValue);
         }
 
         private void pricePanel2_Click(object sender, EventArgs e)
         {
-            frmChiTietVe frmChiTietVe = new frmChiTietVe();
-            frmChiTietVe.SetClassType("Premium");
-            frmChiTietVe.Show();
+            NotifyFareSelected(PremiumLabel, PremiumPriceValue);
         }
 
         private void pricePanel3_Click(object sender, EventArgs e)
         {
-            frmChiTietVe frmChiTietVe = new frmChiTietVe();
-            frmChiTietVe.SetClassType("Business");
-            frmChiTietVe.Show();
+            NotifyFareSelected(BusinessLabel, BusinessPriceValue);
+        }
+
+        private void NotifyFareSelected(string cabinClass, decimal price)
+        {
+            if (FlightData == null)
+            {
+                return;
+            }
+
+            var info = new SelectedFareInfo(FlightData, cabinClass, price);
+            FareSelected?.Invoke(this, new SelectedFareEventArgs(info));
         }
     }
 }
