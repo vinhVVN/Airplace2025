@@ -36,71 +36,58 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            this.cbLoaiBaoCao = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.dtpYearMonth = new Guna.UI2.WinForms.Guna2DateTimePicker();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.dtpEnd = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.btnExcel = new Guna.UI2.WinForms.Guna2Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.lbMoney = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lbTicket = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lbFlight = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.chartDoanhThu = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.chartLoaiPhong = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartDuongBay = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.dtpStart = new Guna.UI2.WinForms.Guna2DateTimePicker();
+            this.dgvDoanhThu = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.Ngay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Doanhthu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartDoanhThu)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartLoaiPhong)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartDuongBay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDoanhThu)).BeginInit();
             this.SuspendLayout();
             // 
-            // cbLoaiBaoCao
+            // dtpEnd
             // 
-            this.cbLoaiBaoCao.BackColor = System.Drawing.Color.Transparent;
-            this.cbLoaiBaoCao.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.cbLoaiBaoCao.BorderRadius = 6;
-            this.cbLoaiBaoCao.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cbLoaiBaoCao.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbLoaiBaoCao.FocusedColor = System.Drawing.Color.Empty;
-            this.cbLoaiBaoCao.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cbLoaiBaoCao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.cbLoaiBaoCao.ItemHeight = 20;
-            this.cbLoaiBaoCao.Items.AddRange(new object[] {
-            "Báo cáo theo tháng",
-            "Báo cáo theo năm"});
-            this.cbLoaiBaoCao.Location = new System.Drawing.Point(24, 21);
-            this.cbLoaiBaoCao.Name = "cbLoaiBaoCao";
-            this.cbLoaiBaoCao.Size = new System.Drawing.Size(199, 26);
-            this.cbLoaiBaoCao.StartIndex = 0;
-            this.cbLoaiBaoCao.TabIndex = 4;
-            // 
-            // dtpYearMonth
-            // 
-            this.dtpYearMonth.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.dtpYearMonth.BorderRadius = 6;
-            this.dtpYearMonth.Checked = true;
-            this.dtpYearMonth.CustomFormat = "MM/yyyy";
-            this.dtpYearMonth.FillColor = System.Drawing.Color.White;
-            this.dtpYearMonth.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.dtpYearMonth.ForeColor = System.Drawing.Color.Black;
-            this.dtpYearMonth.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpYearMonth.Location = new System.Drawing.Point(240, 21);
-            this.dtpYearMonth.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
-            this.dtpYearMonth.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
-            this.dtpYearMonth.Name = "dtpYearMonth";
-            this.dtpYearMonth.ShowUpDown = true;
-            this.dtpYearMonth.Size = new System.Drawing.Size(180, 26);
-            this.dtpYearMonth.TabIndex = 5;
-            this.dtpYearMonth.Value = new System.DateTime(2025, 10, 24, 15, 12, 10, 504);
+            this.dtpEnd.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.dtpEnd.BorderRadius = 6;
+            this.dtpEnd.Checked = true;
+            this.dtpEnd.CustomFormat = "";
+            this.dtpEnd.FillColor = System.Drawing.Color.White;
+            this.dtpEnd.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.dtpEnd.ForeColor = System.Drawing.Color.Black;
+            this.dtpEnd.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpEnd.Location = new System.Drawing.Point(240, 21);
+            this.dtpEnd.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
+            this.dtpEnd.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.dtpEnd.Name = "dtpEnd";
+            this.dtpEnd.Size = new System.Drawing.Size(180, 26);
+            this.dtpEnd.TabIndex = 5;
+            this.dtpEnd.Value = new System.DateTime(2025, 10, 24, 15, 12, 10, 504);
+            this.dtpEnd.ValueChanged += new System.EventHandler(this.dtpEnd_ValueChanged);
             // 
             // btnExcel
             // 
@@ -120,21 +107,10 @@
             this.panel1.Controls.Add(this.lbMoney);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Location = new System.Drawing.Point(24, 74);
+            this.panel1.Location = new System.Drawing.Point(24, 64);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(355, 64);
             this.panel1.TabIndex = 7;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Gray;
-            this.label1.Location = new System.Drawing.Point(72, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(104, 17);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Tổng doanh thu:";
             // 
             // lbMoney
             // 
@@ -147,13 +123,34 @@
             this.lbMoney.TabIndex = 10;
             this.lbMoney.Text = "0 đ";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Gray;
+            this.label1.Location = new System.Drawing.Point(72, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(104, 17);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Tổng doanh thu:";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Airplace2025.Properties.Resources.noun_money_5633622;
+            this.pictureBox1.Location = new System.Drawing.Point(12, 8);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(51, 47);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 8;
+            this.pictureBox1.TabStop = false;
+            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Azure;
             this.panel2.Controls.Add(this.lbTicket);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.pictureBox2);
-            this.panel2.Location = new System.Drawing.Point(420, 74);
+            this.panel2.Location = new System.Drawing.Point(420, 64);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(355, 64);
             this.panel2.TabIndex = 11;
@@ -180,13 +177,23 @@
             this.label4.TabIndex = 9;
             this.label4.Text = "Tổng vé:";
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::Airplace2025.Properties.Resources.noun_flight_ticket_6637983;
+            this.pictureBox2.Location = new System.Drawing.Point(12, 8);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(51, 47);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 8;
+            this.pictureBox2.TabStop = false;
+            // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.Azure;
             this.panel3.Controls.Add(this.lbFlight);
             this.panel3.Controls.Add(this.label6);
             this.panel3.Controls.Add(this.pictureBox3);
-            this.panel3.Location = new System.Drawing.Point(815, 74);
+            this.panel3.Location = new System.Drawing.Point(815, 64);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(355, 64);
             this.panel3.TabIndex = 12;
@@ -223,26 +230,6 @@
             this.pictureBox3.TabIndex = 8;
             this.pictureBox3.TabStop = false;
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::Airplace2025.Properties.Resources.noun_flight_ticket_6637983;
-            this.pictureBox2.Location = new System.Drawing.Point(12, 8);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(51, 47);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 8;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Airplace2025.Properties.Resources.noun_money_5633622;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 8);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(51, 47);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 8;
-            this.pictureBox1.TabStop = false;
-            // 
             // chartDoanhThu
             // 
             this.chartDoanhThu.BackColor = System.Drawing.Color.Azure;
@@ -268,20 +255,21 @@
             legend1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
             legend1.Name = "Legend1";
             this.chartDoanhThu.Legends.Add(legend1);
-            this.chartDoanhThu.Location = new System.Drawing.Point(24, 161);
+            this.chartDoanhThu.Location = new System.Drawing.Point(24, 143);
             this.chartDoanhThu.Name = "chartDoanhThu";
-            series1.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.LeftRight;
+            series1.BackImageTransparentColor = System.Drawing.Color.White;
             series1.BackSecondaryColor = System.Drawing.Color.MediumSlateBlue;
-            series1.BorderColor = System.Drawing.Color.Transparent;
+            series1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             series1.BorderWidth = 3;
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.SplineArea;
-            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(88)))), ((int)(((byte)(127)))));
+            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             series1.Legend = "Legend1";
             series1.MarkerColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             series1.MarkerSize = 10;
             series1.Name = "Series1";
             series1.ShadowColor = System.Drawing.Color.LightGray;
+            series1.YValuesPerPoint = 4;
             this.chartDoanhThu.Series.Add(series1);
             this.chartDoanhThu.Size = new System.Drawing.Size(705, 268);
             this.chartDoanhThu.TabIndex = 36;
@@ -291,19 +279,19 @@
             title1.Text = "Doanh Thu";
             this.chartDoanhThu.Titles.Add(title1);
             // 
-            // chartLoaiPhong
+            // chartDuongBay
             // 
-            this.chartLoaiPhong.BackColor = System.Drawing.Color.Azure;
+            this.chartDuongBay.BackColor = System.Drawing.Color.Azure;
             chartArea2.BackColor = System.Drawing.Color.Azure;
             chartArea2.Name = "ChartArea1";
-            this.chartLoaiPhong.ChartAreas.Add(chartArea2);
+            this.chartDuongBay.ChartAreas.Add(chartArea2);
             legend2.BackColor = System.Drawing.Color.Azure;
             legend2.ForeColor = System.Drawing.Color.Silver;
             legend2.Name = "Legend1";
-            this.chartLoaiPhong.Legends.Add(legend2);
-            this.chartLoaiPhong.Location = new System.Drawing.Point(748, 161);
-            this.chartLoaiPhong.Name = "chartLoaiPhong";
-            this.chartLoaiPhong.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
+            this.chartDuongBay.Legends.Add(legend2);
+            this.chartDuongBay.Location = new System.Drawing.Point(748, 143);
+            this.chartDuongBay.Name = "chartDuongBay";
+            this.chartDuongBay.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             series2.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.DiagonalLeft;
             series2.BackSecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             series2.BorderColor = System.Drawing.Color.Azure;
@@ -314,15 +302,108 @@
             series2.Legend = "Legend1";
             series2.Name = "Series1";
             series2.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel;
-            this.chartLoaiPhong.Series.Add(series2);
-            this.chartLoaiPhong.Size = new System.Drawing.Size(422, 454);
-            this.chartLoaiPhong.TabIndex = 59;
-            this.chartLoaiPhong.Text = "chart2";
+            this.chartDuongBay.Series.Add(series2);
+            this.chartDuongBay.Size = new System.Drawing.Size(422, 442);
+            this.chartDuongBay.TabIndex = 59;
+            this.chartDuongBay.Text = "chart2";
             title2.Alignment = System.Drawing.ContentAlignment.TopLeft;
             title2.Font = new System.Drawing.Font("Segoe UI", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             title2.Name = "DoanhThu";
-            title2.Text = "Top 5 loại phòng đặt nhiều nhất";
-            this.chartLoaiPhong.Titles.Add(title2);
+            title2.Text = "Top 5 đường bay ưa chuộng";
+            this.chartDuongBay.Titles.Add(title2);
+            // 
+            // dtpStart
+            // 
+            this.dtpStart.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.dtpStart.BorderRadius = 6;
+            this.dtpStart.Checked = true;
+            this.dtpStart.CustomFormat = "";
+            this.dtpStart.FillColor = System.Drawing.Color.White;
+            this.dtpStart.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.dtpStart.ForeColor = System.Drawing.Color.Black;
+            this.dtpStart.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpStart.Location = new System.Drawing.Point(24, 21);
+            this.dtpStart.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
+            this.dtpStart.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.dtpStart.Name = "dtpStart";
+            this.dtpStart.Size = new System.Drawing.Size(180, 26);
+            this.dtpStart.TabIndex = 60;
+            this.dtpStart.Value = new System.DateTime(2025, 10, 24, 15, 12, 10, 504);
+            this.dtpStart.ValueChanged += new System.EventHandler(this.dtpStart_ValueChanged);
+            // 
+            // dgvDoanhThu
+            // 
+            this.dgvDoanhThu.AllowUserToAddRows = false;
+            this.dgvDoanhThu.AllowUserToDeleteRows = false;
+            this.dgvDoanhThu.AllowUserToResizeColumns = false;
+            this.dgvDoanhThu.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dgvDoanhThu.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvDoanhThu.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDoanhThu.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvDoanhThu.ColumnHeadersHeight = 30;
+            this.dgvDoanhThu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.dgvDoanhThu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Ngay,
+            this.Doanhthu});
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvDoanhThu.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvDoanhThu.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvDoanhThu.Location = new System.Drawing.Point(24, 417);
+            this.dgvDoanhThu.Name = "dgvDoanhThu";
+            this.dgvDoanhThu.ReadOnly = true;
+            this.dgvDoanhThu.RowHeadersVisible = false;
+            this.dgvDoanhThu.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgvDoanhThu.Size = new System.Drawing.Size(705, 168);
+            this.dgvDoanhThu.TabIndex = 61;
+            this.dgvDoanhThu.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
+            this.dgvDoanhThu.ThemeStyle.AlternatingRowsStyle.Font = null;
+            this.dgvDoanhThu.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            this.dgvDoanhThu.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.dgvDoanhThu.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.dgvDoanhThu.ThemeStyle.BackColor = System.Drawing.Color.White;
+            this.dgvDoanhThu.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvDoanhThu.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            this.dgvDoanhThu.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dgvDoanhThu.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvDoanhThu.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            this.dgvDoanhThu.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.dgvDoanhThu.ThemeStyle.HeaderStyle.Height = 30;
+            this.dgvDoanhThu.ThemeStyle.ReadOnly = true;
+            this.dgvDoanhThu.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
+            this.dgvDoanhThu.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvDoanhThu.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvDoanhThu.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.dgvDoanhThu.ThemeStyle.RowsStyle.Height = 22;
+            this.dgvDoanhThu.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvDoanhThu.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            // 
+            // Ngay
+            // 
+            this.Ngay.DataPropertyName = "Ngay";
+            this.Ngay.HeaderText = "Ngày";
+            this.Ngay.Name = "Ngay";
+            this.Ngay.ReadOnly = true;
+            // 
+            // Doanhthu
+            // 
+            this.Doanhthu.DataPropertyName = "Doanhthu";
+            this.Doanhthu.HeaderText = "Doanh thu";
+            this.Doanhthu.Name = "Doanhthu";
+            this.Doanhthu.ReadOnly = true;
             // 
             // frmThongKe
             // 
@@ -330,14 +411,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1200, 644);
-            this.Controls.Add(this.chartLoaiPhong);
+            this.Controls.Add(this.dgvDoanhThu);
+            this.Controls.Add(this.dtpStart);
+            this.Controls.Add(this.chartDuongBay);
             this.Controls.Add(this.chartDoanhThu);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnExcel);
-            this.Controls.Add(this.dtpYearMonth);
-            this.Controls.Add(this.cbLoaiBaoCao);
+            this.Controls.Add(this.dtpEnd);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -347,23 +429,22 @@
             this.Load += new System.EventHandler(this.frmThongKe_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartDoanhThu)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartLoaiPhong)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartDuongBay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDoanhThu)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private Guna.UI2.WinForms.Guna2ComboBox cbLoaiBaoCao;
-        private Guna.UI2.WinForms.Guna2DateTimePicker dtpYearMonth;
+        private Guna.UI2.WinForms.Guna2DateTimePicker dtpEnd;
         private Guna.UI2.WinForms.Guna2Button btnExcel;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -378,6 +459,10 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartDoanhThu;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartLoaiPhong;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartDuongBay;
+        private Guna.UI2.WinForms.Guna2DateTimePicker dtpStart;
+        private Guna.UI2.WinForms.Guna2DataGridView dgvDoanhThu;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Ngay;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Doanhthu;
     }
 }
