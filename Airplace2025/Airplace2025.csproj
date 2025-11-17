@@ -136,9 +136,9 @@
     <Compile Include="frmCaiDat.cs">
       <SubType>Form</SubType>
     </Compile>
-	<Compile Include="frmCaiDat.Designer.cs">
-		  <DependentUpon>frmCaiDat.cs</DependentUpon>
-	</Compile>
+    <Compile Include="frmCaiDat.Designer.cs">
+      <DependentUpon>frmCaiDat.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmChiTietVe.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -150,6 +150,12 @@
     </Compile>
     <Compile Include="frmChonChuyenBayDi.Designer.cs">
       <DependentUpon>frmChonChuyenBayDi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmChonChuyenBayVe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChonChuyenBayVe.Designer.cs">
+      <DependentUpon>frmChonChuyenBayVe.cs</DependentUpon>
     </Compile>
     <Compile Include="frmChonKhachHang.cs">
       <SubType>Form</SubType>
@@ -282,6 +288,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmChonChuyenBayDi.resx">
       <DependentUpon>frmChonChuyenBayDi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmChonChuyenBayVe.resx">
+      <DependentUpon>frmChonChuyenBayVe.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmChonKhachHang.resx">
       <DependentUpon>frmChonKhachHang.cs</DependentUpon>
