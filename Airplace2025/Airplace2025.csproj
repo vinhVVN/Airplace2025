@@ -136,8 +136,9 @@
     <Compile Include="frmCaiDat.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmCaiDat.Designer.cs">
-      <DependentUpon>frmCaiDat.cs</DependentUpon>
+	<Compile Include="frmCaiDat.Designer.cs">
+		  <DependentUpon>frmCaiDat.cs</DependentUpon>
+	</Compile>
     <Compile Include="frmChiTietVe.cs">
       <SubType>Form</SubType>
     </Compile>
