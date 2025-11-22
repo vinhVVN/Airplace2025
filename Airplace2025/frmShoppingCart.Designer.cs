@@ -111,6 +111,13 @@
             this.lblDate1 = new System.Windows.Forms.Label();
             this.lblRoute1 = new System.Windows.Forms.Label();
             this.titleLabel = new System.Windows.Forms.Label();
+            this.PriceSummaryPanel = new Guna.UI2.WinForms.Guna2Panel();
+            this.totalLabel1 = new System.Windows.Forms.Label();
+            this.totalPrice1 = new System.Windows.Forms.Label();
+            this.totalLabel2 = new System.Windows.Forms.Label();
+            this.totalPrice2 = new System.Windows.Forms.Label();
+            this.taxNote = new System.Windows.Forms.Label();
+            this.detailsLink = new System.Windows.Forms.LinkLabel();
             this.mainScrollPanel.SuspendLayout();
             this.containerPanel.SuspendLayout();
             this.pnlReturnFlight.SuspendLayout();
@@ -119,6 +126,7 @@
             this.pnlArriveFlight.SuspendLayout();
             this.detailsPanel.SuspendLayout();
             this.timelinePanel1.SuspendLayout();
+            this.PriceSummaryPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainScrollPanel
@@ -134,6 +142,7 @@
             // containerPanel
             // 
             this.containerPanel.BackColor = System.Drawing.Color.Transparent;
+            this.containerPanel.Controls.Add(this.PriceSummaryPanel);
             this.containerPanel.Controls.Add(this.pnlReturnFlight);
             this.containerPanel.Controls.Add(this.pnlArriveFlight);
             this.containerPanel.Controls.Add(this.titleLabel);
@@ -1080,6 +1089,89 @@
             this.titleLabel.TabIndex = 0;
             this.titleLabel.Text = "Các chuyến bay";
             // 
+            // PriceSummaryPanel
+            // 
+            this.PriceSummaryPanel.BorderRadius = 8;
+            this.PriceSummaryPanel.Controls.Add(this.detailsLink);
+            this.PriceSummaryPanel.Controls.Add(this.taxNote);
+            this.PriceSummaryPanel.Controls.Add(this.totalPrice2);
+            this.PriceSummaryPanel.Controls.Add(this.totalLabel2);
+            this.PriceSummaryPanel.Controls.Add(this.totalPrice1);
+            this.PriceSummaryPanel.Controls.Add(this.totalLabel1);
+            this.PriceSummaryPanel.FillColor = System.Drawing.Color.White;
+            this.PriceSummaryPanel.Location = new System.Drawing.Point(20, 1034);
+            this.PriceSummaryPanel.Name = "PriceSummaryPanel";
+            this.PriceSummaryPanel.ShadowDecoration.Depth = 10;
+            this.PriceSummaryPanel.ShadowDecoration.Enabled = true;
+            this.PriceSummaryPanel.Size = new System.Drawing.Size(1000, 160);
+            this.PriceSummaryPanel.TabIndex = 3;
+            // 
+            // totalLabel1
+            // 
+            this.totalLabel1.AutoSize = true;
+            this.totalLabel1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(153)))));
+            this.totalLabel1.Location = new System.Drawing.Point(650, 20);
+            this.totalLabel1.Name = "totalLabel1";
+            this.totalLabel1.Size = new System.Drawing.Size(84, 17);
+            this.totalLabel1.TabIndex = 0;
+            this.totalLabel1.Text = "Tổng số tiền:";
+            // 
+            // totalPrice1
+            // 
+            this.totalPrice1.AutoSize = true;
+            this.totalPrice1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalPrice1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(153)))));
+            this.totalPrice1.Location = new System.Drawing.Point(780, 18);
+            this.totalPrice1.Name = "totalPrice1";
+            this.totalPrice1.Size = new System.Drawing.Size(126, 20);
+            this.totalPrice1.TabIndex = 1;
+            this.totalPrice1.Text = "11.227.000 VND";
+            // 
+            // totalLabel2
+            // 
+            this.totalLabel2.AutoSize = true;
+            this.totalLabel2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(153)))));
+            this.totalLabel2.Location = new System.Drawing.Point(620, 70);
+            this.totalLabel2.Name = "totalLabel2";
+            this.totalLabel2.Size = new System.Drawing.Size(108, 21);
+            this.totalLabel2.TabIndex = 2;
+            this.totalLabel2.Text = "Tổng số tiền:";
+            // 
+            // totalPrice2
+            // 
+            this.totalPrice2.AutoSize = true;
+            this.totalPrice2.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalPrice2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(153)))));
+            this.totalPrice2.Location = new System.Drawing.Point(780, 65);
+            this.totalPrice2.Name = "totalPrice2";
+            this.totalPrice2.Size = new System.Drawing.Size(173, 30);
+            this.totalPrice2.TabIndex = 3;
+            this.totalPrice2.Text = "11.227.000 VND";
+            // 
+            // taxNote
+            // 
+            this.taxNote.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.taxNote.ForeColor = System.Drawing.Color.Gray;
+            this.taxNote.Location = new System.Drawing.Point(420, 100);
+            this.taxNote.Name = "taxNote";
+            this.taxNote.Size = new System.Drawing.Size(480, 20);
+            this.taxNote.TabIndex = 4;
+            this.taxNote.Text = "Tổng giá cho tất cả các hành khách (đã bao gồm thuế, phí và chiết khấu).";
+            // 
+            // detailsLink
+            // 
+            this.detailsLink.AutoSize = true;
+            this.detailsLink.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.detailsLink.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(170)))));
+            this.detailsLink.Location = new System.Drawing.Point(870, 100);
+            this.detailsLink.Name = "detailsLink";
+            this.detailsLink.Size = new System.Drawing.Size(102, 13);
+            this.detailsLink.TabIndex = 5;
+            this.detailsLink.TabStop = true;
+            this.detailsLink.Text = "Xem chi tiết giá. ⧉";
+            // 
             // frmShoppingCart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1107,6 +1199,8 @@
             this.detailsPanel.PerformLayout();
             this.timelinePanel1.ResumeLayout(false);
             this.timelinePanel1.PerformLayout();
+            this.PriceSummaryPanel.ResumeLayout(false);
+            this.PriceSummaryPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1196,5 +1290,12 @@
         private System.Windows.Forms.Label depTimeLabel2;
         private System.Windows.Forms.Label lblDate2;
         private System.Windows.Forms.Label lblRoute2;
+        private Guna.UI2.WinForms.Guna2Panel PriceSummaryPanel;
+        private System.Windows.Forms.Label totalLabel1;
+        private System.Windows.Forms.Label totalPrice1;
+        private System.Windows.Forms.Label totalLabel2;
+        private System.Windows.Forms.Label totalPrice2;
+        private System.Windows.Forms.Label taxNote;
+        private System.Windows.Forms.LinkLabel detailsLink;
     }
 }
