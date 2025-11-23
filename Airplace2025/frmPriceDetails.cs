@@ -223,5 +223,15 @@ namespace Airplace2025
         {
             return new Panel { Height = 20 };
         }
+
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void confirmButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
