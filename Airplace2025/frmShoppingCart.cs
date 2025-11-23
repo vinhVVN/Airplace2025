@@ -338,5 +338,11 @@ namespace Airplace2025
 
             pnlReturnFlight.Location = new Point(pnlReturnFlight.Location.X, newY);
         }
+
+        private void detailsLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frmPriceDetails frmPriceDetails = new frmPriceDetails();
+            frmPriceDetails.ShowDialog();
+        }
     }
 }

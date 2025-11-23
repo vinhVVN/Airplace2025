@@ -181,6 +181,12 @@
     <Compile Include="frmPassengerDetails.Designer.cs">
       <DependentUpon>frmPassengerDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmPriceDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPriceDetails.Designer.cs">
+      <DependentUpon>frmPriceDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSeatSelection.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -303,6 +309,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmPassengerDetails.resx">
       <DependentUpon>frmPassengerDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPriceDetails.resx">
+      <DependentUpon>frmPriceDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmShoppingCart.resx">
       <DependentUpon>frmShoppingCart.cs</DependentUpon>
