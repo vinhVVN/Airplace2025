@@ -421,7 +421,7 @@ namespace Airplace2025
 
         private void UpdateLayoutPositions()
         {
-            if (pnlArriveFlight == null || PriceSummaryPanel == null) return;
+            if (pnlArriveFlight == null || PriceSummaryPanel == null || panel == null) return;
 
             // Base Y start position for the first panel (pnlArriveFlight)
             int currentY = pnlArriveFlight.Location.Y + pnlArriveFlight.Height + PanelSpacing;
@@ -435,11 +435,15 @@ namespace Airplace2025
 
             // Update PriceSummaryPanel
             PriceSummaryPanel.Location = new Point(PriceSummaryPanel.Location.X, currentY);
+            currentY = PriceSummaryPanel.Location.Y + PriceSummaryPanel.Height + PanelSpacing;
+
+            // Update Continue Button Panel
+            panel.Location = new Point(panel.Location.X, currentY);
 
             // Optional: Adjust container height if using a container panel inside a ScrollPanel
             if (containerPanel != null)
             {
-                int newTotalHeight = PriceSummaryPanel.Location.Y + PriceSummaryPanel.Height + 50; // + padding bottom
+                int newTotalHeight = panel.Location.Y + panel.Height + 50; // + padding bottom
                 if (containerPanel.Height != newTotalHeight)
                 {
                     containerPanel.Height = newTotalHeight;
@@ -452,6 +456,11 @@ namespace Airplace2025
             frmPriceDetails frmPriceDetails = new frmPriceDetails();
             frmPriceDetails.SetData(departureFare, returnFare);
             frmPriceDetails.ShowDialog();
+        }
+
+        private void continueBtn_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

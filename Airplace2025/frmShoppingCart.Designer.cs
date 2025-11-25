@@ -30,6 +30,8 @@
         {
             this.mainScrollPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.containerPanel = new Guna.UI2.WinForms.Guna2Panel();
+            this.panel = new Guna.UI2.WinForms.Guna2Panel();
+            this.continueBtn = new Guna.UI2.WinForms.Guna2Button();
             this.PriceSummaryPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.detailsLink = new System.Windows.Forms.LinkLabel();
             this.taxNote = new System.Windows.Forms.Label();
@@ -120,6 +122,7 @@
             this.titleLabel = new System.Windows.Forms.Label();
             this.mainScrollPanel.SuspendLayout();
             this.containerPanel.SuspendLayout();
+            this.panel.SuspendLayout();
             this.PriceSummaryPanel.SuspendLayout();
             this.pnlReturnFlight.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
@@ -141,18 +144,52 @@
             // 
             // containerPanel
             // 
+            this.containerPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.containerPanel.BackColor = System.Drawing.Color.Transparent;
+            this.containerPanel.Controls.Add(this.panel);
             this.containerPanel.Controls.Add(this.PriceSummaryPanel);
             this.containerPanel.Controls.Add(this.pnlReturnFlight);
             this.containerPanel.Controls.Add(this.pnlArriveFlight);
             this.containerPanel.Controls.Add(this.titleLabel);
             this.containerPanel.Location = new System.Drawing.Point(20, 20);
             this.containerPanel.Name = "containerPanel";
-            this.containerPanel.Size = new System.Drawing.Size(1054, 1400);
+            this.containerPanel.Size = new System.Drawing.Size(1020, 1400);
             this.containerPanel.TabIndex = 0;
+            // 
+            // panel
+            // 
+            this.panel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel.Controls.Add(this.continueBtn);
+            this.panel.FillColor = System.Drawing.Color.Transparent;
+            this.panel.Location = new System.Drawing.Point(20, 1209);
+            this.panel.Name = "panel";
+            this.panel.Size = new System.Drawing.Size(992, 70);
+            this.panel.TabIndex = 4;
+            // 
+            // continueBtn
+            // 
+            this.continueBtn.BorderRadius = 5;
+            this.continueBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.continueBtn.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.continueBtn.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.continueBtn.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.continueBtn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.continueBtn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
+            this.continueBtn.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.continueBtn.ForeColor = System.Drawing.Color.Black;
+            this.continueBtn.Location = new System.Drawing.Point(620, 10);
+            this.continueBtn.Name = "continueBtn";
+            this.continueBtn.Size = new System.Drawing.Size(180, 50);
+            this.continueBtn.TabIndex = 0;
+            this.continueBtn.Text = "TIẾP TỤC";
+            this.continueBtn.Click += new System.EventHandler(this.continueBtn_Click);
             // 
             // PriceSummaryPanel
             // 
+            this.PriceSummaryPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.PriceSummaryPanel.BackColor = System.Drawing.Color.Transparent;
             this.PriceSummaryPanel.BorderRadius = 8;
             this.PriceSummaryPanel.Controls.Add(this.detailsLink);
@@ -166,7 +203,7 @@
             this.PriceSummaryPanel.Name = "PriceSummaryPanel";
             this.PriceSummaryPanel.ShadowDecoration.Depth = 10;
             this.PriceSummaryPanel.ShadowDecoration.Enabled = true;
-            this.PriceSummaryPanel.Size = new System.Drawing.Size(1000, 160);
+            this.PriceSummaryPanel.Size = new System.Drawing.Size(992, 160);
             this.PriceSummaryPanel.TabIndex = 3;
             // 
             // detailsLink
@@ -238,6 +275,8 @@
             // 
             // pnlReturnFlight
             // 
+            this.pnlReturnFlight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlReturnFlight.BackColor = System.Drawing.Color.Transparent;
             this.pnlReturnFlight.BorderRadius = 8;
             this.pnlReturnFlight.Controls.Add(this.guna2Panel2);
@@ -261,7 +300,7 @@
             this.pnlReturnFlight.Name = "pnlReturnFlight";
             this.pnlReturnFlight.ShadowDecoration.Depth = 10;
             this.pnlReturnFlight.ShadowDecoration.Enabled = true;
-            this.pnlReturnFlight.Size = new System.Drawing.Size(1000, 468);
+            this.pnlReturnFlight.Size = new System.Drawing.Size(992, 468);
             this.pnlReturnFlight.TabIndex = 2;
             // 
             // guna2Panel2
@@ -701,6 +740,8 @@
             // 
             // pnlArriveFlight
             // 
+            this.pnlArriveFlight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlArriveFlight.BackColor = System.Drawing.Color.Transparent;
             this.pnlArriveFlight.BorderRadius = 8;
             this.pnlArriveFlight.Controls.Add(this.detailsPanel);
@@ -724,7 +765,7 @@
             this.pnlArriveFlight.Name = "pnlArriveFlight";
             this.pnlArriveFlight.ShadowDecoration.Depth = 10;
             this.pnlArriveFlight.ShadowDecoration.Enabled = true;
-            this.pnlArriveFlight.Size = new System.Drawing.Size(1000, 460);
+            this.pnlArriveFlight.Size = new System.Drawing.Size(992, 460);
             this.pnlArriveFlight.TabIndex = 1;
             this.pnlArriveFlight.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlArriveFlight_Paint);
             // 
@@ -1178,6 +1219,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1265, 749);
             this.Controls.Add(this.mainScrollPanel);
@@ -1189,6 +1231,7 @@
             this.mainScrollPanel.ResumeLayout(false);
             this.containerPanel.ResumeLayout(false);
             this.containerPanel.PerformLayout();
+            this.panel.ResumeLayout(false);
             this.PriceSummaryPanel.ResumeLayout(false);
             this.PriceSummaryPanel.PerformLayout();
             this.pnlReturnFlight.ResumeLayout(false);
@@ -1299,5 +1342,7 @@
         private System.Windows.Forms.Label totalPrice2;
         private System.Windows.Forms.Label taxNote;
         private System.Windows.Forms.LinkLabel detailsLink;
+        private Guna.UI2.WinForms.Guna2Panel panel;
+        private Guna.UI2.WinForms.Guna2Button continueBtn;
     }
 }
