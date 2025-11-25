@@ -460,7 +460,8 @@ namespace Airplace2025
 
         private void continueBtn_Click(object sender, EventArgs e)
         {
-
+            frmCustomerInfo frmCustomerInfo = new frmCustomerInfo();
+            frmCustomerInfo.Show();
         }
     }
 }
