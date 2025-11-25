@@ -1,4 +1,6 @@
 ﻿using Guna.UI2.WinForms;
+using Airplace2025.BLL.DTO;
+using Airplace2025.State;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -11,60 +13,110 @@ namespace Airplace2025
         {
             InitializeComponent();
             
-            // Form settings from snippet (applying to this form)
+            // Form settings
             this.BackColor = Color.FromArgb(240, 240, 240);
             
-            // Clear any designer placeholder items from content panel
+            // Clear any designer placeholder items
             if (contentPanel != null)
             {
                 contentPanel.Controls.Clear();
-                LoadFareData();
             }
         }
 
-        private void LoadFareData()
+        public void SetData(SelectedFareInfo depFare, SelectedFareInfo retFare)
         {
-            // Adult passenger
-            AddPassengerItem("1 Người lớn", "5.672.000 VND", new[]
-            {
-                ("Phí vận chuyển hàng không", "4.198.000 VND", new[] { ("Giá vé", "4.198.000 VND") }),
-                ("Phụ thu của hãng hàng không", "900.000 VND", new[] { ("Phụ thu quản trị hệ thống", "900.000 VND") }),
-                ("Thuế/giá dịch vụ/phụ thu của sân bay/chính phủ", "574.000 VND", new[]
-                {
-                    ("Phí dịch vụ hành khách chặng nội địa, Việt Nam", "198.000 VND"),
-                    ("Phí soi chiếu an ninh hành khách và hành lý, Việt Nam", "40.000 VND"),
-                    ("Thuế giá trị gia tăng, Việt Nam", "336.000 VND")
-                })
-            });
+            contentPanel.Controls.Clear();
 
-            // Child 1
-            AddPassengerItem("1 Trẻ em", "5.101.000 VND", new[]
-            {
-                ("Phí vận chuyển hàng không", "3.779.000 VND", new[] { ("Giá vé", "3.779.000 VND") }),
-                ("Phụ thu của hãng hàng không", "900.000 VND", new[] { ("Phụ thu quản trị hệ thống", "900.000 VND") }),
-                ("Thuế/giá dịch vụ/phụ thu của sân bay/chính phủ", "422.000 VND", new[]
-                {
-                    ("Phí dịch vụ hành khách chặng nội địa, Việt Nam", "99.000 VND"),
-                    ("Phí soi chiếu an ninh hành khách và hành lý, Việt Nam", "20.000 VND"),
-                    ("Thuế giá trị gia tăng, Việt Nam", "303.000 VND")
-                })
-            });
+            int flightCount = (depFare != null ? 1 : 0) + (retFare != null ? 1 : 0);
+            if (flightCount == 0) return;
 
-            // Child 2
-            AddPassengerItem("1 Trẻ em (Sơ sinh)", "454.000 VND", new[]
+            decimal baseFareDep = depFare?.FarePrice ?? 0;
+            decimal baseFareRet = retFare?.FarePrice ?? 0;
+
+            // --- Adults ---
+            int adultCount = PassengerSelectionState.Adult;
+            if (adultCount > 0)
             {
-                ("Phí vận chuyển hàng không", "420.000 VND", new[] { ("Giá vé", "420.000 VND") }),
-                ("Thuế/giá dịch vụ/phụ thu của sân bay/chính phủ", "34.000 VND", new[]
+                // Calculate Adult Costs
+                decimal adultBase = baseFareDep + baseFareRet;
+                decimal airlineSurcharge = 900000m * flightCount;
+                decimal airportFees = 574000m * flightCount; // 198k + 40k + 336k
+                decimal totalAdult = adultBase + airlineSurcharge + airportFees;
+                decimal grandTotalAdult = totalAdult * adultCount;
+
+                AddPassengerItem($"{adultCount} Người lớn", $"{grandTotalAdult:N0} VND", new[]
                 {
-                    ("Thuế giá trị gia tăng, Việt Nam", "34.000 VND")
-                })
-            });
+                    ("Phí vận chuyển hàng không", $"{adultBase:N0} VND", new[] { ("Giá vé", $"{adultBase:N0} VND") }),
+                    ("Phụ thu của hãng hàng không", $"{airlineSurcharge:N0} VND", new[] { ("Phụ thu quản trị hệ thống", $"{airlineSurcharge:N0} VND") }),
+                    ("Thuế/giá dịch vụ/phụ thu của sân bay/chính phủ", $"{airportFees:N0} VND", new[]
+                    {
+                        ("Phí dịch vụ hành khách chặng nội địa, Việt Nam", $"{198000m * flightCount:N0} VND"),
+                        ("Phí soi chiếu an ninh hành khách và hành lý, Việt Nam", $"{40000m * flightCount:N0} VND"),
+                        ("Thuế giá trị gia tăng, Việt Nam", $"{336000m * flightCount:N0} VND")
+                    })
+                });
+            }
+
+            // --- Children ---
+            int childCount = PassengerSelectionState.Child;
+            if (childCount > 0)
+            {
+                // Calculate Child Costs (90% of base)
+                decimal childBase = (baseFareDep * 0.9m) + (baseFareRet * 0.9m);
+                decimal airlineSurcharge = 900000m * flightCount;
+                decimal airportFees = 422000m * flightCount; // 99k + 20k + 303k
+                decimal totalChild = childBase + airlineSurcharge + airportFees;
+                decimal grandTotalChild = totalChild * childCount;
+
+                AddPassengerItem($"{childCount} Trẻ em", $"{grandTotalChild:N0} VND", new[]
+                {
+                    ("Phí vận chuyển hàng không", $"{childBase:N0} VND", new[] { ("Giá vé", $"{childBase:N0} VND") }),
+                    ("Phụ thu của hãng hàng không", $"{airlineSurcharge:N0} VND", new[] { ("Phụ thu quản trị hệ thống", $"{airlineSurcharge:N0} VND") }),
+                    ("Thuế/giá dịch vụ/phụ thu của sân bay/chính phủ", $"{airportFees:N0} VND", new[]
+                    {
+                        ("Phí dịch vụ hành khách chặng nội địa, Việt Nam", $"{99000m * flightCount:N0} VND"),
+                        ("Phí soi chiếu an ninh hành khách và hành lý, Việt Nam", $"{20000m * flightCount:N0} VND"),
+                        ("Thuế giá trị gia tăng, Việt Nam", $"{303000m * flightCount:N0} VND")
+                    })
+                });
+            }
+
+            // --- Infants ---
+            int infantCount = PassengerSelectionState.Infant;
+            if (infantCount > 0)
+            {
+                // Calculate Infant Costs (10% of base)
+                decimal infantBase = (baseFareDep * 0.1m) + (baseFareRet * 0.1m);
+                decimal tax = 34000m * flightCount;
+                decimal totalInfant = infantBase + tax;
+                decimal grandTotalInfant = totalInfant * infantCount;
+
+                AddPassengerItem($"{infantCount} Trẻ em (Sơ sinh)", $"{grandTotalInfant:N0} VND", new[]
+                {
+                    ("Phí vận chuyển hàng không", $"{infantBase:N0} VND", new[] { ("Giá vé", $"{infantBase:N0} VND") }),
+                    ("Thuế/giá dịch vụ/phụ thu của sân bay/chính phủ", $"{tax:N0} VND", new[]
+                    {
+                        ("Thuế giá trị gia tăng, Việt Nam", $"{tax:N0} VND")
+                    })
+                });
+            }
+            
+            // Update total summary
+            decimal total = 0;
+            // Re-calculate total to be sure (or pass it from ShoppingCart)
+            // Adults
+            total += ((baseFareDep + baseFareRet) + (1474000m * flightCount)) * adultCount;
+            // Children
+            total += (((baseFareDep + baseFareRet) * 0.9m) + (1322000m * flightCount)) * childCount;
+            // Infants
+            total += (((baseFareDep + baseFareRet) * 0.1m) + (34000m * flightCount)) * infantCount;
+
+            totalPriceLabel.Text = $"{total:N0} VND";
         }
 
         private void AddPassengerItem(string passengerType, string totalPrice, (string category, string price, (string item, string price)[] items)[] breakdown)
         {
             // Calculate width to avoid horizontal scrollbar if vertical one appears
-            // Padding is 25 left + 25 right = 50. Scrollbar is approx 20.
             int itemWidth = contentPanel.Width - 50 - 20; 
 
             // Create collapsible passenger panel

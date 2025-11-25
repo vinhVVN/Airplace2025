@@ -1,5 +1,6 @@
 ﻿using System;
 using Airplace2025.BLL.DTO;
+using Airplace2025.State;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,15 +17,20 @@ namespace Airplace2025
     {
         private const int CollapsedHeight = 160;
         private const int ExpandedHeight = 453;
-        private const int ReturnPanelCollapsedY = 242;
-        private const int ReturnPanelExpandedY = 551;
         private const int AnimationStep = 25;
+        private const int PanelSpacing = 30; // Khoảng cách giữa các panel
+
         private readonly Timer animationTimer;
         private readonly Timer returnAnimationTimer;
         private int targetHeight;
         private int returnTargetHeight;
         private SelectedFareInfo departureFare;
         private SelectedFareInfo returnFare;
+
+        // Constants for fees (per flight sector)
+        public const decimal ADULT_SURCHARGE = 1474000m;
+        public const decimal CHILD_SURCHARGE = 1322000m;
+        public const decimal INFANT_SURCHARGE = 34000m;
 
         public frmShoppingCart()
         {
@@ -33,6 +39,8 @@ namespace Airplace2025
             animationTimer.Tick += AnimationTimer_Tick;
             returnAnimationTimer = new Timer { Interval = 15 };
             returnAnimationTimer.Tick += ReturnAnimationTimer_Tick;
+            
+            // Initial layout update
             InitializeCollapsedState();
             InitializeReturnCollapsedState();
         }
@@ -41,6 +49,70 @@ namespace Airplace2025
         {
             PopulateDepartureFare(departureFare);
             PopulateReturnFare(returnFare);
+            CalculateTotal();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            // Kiểm tra các controls quan trọng
+            if (pnlArriveFlight == null)
+            {
+                MessageBox.Show("pnlArriveFlight chưa được khởi tạo!");
+                return;
+            }
+
+            if (pnlReturnFlight == null)
+            {
+                MessageBox.Show("pnlReturnFlight chưa được khởi tạo!");
+                return;
+            }
+
+            if (guna2Panel2 == null)
+            {
+                MessageBox.Show("guna2Panel2 chưa được khởi tạo!");
+                return;
+            }
+
+            if (PriceSummaryPanel == null)
+            {
+                MessageBox.Show("PriceSummaryPanel chưa được khởi tạo!");
+                return;
+            }
+
+            // Ensure layout is correct when form loads and controls are ready
+            UpdateLayoutPositions();
+        }
+
+        private void CalculateTotal()
+        {
+            int adultCount = PassengerSelectionState.Adult;
+            int childCount = PassengerSelectionState.Child;
+            int infantCount = PassengerSelectionState.Infant;
+
+            decimal total = 0;
+
+            if (departureFare != null)
+            {
+                total += CalculateFlightTotal(departureFare.FarePrice, adultCount, childCount, infantCount);
+            }
+
+            if (returnFare != null)
+            {
+                total += CalculateFlightTotal(returnFare.FarePrice, adultCount, childCount, infantCount);
+            }
+
+            totalPrice1.Text = $"{total:N0} VND";
+            totalPrice2.Text = $"{total:N0} VND";
+        }
+
+        private decimal CalculateFlightTotal(decimal baseFare, int adults, int children, int infants)
+        {
+            decimal adultTotal = (baseFare + ADULT_SURCHARGE) * adults;
+            decimal childTotal = ((baseFare * 0.9m) + CHILD_SURCHARGE) * children;
+            decimal infantTotal = ((baseFare * 0.1m) + INFANT_SURCHARGE) * infants;
+            return adultTotal + childTotal + infantTotal;
         }
 
         private void pnlArriveFlight_Paint(object sender, PaintEventArgs e)
@@ -109,10 +181,12 @@ namespace Airplace2025
                 returnAnimationTimer.Stop();
                 pnlReturnFlight.Visible = false;
                 guna2Panel2.Visible = false;
+                UpdateLayoutPositions();
                 return;
             }
 
             pnlReturnFlight.Visible = true;
+            pnlReturnFlight.BringToFront(); // Ensure it's visible and on top
             InitializeReturnCollapsedState();
 
             var flight = fareInfo.Flight;
@@ -233,13 +307,15 @@ namespace Airplace2025
             detailsPanel.Visible = false;
             expandBtn.Text = "˅";
             targetHeight = CollapsedHeight;
-            UpdateReturnPanelLocation();
         }
 
         private void InitializeReturnCollapsedState()
         {
             pnlReturnFlight.Height = CollapsedHeight;
-            guna2Panel2.Visible = false;
+            if (guna2Panel2 != null) // Thêm kiểm tra
+            {
+                guna2Panel2.Visible = false;
+            }
             expandbtn2.Text = "˅";
             returnTargetHeight = CollapsedHeight;
         }
@@ -274,6 +350,8 @@ namespace Airplace2025
 
             pnlArriveFlight.Height = reachedTarget ? targetHeight : nextHeight;
 
+            UpdateLayoutPositions();
+
             if (reachedTarget)
             {
                 animationTimer.Stop();
@@ -281,13 +359,12 @@ namespace Airplace2025
                 {
                     detailsPanel.Visible = false;
                 }
-                UpdateReturnPanelLocation();
             }
         }
 
         private void expandbtn2_Click(object sender, EventArgs e)
         {
-            if (!pnlReturnFlight.Visible || returnAnimationTimer.Enabled)
+            if (!pnlReturnFlight.Visible || returnAnimationTimer.Enabled || guna2Panel2 == null) // Thêm kiểm tra
             {
                 return;
             }
@@ -306,42 +383,74 @@ namespace Airplace2025
 
         private void ReturnAnimationTimer_Tick(object sender, EventArgs e)
         {
-            int direction = returnTargetHeight > pnlReturnFlight.Height ? 1 : -1;
-            int nextHeight = pnlReturnFlight.Height + direction * AnimationStep;
+            try
+            {
+                int direction = returnTargetHeight > pnlReturnFlight.Height ? 1 : -1;
+                int nextHeight = pnlReturnFlight.Height + direction * AnimationStep;
 
-            bool reachedTarget = direction > 0
-                ? nextHeight >= returnTargetHeight
-                : nextHeight <= returnTargetHeight;
+                bool reachedTarget = direction > 0
+                    ? nextHeight >= returnTargetHeight
+                    : nextHeight <= returnTargetHeight;
 
-            pnlReturnFlight.Height = reachedTarget ? returnTargetHeight : nextHeight;
+                pnlReturnFlight.Height = reachedTarget ? returnTargetHeight : nextHeight;
 
-            if (reachedTarget)
+                UpdateLayoutPositions();
+
+                if (reachedTarget)
+                {
+                    returnAnimationTimer.Stop();
+                    if (returnTargetHeight == CollapsedHeight)
+                    {
+                        if (guna2Panel2 != null)
+                        {
+                            guna2Panel2.Visible = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show("guna2Panel2 is null!");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
             {
                 returnAnimationTimer.Stop();
-                if (returnTargetHeight == CollapsedHeight)
-                {
-                    guna2Panel2.Visible = false;
-                }
+                MessageBox.Show($"Lỗi: {ex.Message}\n\nStack Trace: {ex.StackTrace}");
             }
         }
 
-        private void UpdateReturnPanelLocation()
+        private void UpdateLayoutPositions()
         {
-            if (pnlReturnFlight == null)
+            if (pnlArriveFlight == null || PriceSummaryPanel == null) return;
+
+            // Base Y start position for the first panel (pnlArriveFlight)
+            int currentY = pnlArriveFlight.Location.Y + pnlArriveFlight.Height + PanelSpacing;
+
+            // Update pnlReturnFlight if visible and not null
+            if (pnlReturnFlight != null && pnlReturnFlight.Visible)
             {
-                return;
+                pnlReturnFlight.Location = new Point(pnlReturnFlight.Location.X, currentY);
+                currentY = pnlReturnFlight.Location.Y + pnlReturnFlight.Height + PanelSpacing;
             }
 
-            int newY = pnlArriveFlight.Height > CollapsedHeight
-                ? ReturnPanelExpandedY
-                : ReturnPanelCollapsedY;
+            // Update PriceSummaryPanel
+            PriceSummaryPanel.Location = new Point(PriceSummaryPanel.Location.X, currentY);
 
-            pnlReturnFlight.Location = new Point(pnlReturnFlight.Location.X, newY);
+            // Optional: Adjust container height if using a container panel inside a ScrollPanel
+            if (containerPanel != null)
+            {
+                int newTotalHeight = PriceSummaryPanel.Location.Y + PriceSummaryPanel.Height + 50; // + padding bottom
+                if (containerPanel.Height != newTotalHeight)
+                {
+                    containerPanel.Height = newTotalHeight;
+                }
+            }
         }
 
         private void detailsLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             frmPriceDetails frmPriceDetails = new frmPriceDetails();
+            frmPriceDetails.SetData(departureFare, returnFare);
             frmPriceDetails.ShowDialog();
         }
     }
