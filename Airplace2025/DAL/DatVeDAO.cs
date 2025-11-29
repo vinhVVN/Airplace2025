@@ -40,7 +40,6 @@ namespace Airplace2025.DAL
                 
                 // Generate MaVe
                 string maVe = "VE" + DateTime.Now.Ticks.ToString().Substring(10) + new Random().Next(100, 999).ToString();
-                // Ensure unique or handle exception, simplified here
 
                 string query = @"INSERT INTO Ve (MaVe, TinhTrang, GiaVeThucTe, MaChuyenBay, MaHangVe, MaNhanVien) 
                                  VALUES (@MaVe, N'Đã đặt', @GiaVe, @MaChuyenBay, @MaHangVe, @MaNhanVien)";
@@ -99,6 +98,36 @@ namespace Airplace2025.DAL
                  }
             }
         }
+
+        // === NEW METHOD: Get list of occupied seats for a flight ===
+        public List<string> GetBookedSeats(string maChuyenBay)
+        {
+            List<string> bookedSeats = new List<string>();
+            using (SqlConnection conn = DBConnection.GetConnection())
+            {
+                conn.Open();
+                // Lấy mã ghế từ ChiTietDatVe, join với Ve để filter theo MaChuyenBay và loại bỏ vé hủy
+                string query = @"
+                    SELECT ctdv.MaGhe 
+                    FROM ChiTietDatVe ctdv
+                    JOIN Ve v ON ctdv.MaVe = v.MaVe
+                    WHERE v.MaChuyenBay = @MaChuyenBay 
+                      AND v.TinhTrang != N'Đã huỷ'
+                      AND ctdv.MaGhe != 'ANY'";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@MaChuyenBay", maChuyenBay);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            bookedSeats.Add(reader["MaGhe"].ToString());
+                        }
+                    }
+                }
+            }
+            return bookedSeats;
+        }
     }
 }
-

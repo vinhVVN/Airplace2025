@@ -16,6 +16,10 @@ namespace Airplace2025
         // Return the representative customer (used for booking contact)
         public KhachHangDTO RepresentativeCustomer { get; private set; }
 
+        // Flight Info needed for Seat Selection
+        public SelectedFareInfo DepartureFlight { get; set; }
+        public SelectedFareInfo ReturnFlight { get; set; }
+
         // Enums to track passenger types internally
         private enum PassengerType
         {
@@ -453,20 +457,44 @@ namespace Airplace2025
                 return;
             }
 
-            // Success
-            // Tạm thời logic đặt vé sẽ được xử lý bởi form cha sau khi nhận DialogResult.OK
-            // Nếu muốn chuyển sang form thanh toán ngay lập tức, cần thông tin về chuyến bay và ghế
-            // Giả sử form cha sẽ nhận kết quả và mở form thanh toán
-            
-            // Tuy nhiên, nếu yêu cầu là mở form thanh toán từ đây:
-            // 1. Cần có cơ chế tạo vé (Booking) trước.
-            // 2. Cần truyền thông tin Booking sang form Thanh Toán.
-            
-            // Vì hiện tại form này chưa có thông tin Chuyến Bay/Ghế, ta sẽ giữ nguyên việc trả về OK
-            // Form cha (frmDatVe hoặc frmChonGhe) sẽ nhận List<KhachHangDTO> và tiến hành tạo vé -> mở frmThanhToan
-            
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            // === MỞ FORM CHỌN GHẾ ===
+            if (DepartureFlight == null)
+            {
+                // Should not happen if flow is correct, but if testing standalone:
+                MessageBox.Show("Thông tin chuyến bay bị thiếu. Không thể chọn ghế.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            this.Hide();
+            using (frmChonGhe fGhe = new frmChonGhe(SelectedCustomers, DepartureFlight, ReturnFlight))
+            {
+                if (fGhe.ShowDialog() == DialogResult.OK)
+                {
+                    // Lấy kết quả chọn ghế và map vào Customers
+                    Dictionary<string, string> seatMap = fGhe.GetSelectedSeats();
+                    
+                    // Format of keys in seatMap: "Index_Dep" or "Index_Ret"
+                    for (int i = 0; i < SelectedCustomers.Count; i++)
+                    {
+                        string depKey = $"{i}_Dep";
+                        string retKey = $"{i}_Ret";
+                        
+                        if (seatMap.ContainsKey(depKey))
+                            SelectedCustomers[i].MaGheDi = seatMap[depKey].Replace("_Dep", ""); // e.g. "12A"
+                            
+                        if (seatMap.ContainsKey(retKey))
+                            SelectedCustomers[i].MaGheVe = seatMap[retKey].Replace("_Ret", "");
+                    }
+
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                else
+                {
+                    // User cancelled seat selection, return to this form
+                    this.Show();
+                }
+            }
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)

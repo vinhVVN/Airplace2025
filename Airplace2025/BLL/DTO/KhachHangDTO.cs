@@ -14,6 +14,10 @@ namespace Airplace2025.BLL.DTO
         public string Email { get; set; }
         public string LoaiKhachHang { get; set; } // Red, Silver, Gold, Diamond
 
+        // Fields for Booking Process (Non-DB mapping directly)
+        public string MaGheDi { get; set; }
+        public string MaGheVe { get; set; }
+
         /// <summary>
         /// Format hiển thị cho ComboBox
         /// </summary>
@@ -23,5 +27,3 @@ namespace Airplace2025.BLL.DTO
         }
     }
 }
-
-

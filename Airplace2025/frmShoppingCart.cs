@@ -462,6 +462,10 @@ namespace Airplace2025
         {
             using (frmCustomerInfo frmCustomerInfo = new frmCustomerInfo())
             {
+                // Pass Flight Info
+                frmCustomerInfo.DepartureFlight = departureFare;
+                frmCustomerInfo.ReturnFlight = returnFare;
+
                 if (frmCustomerInfo.ShowDialog() == DialogResult.OK)
                 {
                     try

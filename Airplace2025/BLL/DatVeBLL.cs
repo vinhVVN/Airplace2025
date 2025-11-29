@@ -41,8 +41,8 @@ namespace Airplace2025.BLL
                     );
 
                     // Create ChiTietDatVe
-                    // Note: MaGhe is mocked as "A1" because seat selection is skipped
-                    string maDatVe = DatVeDAO.Instance.CreateChiTietDatVe(maVe, cust.MaKhachHang, "A1");
+                    string seatCode = string.IsNullOrEmpty(cust.MaGheDi) ? "ANY" : cust.MaGheDi;
+                    string maDatVe = DatVeDAO.Instance.CreateChiTietDatVe(maVe, cust.MaKhachHang, seatCode);
                     ticketIds.Add(maDatVe);
 
                     // Update Capacity
@@ -58,7 +58,8 @@ namespace Airplace2025.BLL
                         retFare.FarePrice
                     );
 
-                    string maDatVe = DatVeDAO.Instance.CreateChiTietDatVe(maVe, cust.MaKhachHang, "A1");
+                    string seatCode = string.IsNullOrEmpty(cust.MaGheVe) ? "ANY" : cust.MaGheVe;
+                    string maDatVe = DatVeDAO.Instance.CreateChiTietDatVe(maVe, cust.MaKhachHang, seatCode);
                     ticketIds.Add(maDatVe);
 
                     DatVeDAO.Instance.DecreaseSeatCount(retFare.Flight.MaChuyenBay, retClassCode);
