@@ -54,6 +54,7 @@
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.lblDiaChi = new System.Windows.Forms.Label();
             this.txtDiaChi = new System.Windows.Forms.TextBox();
+            this.chkIsRepresentative = new System.Windows.Forms.CheckBox();
             this.dgvCustomers = new System.Windows.Forms.DataGridView();
             this.grpSearch = new System.Windows.Forms.GroupBox();
             this.btnSearch = new System.Windows.Forms.Button();
@@ -193,6 +194,7 @@
             this.tableLayoutPanel1.Controls.Add(this.txtEmail, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.lblDiaChi, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.txtDiaChi, 3, 3);
+            this.tableLayoutPanel1.Controls.Add(this.chkIsRepresentative, 1, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 21);
@@ -202,8 +204,8 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(898, 175);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(898, 200);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // lblDanhXung
@@ -362,6 +364,19 @@
             this.txtDiaChi.Size = new System.Drawing.Size(323, 25);
             this.txtDiaChi.TabIndex = 7;
             // 
+            // chkIsRepresentative
+            // 
+            this.chkIsRepresentative.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.chkIsRepresentative.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.chkIsRepresentative, 3);
+            this.chkIsRepresentative.ForeColor = System.Drawing.Color.Red;
+            this.chkIsRepresentative.Location = new System.Drawing.Point(123, 168);
+            this.chkIsRepresentative.Name = "chkIsRepresentative";
+            this.chkIsRepresentative.Size = new System.Drawing.Size(167, 23);
+            this.chkIsRepresentative.TabIndex = 15;
+            this.chkIsRepresentative.Text = "Là người đại diện liên hệ";
+            this.chkIsRepresentative.UseVisualStyleBackColor = true;
+            // 
             // dgvCustomers
             // 
             this.dgvCustomers.AllowUserToAddRows = false;
@@ -513,5 +528,6 @@
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label lblDiaChi;
         private System.Windows.Forms.TextBox txtDiaChi;
+        private System.Windows.Forms.CheckBox chkIsRepresentative;
     }
 }

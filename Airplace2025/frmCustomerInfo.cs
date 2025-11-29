@@ -13,6 +13,8 @@ namespace Airplace2025
     {
         // Return a list of customers corresponding to the passengers
         public List<KhachHangDTO> SelectedCustomers { get; private set; }
+        // Return the representative customer (used for booking contact)
+        public KhachHangDTO RepresentativeCustomer { get; private set; }
 
         // Enums to track passenger types internally
         private enum PassengerType
@@ -29,12 +31,14 @@ namespace Airplace2025
             public PassengerType Type { get; set; }
             public KhachHangDTO CustomerData { get; set; }
             public bool IsCompleted { get; set; }
+            public bool IsRepresentative { get; set; }
 
             public override string ToString()
             {
                 string status = IsCompleted ? "✓" : "⚠";
+                string rep = IsRepresentative ? "★ " : "";
                 string info = CustomerData != null ? $" - {CustomerData.HoTen}" : "";
-                return $"{status} {DisplayName}{info}";
+                return $"{status} {rep}{DisplayName}{info}";
             }
         }
 
@@ -88,6 +92,39 @@ namespace Airplace2025
             txtDiaChi.Leave += (s, e) => SaveCurrentEntryToMemory();
             cmbDanhXung.SelectedIndexChanged += (s, e) => SaveCurrentEntryToMemory();
             dtpNgaySinh.ValueChanged += (s, e) => SaveCurrentEntryToMemory();
+
+            // Representative Checkbox
+            chkIsRepresentative.Click += ChkIsRepresentative_Click;
+        }
+
+        private void ChkIsRepresentative_Click(object sender, EventArgs e)
+        {
+            if (_isChangingSelection || _currentEntry == null) return;
+
+            // If user tries to uncheck the current representative, prevent it (must select another to change)
+            // OR allow it and validate at the end. 
+            // Logic: User clicked Checkbox.
+            
+            if (chkIsRepresentative.Checked)
+            {
+                // Set current as Representative
+                _currentEntry.IsRepresentative = true;
+
+                // Uncheck all others
+                foreach (var entry in _passengerEntries)
+                {
+                    if (entry != _currentEntry)
+                        entry.IsRepresentative = false;
+                }
+            }
+            else
+            {
+                // User unchecked it.
+                _currentEntry.IsRepresentative = false;
+            }
+
+            // Refresh list to show Star icon
+            lstPassengers.Refresh();
         }
 
         private void InitializePassengerList()
@@ -108,7 +145,8 @@ namespace Airplace2025
                     DisplayName = $"Người lớn {i}",
                     Type = PassengerType.Adult,
                     CustomerData = null,
-                    IsCompleted = false
+                    IsCompleted = false,
+                    IsRepresentative = (i == 1) // Default first adult is representative
                 });
             }
 
@@ -120,7 +158,8 @@ namespace Airplace2025
                     DisplayName = $"Trẻ em {i}",
                     Type = PassengerType.Child,
                     CustomerData = null,
-                    IsCompleted = false
+                    IsCompleted = false,
+                    IsRepresentative = false
                 });
             }
 
@@ -132,7 +171,8 @@ namespace Airplace2025
                     DisplayName = $"Em bé {i}",
                     Type = PassengerType.Infant,
                     CustomerData = null,
-                    IsCompleted = false
+                    IsCompleted = false,
+                    IsRepresentative = false
                 });
             }
 
@@ -180,6 +220,10 @@ namespace Airplace2025
             string typeName = entry.Type == PassengerType.Adult ? "Người lớn (>12 tuổi)" :
                               entry.Type == PassengerType.Child ? "Trẻ em (2-12 tuổi)" : "Em bé (<2 tuổi)";
             grpInfo.Text = $"Thông tin: {entry.DisplayName} - {typeName}";
+
+            // Representative Logic
+            chkIsRepresentative.Checked = entry.IsRepresentative;
+            chkIsRepresentative.Enabled = (entry.Type == PassengerType.Adult);
 
             // Clear fields first
             ClearInputFields();
@@ -233,14 +277,15 @@ namespace Airplace2025
             // Check simple completion
             bool hasName = !string.IsNullOrWhiteSpace(cust.HoTen);
             _currentEntry.IsCompleted = hasName;
+            
+            // (IsRepresentative is updated via Checkbox Click event directly)
 
             // Soft Refresh List (redraw item text)
             int index = _passengerEntries.IndexOf(_currentEntry);
-            if (index >= 0)
+            if (index >= 0 && index < lstPassengers.Items.Count)
             {
-                // Invalidate to trigger DrawItem if owner drawn, 
-                // or just refresh list item text if simple listbox
-                lstPassengers.Items[index] = _currentEntry; 
+                // Invalidate to trigger DrawItem
+                lstPassengers.Invalidate(lstPassengers.GetItemRectangle(index));
             }
         }
 
@@ -325,6 +370,8 @@ namespace Airplace2025
             // Validate All
             List<string> errors = new List<string>();
             SelectedCustomers = new List<KhachHangDTO>();
+            RepresentativeCustomer = null;
+            int repCount = 0;
 
             foreach (var entry in _passengerEntries)
             {
@@ -361,6 +408,17 @@ namespace Airplace2025
                      errors.Add($"{entry.DisplayName}: Chưa nhập ngày sinh.");
                 }
 
+                // Check Representative
+                if (entry.IsRepresentative)
+                {
+                    repCount++;
+                    RepresentativeCustomer = cust;
+                    
+                    // Rep must have Contact Info
+                    if (string.IsNullOrWhiteSpace(cust.SoDienThoai))
+                        errors.Add($"{entry.DisplayName} (Người đại diện): Phải có số điện thoại.");
+                }
+
                 // 3. Create in DB if new (no ID)
                 if (string.IsNullOrEmpty(cust.MaKhachHang))
                 {
@@ -377,6 +435,15 @@ namespace Airplace2025
                 }
 
                 SelectedCustomers.Add(cust);
+            }
+
+            if (repCount == 0)
+            {
+                errors.Add("Vui lòng chọn 1 Người đại diện liên hệ (Người lớn).");
+            }
+            else if (repCount > 1)
+            {
+                 errors.Add("Chỉ được chọn 1 Người đại diện liên hệ.");
             }
 
             if (errors.Count > 0)
