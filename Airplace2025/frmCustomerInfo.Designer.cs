@@ -372,7 +372,7 @@
             this.chkIsRepresentative.ForeColor = System.Drawing.Color.Red;
             this.chkIsRepresentative.Location = new System.Drawing.Point(123, 168);
             this.chkIsRepresentative.Name = "chkIsRepresentative";
-            this.chkIsRepresentative.Size = new System.Drawing.Size(167, 23);
+            this.chkIsRepresentative.Size = new System.Drawing.Size(177, 23);
             this.chkIsRepresentative.TabIndex = 15;
             this.chkIsRepresentative.Text = "Là người đại diện liên hệ";
             this.chkIsRepresentative.UseVisualStyleBackColor = true;

@@ -454,6 +454,17 @@ namespace Airplace2025
             }
 
             // Success
+            // Tạm thời logic đặt vé sẽ được xử lý bởi form cha sau khi nhận DialogResult.OK
+            // Nếu muốn chuyển sang form thanh toán ngay lập tức, cần thông tin về chuyến bay và ghế
+            // Giả sử form cha sẽ nhận kết quả và mở form thanh toán
+            
+            // Tuy nhiên, nếu yêu cầu là mở form thanh toán từ đây:
+            // 1. Cần có cơ chế tạo vé (Booking) trước.
+            // 2. Cần truyền thông tin Booking sang form Thanh Toán.
+            
+            // Vì hiện tại form này chưa có thông tin Chuyến Bay/Ghế, ta sẽ giữ nguyên việc trả về OK
+            // Form cha (frmDatVe hoặc frmChonGhe) sẽ nhận List<KhachHangDTO> và tiến hành tạo vé -> mở frmThanhToan
+            
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

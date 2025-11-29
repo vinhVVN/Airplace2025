@@ -460,8 +460,56 @@ namespace Airplace2025
 
         private void continueBtn_Click(object sender, EventArgs e)
         {
-            frmCustomerInfo frmCustomerInfo = new frmCustomerInfo();
-            frmCustomerInfo.Show();
+            using (frmCustomerInfo frmCustomerInfo = new frmCustomerInfo())
+            {
+                if (frmCustomerInfo.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        // 1. Create Bookings
+                        var customers = frmCustomerInfo.SelectedCustomers;
+                        var representative = frmCustomerInfo.RepresentativeCustomer;
+
+                        if (customers == null || customers.Count == 0)
+                        {
+                            MessageBox.Show("Danh sách hành khách trống.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        List<string> ticketIds = Airplace2025.BLL.DatVeBLL.Instance.ProcessBooking(customers, departureFare, returnFare);
+
+                        if (ticketIds.Count == 0)
+                        {
+                            MessageBox.Show("Không thể tạo vé. Vui lòng thử lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        // 2. Calculate Total Price
+                        decimal totalAmount = 0;
+                        if (decimal.TryParse(totalPrice1.Text.Replace(" VND", "").Replace(",", "").Replace(".", ""), out decimal t1)) totalAmount = t1;
+                        // If totalPrice1 and totalPrice2 are same (one label updated both?), check logic.
+                        // In CalculateTotal, both are updated. Using one is fine.
+
+                        // 3. Open Payment Form
+                        using (frmThanhToan frmPayment = new frmThanhToan(totalAmount, representative.HoTen, ticketIds))
+                        {
+                            if (frmPayment.ShowDialog() == DialogResult.OK)
+                            {
+                                // Success
+                                // Navigate to Home or Success Page
+                                this.Hide();
+                                // Assuming we want to close the flow
+                                // For now just close this form or reset
+                                this.Close();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi xử lý đặt vé: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
     }
 }
