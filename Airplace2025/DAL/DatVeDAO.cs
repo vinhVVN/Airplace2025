@@ -19,10 +19,20 @@ namespace Airplace2025.DAL
 
         private DatVeDAO() { }
 
-        public string CreateVe(string maChuyenBay, string maHangVe, decimal giaVe, string maNhanVien = "NV001")
+        public string CreateVe(string maChuyenBay, string maHangVe, decimal giaVe, string maNhanVien = null)
         {
             // NV001 is a default staff for online booking (or get from session if logged in)
-            // For now hardcode or pass in
+            if (string.IsNullOrEmpty(maNhanVien))
+            {
+                if (Airplace2025.Session.IsLoggedIn)
+                {
+                    maNhanVien = Airplace2025.Session.MaNhanVien;
+                }
+                else
+                {
+                    maNhanVien = "NV001";
+                }
+            }
             
             using (SqlConnection conn = DBConnection.GetConnection())
             {

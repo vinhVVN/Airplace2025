@@ -260,6 +260,7 @@
       <DependentUpon>StopControl.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectedFareInfo.cs" />
+    <Compile Include="Session.cs" />
     <Compile Include="State\PassengerSelectionState.cs" />
     <Compile Include="State\PassengerSelectionStateTemp.cs" />
     <None Include="Resources\sliders-solid-full.png" />
