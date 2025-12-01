@@ -100,6 +100,7 @@
             this.btnExcel.Size = new System.Drawing.Size(143, 30);
             this.btnExcel.TabIndex = 6;
             this.btnExcel.Text = "Xuất file excel";
+            this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
             // panel1
             // 

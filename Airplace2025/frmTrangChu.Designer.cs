@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.btnCaiDat = new Guna.UI2.WinForms.Guna2Button();
             this.btnLapLichBay = new Guna.UI2.WinForms.Guna2Button();
             this.btnMayBay = new Guna.UI2.WinForms.Guna2Button();
             this.btnBaoCao = new Guna.UI2.WinForms.Guna2Button();
@@ -46,7 +45,6 @@
             // guna2Panel1
             // 
             this.guna2Panel1.Controls.Add(this.guna2PictureBox1);
-            this.guna2Panel1.Controls.Add(this.btnCaiDat);
             this.guna2Panel1.Controls.Add(this.btnLapLichBay);
             this.guna2Panel1.Controls.Add(this.btnMayBay);
             this.guna2Panel1.Controls.Add(this.btnBaoCao);
@@ -73,27 +71,6 @@
             this.guna2PictureBox1.TabStop = false;
             this.guna2PictureBox1.Click += new System.EventHandler(this.guna2PictureBox1_Click_1);
             // 
-            // btnCaiDat
-            // 
-            this.btnCaiDat.BorderColor = System.Drawing.Color.DeepSkyBlue;
-            this.btnCaiDat.BorderThickness = 3;
-            this.btnCaiDat.CustomBorderColor = System.Drawing.Color.Black;
-            this.btnCaiDat.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnCaiDat.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnCaiDat.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnCaiDat.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnCaiDat.FillColor = System.Drawing.Color.Transparent;
-            this.btnCaiDat.FocusedColor = System.Drawing.Color.Transparent;
-            this.btnCaiDat.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCaiDat.ForeColor = System.Drawing.Color.Black;
-            this.btnCaiDat.Location = new System.Drawing.Point(800, 12);
-            this.btnCaiDat.Margin = new System.Windows.Forms.Padding(2);
-            this.btnCaiDat.Name = "btnCaiDat";
-            this.btnCaiDat.Size = new System.Drawing.Size(97, 28);
-            this.btnCaiDat.TabIndex = 6;
-            this.btnCaiDat.Text = "Cài đặt";
-            this.btnCaiDat.Click += new System.EventHandler(this.guna2Button6_Click);
-            // 
             // btnLapLichBay
             // 
             this.btnLapLichBay.BorderColor = System.Drawing.Color.DeepSkyBlue;
@@ -107,7 +84,7 @@
             this.btnLapLichBay.FocusedColor = System.Drawing.Color.Transparent;
             this.btnLapLichBay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLapLichBay.ForeColor = System.Drawing.Color.Black;
-            this.btnLapLichBay.Location = new System.Drawing.Point(629, 12);
+            this.btnLapLichBay.Location = new System.Drawing.Point(699, 13);
             this.btnLapLichBay.Margin = new System.Windows.Forms.Padding(2);
             this.btnLapLichBay.Name = "btnLapLichBay";
             this.btnLapLichBay.Size = new System.Drawing.Size(166, 28);
@@ -131,9 +108,9 @@
             this.btnMayBay.Location = new System.Drawing.Point(506, 12);
             this.btnMayBay.Margin = new System.Windows.Forms.Padding(2);
             this.btnMayBay.Name = "btnMayBay";
-            this.btnMayBay.Size = new System.Drawing.Size(112, 28);
+            this.btnMayBay.Size = new System.Drawing.Size(179, 28);
             this.btnMayBay.TabIndex = 4;
-            this.btnMayBay.Text = "Máy bay";
+            this.btnMayBay.Text = "Tra cứu đặt vé";
             this.btnMayBay.Click += new System.EventHandler(this.guna2Button4_Click);
             // 
             // btnBaoCao
@@ -230,7 +207,6 @@
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private Guna.UI2.WinForms.Guna2Button btnChuyenBay;
         private Guna.UI2.WinForms.Guna2Button btnVeMayBay;
-        private Guna.UI2.WinForms.Guna2Button btnCaiDat;
         private Guna.UI2.WinForms.Guna2Button btnLapLichBay;
         private Guna.UI2.WinForms.Guna2Button btnMayBay;
         private Guna.UI2.WinForms.Guna2Button btnBaoCao;

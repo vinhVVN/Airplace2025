@@ -54,7 +54,22 @@ namespace Airplace2025.BLL.DAO
             }
         }
 
-        
+        public DataTable GetStopsByFlight(string MaChuyenBay)
+        {
+            string sql = "SELECT * FROM TrungGian s JOIN SanBay p ON s.MaSanBay = p.MaSanBay" +
+                " WHERE MaChuyenBay = @MaChuyenBay ORDER BY ThuTu ASC";
+            DataTable dt = new DataTable();
+            using (SqlConnection con = DBConnection.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand(sql, con);
+                cmd.Parameters.AddWithValue("@MaChuyenBay", MaChuyenBay);
+
+                con.Open();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+            }
+            return dt;
+        }
 
     }
 }

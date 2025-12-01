@@ -1,10 +1,14 @@
-﻿using Airplace2025.DAL;
+﻿using Airplace2025.BLL.DAO;
+using Airplace2025.DAL;
+using OfficeOpenXml.Style;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
@@ -15,12 +19,12 @@ using TheArtOfDevHtmlRenderer.Core;
 
 namespace Airplace2025
 {
-    public partial class frmThongKe: Form
+    public partial class frmThongKe : Form
     {
         public frmThongKe()
         {
             InitializeComponent();
-            
+
 
 
         }
@@ -382,9 +386,9 @@ namespace Airplace2025
                                     int colorIndex = 0;
                                     foreach (var point in dataPoints)
                                     {
-                                        
+
                                         string duongBayLabel = point.Item1;
-                                        decimal countValue = point.Item2; 
+                                        decimal countValue = point.Item2;
 
                                         int pointIndex = targetSeries.Points.AddXY(duongBayLabel, countValue);
                                         DataPoint addedPoint = targetSeries.Points[pointIndex];
@@ -440,6 +444,159 @@ namespace Airplace2025
             catch (Exception ex)
             {
                 MessageBox.Show($"{ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnExcel_Click(object sender, EventArgs e)
+        {
+            DateTime startDate = dtpStart.Value;
+            DateTime endDate = dtpEnd.Value;
+
+            DataTable dtBaoCao;
+            try
+            { 
+                dtBaoCao = ReportDAO.Instance.GetMonthlySalesReport(startDate, endDate);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi lấy dữ liệu báo cáo: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // 2. CHỌN NƠI LƯU FILE
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+            saveFileDialog.FileName = $"BaoCaoDoanhThu_{DateTime.Now.Year}.xlsx";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    OfficeOpenXml.ExcelPackage.License.SetNonCommercialPersonal("Huynh Mai Cao Nhan");
+
+                    using (var p = new ExcelPackage())
+                    {
+                        var ws = p.Workbook.Worksheets.Add("BaoCaoDoanhThu");
+
+                        // --- 3. ĐỊNH DẠNG FILE EXCEL ---
+
+                        // Đặt chiều rộng cột (giống ảnh mẫu)
+                        ws.Column(1).Width = 5;  // STT
+                        ws.Column(2).Width = 15; // Tháng
+                        ws.Column(3).Width = 20; // Số chuyến bay (hóa đơn)
+                        ws.Column(4).Width = 25; // Doanh thu
+                        ws.Column(5).Width = 10; // Tỷ lệ
+
+                        //  Logo và Tiêu đề
+                        Image logo = Properties.Resources.mb1;
+                        using (var stream = new MemoryStream())
+                        {
+                            logo.Save(stream, System.Drawing.Imaging.ImageFormat.Png); // Save the image to a memory stream
+                            stream.Position = 0; // Reset the stream position to the beginning
+                            var pic = ws.Drawings.AddPicture("Logo", stream); // Use the stream to add the picture
+                            pic.SetPosition(0, 0, 0, 0); // Đặt ở góc A1
+                            pic.SetSize(120, 50); // Điều chỉnh kích thước
+                        }
+                        
+                        ws.Cells["A1:B3"].Merge = true;
+
+                        // Tiêu đề chính
+                        ws.Cells["C1:E3"].Merge = true;
+                        ws.Cells["C1"].Value = "Báo cáo";
+                        ws.Cells["C1"].Style.Font.Bold = true;
+                        ws.Cells["C1"].Style.Font.Size = 18;
+                        ws.Cells["C1"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                        // 3.2. Khối "Thông tin dự án"
+                        var infoHeader = ws.Cells["A5:E5"];
+                        infoHeader.Merge = true;
+                        infoHeader.Value = "Thông tin trình bày";
+                        infoHeader.Style.Font.Bold = true;
+                        infoHeader.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        infoHeader.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        infoHeader.Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+
+                        ws.Cells["A6:B6"].Merge = true;
+                        ws.Cells["A6"].Value = "Tiêu đề";
+                        ws.Cells["A6"].Style.Font.Bold = true;
+                        ws.Cells["C6:E6"].Merge = true;
+                        ws.Cells["C6"].Value = "Quản lý bán vé máy bay";
+
+                        ws.Cells["A7:B7"].Merge = true;
+                        ws.Cells["A7"].Value = "Ngày báo cáo";
+                        ws.Cells["A7"].Style.Font.Bold = true;
+                        ws.Cells["C7:E7"].Merge = true;
+                        ws.Cells["C7"].Value = DateTime.Now.ToString("dd-MM-yyyy");
+
+                        ws.Cells["A8:B8"].Merge = true;
+                        ws.Cells["A8"].Value = "Người báo cáo";
+                        ws.Cells["A8"].Style.Font.Bold = true;
+                        ws.Cells["C8:E8"].Merge = true;
+                        // (Giả sử bạn có thông tin người dùng, ví dụ:)
+                        // ws.Cells["C8"].Value = Session.CurrentUser.HoTen; 
+                        ws.Cells["C8"].Value = "Vinh SaGe"; // Hoặc Hardcode
+
+
+                        // 3.3. Khối "Thông tin báo cáo"
+                        var dataHeader = ws.Cells["A9:E9"]; 
+                        dataHeader.Merge = true;
+                        dataHeader.Value = "Thông tin báo cáo";
+                        dataHeader.Style.Font.Bold = true;
+                        dataHeader.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        dataHeader.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        dataHeader.Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+
+                        // Tiêu đề bảng
+                        ws.Cells["A10"].Value = "STT";
+                        ws.Cells["B10"].Value = "Tháng";
+                        ws.Cells["C10"].Value = "Số hóa đơn"; // Sửa lại
+                        ws.Cells["D10"].Value = "Doanh thu (VNĐ)";
+                        ws.Cells["E10"].Value = "Tỷ lệ";
+                        ws.Cells["A10:E10"].Style.Font.Bold = true;
+                        ws.Cells["A10:E10"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                        // 3.4. Đổ dữ liệu
+                        int currentRow = 11;
+                        int stt = 1;
+                        decimal tongDoanhThu = 0;
+                        foreach (DataRow dr in dtBaoCao.Rows)
+                        {
+                            ws.Cells[currentRow, 1].Value = stt++;
+                            ws.Cells[currentRow, 2].Value = dr["Thang"];
+                            ws.Cells[currentRow, 3].Value = dr["SoHoaDon"];
+                            ws.Cells[currentRow, 4].Value = dr["DoanhThu"];
+                            ws.Cells[currentRow, 5].Value = dr["TyLe"];
+
+                            tongDoanhThu += Convert.ToDecimal(dr["DoanhThu"]);
+                            currentRow++;
+                        }
+
+                        // Định dạng số
+                        ws.Cells[$"C11:C{currentRow - 1}"].Style.Numberformat.Format = "#,##0";
+                        ws.Cells[$"D11:D{currentRow - 1}"].Style.Numberformat.Format = "#,##0.00";
+                        ws.Cells[$"E11:E{currentRow - 1}"].Style.Numberformat.Format = "0.0";
+                        ws.Cells[$"A11:E{currentRow - 1}"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        ws.Cells[$"D11:D{currentRow - 1}"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
+
+                        // 3.5. Dòng tổng kết
+                        var footerCell = ws.Cells[currentRow, 2, currentRow, 5];
+                        footerCell.Merge = true;
+                        footerCell.Value = "Tổng doanh thu: " + tongDoanhThu.ToString("#,##0.00");
+                        footerCell.Style.Font.Bold = true;
+                        footerCell.Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
+                        footerCell.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        footerCell.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(173, 216, 230)); // LightBlue (Azure)
+
+                        // 4. LƯU FILE
+                        p.SaveAs(new FileInfo(saveFileDialog.FileName));
+
+                        MessageBox.Show("Xuất báo cáo thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Đã xảy ra lỗi khi xuất file Excel: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

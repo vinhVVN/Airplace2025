@@ -35,11 +35,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPPlus, Version=8.2.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.8.2.1\lib\net462\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.Interfaces, Version=8.1.0.0, Culture=neutral, PublicKeyToken=a694d7f3b0907a61, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.Interfaces.8.1.0\lib\net462\EPPlus.Interfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Guna.UI">
       <HintPath>..\..\..\Guna.UI.dll</HintPath>
     </Reference>
     <Reference Include="Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261, processorArchitecture=MSIL">
       <HintPath>..\packages\Guna.UI2.WinForms.2.0.4.7\lib\net472\Guna.UI2.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.3.0.1\lib\netstandard2.0\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.3537.50, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
@@ -54,9 +63,31 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Xml, Version=8.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Xml.8.0.2\lib\net462\System.Security.Cryptography.Xml.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xaml" />
@@ -73,6 +104,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\DAO\AccountDAO.cs" />
+    <Compile Include="BLL\DAO\TicketDAO.cs" />
+    <Compile Include="BLL\DAO\CustomerDAO.cs" />
+    <Compile Include="BLL\DAO\ReportDAO.cs" />
     <Compile Include="BLL\DAO\StopDAO.cs" />
     <Compile Include="BLL\DAO\ParameterDAO.cs" />
     <Compile Include="BLL\DAO\AirplaneDAO.cs" />
@@ -87,16 +121,22 @@
     <Compile Include="BLL\KhachHangBLL.cs" />
     <Compile Include="BLL\DTO\ChuyenBayDTO.cs" />
     <Compile Include="BLL\DTO\SearchFlightParams.cs" />
-    <Compile Include="Controls\TimelineNodeType.cs" />
-    <Compile Include="DAL\DBConnection.cs" />
-    <Compile Include="DAL\ChuyenBayDAO.cs" />
-    <Compile Include="DAL\KhachHangDAO.cs" />
     <Compile Include="Controls\FlightLegControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\FlightLegControl.Designer.cs">
       <DependentUpon>FlightLegControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\FlightSight.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\FlightSight.Designer.cs">
+      <DependentUpon>FlightSight.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TimelineNodeType.cs" />
+    <Compile Include="DAL\DBConnection.cs" />
+    <Compile Include="DAL\ChuyenBayDAO.cs" />
+    <Compile Include="DAL\KhachHangDAO.cs" />
     <Compile Include="FilterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -235,6 +275,12 @@
     <Compile Include="frmLapLichChuyenBay.Designer.cs">
       <DependentUpon>frmLapLichChuyenBay.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmTraCuuDatVe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTraCuuDatVe.Designer.cs">
+      <DependentUpon>frmTraCuuDatVe.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmTrangChu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -252,10 +298,25 @@
     <Compile Include="SelectedFareInfo.cs" />
     <Compile Include="State\PassengerSelectionState.cs" />
     <Compile Include="State\PassengerSelectionStateTemp.cs" />
-    <None Include="Resources\sliders-solid-full.png" />
+    <Compile Include="frmXemDanhSach.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmXemDanhSach.Designer.cs">
+      <DependentUpon>frmXemDanhSach.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Controls\FlightLegControl.resx">
       <DependentUpon>FlightLegControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\FlightSight.resx">
+      <DependentUpon>FlightSight.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTraCuuDatVe.resx">
+      <DependentUpon>frmTraCuuDatVe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmXemDanhSach.resx">
+      <DependentUpon>frmXemDanhSach.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Resources\sliders-solid-full.png" />
     <EmbeddedResource Include="FilterForm.resx">
       <DependentUpon>FilterForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -360,6 +421,18 @@
     <Content Include="map.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\noun-suitecase-5350511.png" />
+    <None Include="Resources\noun-avatar-6781879.png" />
+    <None Include="Resources\noun-calendar-7630981.png" />
+    <None Include="Resources\noun-print-8158048.png" />
+    <None Include="Resources\add-more.png" />
+    <None Include="Resources\change-fly.png" />
+    <None Include="Resources\package-infor.png" />
+    <None Include="Resources\Person-green.png" />
+    <None Include="Resources\save-money.png" />
+    <None Include="Resources\airplane-seat-green.png" />
+    <None Include="Resources\noun-save-2209758.png" />
+    <None Include="Resources\noun-upload-8162800.png" />
     <None Include="Resources\noun-flight-7053311.png" />
     <None Include="Resources\noun-flight-ticket-6637983.png" />
     <None Include="Resources\noun-money-5633622.png" />
