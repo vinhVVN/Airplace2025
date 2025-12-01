@@ -237,6 +237,12 @@
     <Compile Include="frmPriceDetails.Designer.cs">
       <DependentUpon>frmPriceDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmQuanLiNhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmQuanLiNhanVien.Designer.cs">
+      <DependentUpon>frmQuanLiNhanVien.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmShoppingCart.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -254,6 +260,12 @@
     </Compile>
     <Compile Include="frmThanhToan.Designer.cs">
       <DependentUpon>frmThanhToan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmThemNhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmThemNhanVien.Designer.cs">
+      <DependentUpon>frmThemNhanVien.cs</DependentUpon>
     </Compile>
     <Compile Include="frmThemTrungGian.cs">
       <SubType>Form</SubType>
@@ -326,6 +338,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\FlightSight.resx">
       <DependentUpon>FlightSight.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmQuanLiNhanVien.resx">
+      <DependentUpon>frmQuanLiNhanVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmThemNhanVien.resx">
+      <DependentUpon>frmThemNhanVien.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTraCuuDatVe.resx">
       <DependentUpon>frmTraCuuDatVe.cs</DependentUpon>

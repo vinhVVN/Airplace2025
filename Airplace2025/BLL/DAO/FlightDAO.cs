@@ -107,6 +107,19 @@ namespace Airplace2025.BLL.DAO
             return dt;
         }
 
+
+        public void UpdateFlightStatusAuto()
+        {
+            using (SqlConnection con = DBConnection.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand("sp_TuDongCapNhatTrangThaiBay", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
         public FlightResult GetFlightDetail(string maChuyenBay)
         {
             var result = new FlightResult();
