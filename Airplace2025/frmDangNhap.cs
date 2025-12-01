@@ -139,10 +139,14 @@ namespace Airplace2025
                     string hoTen = userInfo["HoTen"].ToString();
                     string vaiTro = userInfo["TenVaiTro"].ToString();
 
-                    MessageBox.Show($"Chào mừng {hoTen} ({vaiTro})!", "Đăng nhập thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Lưu thông tin vào Session
+                    Session.MaNhanVien = userInfo["MaNhanVien"].ToString();
+                    Session.TenDangNhap = userInfo["TenDangNhap"].ToString();
+                    Session.HoTen = hoTen;
+                    Session.MaVaiTro = userInfo["MaVaiTro"].ToString();
+                    Session.TenVaiTro = vaiTro;
 
-                    // (Bạn có thể lưu thông tin vào một lớp tĩnh tại đây, ví dụ:)
-                    // Session.CurrentUser = new User(userInfo);
+                    MessageBox.Show($"Chào mừng {hoTen} ({vaiTro})!", "Đăng nhập thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // Mở form chính và ẩn form này
                     frmTrangChu fTrangChu = new frmTrangChu();

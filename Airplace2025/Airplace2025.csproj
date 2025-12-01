@@ -114,13 +114,21 @@
     <Compile Include="BLL\DAO\ClassDAO.cs" />
     <Compile Include="BLL\DAO\AirlineDAO.cs" />
     <Compile Include="BLL\DAO\FlightDAO.cs" />
+    <Compile Include="BLL\DatVeBLL.cs" />
     <Compile Include="BLL\DTO\HangVeDTO.cs" />
     <Compile Include="BLL\DTO\KhachHangDTO.cs" />
     <Compile Include="BLL\FlightDetail.cs" />
     <Compile Include="BLL\ChuyenBayBLL.cs" />
+    <Compile Include="BLL\HoaDonBLL.cs" />
     <Compile Include="BLL\KhachHangBLL.cs" />
     <Compile Include="BLL\DTO\ChuyenBayDTO.cs" />
     <Compile Include="BLL\DTO\SearchFlightParams.cs" />
+    <Compile Include="Controls\TimelineNodeType.cs" />
+    <Compile Include="DAL\DatVeDAO.cs" />
+    <Compile Include="DAL\DBConnection.cs" />
+    <Compile Include="DAL\ChuyenBayDAO.cs" />
+    <Compile Include="DAL\HoaDonDAO.cs" />
+    <Compile Include="DAL\KhachHangDAO.cs" />
     <Compile Include="Controls\FlightLegControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -133,10 +141,6 @@
     <Compile Include="Controls\FlightSight.Designer.cs">
       <DependentUpon>FlightSight.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TimelineNodeType.cs" />
-    <Compile Include="DAL\DBConnection.cs" />
-    <Compile Include="DAL\ChuyenBayDAO.cs" />
-    <Compile Include="DAL\KhachHangDAO.cs" />
     <Compile Include="FilterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -191,11 +195,29 @@
     <Compile Include="frmChonChuyenBayDi.Designer.cs">
       <DependentUpon>frmChonChuyenBayDi.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmChonChuyenBayVe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChonChuyenBayVe.Designer.cs">
+      <DependentUpon>frmChonChuyenBayVe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmChonGhe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChonGhe.Designer.cs">
+      <DependentUpon>frmChonGhe.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmChonKhachHang.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmChonKhachHang.Designer.cs">
       <DependentUpon>frmChonKhachHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCustomerInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCustomerInfo.Designer.cs">
+      <DependentUpon>frmCustomerInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="frmDangNhap.cs">
       <SubType>Form</SubType>
@@ -209,17 +231,11 @@
     <Compile Include="frmMayBay.Designer.cs">
       <DependentUpon>frmMayBay.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmPassengerDetails.cs">
+    <Compile Include="frmPriceDetails.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmPassengerDetails.Designer.cs">
-      <DependentUpon>frmPassengerDetails.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmSeatSelection.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmSeatSelection.Designer.cs">
-      <DependentUpon>frmSeatSelection.cs</DependentUpon>
+    <Compile Include="frmPriceDetails.Designer.cs">
+      <DependentUpon>frmPriceDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="frmShoppingCart.cs">
       <SubType>Form</SubType>
@@ -233,6 +249,12 @@
     <Compile Include="frmSoLuongKhachHang.Designer.cs">
       <DependentUpon>frmSoLuongKhachHang.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmThanhToan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmThanhToan.Designer.cs">
+      <DependentUpon>frmThanhToan.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmThemTrungGian.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -244,12 +266,6 @@
     </Compile>
     <Compile Include="frmThongKe.Designer.cs">
       <DependentUpon>frmThongKe.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmTimKiemKhachHang.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmTimKiemKhachHang.Designer.cs">
-      <DependentUpon>frmTimKiemKhachHang.cs</DependentUpon>
     </Compile>
     <Compile Include="frmDanhSachChuyenBay.cs">
       <SubType>Form</SubType>
@@ -296,6 +312,7 @@
       <DependentUpon>StopControl.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectedFareInfo.cs" />
+    <Compile Include="Session.cs" />
     <Compile Include="State\PassengerSelectionState.cs" />
     <Compile Include="State\PassengerSelectionStateTemp.cs" />
     <Compile Include="frmXemDanhSach.cs">
@@ -344,8 +361,14 @@
     <EmbeddedResource Include="frmChonChuyenBayDi.resx">
       <DependentUpon>frmChonChuyenBayDi.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmChonChuyenBayVe.resx">
+      <DependentUpon>frmChonChuyenBayVe.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmChonKhachHang.resx">
       <DependentUpon>frmChonKhachHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCustomerInfo.resx">
+      <DependentUpon>frmCustomerInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDangNhap.resx">
       <DependentUpon>frmDangNhap.cs</DependentUpon>
@@ -353,8 +376,8 @@
     <EmbeddedResource Include="frmMayBay.resx">
       <DependentUpon>frmMayBay.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmPassengerDetails.resx">
-      <DependentUpon>frmPassengerDetails.cs</DependentUpon>
+    <EmbeddedResource Include="frmPriceDetails.resx">
+      <DependentUpon>frmPriceDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmShoppingCart.resx">
       <DependentUpon>frmShoppingCart.cs</DependentUpon>
@@ -362,17 +385,14 @@
     <EmbeddedResource Include="frmSoLuongKhachHang.resx">
       <DependentUpon>frmSoLuongKhachHang.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmThanhToan.resx">
+      <DependentUpon>frmThanhToan.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmThemTrungGian.resx">
       <DependentUpon>frmThemTrungGian.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmSeatSelection.resx">
-      <DependentUpon>frmSeatSelection.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmThongKe.resx">
       <DependentUpon>frmThongKe.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmTimKiemKhachHang.resx">
-      <DependentUpon>frmTimKiemKhachHang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDanhSachChuyenBay.resx">
       <DependentUpon>frmDanhSachChuyenBay.cs</DependentUpon>
