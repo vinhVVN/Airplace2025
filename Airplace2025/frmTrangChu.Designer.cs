@@ -161,6 +161,7 @@
             // 
             this.btnVeMayBay.BorderColor = System.Drawing.Color.DeepSkyBlue;
             this.btnVeMayBay.BorderThickness = 3;
+            this.btnVeMayBay.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnVeMayBay.CustomBorderColor = System.Drawing.Color.Black;
             this.btnVeMayBay.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnVeMayBay.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;

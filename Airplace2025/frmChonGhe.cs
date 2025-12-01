@@ -11,7 +11,8 @@ namespace Airplace2025
     public partial class frmChonGhe : Form
     {
         // Input Data
-        private List<KhachHangDTO> _customers;
+        private List<KhachHangDTO> _customers; // All customers
+        private List<KhachHangDTO> _passengersNeedingSeats; // Filtered list (Adults + Children)
         private SelectedFareInfo _departureFlight;
         private SelectedFareInfo _returnFlight;
         
@@ -20,8 +21,8 @@ namespace Airplace2025
         private List<string> _bookedSeatsDeparture;
         private List<string> _bookedSeatsReturn;
         
-        // Mapping: Passenger ID -> Seat Code
-        // We use a specialized Dictionary Key: "{PassengerIndex}_{IsReturn}"
+        // Mapping: Passenger Index (in _passengersNeedingSeats) -> Seat Code
+        // Key Format: "{Index}_{IsReturn}" (e.g., "0_False" for first passenger departure)
         private Dictionary<string, string> _selectedSeatsMap = new Dictionary<string, string>();
         
         private int _currentPassengerIndex = 0;
@@ -44,10 +45,36 @@ namespace Airplace2025
 
         private void frmChonGhe_Load(object sender, EventArgs e)
         {
+            FilterPassengers();
             LoadBookedSeats();
             InitializeUI();
             RenderSeatMap();
             UpdatePassengerList();
+        }
+
+        private void FilterPassengers()
+        {
+            _passengersNeedingSeats = new List<KhachHangDTO>();
+            if (_departureFlight?.Flight == null) return;
+
+            DateTime flightDate = _departureFlight.Flight.NgayGioBay;
+
+            foreach (var cust in _customers)
+            {
+                // Infants (< 2 years) do not need separate seats
+                if (!IsInfant(cust, flightDate))
+                {
+                    _passengersNeedingSeats.Add(cust);
+                }
+            }
+        }
+
+        private bool IsInfant(KhachHangDTO cust, DateTime flightDate)
+        {
+            if (!cust.NgaySinh.HasValue) return false;
+            int age = flightDate.Year - cust.NgaySinh.Value.Year;
+            if (flightDate < cust.NgaySinh.Value.AddYears(age)) age--;
+            return age < 2;
         }
 
         private void LoadBookedSeats()
@@ -116,14 +143,9 @@ namespace Airplace2025
             pnlSeatMap.Controls.Clear();
             pnlSeatMap.AutoScroll = true;
 
-            // Determine Config based on Aircraft or Random logic simulation
-            // A320/A321: 3-3 (ABC-DEF). Rows 1-30.
-            // Business usually rows 1-3 (2-2 AC-DF).
-            
+            // Mock Config: A320/A321: 3-3 (ABC-DEF). Rows 1-30.
             int rows = 30;
-            bool hasBusiness = true;
             
-            // Mock logic for seat generation
             TableLayoutPanel table = new TableLayoutPanel();
             table.AutoSize = true;
             table.Padding = new Padding(20);
@@ -166,10 +188,7 @@ namespace Airplace2025
 
             for (int r = 1; r <= rows; r++)
             {
-                // Row Label? Ideally we add a row number column on both sides, but keep it simple
-                
                 bool isBusinessRow = r <= 3;
-                // If business row, simulation 2-2 config (AC-DF)
                 
                 for (int c = 0; c < 7; c++)
                 {
@@ -184,7 +203,7 @@ namespace Airplace2025
                         continue;
 
                     Button btnSeat = new Button();
-                    btnSeat.Text = ""; // Only show if selected? Or Seat Code tooltip
+                    btnSeat.Text = ""; 
                     btnSeat.Tag = seatCode;
                     btnSeat.Size = new Size(SEAT_SIZE, SEAT_SIZE);
                     btnSeat.Margin = new Padding(SEAT_MARGIN);
@@ -209,10 +228,6 @@ namespace Airplace2025
                     }
                     else
                     {
-                        // Check class restriction
-                        // If User is Eco, cannot pick Business
-                        // If User is Bus, can pick Business (and usually Eco too)
-                        
                         if (isBusinessRow)
                         {
                             btnSeat.BackColor = COLOR_BUSINESS;
@@ -221,13 +236,11 @@ namespace Airplace2025
                         else
                         {
                             btnSeat.BackColor = COLOR_AVAILABLE;
-                            // If business user wants eco seat? Allowed.
                         }
                     }
 
                     btnSeat.Click += BtnSeat_Click;
                     
-                    // Tooltip
                     ToolTip tt = new ToolTip();
                     tt.SetToolTip(btnSeat, $"Ghế {seatCode}" + (isBusinessRow ? " (Thương gia)" : ""));
 
@@ -240,25 +253,11 @@ namespace Airplace2025
 
         private bool IsSeatSelected(string seatCode)
         {
-            // Check if this seat is in the values of the dictionary for the current Flight Direction
             string suffix = _isSelectingReturn ? "_Ret" : "_Dep";
+            // Check if this seat code is assigned to any passenger in the current leg
             return _selectedSeatsMap.Values.Any(v => v == seatCode + suffix);
         }
         
-        private string GetSeatForCurrentPassenger()
-        {
-            if (_currentPassengerIndex < 0 || _currentPassengerIndex >= _customers.Count) return null;
-            
-            string key = GetKey(_currentPassengerIndex, _isSelectingReturn);
-            if (_selectedSeatsMap.ContainsKey(key))
-            {
-                // Value format: "12A_Dep"
-                string val = _selectedSeatsMap[key];
-                return val.Split('_')[0];
-            }
-            return null;
-        }
-
         private string GetKey(int passengerIndex, bool isReturn)
         {
             return $"{passengerIndex}_" + (isReturn ? "Ret" : "Dep");
@@ -269,7 +268,7 @@ namespace Airplace2025
             Button btn = (Button)sender;
             string seatCode = btn.Tag.ToString();
             
-            if (_currentPassengerIndex < 0 || _currentPassengerIndex >= _customers.Count)
+            if (_currentPassengerIndex < 0 || _currentPassengerIndex >= _passengersNeedingSeats.Count)
             {
                 MessageBox.Show("Vui lòng chọn hành khách trước.");
                 return;
@@ -290,8 +289,6 @@ namespace Airplace2025
                 var existingOwner = _selectedSeatsMap.FirstOrDefault(x => x.Value == value).Key;
                 if (existingOwner != null)
                 {
-                    // Steal seat? Or warn? Let's steal it for better UX (assume user knows what they do)
-                    // Or simpler: block it.
                     MessageBox.Show($"Ghế {seatCode} đã được chọn cho hành khách khác.");
                     return;
                 }
@@ -302,13 +299,13 @@ namespace Airplace2025
 
             // Redraw
             RenderSeatMap();
-            lstPassengers.Refresh(); // Update checkmarks
+            lstPassengers.Refresh(); 
             
-            // Auto-advance to next passenger if available and hasn't selected yet
-            if (_selectedSeatsMap.ContainsKey(key)) // If we just selected (not deselected)
+            // Auto-advance
+            if (_selectedSeatsMap.ContainsKey(key))
             {
                 int nextIdx = _currentPassengerIndex + 1;
-                if (nextIdx < _customers.Count)
+                if (nextIdx < _passengersNeedingSeats.Count)
                 {
                     string nextKey = GetKey(nextIdx, _isSelectingReturn);
                     if (!_selectedSeatsMap.ContainsKey(nextKey))
@@ -322,7 +319,8 @@ namespace Airplace2025
         private void UpdatePassengerList()
         {
             lstPassengers.Items.Clear();
-            foreach (var cust in _customers)
+            // Only show passengers who need seats
+            foreach (var cust in _passengersNeedingSeats)
             {
                 lstPassengers.Items.Add(cust);
             }
@@ -333,7 +331,8 @@ namespace Airplace2025
             if (e.Index < 0) return;
             e.DrawBackground();
             
-            var cust = _customers[e.Index];
+            // Only drawing passengers needing seats
+            var cust = _passengersNeedingSeats[e.Index];
             string key = GetKey(e.Index, _isSelectingReturn);
             bool hasSeat = _selectedSeatsMap.ContainsKey(key);
             string seatInfo = hasSeat ? $" - Ghế: {_selectedSeatsMap[key].Split('_')[0]}" : "";
@@ -345,7 +344,6 @@ namespace Airplace2025
             
             e.Graphics.DrawString(text, e.Font, brush, e.Bounds);
             
-            // Draw Checkmark if selected
             if (hasSeat)
             {
                 e.Graphics.DrawString("✓", e.Font, Brushes.Green, e.Bounds.Right - 20, e.Bounds.Top);
@@ -371,50 +369,51 @@ namespace Airplace2025
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            // Validation
-            // Check Departure Seats
-            for (int i = 0; i < _customers.Count; i++)
+            // Validation: Check if all passengers needing seats have selected a seat
+            for (int i = 0; i < _passengersNeedingSeats.Count; i++)
             {
                 string key = GetKey(i, false);
                 if (!_selectedSeatsMap.ContainsKey(key))
                 {
-                    MessageBox.Show($"Chuyến đi: Chưa chọn ghế cho hành khách {_customers[i].HoTen}");
+                    MessageBox.Show($"Chuyến đi: Chưa chọn ghế cho hành khách {_passengersNeedingSeats[i].HoTen}");
                     SetActiveTab(false);
                     return;
                 }
             }
 
-            // Check Return Seats (if applicable)
             if (_returnFlight != null)
             {
-                for (int i = 0; i < _customers.Count; i++)
+                for (int i = 0; i < _passengersNeedingSeats.Count; i++)
                 {
                     string key = GetKey(i, true);
                     if (!_selectedSeatsMap.ContainsKey(key))
                     {
-                        MessageBox.Show($"Chuyến về: Chưa chọn ghế cho hành khách {_customers[i].HoTen}");
+                        MessageBox.Show($"Chuyến về: Chưa chọn ghế cho hành khách {_passengersNeedingSeats[i].HoTen}");
                         SetActiveTab(true);
                         return;
                     }
                 }
             }
 
-            // Save data to Customer Objects (InMemory hack since DTO fields might be missing or we use Tag)
-            // Better: Return the dictionary or attach to DTO.
-            // Since we can't easily modify DTO structure in this context without seeing it, 
-            // let's attach to Tag or use a static helper, or just rely on the map being public.
+            // Update DTOs with selected seats
+            for (int i = 0; i < _passengersNeedingSeats.Count; i++)
+            {
+                var cust = _passengersNeedingSeats[i];
+                
+                string keyDep = GetKey(i, false);
+                if (_selectedSeatsMap.ContainsKey(keyDep))
+                    cust.MaGheDi = _selectedSeatsMap[keyDep].Split('_')[0];
+
+                if (_returnFlight != null)
+                {
+                    string keyRet = GetKey(i, true);
+                    if (_selectedSeatsMap.ContainsKey(keyRet))
+                        cust.MaGheVe = _selectedSeatsMap[keyRet].Split('_')[0];
+                }
+            }
             
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
-        
-        // Helper method to retrieve results
-        public Dictionary<string, string> GetSelectedSeats()
-        {
-            return _selectedSeatsMap;
-        }
-        
-        // Helper to inject into DTO (if we assume properties exist or we add them dynamically? No, can't add dynamically)
-        // We will rely on frmShoppingCart asking this form for the data.
     }
 }

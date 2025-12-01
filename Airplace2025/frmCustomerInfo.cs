@@ -470,22 +470,7 @@ namespace Airplace2025
             {
                 if (fGhe.ShowDialog() == DialogResult.OK)
                 {
-                    // Lấy kết quả chọn ghế và map vào Customers
-                    Dictionary<string, string> seatMap = fGhe.GetSelectedSeats();
-                    
-                    // Format of keys in seatMap: "Index_Dep" or "Index_Ret"
-                    for (int i = 0; i < SelectedCustomers.Count; i++)
-                    {
-                        string depKey = $"{i}_Dep";
-                        string retKey = $"{i}_Ret";
-                        
-                        if (seatMap.ContainsKey(depKey))
-                            SelectedCustomers[i].MaGheDi = seatMap[depKey].Replace("_Dep", ""); // e.g. "12A"
-                            
-                        if (seatMap.ContainsKey(retKey))
-                            SelectedCustomers[i].MaGheVe = seatMap[retKey].Replace("_Ret", "");
-                    }
-
+                    // DTOs are already updated inside frmChonGhe
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
