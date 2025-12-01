@@ -29,9 +29,9 @@ namespace Airplace2025.Controls
         {
             lbTenMayBay.Text = aircraftName;
             lbMaSanBayDi.Text = originAirport;
-            lbMaSanBayDi.Text = originAirportName;
+            lbTenSanBayDi.Text = originAirportName;
             lbMaSanBayDen.Text = destinationAirport;
-            lbMaSanBayDen.Text = destinationAirportName;
+            lbTenSanBayDen.Text = destinationAirportName;
             lbThoiGianDi.Text = departureTime;
             lbThoiGianDen.Text = arrivalTime;
             lbNgayDi.Text = departureDay;
@@ -39,7 +39,7 @@ namespace Airplace2025.Controls
             lbThoiLuong.Text = duration;
             imgLogo.Image = logo;
             lbSeat.Text = Seat;
-
+            
         }
 
     }
