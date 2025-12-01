@@ -12,6 +12,7 @@ namespace Airplace2025
 {
     public partial class frmChiTietVe : Form
     {
+        private readonly Action<SelectedFareInfo> onConfirmCallback;
         private SelectedFareInfo currentFare;
 
         public frmChiTietVe()
@@ -19,8 +20,9 @@ namespace Airplace2025
             InitializeComponent();
         }
 
-        public frmChiTietVe(SelectedFareInfo fareInfo) : this()
+        public frmChiTietVe(SelectedFareInfo fareInfo, Action<SelectedFareInfo> onConfirm = null) : this()
         {
+            onConfirmCallback = onConfirm;
             ApplyFareInfo(fareInfo);
         }
 
@@ -117,9 +119,16 @@ namespace Airplace2025
                 return;
             }
 
-            using (var frmShoppingCart = new frmShoppingCart(currentFare))
+            if (onConfirmCallback != null)
             {
-                frmShoppingCart.ShowDialog(this);
+                onConfirmCallback(currentFare);
+            }
+            else
+            {
+                using (var frmShoppingCart = new frmShoppingCart(currentFare))
+                {
+                    frmShoppingCart.ShowDialog(this);
+                }
             }
 
             this.Close();

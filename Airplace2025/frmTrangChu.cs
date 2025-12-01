@@ -27,7 +27,7 @@ namespace Airplace2025
             // --- 1. RESET (Đưa tất cả các nút về trạng thái Mặc định) ---
             // Tạo một List hoặc mảng chứa tất cả các nút menu của bạn
             Guna.UI2.WinForms.Guna2Button[] menuButtons =
-                new Guna.UI2.WinForms.Guna2Button[] { btnChuyenBay, btnVeMayBay, btnBaoCao,btnMayBay, btnLapLichBay, btnCaiDat };
+                new Guna.UI2.WinForms.Guna2Button[] { btnChuyenBay, btnVeMayBay, btnBaoCao,btnMayBay, btnLapLichBay };
 
             foreach (var btn in menuButtons)
             {
@@ -87,7 +87,7 @@ namespace Airplace2025
 
             // *Thực hiện các chức năng: Ví dụ: Hiển thị UserControl Chuyến Bay*
             // ShowUserControl(new UC_ChuyenBay());
-            LoadFormIntoPanel(new frmMayBay());
+            LoadFormIntoPanel(new frmTraCuuDatVe());
         }
 
         private void guna2Button5_Click(object sender, EventArgs e)
@@ -99,14 +99,6 @@ namespace Airplace2025
             LoadFormIntoPanel(new frmLapLichChuyenBay());
         }
 
-        private void guna2Button6_Click(object sender, EventArgs e)
-        {
-            // Lấy nút vừa click (sender) và gọi hàm thiết lập trạng thái
-            SetActiveButton((Guna.UI2.WinForms.Guna2Button)sender);
-
-            // *Thực hiện các chức năng: Ví dụ: Hiển thị UserControl Chuyến Bay*
-            LoadFormIntoPanel(new frmCaiDat());
-        }
 
         private void guna2PictureBox1_Click(object sender, EventArgs e)
         {

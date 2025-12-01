@@ -1,23 +1,17 @@
-﻿using Airplace2025.BLL; // for ChuyenBayBLL
-using Airplace2025.BLL.DTO; // for ChuyenBayDTO
-using Airplace2025.DAL; // for ChuyenBayDAO
-using Airplace2025.State; // for PassengerSelectionState
+﻿using Airplace2025.BLL;
+using Airplace2025.BLL.DTO;
+using Airplace2025.DAL;
+using Airplace2025.State;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Caching;
-using System.Windows;
-using System.Windows.Documents;
 using System.Windows.Forms;
 
 namespace Airplace2025
 {
-    public partial class frmChonChuyenBayDi : Form
+    public partial class frmChonChuyenBayVe : Form
     {
         private string sanBayDi;
         private string sanBayDen;
@@ -27,37 +21,43 @@ namespace Airplace2025
         private bool isRoundTrip;
         private bool isUpdatingCombos = false;
         private List<string> airportOptions = new List<string>();
-        private DataTable airportsDisplayTable; //Nguồn được lưu vào bộ nhớ cache cho việc lọc combo.
-        private List<ChuyenBayDTO> currentFlights = new List<ChuyenBayDTO>(); // Lưu danh sách chuyến bay hiện tại để sắp xếp
+        private DataTable airportsDisplayTable;
+        private List<ChuyenBayDTO> currentFlights = new List<ChuyenBayDTO>();
         private string filterCabin = "Tất cả";
         private decimal filterMaxBudget = decimal.MaxValue;
         private bool filterDirectFlightOnly = false;
-        private int filterDepartureTimeSlot = 0; // 0: Any, 1: Morning, 2: Afternoon, 3: Evening
-        private int filterArrivalTimeSlot = 0; // 0: Any, 1: Morning, 2: Afternoon, 3: Evening
+        private int filterDepartureTimeSlot = 0;
+        private int filterArrivalTimeSlot = 0;
         private List<string> filterAirlines = new List<string>();
-        private List<ChuyenBayDTO> originalFlights = new List<ChuyenBayDTO>(); // Store original unfiltered flights
+        private List<ChuyenBayDTO> originalFlights = new List<ChuyenBayDTO>();
         private decimal minFlightPrice = 0;
         private decimal maxFlightPrice = 0;
+        private readonly SelectedFareInfo departureFareInfo;
 
-        public frmChonChuyenBayDi(string sanBayDi, string sanBayDen, DateTime ngayDi, DateTime ngayVe, string soLuongHanhKhach, bool isRoundTrip)
+        public frmChonChuyenBayVe(
+            string sanBayDi,
+            string sanBayDen,
+            DateTime ngayDi,
+            DateTime ngayVe,
+            string soLuongHanhKhach,
+            bool isRoundTrip,
+            SelectedFareInfo departureFare = null)
         {
             InitializeComponent();
             this.sanBayDi = sanBayDi;
             this.sanBayDen = sanBayDen;
-            // Xác thực ngày tháng ngay lập tức để ngăn chặn (người dùng chọn) các ngày trong quá khứ.
             this.ngayDi = ngayDi < DateTime.Today ? DateTime.Today : ngayDi;
             this.ngayVe = ngayVe < DateTime.Today ? DateTime.Today : ngayVe;
             this.soLuongHanhKhach = soLuongHanhKhach;
             this.isRoundTrip = isRoundTrip;
+            this.departureFareInfo = departureFare;
             LoadFlights();
         }
 
-        private void frmChonChuyenBay_Load(object sender, EventArgs e)
+        private void frmChonChuyenBayVe_Load(object sender, EventArgs e)
         {
-            // Tải các sân bay vào hộp tổ hợp (combo box) từ cơ sở dữ liệu
             LoadAirportsToCombos();
 
-            // Hiển thị mã sân bay từ frmDatVe
             if (!string.IsNullOrEmpty(sanBayDi))
             {
                 lblFrom.Text = sanBayDi;
@@ -70,25 +70,18 @@ namespace Airplace2025
                 TrySelectComboValue(cbSanBayDen, sanBayDen);
             }
 
-            // Hiển thị ngày đi với format "Th t, dd thg mm"
-            // Cho phép chọn từ hôm nay
             dtpNgayDi.MinDate = DateTime.Today;
             dtpNgayVe.MinDate = DateTime.Today;
 
-            // Gán giá trị đã được validate trong constructor
             dtpNgayDi.Value = ngayDi;
             dtpNgayVe.Value = ngayVe;
 
             dtpDeparture.Text = FormatDate(dtpNgayDi.Value);
-
-            // Hiển thị ngày về với format "Th t, dd thg mm"
             dtpReturn.Text = FormatDate(dtpNgayVe.Value);
 
-            // Hiển thị số lượng hành khách với format "{var} người"
             lblTotalPassengers.Text = FormatPassengerCount(soLuongHanhKhach);
-
             btnTotalCustomers.Text = FormatTotalPassengerCount(soLuongHanhKhach);
-            // Bật/tắt hiển thị theo loại vé
+
             if (isRoundTrip)
             {
                 btnRoundTrip.Checked = true;
@@ -109,19 +102,14 @@ namespace Airplace2025
             }
 
             pnlChonChuyenBay.Location = new System.Drawing.Point(0, 100);
-
-            // Load chuyến bay từ database
             LoadFlights();
         }
 
-        /// Load airports into cbSanBayDi and cbSanBayDen from database.
-        /// Display as "MaSanBay - TenSanBay" and value as MaSanBay.
         private void LoadAirportsToCombos()
         {
             try
             {
                 DataTable airports = ChuyenBayDAO.Instance.GetAirports();
-                // Build display column
                 DataTable buildDisplay(DataTable src)
                 {
                     DataTable dt = src.Copy();
@@ -138,7 +126,6 @@ namespace Airplace2025
                     return dt;
                 }
 
-                // cache one built table, bind copies/views to each combo
                 airportsDisplayTable = buildDisplay(airports);
 
                 cbSanBayDi.DisplayMember = "Display";
@@ -151,7 +138,7 @@ namespace Airplace2025
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show($"Lỗi tải danh sách sân bay: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi tải danh sách sân bay: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -189,12 +176,9 @@ namespace Airplace2025
                     combo.SelectedValue = value;
                 }
             }
-            catch { /* ignore invalid value */ }
+            catch { }
         }
 
-        /// <summary>
-        /// Format ngày theo định dạng "Th t, dd thg mm" (ví dụ: Th 4, 29 thg 10)
-        /// </summary>
         private string FormatDate(DateTime date)
         {
             string[] thuViet = { "CN", "T2", "T3", "T4", "T5", "T6", "T7" };
@@ -203,15 +187,11 @@ namespace Airplace2025
             return $"{thu}, {date.Day:D2} thg {date.Month:D2}";
         }
 
-        /// <summary>
-        /// Format số lượng hành khách theo định dạng "{var} người"
-        /// </summary>
         private string FormatPassengerCount(string passengerText)
         {
             if (string.IsNullOrEmpty(passengerText))
                 return "1 người";
 
-            // Trích xuất số từ text như "1 hành khách" -> "1"
             string number = ExtractNumberFromText(passengerText);
 
             return $"{number} người";
@@ -222,26 +202,20 @@ namespace Airplace2025
             if (string.IsNullOrEmpty(passengerText))
                 return "1 hành khách";
 
-            // Trích xuất số từ text như "1 hành khách" -> "1"
             string number = ExtractNumberFromText(passengerText);
 
             return $"{number} hành khách";
         }
 
-        /// <summary>
-        /// Trích xuất số từ chuỗi text
-        /// </summary>
         private string ExtractNumberFromText(string text)
         {
             if (string.IsNullOrEmpty(text))
                 return "1";
 
-            // Tìm số đầu tiên trong chuỗi
             for (int i = 0; i < text.Length; i++)
             {
                 if (char.IsDigit(text[i]))
                 {
-                    // Tìm số liên tiếp
                     int start = i;
                     while (i < text.Length && char.IsDigit(text[i]))
                     {
@@ -251,7 +225,7 @@ namespace Airplace2025
                 }
             }
 
-            return "1"; // Mặc định là 1 nếu không tìm thấy số
+            return "1";
         }
 
         private void btnChange_Click(object sender, EventArgs e)
@@ -261,7 +235,6 @@ namespace Airplace2025
             lblUp.Visible = isExpanded;
             pnlChange.Visible = isExpanded;
 
-            // When expanding, reflect the last saved trip type
             if (isExpanded)
             {
                 pnlChonChuyenBay.Location = new System.Drawing.Point(0, 306);
@@ -275,7 +248,8 @@ namespace Airplace2025
                     btnRoundTrip.Checked = false;
                     btnOneWay.Checked = true;
                 }
-            } else
+            }
+            else
             {
                 pnlChonChuyenBay.Location = new System.Drawing.Point(0, 100);
             }
@@ -284,151 +258,76 @@ namespace Airplace2025
         private void btnTotalCustomers_Click(object sender, EventArgs e)
         {
             frmSoLuongKhachHang soLuongKhachHangForm = new frmSoLuongKhachHang();
-            // Open as modal to wait for user confirmation
             soLuongKhachHangForm.ShowDialog(this);
 
-            // After dialog closes, refresh displayed totals from shared state
             int total = PassengerSelectionStateTemp.Total;
             btnTotalCustomers.Text = $"{total} Hành khách";
         }
 
         private void btnRoundTrip_CheckedChanged(object sender, EventArgs e)
         {
-            bool isRoundTrip = btnRoundTrip.Checked;
-            // Edit panel controls
-            lblReturnDate.Visible = isRoundTrip;
-            dtpNgayVe.Visible = isRoundTrip;
+            bool isRoundTripView = btnRoundTrip.Checked;
+            lblReturnDate.Visible = isRoundTripView;
+            dtpNgayVe.Visible = isRoundTripView;
         }
 
-        private void pnlRoundTrip_Paint(object sender, PaintEventArgs e)
+        private void btnOneWay_CheckedChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void guna2HtmlLabel2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void guna2HtmlLabel1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblUp_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pnlOneWay_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void guna2HtmlLabel3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblDown_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblTotalPassengers_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblPassengers_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void guna2Panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void dtpReturn_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblReturn_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblDeparture_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dtpDeparture_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void guna2Panel3_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void lblTo_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblFrom_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pnlThongTinDatCho_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void guna2HtmlLabel7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void guna2HtmlLabel4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void guna2HtmlLabel6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblReturnDate_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private string ExtractAirportCode(string airportString)
-        {
-            if (string.IsNullOrEmpty(airportString))
-                return "";
-
-            // Tìm vị trí của dấu " - " để tách mã sân bay
-            int dashIndex = airportString.IndexOf(" - ");
-            if (dashIndex > 0)
+            if (btnOneWay.Checked)
             {
-                return airportString.Substring(0, dashIndex).Trim();
+                lblReturnDate.Visible = false;
+                dtpNgayVe.Visible = false;
             }
+        }
 
-            // Nếu không có dấu " - ", trả về toàn bộ chuỗi
-            return airportString.Trim();
+        private void btnEditSave_Click(object sender, EventArgs e)
+        {
+            PassengerSelectionState.SetAdult(PassengerSelectionStateTemp.Adult);
+            PassengerSelectionState.SetChild(PassengerSelectionStateTemp.Child);
+            PassengerSelectionState.SetInfant(PassengerSelectionStateTemp.Infant);
+
+            string newSanBayDi = GetSelectedAirportCode(cbSanBayDi.SelectedValue, cbSanBayDi.SelectedItem);
+            string newSanBayDen = GetSelectedAirportCode(cbSanBayDen.SelectedValue, cbSanBayDen.SelectedItem);
+            DateTime newNgayDi = dtpNgayDi.Value;
+            DateTime newNgayVe = dtpNgayVe.Value;
+            int total = PassengerSelectionStateTemp.Total;
+            string newSoLuongHanhKhach = $"{total} hành khách";
+            bool newIsRoundTrip = btnRoundTrip.Checked;
+
+            this.DialogResult = DialogResult.OK;
+
+            frmChonChuyenBayVe newForm = new frmChonChuyenBayVe(
+                newSanBayDi,
+                newSanBayDen,
+                newNgayDi,
+                newNgayVe,
+                newSoLuongHanhKhach,
+                newIsRoundTrip,
+                departureFareInfo
+            );
+
+            this.Hide();
+            newForm.ShowDialog();
+            this.Close();
+        }
+
+        private void dtpNgayDi_ValueChanged(object sender, EventArgs e)
+        {
+            dtpNgayVe.MinDate = dtpNgayDi.Value.Date;
+            ValidateReturnDate();
+        }
+
+        private void dtpNgayVe_ValueChanged(object sender, EventArgs e)
+        {
+            ValidateReturnDate();
+        }
+
+        private void ValidateReturnDate()
+        {
+            if (dtpNgayVe.Value < dtpNgayDi.Value)
+            {
+                dtpNgayVe.Value = dtpNgayDi.Value;
+            }
         }
 
         private void cbSanBayDi_SelectedIndexChanged(object sender, EventArgs e)
@@ -438,13 +337,9 @@ namespace Airplace2025
             {
                 isUpdatingCombos = true;
 
-                // Determine selected 'from' airport code robustly
                 string selectedFromCode = GetSelectedAirportCode(cbSanBayDi.SelectedValue, cbSanBayDi.SelectedItem);
-
-                // Preserve current 'to' code if still valid
                 string currentToCode = GetSelectedAirportCode(cbSanBayDen.SelectedValue, cbSanBayDen.SelectedItem);
 
-                // Rebind 'to' combo via a filtered DataView (cannot modify Items when DataSource is set)
                 if (airportsDisplayTable != null)
                 {
                     string escaped = (selectedFromCode ?? string.Empty).Replace("'", "''");
@@ -465,7 +360,6 @@ namespace Airplace2025
                     }
                 }
 
-                // Update label to reflect selection
                 UpdateFromLabel();
             }
             finally
@@ -475,81 +369,6 @@ namespace Airplace2025
             cbSanBayDi.Invalidate();
             UpdateEditButton();
             LoadFlights();
-        }
-
-        private void btnOneWay_CheckedChanged(object sender, EventArgs e)
-        {
-            bool oneWay = btnOneWay.Checked;
-            if (oneWay)
-            {
-                // Edit panel controls
-                lblReturnDate.Visible = false;
-                dtpNgayVe.Visible = false;
-            }
-        }
-
-        private void pnlChange_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void btnEditSave_Click(object sender, EventArgs e)
-        {
-            PassengerSelectionState.SetAdult(PassengerSelectionStateTemp.Adult);
-            PassengerSelectionState.SetChild(PassengerSelectionStateTemp.Child);
-            PassengerSelectionState.SetInfant(PassengerSelectionStateTemp.Infant);
-
-            // Lấy dữ liệu từ controls đã chỉnh sửa
-            string newSanBayDi = GetSelectedAirportCode(cbSanBayDi.SelectedValue, cbSanBayDi.SelectedItem);
-            string newSanBayDen = GetSelectedAirportCode(cbSanBayDen.SelectedValue, cbSanBayDen.SelectedItem);
-            DateTime newNgayDi = dtpNgayDi.Value;
-            DateTime newNgayVe = dtpNgayVe.Value;
-            int total = PassengerSelectionStateTemp.Total;
-            string newSoLuongHanhKhach = $"{total} hành khách";
-            bool newIsRoundTrip = btnRoundTrip.Checked;
-
-            // Đóng form hiện tại
-            this.DialogResult = DialogResult.OK;
-
-            // Tạo và hiển thị form mới với dữ liệu đã chỉnh sửa
-            frmChonChuyenBayDi newForm = new frmChonChuyenBayDi(
-                newSanBayDi,
-                newSanBayDen,
-                newNgayDi,
-                newNgayVe,
-                newSoLuongHanhKhach,
-                newIsRoundTrip
-            );
-
-            this.Hide();
-            newForm.ShowDialog();
-            this.Close();
-        }
-
-        private void dtpNgayDi_ValueChanged(object sender, EventArgs e)
-        {
-            // Update minimum date for return date picker
-            dtpNgayVe.MinDate = dtpNgayDi.Value.Date;
-
-            // If return date is before departure date, set it to departure date
-            ValidateReturnDate();
-        }
-
-        private void dtpNgayVe_ValueChanged(object sender, EventArgs e)
-        {
-            ValidateReturnDate();
-            //if (btnRoundTrip.Checked)
-            //{
-            //    SafeLoadFlights();
-            //}
-        }
-
-        private void ValidateReturnDate()
-        {
-            if (dtpNgayVe.Value < dtpNgayDi.Value)
-            {
-                dtpNgayVe.Value = dtpNgayDi.Value;
-            }
         }
 
         private void cbSanBayDen_SelectedIndexChanged(object sender, EventArgs e)
@@ -565,22 +384,19 @@ namespace Airplace2025
 
         private bool ValidateForm()
         {
-            // Kiểm tra sân bay đi đã được chọn
             if (cbSanBayDi.SelectedIndex < 0 || cbSanBayDi.SelectedItem == null)
             {
                 return false;
             }
 
-            // Kiểm tra sân bay đến đã được chọn
             if (cbSanBayDen.SelectedIndex < 0 || cbSanBayDen.SelectedItem == null)
             {
                 return false;
             }
 
-            // Kiểm tra sân bay đi và đến không được trùng nhau
             string fromCode = GetSelectedAirportCode(cbSanBayDi.SelectedValue, cbSanBayDi.SelectedItem);
             string toCode = GetSelectedAirportCode(cbSanBayDen.SelectedValue, cbSanBayDen.SelectedItem);
-            
+
             if (string.Equals(fromCode, toCode, StringComparison.OrdinalIgnoreCase))
             {
                 return false;
@@ -592,13 +408,10 @@ namespace Airplace2025
         private void btnFilter_Click(object sender, EventArgs e)
         {
             FilterForm filterForm = new FilterForm();
-            
-            // Truyền giá trị min/max vào FilterForm
             filterForm.SetPriceRange(minFlightPrice, maxFlightPrice);
-            
+
             if (filterForm.ShowDialog(this) == DialogResult.OK)
             {
-                // Lấy các giá trị bộ lọc từ FilterForm
                 filterCabin = filterForm.SelectedCabin;
                 filterMaxBudget = filterForm.MaxBudget;
                 filterDirectFlightOnly = filterForm.DirectFlightOnly;
@@ -606,88 +419,56 @@ namespace Airplace2025
                 filterArrivalTimeSlot = filterForm.ArrivalTimeSlot;
                 filterAirlines = filterForm.SelectedAirlines;
 
-                // Reset currentFlights từ originalFlights
                 currentFlights = new List<ChuyenBayDTO>(originalFlights);
 
-                // Áp dụng bộ lọc và sắp xếp, sau đó render lại
                 ApplyFilters();
                 ApplySorting();
                 RenderFlights(currentFlights);
             }
         }
 
-        private void pnlChonChuyenBay_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        /// <summary>
-        /// Load chuyến bay từ database dựa trên tiêu chí tìm kiếm
-        /// </summary>
         private void LoadFlights()
         {
             try
             {
-                // Kiểm tra validation trước khi tìm kiếm
                 if (!ValidateForm())
                 {
-                    // Nếu không hợp lệ, hiển thị danh sách rỗng
                     RenderFlights(new List<ChuyenBayDTO>());
                     return;
                 }
 
-                // Lấy thông tin tìm kiếm
                 string maSanBayDi = GetSelectedAirportCode(cbSanBayDi.SelectedValue, cbSanBayDi.SelectedItem);
                 string maSanBayDen = GetSelectedAirportCode(cbSanBayDen.SelectedValue, cbSanBayDen.SelectedItem);
-                DateTime ngayDi = dtpNgayDi.Value.Date;
+                DateTime searchDate = dtpNgayVe.Value.Date;
 
-                // Validate date không trong quá khứ
-                if (ngayDi < DateTime.Today)
+                if (searchDate < DateTime.Today)
                 {
-                    dtpNgayDi.Value = DateTime.Today;
-                    ngayDi = DateTime.Today;
+                    dtpNgayVe.Value = DateTime.Today;
+                    searchDate = DateTime.Today;
                 }
 
-                // Tính tổng số hành khách cần ghế (không tính em bé)
                 int soNguoiLon = PassengerSelectionStateTemp.Adult;
                 int soTreEm = PassengerSelectionStateTemp.Child;
                 int soGheCan = Math.Max(1, soNguoiLon + soTreEm);
 
-                // Gọi BLL để tìm kiếm chuyến bay
-                var flights = ChuyenBayBLL.Instance.TimKiemChuyenBay(maSanBayDi, maSanBayDen, ngayDi, soGheCan);
+                var flights = ChuyenBayBLL.Instance.TimKiemChuyenBay(maSanBayDi, maSanBayDen, searchDate, soGheCan);
 
-                // Lưu danh sách chuyến bay gốc (chưa lọc)
                 originalFlights = flights != null ? new List<ChuyenBayDTO>(flights) : new List<ChuyenBayDTO>();
-
-                // Lưu danh sách chuyến bay hiện tại
                 currentFlights = flights ?? new List<ChuyenBayDTO>();
 
-                // Tính min/max giá vé từ danh sách chuyến bay gốc
                 CalculateMinMaxPrice();
-
-                // Cập nhật visibility của các control filter và sort
                 UpdateFilterSortVisibility();
-
-                // Áp dụng bộ lọc nếu có
                 ApplyFilters();
-
-                // Áp dụng sắp xếp nếu có
                 ApplySorting();
-
-                // Render kết quả
                 RenderFlights(currentFlights);
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show($"Lỗi tải chuyến bay: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                // Hiển thị danh sách rỗng khi có lỗi
+                MessageBox.Show($"Lỗi tải chuyến bay: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 RenderFlights(new List<ChuyenBayDTO>());
             }
         }
 
-        /// <summary>
-        /// Tính min/max giá vé từ danh sách chuyến bay
-        /// </summary>
         private void CalculateMinMaxPrice()
         {
             if (originalFlights == null || originalFlights.Count == 0)
@@ -697,33 +478,25 @@ namespace Airplace2025
                 return;
             }
 
-            // Tính giá Economy cho mỗi chuyến bay
             var prices = originalFlights.Select(f => f.GiaEconomy ?? f.GiaCoBan).ToList();
-            
+
             minFlightPrice = prices.Min();
             maxFlightPrice = prices.Max();
         }
 
-        /// <summary>
-        /// Cập nhật visibility của các control filter và sort dựa trên có chuyến bay hay không
-        /// </summary>
         private void UpdateFilterSortVisibility()
         {
             bool hasFlights = originalFlights != null && originalFlights.Count > 0;
-            
+
             btnFilter.Visible = hasFlights;
             cboSortType.Visible = hasFlights;
             lblSapXep.Visible = hasFlights;
         }
 
-        /// <summary>
-        /// Render danh sách chuyến bay lên tlpFlights
-        /// </summary>
         private void RenderFlights(List<ChuyenBayDTO> flights)
         {
             try
             {
-                // Cấu hình tlpFlights
                 tlpFlights.SuspendLayout();
                 tlpFlights.Controls.Clear();
                 tlpFlights.RowStyles.Clear();
@@ -736,7 +509,6 @@ namespace Airplace2025
 
                 if (flights == null || flights.Count == 0)
                 {
-                    // Hiển thị thông báo không tìm thấy chuyến bay
                     Label lblNoFlights = new Label
                     {
                         Text = "Không tìm thấy chuyến bay phù hợp",
@@ -753,33 +525,28 @@ namespace Airplace2025
                 }
                 else
                 {
-                    // Thêm từng FlightCard vào tlpFlights
                     foreach (var flight in flights)
                     {
                         var card = new FlightCard();
 
-                        // Tính thời gian bay
-                        var duration = flight.NgayGioDen > flight.NgayGioBay 
-                            ? (flight.NgayGioDen - flight.NgayGioBay) 
+                        var duration = flight.NgayGioDen > flight.NgayGioBay
+                            ? (flight.NgayGioDen - flight.NgayGioBay)
                             : TimeSpan.FromMinutes(Math.Max(0, flight.ThoiGianBay));
-                        
+
                         int hours = (int)duration.TotalHours;
                         int minutes = duration.Minutes;
 
-                        // Kiểm tra có sang ngày hôm sau không
                         bool isNextDay = flight.NgayGioDen.Date > flight.NgayGioBay.Date;
 
-                        // Gán dữ liệu cho card
                         card.DepartureTime = flight.NgayGioBay.ToString("HH:mm");
                         card.DepartureCity = flight.MaSanBayDi;
-                        card.DepartureTerminal = ""; // Có thể lấy từ DB nếu có
+                        card.DepartureTerminal = "";
                         card.ArrivalTime = flight.NgayGioDen.ToString("HH:mm");
                         card.ArrivalCity = flight.MaSanBayDen;
-                        card.ArrivalTerminal = ""; // Có thể lấy từ DB nếu có
+                        card.ArrivalTerminal = "";
                         card.Duration = $"⏱ Thời gian bay {hours}h {minutes}phút";
                         card.Airline = $"✈ {flight.MaChuyenBay} Khai thác bởi {flight.TenHangBay}";
-                        
-                        // Format giá tiền
+
                         decimal economyPrice = flight.GiaEconomy ?? flight.GiaCoBan;
                         decimal premiumPrice = flight.GiaPremium ?? (flight.GiaCoBan * 1.5m);
                         decimal businessPrice = flight.GiaBusiness ?? (flight.GiaCoBan * 2.5m);
@@ -795,7 +562,6 @@ namespace Airplace2025
                         card.PremiumSeats = flight.GhePremium ?? 0;
                         card.BusinessSeats = flight.GheBusiness ?? 0;
 
-                        // Gán dữ liệu chi tiết cho FlightDetailForm
                         card.DepartureDate = "Khởi hành vào " + flight.NgayGioBay.ToString("dddd, dd 'tháng' MM, yyyy", new System.Globalization.CultureInfo("vi-VN"));
                         card.ArrivalDate = "Đến vào " + flight.NgayGioDen.ToString("dddd, dd 'tháng' MM, yyyy", new System.Globalization.CultureInfo("vi-VN"));
                         card.FlightNumber = flight.MaChuyenBay;
@@ -804,12 +570,10 @@ namespace Airplace2025
                         card.DepartureAirport = flight.TenSanBayDi;
                         card.ArrivalAirport = flight.TenSanBayDen;
 
-                        // Cấu hình card
                         card.Margin = new Padding(5, 10, 5, 10);
                         card.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
                         card.FareSelected += FlightCard_FareSelected;
 
-                        // Thêm row mới vào table
                         tlpFlights.RowCount += 1;
                         tlpFlights.RowStyles.Add(new RowStyle(SizeType.AutoSize));
                         tlpFlights.Controls.Add(card, 0, tlpFlights.RowCount - 1);
@@ -820,11 +584,10 @@ namespace Airplace2025
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show($"Lỗi hiển thị chuyến bay: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi hiển thị chuyến bay: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        //Áp dụng bộ lọc cho danh sách chuyến bay
         private void ApplyFilters()
         {
             if (originalFlights == null || originalFlights.Count == 0)
@@ -833,10 +596,8 @@ namespace Airplace2025
                 return;
             }
 
-            // Bắt đầu từ danh sách gốc
             var filteredFlights = originalFlights.AsEnumerable();
 
-            // Lọc theo Khoang (Cabin)
             if (filterCabin != "Tất cả")
             {
                 filteredFlights = filteredFlights.Where(f =>
@@ -851,7 +612,6 @@ namespace Airplace2025
                 });
             }
 
-            // Lọc theo Ngân sách (lấy giá Economy)
             if (filterMaxBudget != decimal.MaxValue)
             {
                 filteredFlights = filteredFlights.Where(f =>
@@ -861,13 +621,11 @@ namespace Airplace2025
                 });
             }
 
-            // Lọc theo Chuyến bay thẳng (giả sử ThoiGianBay > 0 là chuyến bay thẳng)
             if (filterDirectFlightOnly)
             {
                 filteredFlights = filteredFlights.Where(f => f.ThoiGianBay > 0);
             }
 
-            // Lọc theo Thời gian khởi hành
             if (filterDepartureTimeSlot != 0)
             {
                 filteredFlights = filteredFlights.Where(f =>
@@ -875,11 +633,11 @@ namespace Airplace2025
                     int hour = f.NgayGioBay.Hour;
                     switch (filterDepartureTimeSlot)
                     {
-                        case 1: // Morning (00:00 - 11:59)
+                        case 1:
                             return hour >= 0 && hour < 12;
-                        case 2: // Afternoon (12:00 - 17:59)
+                        case 2:
                             return hour >= 12 && hour < 18;
-                        case 3: // Evening (18:00 - 23:59)
+                        case 3:
                             return hour >= 18 && hour < 24;
                         default:
                             return true;
@@ -887,7 +645,6 @@ namespace Airplace2025
                 });
             }
 
-            // Lọc theo Thời gian đến
             if (filterArrivalTimeSlot != 0)
             {
                 filteredFlights = filteredFlights.Where(f =>
@@ -895,11 +652,11 @@ namespace Airplace2025
                     int hour = f.NgayGioDen.Hour;
                     switch (filterArrivalTimeSlot)
                     {
-                        case 1: // Morning (00:00 - 11:59)
+                        case 1:
                             return hour >= 0 && hour < 12;
-                        case 2: // Afternoon (12:00 - 17:59)
+                        case 2:
                             return hour >= 12 && hour < 18;
-                        case 3: // Evening (18:00 - 23:59)
+                        case 3:
                             return hour >= 18 && hour < 24;
                         default:
                             return true;
@@ -907,7 +664,6 @@ namespace Airplace2025
                 });
             }
 
-            // Lọc theo Hãng hàng không
             if (filterAirlines != null && filterAirlines.Count > 0 && !filterAirlines.Contains("All"))
             {
                 filteredFlights = filteredFlights.Where(f =>
@@ -918,7 +674,6 @@ namespace Airplace2025
             currentFlights = filteredFlights.ToList();
         }
 
-        // Áp dụng sắp xếp cho danh sách chuyến bay hiện tại
         private void ApplySorting()
         {
             if (currentFlights == null || currentFlights.Count == 0)
@@ -929,30 +684,27 @@ namespace Airplace2025
             switch (sortType)
             {
                 case "Rẻ nhất":
-                    // Sắp xếp theo giá Economy tăng dần
                     currentFlights = currentFlights
                         .OrderBy(f => f.GiaEconomy ?? f.GiaCoBan)
                         .ToList();
                     break;
 
                 case "Thời gian khởi hành tăng dần":
-                    // Sắp xếp theo thời gian khởi hành tăng dần
                     currentFlights = currentFlights
                         .OrderBy(f => f.NgayGioBay)
                         .ToList();
                     break;
 
                 case "Thời gian khởi hành giảm dần":
-                    // Sắp xếp theo thời gian khởi hành giảm dần
                     currentFlights = currentFlights
                         .OrderByDescending(f => f.NgayGioBay)
                         .ToList();
                     break;
 
                 case "Thời gian bay tăng dần":
-                    // Sắp xếp theo thời gian bay tăng dần
                     currentFlights = currentFlights
-                        .OrderBy(f => {
+                        .OrderBy(f =>
+                        {
                             if (f.NgayGioDen > f.NgayGioBay)
                                 return (f.NgayGioDen - f.NgayGioBay).TotalMinutes;
                             return f.ThoiGianBay;
@@ -962,15 +714,12 @@ namespace Airplace2025
 
                 case "Mặc định":
                 default:
-                    // Không sắp xếp, giữ nguyên thứ tự từ database
                     break;
             }
         }
 
-        // Event handler khi thay đổi kiểu sắp xếp
         private void cboSortType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Áp dụng sắp xếp và render lại
             ApplySorting();
             RenderFlights(currentFlights);
         }
@@ -982,43 +731,28 @@ namespace Airplace2025
                 return;
             }
 
-            void HandleRoundTripTransition(SelectedFareInfo fareInfo)
+            Action<SelectedFareInfo> onConfirm = info =>
             {
-                var returnForm = new frmChonChuyenBayVe(
-                    sanBayDen,
-                    sanBayDi,
-                    ngayDi,
-                    ngayVe,
-                    soLuongHanhKhach,
-                    true,
-                    fareInfo);
-
-                returnForm.FormClosed += (s, args) =>
+                if (departureFareInfo != null)
                 {
-                    this.Close();
-                };
+                    using (var cart = new frmShoppingCart(departureFareInfo, info))
+                    {
+                        cart.ShowDialog(this);
+                    }
+                }
+                else
+                {
+                    using (var cart = new frmShoppingCart(info))
+                    {
+                        cart.ShowDialog(this);
+                    }
+                }
 
-                this.Hide();
-                returnForm.Show();
-            }
+                Close();
+            };
 
             void ShowTicketDetails()
             {
-                Action<SelectedFareInfo> onConfirm = info =>
-                {
-                    if (isRoundTrip)
-                    {
-                        HandleRoundTripTransition(info);
-                    }
-                    else
-                    {
-                        using (var frmShoppingCart = new frmShoppingCart(info))
-                        {
-                            frmShoppingCart.ShowDialog(this);
-                        }
-                    }
-                };
-
                 using (var detail = new frmChiTietVe(e.FareInfo, onConfirm))
                 {
                     detail.ShowDialog(this);

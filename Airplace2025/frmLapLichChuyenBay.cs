@@ -1,10 +1,13 @@
 ﻿using Airplace2025.BLL.DAO;
 using Airplace2025.BLL.DTO;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,19 +29,8 @@ namespace Airplace2025
 
         private void LapLichChuyenBay_Load(object sender, EventArgs e)
         {
-            dtpNgayGioBay.Value = DateTime.Now;
-            AirportLoadAll();
-            AddNote();
-            AirlineLoad();
             FlightLoadAll();
             SetupFlightPointsGrid();
-        }
-
-        private void AirlineLoad()
-        {
-            cbHangBay.DataSource = AirlineDAO.Instance.GetAirlineList();
-            cbHangBay.ValueMember = "MaHangBay";
-            cbHangBay.DisplayMember = "TenHangBay";
         }
 
         private void FlightLoadAll()
@@ -46,15 +38,6 @@ namespace Airplace2025
             dgvChuyenBay.DataSource = FlightDAO.Instance.SearchFlightByInfo(txtTimKiemChuyenBay.Text);
         }
 
-        private void AirportLoadAll()
-        {
-            cbSanBayDi.DataSource = AirportDAO.Instance.GetAirportList();
-            cbSanBayDi.DisplayMember = "TenSanBay";
-            cbSanBayDi.ValueMember = "MaSanBay";
-            cbSanBayDen.DataSource = AirportDAO.Instance.GetAirportList();
-            cbSanBayDen.DisplayMember = "TenSanBay";
-            cbSanBayDen.ValueMember = "MaSanBay";
-        }
 
         private void SetupFlightPointsGrid()
         {
@@ -81,19 +64,20 @@ namespace Airplace2025
                 dgvFareClass.Columns.Add(row["MaHangVe"].ToString(), row["TenHangVe"].ToString());
                 dgvFareClass.Columns[row["MaHangVe"].ToString()].SortMode = DataGridViewColumnSortMode.NotSortable;
             }
-            List<object> tiLeGiaVeRow = new List<object>();
-            List<object> soGheRow = new List<object>();
+            List<object> tiLeGiaVeRow = new List<object> { "Tỉ Lệ Giá Vé" };
+            List<object> soGheRow = new List<object> { "Số Ghế Tổng" };
+            List<object> soGheConLaiRow = new List<object> { "Số Ghế Còn Lại" };
 
-            tiLeGiaVeRow.Add("Tỉ Lệ Giá Vé");
-            soGheRow.Add("Số Ghế");
 
             foreach (DataRow row in dt.Rows)
             {
                 tiLeGiaVeRow.Add(row["TiLeGiaHangVe"]);
                 soGheRow.Add(0);
+                soGheConLaiRow.Add(0);
             }
             dgvFareClass.Rows.Add(tiLeGiaVeRow.ToArray());
             dgvFareClass.Rows.Add(soGheRow.ToArray());
+            dgvFareClass.Rows.Add(soGheConLaiRow.ToArray());
 
             dgvFareClass.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             dgvFareClass.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -115,23 +99,16 @@ namespace Airplace2025
             {
                 cell.ReadOnly = true;
             }
+            // Khóa dòng tiêu đề và dòng tỷ lệ giá
+            dgvFareClass.Rows[0].ReadOnly = true;
+            dgvFareClass.Rows[1].ReadOnly = true;
+            dgvFareClass.Rows[2].ReadOnly = true;
         }
 
         public void ThemTrungGian(string MaSanBay, string TenSanBay, 
                             int ThoiGianDung, int ThoiGianChuyen, string GhiChu)
         {
-            foreach (DataGridViewRow row in dgvTrungGian.Rows)
-            {
-                if (row.Cells["MaSanBay"].Value != null && (row.Cells["MaSanBay"].Value.ToString() == MaSanBay
-                     || row.Cells["MaSanBay"].Value.ToString() == cbSanBayDi.Text
-                     || row.Cells["MaSanBay"].Value.ToString() == cbSanBayDen.Text))
-                {
-                    MessageBox.Show("Sân bay đã tồn tại", "Lỗi", MessageBoxButtons.OK);
-                    return;
-                }
-            }
-            int stt = dgvTrungGian.Rows.Count + 1;
-            dgvTrungGian.Rows.Add(MaSanBay, stt, TenSanBay, ThoiGianDung, ThoiGianChuyen, GhiChu);
+
 
 
         }
@@ -144,49 +121,12 @@ namespace Airplace2025
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            using (frmThemTrungGian formChon = new frmThemTrungGian())
-            {
-                DialogResult result = formChon.ShowDialog(this);
-                if (result == DialogResult.OK)
-                {
-                    DataRow rowNhanVe = formChon.SanBayTrungGianRow;
 
-                    if (rowNhanVe != null)
-                    {
-                        string maSanBay = rowNhanVe["MaSanBay"].ToString();
-                        string tenSanBay = rowNhanVe["TenSanBay"].ToString();
-                        int thoiGianDung = Convert.ToInt32(rowNhanVe["ThoiGianDung"]);
-                        int thoiGianChuyen = Convert.ToInt32(rowNhanVe["ThoiGianChuyen"]);
-                        string ghiChu = rowNhanVe["GhiChu"].ToString();
-                        ThemTrungGian(maSanBay, tenSanBay, thoiGianDung, thoiGianChuyen, ghiChu);
-                    }
-                }
-            }
         }
 
         private void btnDel_Click(object sender, EventArgs e)
         {
-            if (dgvTrungGian.CurrentRow != null)
-            {
-                DataGridViewRow row = dgvTrungGian.CurrentRow;
-                DialogResult confirm = MessageBox.Show("Bạn có chắc muốn xóa sân bay trung gian này?",
-                                              "Xác nhận xóa",
-                                              MessageBoxButtons.YesNo,
-                                              MessageBoxIcon.Question);
-                if (confirm == DialogResult.Yes)
-                {
-                    dgvTrungGian.Rows.Remove(row);
 
-                    for (int i = 0; i< dgvTrungGian.Rows.Count; i++)
-                    {
-                        dgvTrungGian.Rows[i].Cells["ThuTu"].Value = i + 1;
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("Vui lòng chọn một hàng để xoá", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
 
         }
 
@@ -198,16 +138,6 @@ namespace Airplace2025
 
         private void cbHangBay_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            gbHangBay.Height = 251;
-            imgLogo.Visible = true;
-            txtMoTaHangBay.Visible = true;
-            DataTable dtHangBay = AirlineDAO.Instance.GetAirlineList();
-            txtMoTaHangBay.Text = dtHangBay.Rows[cbHangBay.SelectedIndex]["MoTa"].ToString();
-
-            DataTable dtMayBay = AirplaneDAO.Instance.GetAirplaneByAirline(cbHangBay.SelectedValue.ToString());
-            cbAirplane.DataSource = dtMayBay;
-            cbAirplane.DisplayMember = "TenMayBay";
-            cbAirplane.ValueMember = "MaMayBay";
             
         }
 
@@ -218,185 +148,25 @@ namespace Airplace2025
 
         private void cbAirplane_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DataTable dtMayBay = AirplaneDAO.Instance.GetAirplaneByAirline(cbHangBay.SelectedValue.ToString());
-            txtSeat.Text = dtMayBay.Rows[cbAirplane.SelectedIndex]["SoGhe"].ToString();
-        }
-
-        private void AddNote()
-        {
-            DataTable dt = ParameterDAO.Instance.GetParameter();
-            txtQuyTac.Text = "Quy tắc:" + Environment.NewLine
-                + $"Số sân bay trung gian tối đa: {dt.Rows[0]["SoSanBayTrungGianToiDa"]}" + Environment.NewLine
-                + $"Thời gian bay tối thiểu: {dt.Rows[0]["ThoiGianBayToiThieu"]} phút" + Environment.NewLine
-                + $"Thời gian dừng tối thiểu: {dt.Rows[0]["ThoiGianDungToiThieu"]} phút" + Environment.NewLine
-                + $"Thời gian dừng tối đa: {dt.Rows[0]["ThoiGianDungToiDa"]}  phút";
+            
         }
 
 
-        private bool KiemtraDk()
-        {
-
-            DataTable dtThamSo = ParameterDAO.Instance.GetParameter();
-            DataRow thamso = dtThamSo.Rows[0];
-            int thoigianbaytoithieu = Convert.ToInt32(thamso["ThoiGianBayToiThieu"]);
-            int thoigiandungtoithieu = Convert.ToInt32(thamso["ThoiGianDungToiThieu"]);
-            int thoigiandungtoida = Convert.ToInt32(thamso["ThoiGianDungToiDa"]);
-            int soTGToiDa = Convert.ToInt32(thamso["SoSanBayTrungGianToiDa"]);
-
-            int thoigianbay;
-            decimal chiphicoban;
-            DateTime ngaygiobay = dtpNgayGioBay.Value;
-            if (!int.TryParse(txtThoiGianBay.Text, out thoigianbay) || thoigianbay < 0)
-            {
-                MessageBox.Show("Thời gian bay không hợp lệ", "Lỗi", MessageBoxButtons.OK);
-                return false;
-            }
-            if (!decimal.TryParse(txtGiaCoBan.Text, out chiphicoban) || chiphicoban < 0)
-            {
-                MessageBox.Show("Giá cơ bản không hợp lệ", "Lỗi", MessageBoxButtons.OK);
-                return false;
-            }
-
-            if (cbSanBayDi.SelectedIndex == -1 || cbSanBayDen.SelectedIndex == -1)
-            {
-                MessageBox.Show("Bạn chưa chọn sân bay", "Lỗi", MessageBoxButtons.OK);
-                return false;
-            }
-            if (cbSanBayDi.Text == cbSanBayDen.Text)
-            {
-                MessageBox.Show("Sân bay đi và sân bay đến không được trùng nhau", "Lỗi", MessageBoxButtons.OK);
-                return false;
-            }
-            if (ngaygiobay < DateTime.Now)
-            {
-                MessageBox.Show("Ngày giờ bay phải lớn hơn hoặc là thời điểm hiện tại", "Lỗi", MessageBoxButtons.OK);
-                return false;
-            }
-            if (thoigianbay < thoigianbaytoithieu)
-            {
-                MessageBox.Show("Thời gian bay không thoả như quy định", "Lỗi", MessageBoxButtons.OK);
-                return false;
-            }
-            if (cbAirplane.SelectedIndex == -1)
-            {
-                MessageBox.Show("Chưa chọn hãng bay hoặc máy bay", "Lỗi", MessageBoxButtons.OK);
-                return false;
-            }
-            if (dgvTrungGian.Rows.Count > soTGToiDa)
-            {
-                MessageBox.Show("Số sân bay trung gian không thoả quy định", "Lỗi", MessageBoxButtons.OK);
-                return false;
-            }
-
-            int tongThoiGianChuyen = 0;
-            foreach (DataGridViewRow row in dgvTrungGian.Rows)
-            {
-                int thoigiandung = Convert.ToInt32(row.Cells["ThoiGianDung"].Value.ToString());
-                if (thoigiandung < thoigiandungtoithieu || thoigiandung > thoigiandungtoida)
-                {
-                    MessageBox.Show("Thời gian dừng tại sân bay trung gian không thoả quy định", "Lỗi", MessageBoxButtons.OK);
-                    return false;
-                }
-                int thoigianchuyen = Convert.ToInt32(row.Cells["ThoiGianChuyen"].Value.ToString());
-                tongThoiGianChuyen += thoigianchuyen;
-            }
-            if (tongThoiGianChuyen >= thoigianbay)
-            {
-                MessageBox.Show("Tổng thời gian các chặn lớn hơn thời gian bay", "Lỗi", MessageBoxButtons.OK);
-                return false;
-            }
-
-            int sogheMayBay = Convert.ToInt32(txtSeat.Text);
-            int tongsogheHangVe = 0;
-            DataGridViewRow soGheRow = dgvFareClass.Rows[1];
-            for (int i = 1; i< soGheRow.Cells.Count; i++)
-            {
-                int soGhe;
-                if (soGheRow.Cells[i].Value == null || !int.TryParse(soGheRow.Cells[i].Value.ToString(),out soGhe)
-                    || soGhe < 0)
-                {
-                    MessageBox.Show($"Số ghế cho hạng vé {dgvFareClass.Columns[i].HeaderText} không hợp lệ", "Lỗi", MessageBoxButtons.OK);
-                    return false;
-                }
-                tongsogheHangVe += soGhe;
-            }
-            if (tongsogheHangVe != sogheMayBay)
-            {
-                MessageBox.Show("Tổng số ghế các hạng vé phải bằng số ghế máy bay", "Lỗi", MessageBoxButtons.OK);
-                return false;
-            }
-
-
-
-            return true;
-        }
+            
 
         private void btnTim_Click(object sender, EventArgs e)
         {
-            if (KiemtraDk())
-            {
-                try
-                {
-                    DataTable dtChuyenBayMoi = FlightDAO.Instance.InsertFlight(
-                        cbSanBayDi.SelectedValue.ToString(),
-                        cbSanBayDen.SelectedValue.ToString(),
-                        dtpNgayGioBay.Value,
-                        Convert.ToInt32(txtThoiGianBay.Text),
-                        Convert.ToDecimal(txtGiaCoBan.Text),
-                        cbAirplane.SelectedValue.ToString(),
-                        cbTinhTrang.Text
-                    );
-
-                    string MaChuyenBayMoi = dtChuyenBayMoi.Rows[0]["MaChuyenBay"].ToString();
-                    
-                    foreach (DataGridViewRow row in dgvTrungGian.Rows)
-                    {
-                        string MaSanBay = row.Cells["MaSanBay"].Value.ToString();
-                        int ThuTu = Convert.ToInt32(row.Cells["ThuTu"].Value.ToString());
-                        int ThoiGianDung = Convert.ToInt32(row.Cells["ThoiGianDung"].Value.ToString());
-                        string GhiChu = row.Cells["GhiChu"].Value.ToString();
-                        int ThoiGianChuyen = Convert.ToInt32(row.Cells["ThoiGianChuyen"].Value.ToString());
-                        StopDAO.Instance.InsertStop(MaChuyenBayMoi, MaSanBay, ThuTu, ThoiGianDung,
-                                                                GhiChu, ThoiGianChuyen);
-
-                    }
-
-                    DataGridViewRow seatRow = dgvFareClass.Rows[1];
-                    for (int i = 1; i < seatRow.Cells.Count; i++)
-                    {
-                        string MaHangVe = dgvFareClass.Columns[i].Name;
-                        int SoGhe = Convert.ToInt32(seatRow.Cells[i].Value);
-                        if (SoGhe > 0)
-                        {
-                            ClassDAO.Instance.InsertClassInfo(MaChuyenBayMoi, MaHangVe, SoGhe, SoGhe);
-                        }
-                    }
-
-                    MessageBox.Show("Thêm chuyến bay thành công","Thông báo", MessageBoxButtons.OK);
-                    ReNew();
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), "Lỗi",  MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
+            
             
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            ReNew();
+            
         }
 
         private void ReNew()
         {
-            cbSanBayDi.SelectedIndex = 0;
-            cbSanBayDen.SelectedIndex = 0;
-            cbTinhTrang.SelectedIndex = 0;
-            dtpNgayGioBay.Value = DateTime.Now;
-            txtGiaCoBan.Text = "";
-            txtThoiGianBay.Text = "";
             dgvTrungGian.Rows.Clear();
             txtTimKiemChuyenBay.Text = "";
 
@@ -412,87 +182,284 @@ namespace Airplace2025
 
         private void btnEditFlight_Click(object sender, EventArgs e)
         {
-            if (isEditFlight == false)
+            
+
+        }
+
+        private void LoadFlightDetailToUI(string maChuyenBay)
+        {
+            // LOAD TRUNG GIAN (dgvTrungGian)
+            dgvTrungGian.Rows.Clear();
+            DataTable dtStops = StopDAO.Instance.GetStopsByFlight(maChuyenBay);
+            foreach (DataRow row in dtStops.Rows)
             {
-                DialogResult confirm = MessageBox.Show("Bạn có chắc muốn sửa chuyến bay này?",
-                                              "Xác nhận",
-                                              MessageBoxButtons.YesNo,
-                                              MessageBoxIcon.Question);
-                if (confirm == DialogResult.Yes)
-                {
-
-                    dtpNgayGioBay.Value = Convert.ToDateTime(dgvChuyenBay.CurrentRow.Cells["NgayGioBay"].Value);
-                    cbTinhTrang.Text = dgvChuyenBay.CurrentRow.Cells["TrangThai"].Value.ToString();
-
-                    cbSanBayDi.Enabled = false;
-                    cbSanBayDen.Enabled = false;
-                    txtGiaCoBan.Enabled = false;
-                    txtThoiGianBay.Enabled = false;
-                    dgvChuyenBay.Enabled = false;
-                    btnAdd.Enabled = false;
-                    btnDel.Enabled = false;
-                    cbHangBay.Enabled = false;
-                    cbAirplane.Enabled = false;
-                    txtTimKiemChuyenBay.Enabled = false;
-
-                    DataGridViewRow seatRow = dgvFareClass.Rows[1];
-                    for (int i = 1; i < seatRow.Cells.Count; i++)
-                    {
-                        dgvFareClass.Rows[1].Cells[i].ReadOnly = true;
-                    }
-
-                    btnAddAirport.Enabled = false;
-                    btnAddAirplane.Enabled = false;
-                    btnEditClass.Enabled = false;
-                    btnAddAirline.Enabled = false;
-                    btnTim.Enabled = false;
-                    btnNew.Enabled = false;
-
-                    isEditFlight = true;
-                }
+                dgvTrungGian.Rows.Add(
+                    row["MaSanBay"],
+                    row["ThuTu"],
+                    row["TenSanBay"],
+                    row["ThoiGianDung"],
+                    row["ThoiGianChuyen"],
+                    row["GhiChu"]
+                );
+                // Nếu DAO đã join lấy được TenSanBay thì thay row["MaSanBay"] thứ 2 bằng row["TenSanBay"]
             }
 
-            else
+            // 2. LOAD HẠNG VÉ (dgvFareClass)
+            DataTable dtClasses = ClassDAO.Instance.GetClassDetailByFlight(maChuyenBay);
+
+            // Reset lại về 0 trước khi fill
+            for (int i = 1; i < dgvFareClass.Columns.Count; i++)
             {
+                dgvFareClass.Rows[1].Cells[i].Value = 0; // Dòng Số Ghế Tổng
+                dgvFareClass.Rows[2].Cells[i].Value = 0; // Dòng Số Ghế Còn Lại
+            }
+
+            // Fill dữ liệu mới
+            foreach (DataRow row in dtClasses.Rows)
+            {
+                string maHangVe = row["MaHangVe"].ToString();
+                int soLuong = Convert.ToInt32(row["SoLuong"]);
+                int soLuongConLai = Convert.ToInt32(row["SoLuongConLai"]);
+
+                // Tìm cột tương ứng với MaHangVe
+                if (dgvFareClass.Columns.Contains(maHangVe))
+                {
+                    // Dòng 1: Số ghế tổng
+                    dgvFareClass.Rows[1].Cells[maHangVe].Value = soLuong;
+
+                    // Dòng 2: Số ghế còn lại
+                    dgvFareClass.Rows[2].Cells[maHangVe].Value = soLuongConLai;
+                }
+            }
+        }
+
+
+
+        private void btnBrowse_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Excel Files|*.xlsx;*.xls";
+            ofd.Title = "Chọn file Excel lịch bay";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                // Danh sách ghi lại các lỗi để báo cho người dùng
+                List<string> errorLog = new List<string>();
+                int successCount = 0;
+
                 try
                 {
-                    string MaChuyenBay = dgvChuyenBay.CurrentRow.Cells["MaChuyenBay"].Value.ToString();
-                    FlightDAO.Instance.UpdateFlightSchedule(MaChuyenBay, dtpNgayGioBay.Value, cbTinhTrang.Text);
+                    // Cấu hình License cho EPPlus 8 (như đã sửa ở bài trước)
+                    // Hoặc cấu hình trong App.config rồi thì bỏ dòng này
+                    OfficeOpenXml.ExcelPackage.License.SetNonCommercialPersonal("Huynh Mai Cao Nhan");
+
+                    using (var package = new ExcelPackage(new FileInfo(ofd.FileName)))
+                    {
+                        // Lấy Sheet đầu tiên
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+
+                        // Đếm số dòng có dữ liệu (bỏ qua dòng header)
+                        int rowCount = worksheet.Dimension.End.Row;
+
+                        if (rowCount < 2)
+                        {
+                            MessageBox.Show("File Excel không có dữ liệu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        // --- VÒNG LẶP ĐỌC TỪNG DÒNG ---
+                        for (int row = 2; row <= rowCount; row++)
+                        {
+                            try
+                            {
+                                // 1. ĐỌC DỮ LIỆU CƠ BẢN TỪ EXCEL
+                                string maMayBay = GetString(worksheet, row, 1);
+
+                                // Kiểm tra nếu MaMayBay bị rỗng (do đọc phải dòng trắng trong Excel)
+                                // thì bỏ qua ngay lập tức, không gọi xuống Database nữa.
+                                if (string.IsNullOrWhiteSpace(maMayBay))
+                                {
+                                    continue; // Nhảy sang dòng tiếp theo
+                                }
+
+                                string sbDi = GetString(worksheet, row, 2);
+                                string sbDen = GetString(worksheet, row, 3);
+                                DateTime ngayGioBay = GetDateTime(worksheet, row, 4);
+                                int thoiGianBay = GetInt(worksheet, row, 5);
+                                decimal giaCoBan = GetDecimal(worksheet, row, 6);
+                                string trangThai = GetString(worksheet, row, 19);
+
+                                //// Validation cơ bản (nếu thiếu thông tin quan trọng thì bỏ qua dòng này)
+                                //if (string.IsNullOrEmpty(maMayBay) || string.IsNullOrEmpty(sbDi) || string.IsNullOrEmpty(sbDen))
+                                //{
+                                //    throw new Exception("Thiếu thông tin Mã máy bay, Sân bay đi hoặc đến.");
+                                //}
+
+                                // 2. GỌI SP THÊM CHUYẾN BAY
+                                // Hàm InsertFlight gọi sp_ThemChuyenBay và trả về DataTable chứa dòng vừa thêm
+                                DataTable dtResult = FlightDAO.Instance.InsertFlight(
+                                    sbDi, sbDen, ngayGioBay, thoiGianBay, giaCoBan, maMayBay, trangThai
+                                );
+
+                                if (dtResult.Rows.Count > 0)
+                                {
+                                    // Lấy Mã Chuyến Bay vừa sinh ra (ví dụ: VJ1001)
+                                    string newFlightId = dtResult.Rows[0]["MaChuyenBay"].ToString();
+
+                                    // 3. THÊM CHI TIẾT HẠNG VÉ (Cột G, H)
+                                    int slEco = GetInt(worksheet, row, 7);
+                                    int slBus = GetInt(worksheet, row, 8);
+                                    int slFir = GetInt(worksheet, row, 9);
+                                    int slPre = GetInt(worksheet, row, 10);
+
+                                    if (slEco > 0) ClassDAO.Instance.InsertClassInfo(newFlightId, "ECO", slEco, slEco);
+                                    if (slBus > 0) ClassDAO.Instance.InsertClassInfo(newFlightId, "BUS", slBus, slBus);
+                                    if (slFir > 0) ClassDAO.Instance.InsertClassInfo(newFlightId, "FIR", slFir, slFir);
+                                    if (slPre > 0) ClassDAO.Instance.InsertClassInfo(newFlightId, "PRE", slPre, slPre);
+
+                                    // 4. THÊM TRUNG GIAN 
+                                    string tg1MaSanBay = GetString(worksheet, row, 11);
+                                    if (!string.IsNullOrEmpty(tg1MaSanBay))
+                                    {
+                                        int tg1Dung = GetInt(worksheet, row, 12);
+                                        int tg1Chuyen = GetInt(worksheet, row, 13);
+                                        string tg1GhiChu = GetString(worksheet, row, 14);
+
+                                        // Gọi SP Thêm Trung Gian
+                                        StopDAO.Instance.InsertStop(newFlightId, tg1MaSanBay, 1, tg1Dung, tg1GhiChu, tg1Chuyen);
+
+                                        string tg2MaSanBay = GetString(worksheet, row, 15);
+                                        if (!string.IsNullOrEmpty(tg2MaSanBay))
+                                        {
+                                            int tg2Dung = GetInt(worksheet, row, 16);
+                                            int tg2Chuyen = GetInt(worksheet, row, 17);
+                                            string tg2GhiChu = GetString(worksheet, row, 18);
+
+                                            // Gọi SP Thêm Trung Gian
+                                            StopDAO.Instance.InsertStop(newFlightId, tg2MaSanBay, 2, tg2Dung, tg2GhiChu, tg2Chuyen);
+                                        }
+                                    }
+
+                                    
+
+                                    successCount++;
+                                }
+                            }
+                            catch (Exception exRow)
+                            {
+                                // Nếu lỗi dòng nào, ghi lại dòng đó nhưng KHÔNG DỪNG chương trình
+                                errorLog.Add($"Dòng {row}: {exRow.Message}");
+                            }
+                        }
+                    }
+
+                    // --- BÁO CÁO KẾT QUẢ ---
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine($"Đã thêm thành công: {successCount} chuyến bay.");
+
+                    if (errorLog.Count > 0)
+                    {
+                        sb.AppendLine($"\nCó {errorLog.Count} dòng bị lỗi:");
+                        foreach (string err in errorLog)
+                        {
+                            sb.AppendLine(err);
+                        }
+                        MessageBox.Show(sb.ToString(), "Kết quả Import (Có lỗi)", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        MessageBox.Show(sb.ToString(), "Thành công rực rỡ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                    // Tải lại danh sách hiển thị
                     ReNew();
+                    FlightLoadAll();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString(), "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Lỗi đọc file Excel: " + ex.Message, "Lỗi nghiêm trọng", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
 
-                cbSanBayDi.Enabled = true;
-                cbSanBayDen.Enabled = true;
-                txtGiaCoBan.Enabled = true;
-                txtThoiGianBay.Enabled = true;
-                cbTinhTrang.Enabled = true;
-                btnAdd.Enabled = true;
-                btnDel.Enabled = true;
-                cbHangBay.Enabled = true;
-                cbAirplane.Enabled = true;
-                txtTimKiemChuyenBay.Enabled = true;
+        private string GetString(ExcelWorksheet ws, int row, int col)
+        {
+            var val = ws.Cells[row, col].Value;
+            return val == null ? "" : val.ToString().Trim();
+        }
 
-                DataGridViewRow seatRow = dgvFareClass.Rows[1];
-                for (int i = 1; i < seatRow.Cells.Count; i++)
-                {
-                    dgvFareClass.Rows[1].Cells[i].ReadOnly = false;
-                }
+        private int GetInt(ExcelWorksheet ws, int row, int col)
+        {
+            var val = ws.Cells[row, col].Value;
+            if (val == null) return 0;
+            if (int.TryParse(val.ToString(), out int result)) return result;
+            return 0;
+        }
 
-                btnAddAirport.Enabled = true;
-                btnAddAirplane.Enabled = true;
-                btnEditClass.Enabled = true;
-                btnAddAirline.Enabled = true;
-                btnTim.Enabled = true;
-                btnNew.Enabled = true;
-                dgvChuyenBay.Enabled = true;
+        private decimal GetDecimal(ExcelWorksheet ws, int row, int col)
+        {
+            var val = ws.Cells[row, col].Value;
+            if (val == null) return 0;
+            if (decimal.TryParse(val.ToString(), out decimal result)) return result;
+            return 0;
+        }
 
-                isEditFlight = false;
+        private DateTime GetDateTime(ExcelWorksheet ws, int row, int col)
+        {
+            var val = ws.Cells[row, col].Value;
+
+            if (val == null) return DateTime.Now; // Hoặc trả về DateTime.MinValue tuỳ logic
+
+            // TRƯỜNG HỢP 1: Excel đã hiểu đó là ngày tháng (Native Date)
+            if (val is DateTime date)
+            {
+                return date;
             }
 
+            // TRƯỜNG HỢP 2: Excel lưu dưới dạng Text (Chuỗi ký tự)
+            string dateText = val.ToString().Trim();
+
+            // Định nghĩa danh sách các định dạng chấp nhận được (Ưu tiên ngày trước tháng)
+            string[] formats = {
+                "dd/MM/yyyy HH:mm",  // Định dạng chuẩn bạn muốn: 20/12/2025 08:00
+                "dd/MM/yyyy HH:mm:ss",
+                "d/M/yyyy HH:mm",
+                "dd/MM/yyyy",
+                "yyyy-MM-dd HH:mm"   // Dự phòng định dạng quốc tế
+            };
+
+            // Sử dụng TryParseExact để ép kiểu chính xác
+            if (DateTime.TryParseExact(dateText, formats,
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out DateTime result))
+            {
+                return result;
+            }
+
+            // Nếu vẫn lỗi, ném ra ngoại lệ để bạn biết dòng nào sai thay vì âm thầm lưu ngày hiện tại
+            throw new Exception($"Lỗi định dạng ngày tháng tại dòng {row}, cột {col}: '{dateText}'. Vui lòng nhập đúng dd/MM/yyyy HH:mm");
+        }
+
+        private void dgvChuyenBay_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return; // Click vào header thì bỏ qua
+
+            // Lấy MaChuyenBay của dòng được chọn
+            if (dgvChuyenBay.CurrentRow != null)
+            {
+                string maChuyenBay = dgvChuyenBay.CurrentRow.Cells["MaChuyenBay"].Value.ToString();
+
+                // Gọi hàm hiển thị chi tiết
+                LoadFlightDetailToUI(maChuyenBay);
+            }
+
+            if (e.ColumnIndex == dgvChuyenBay.Columns["colList"].Index)
+            {
+                string maChuyenBay = dgvChuyenBay.CurrentRow.Cells["MaChuyenBay"].Value.ToString();
+                frmXemDanhSach frm = new frmXemDanhSach(maChuyenBay);
+                frm.ShowDialog();
+            }
         }
     }
 }

@@ -71,7 +71,10 @@ namespace Airplace2025
             if (dgvFlight.Columns[e.ColumnIndex].Name == "colBook")
             {
                 int SoGheTrong = Convert.ToInt32(dgvFlight.Rows[e.RowIndex].Cells["SoGheTrong"].Value);
-                if (SoGheTrong == 0)
+                string trangThai = dgvFlight.Rows[e.RowIndex].Cells["TrangThai"].Value.ToString();
+
+                bool khongKhathi = (trangThai == "Đã hạ cánh") || (trangThai == "Đã huỷ");
+                if (SoGheTrong == 0 && khongKhathi)
                 {
                     e.CellStyle.BackColor = Color.FromArgb(177, 173, 224); ;
                     e.CellStyle.ForeColor = Color.White;
@@ -133,8 +136,11 @@ namespace Airplace2025
             if (e.ColumnIndex == dgvFlight.Columns["colBook"].Index)
             {
                 int soGheTrong = Convert.ToInt32(dgvFlight.Rows[e.RowIndex].Cells["SoGheTrong"].Value);
+                string trangThai = dgvFlight.Rows[e.RowIndex].Cells["TrangThai"].Value.ToString();
 
-                if (soGheTrong > 0)
+                bool khongKhathi = (trangThai == "Đã hạ cánh") || (trangThai == "Đã huỷ");
+
+                if (soGheTrong > 0 && !khongKhathi)
                 {
                     string maChuyenBay = dgvFlight.Rows[e.RowIndex].Cells["MaChuyenBay"].Value.ToString();
                     // Qua form Đặt vé
