@@ -92,7 +92,7 @@ namespace Airplace2025
                     maVaiTro = "STAFF"; // Sửa NV01 thành STAFF
 
                 string sqlTaiKhoan = @"INSERT INTO TaiKhoan (MaNguoiDung, TenDangNhap, MatKhau, MaVaiTro) 
-                       VALUES (@MaND, @TenDN, HASHBYTES('SHA2_512', @MatKhau), @MaVT)";
+                       VALUES (@MaND, @TenDN, HASHBYTES('SHA2_512', CAST(@MatKhau AS VARCHAR(100))), @MaVT)";
                 SqlCommand cmdTK = new SqlCommand(sqlTaiKhoan, sqlCon, transaction);
                 cmdTK.Parameters.AddWithValue("@MaND", maNguoiDung);
                 cmdTK.Parameters.AddWithValue("@TenDN", txtTenDangNhap.Text);
