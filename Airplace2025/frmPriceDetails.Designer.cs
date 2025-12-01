@@ -76,11 +76,10 @@
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.FillColor = System.Drawing.Color.White;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
-            this.mainPanel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.ShadowDecoration.Depth = 10;
             this.mainPanel.ShadowDecoration.Enabled = true;
-            this.mainPanel.Size = new System.Drawing.Size(2200, 1154);
+            this.mainPanel.Size = new System.Drawing.Size(1090, 536);
             this.mainPanel.TabIndex = 0;
             // 
             // contentPanel
@@ -90,11 +89,10 @@
             this.contentPanel.Controls.Add(this.detailsAdultPanel);
             this.contentPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.contentPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.contentPanel.Location = new System.Drawing.Point(0, 289);
-            this.contentPanel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.contentPanel.Location = new System.Drawing.Point(0, 150);
             this.contentPanel.Name = "contentPanel";
-            this.contentPanel.Padding = new System.Windows.Forms.Padding(50, 19, 50, 19);
-            this.contentPanel.Size = new System.Drawing.Size(2200, 687);
+            this.contentPanel.Padding = new System.Windows.Forms.Padding(25, 10, 25, 10);
+            this.contentPanel.Size = new System.Drawing.Size(1090, 357);
             this.contentPanel.TabIndex = 3;
             this.contentPanel.WrapContents = false;
             // 
@@ -107,10 +105,10 @@
             this.adultPanel.Controls.Add(this.adultSubLabel);
             this.adultPanel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.adultPanel.FillColor = System.Drawing.Color.White;
-            this.adultPanel.Location = new System.Drawing.Point(50, 29);
-            this.adultPanel.Margin = new System.Windows.Forms.Padding(0, 10, 0, 10);
+            this.adultPanel.Location = new System.Drawing.Point(25, 15);
+            this.adultPanel.Margin = new System.Windows.Forms.Padding(0, 5, 0, 5);
             this.adultPanel.Name = "adultPanel";
-            this.adultPanel.Size = new System.Drawing.Size(2100, 115);
+            this.adultPanel.Size = new System.Drawing.Size(1050, 60);
             this.adultPanel.TabIndex = 0;
             // 
             // arrowAdultLabel
@@ -119,10 +117,9 @@
             this.arrowAdultLabel.AutoSize = true;
             this.arrowAdultLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.arrowAdultLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            this.arrowAdultLabel.Location = new System.Drawing.Point(2020, 29);
-            this.arrowAdultLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.arrowAdultLabel.Location = new System.Drawing.Point(1010, 15);
             this.arrowAdultLabel.Name = "arrowAdultLabel";
-            this.arrowAdultLabel.Size = new System.Drawing.Size(44, 51);
+            this.arrowAdultLabel.Size = new System.Drawing.Size(23, 25);
             this.arrowAdultLabel.TabIndex = 2;
             this.arrowAdultLabel.Text = "˅";
             // 
@@ -131,10 +128,9 @@
             this.priceAdultLabel.AutoSize = true;
             this.priceAdultLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.priceAdultLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            this.priceAdultLabel.Location = new System.Drawing.Point(1700, 35);
-            this.priceAdultLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.priceAdultLabel.Location = new System.Drawing.Point(850, 18);
             this.priceAdultLabel.Name = "priceAdultLabel";
-            this.priceAdultLabel.Size = new System.Drawing.Size(243, 45);
+            this.priceAdultLabel.Size = new System.Drawing.Size(121, 21);
             this.priceAdultLabel.TabIndex = 1;
             this.priceAdultLabel.Text = "5.672.000 VND";
             // 
@@ -143,10 +139,9 @@
             this.adultSubLabel.AutoSize = true;
             this.adultSubLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.adultSubLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            this.adultSubLabel.Location = new System.Drawing.Point(30, 35);
-            this.adultSubLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.adultSubLabel.Location = new System.Drawing.Point(15, 18);
             this.adultSubLabel.Name = "adultSubLabel";
-            this.adultSubLabel.Size = new System.Drawing.Size(199, 45);
+            this.adultSubLabel.Size = new System.Drawing.Size(101, 21);
             this.adultSubLabel.TabIndex = 0;
             this.adultSubLabel.Text = "1 Người lớn";
             // 
@@ -156,11 +151,11 @@
             this.detailsAdultPanel.BorderThickness = 1;
             this.detailsAdultPanel.Controls.Add(this.detailsAdultFlow);
             this.detailsAdultPanel.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.detailsAdultPanel.Location = new System.Drawing.Point(50, 154);
-            this.detailsAdultPanel.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
+            this.detailsAdultPanel.Location = new System.Drawing.Point(25, 80);
+            this.detailsAdultPanel.Margin = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.detailsAdultPanel.Name = "detailsAdultPanel";
-            this.detailsAdultPanel.Padding = new System.Windows.Forms.Padding(30, 29, 30, 29);
-            this.detailsAdultPanel.Size = new System.Drawing.Size(2100, 192);
+            this.detailsAdultPanel.Padding = new System.Windows.Forms.Padding(15, 15, 15, 15);
+            this.detailsAdultPanel.Size = new System.Drawing.Size(1050, 100);
             this.detailsAdultPanel.TabIndex = 1;
             this.detailsAdultPanel.Visible = false;
             // 
@@ -171,10 +166,9 @@
             this.detailsAdultFlow.Controls.Add(this.categoryAdultPanel);
             this.detailsAdultFlow.Dock = System.Windows.Forms.DockStyle.Fill;
             this.detailsAdultFlow.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.detailsAdultFlow.Location = new System.Drawing.Point(30, 29);
-            this.detailsAdultFlow.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.detailsAdultFlow.Location = new System.Drawing.Point(15, 15);
             this.detailsAdultFlow.Name = "detailsAdultFlow";
-            this.detailsAdultFlow.Size = new System.Drawing.Size(2040, 134);
+            this.detailsAdultFlow.Size = new System.Drawing.Size(1020, 70);
             this.detailsAdultFlow.TabIndex = 0;
             this.detailsAdultFlow.WrapContents = false;
             // 
@@ -183,20 +177,19 @@
             this.categoryAdultPanel.Controls.Add(this.categoryLabelPrice);
             this.categoryAdultPanel.Controls.Add(this.categoryAdultLabel);
             this.categoryAdultPanel.FillColor = System.Drawing.Color.Transparent;
-            this.categoryAdultPanel.Location = new System.Drawing.Point(0, 19);
-            this.categoryAdultPanel.Margin = new System.Windows.Forms.Padding(0, 19, 0, 0);
+            this.categoryAdultPanel.Location = new System.Drawing.Point(0, 10);
+            this.categoryAdultPanel.Margin = new System.Windows.Forms.Padding(0, 10, 0, 0);
             this.categoryAdultPanel.Name = "categoryAdultPanel";
-            this.categoryAdultPanel.Size = new System.Drawing.Size(1980, 96);
+            this.categoryAdultPanel.Size = new System.Drawing.Size(990, 50);
             this.categoryAdultPanel.TabIndex = 0;
             // 
             // categoryLabelPrice
             // 
             this.categoryLabelPrice.AutoSize = true;
             this.categoryLabelPrice.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.categoryLabelPrice.Location = new System.Drawing.Point(1680, 19);
-            this.categoryLabelPrice.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.categoryLabelPrice.Location = new System.Drawing.Point(840, 10);
             this.categoryLabelPrice.Name = "categoryLabelPrice";
-            this.categoryLabelPrice.Size = new System.Drawing.Size(198, 36);
+            this.categoryLabelPrice.Size = new System.Drawing.Size(98, 17);
             this.categoryLabelPrice.TabIndex = 1;
             this.categoryLabelPrice.Text = "4.198.000 VND";
             // 
@@ -204,10 +197,9 @@
             // 
             this.categoryAdultLabel.AutoSize = true;
             this.categoryAdultLabel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.categoryAdultLabel.Location = new System.Drawing.Point(20, 19);
-            this.categoryAdultLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.categoryAdultLabel.Location = new System.Drawing.Point(10, 10);
             this.categoryAdultLabel.Name = "categoryAdultLabel";
-            this.categoryAdultLabel.Size = new System.Drawing.Size(355, 36);
+            this.categoryAdultLabel.Size = new System.Drawing.Size(180, 17);
             this.categoryAdultLabel.TabIndex = 0;
             this.categoryAdultLabel.Text = "Phí vận chuyển hàng không";
             // 
@@ -223,10 +215,10 @@
             this.confirmButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
             this.confirmButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.confirmButton.ForeColor = System.Drawing.Color.Black;
-            this.confirmButton.Location = new System.Drawing.Point(1890, 1000);
-            this.confirmButton.Margin = new System.Windows.Forms.Padding(50, 19, 50, 38);
+            this.confirmButton.Location = new System.Drawing.Point(935, 456);
+            this.confirmButton.Margin = new System.Windows.Forms.Padding(25, 10, 25, 20);
             this.confirmButton.Name = "confirmButton";
-            this.confirmButton.Size = new System.Drawing.Size(260, 115);
+            this.confirmButton.Size = new System.Drawing.Size(130, 60);
             this.confirmButton.TabIndex = 2;
             this.confirmButton.Text = "ĐÓNG";
             this.confirmButton.Click += new System.EventHandler(this.confirmButton_Click);
@@ -237,11 +229,10 @@
             this.pricePanel.Controls.Add(this.totalPriceLabel);
             this.pricePanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.pricePanel.FillColor = System.Drawing.Color.White;
-            this.pricePanel.Location = new System.Drawing.Point(0, 135);
-            this.pricePanel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.pricePanel.Location = new System.Drawing.Point(0, 70);
             this.pricePanel.Name = "pricePanel";
-            this.pricePanel.Padding = new System.Windows.Forms.Padding(50, 19, 50, 19);
-            this.pricePanel.Size = new System.Drawing.Size(2200, 154);
+            this.pricePanel.Padding = new System.Windows.Forms.Padding(25, 10, 25, 10);
+            this.pricePanel.Size = new System.Drawing.Size(1090, 80);
             this.pricePanel.TabIndex = 1;
             // 
             // totalDescLabel
@@ -249,10 +240,9 @@
             this.totalDescLabel.BackColor = System.Drawing.Color.Transparent;
             this.totalDescLabel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.totalDescLabel.ForeColor = System.Drawing.Color.Gray;
-            this.totalDescLabel.Location = new System.Drawing.Point(50, 29);
-            this.totalDescLabel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.totalDescLabel.Location = new System.Drawing.Point(25, 15);
             this.totalDescLabel.Name = "totalDescLabel";
-            this.totalDescLabel.Size = new System.Drawing.Size(839, 74);
+            this.totalDescLabel.Size = new System.Drawing.Size(429, 36);
             this.totalDescLabel.TabIndex = 1;
             this.totalDescLabel.Text = "Giá vé<br>Tổng giá cho tất cả các hành khách (đã bao gồm thuế, phí và chiết khấu)" +
     ".";
@@ -263,10 +253,9 @@
             this.totalPriceLabel.Dock = System.Windows.Forms.DockStyle.Right;
             this.totalPriceLabel.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.totalPriceLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            this.totalPriceLabel.Location = new System.Drawing.Point(1677, 19);
-            this.totalPriceLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.totalPriceLabel.Location = new System.Drawing.Point(825, 10);
             this.totalPriceLabel.Name = "totalPriceLabel";
-            this.totalPriceLabel.Size = new System.Drawing.Size(473, 77);
+            this.totalPriceLabel.Size = new System.Drawing.Size(240, 40);
             this.totalPriceLabel.TabIndex = 0;
             this.totalPriceLabel.Text = "11.227.000 VND";
             this.totalPriceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -278,9 +267,8 @@
             this.headerPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.headerPanel.FillColor = System.Drawing.Color.White;
             this.headerPanel.Location = new System.Drawing.Point(0, 0);
-            this.headerPanel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.headerPanel.Name = "headerPanel";
-            this.headerPanel.Size = new System.Drawing.Size(2200, 135);
+            this.headerPanel.Size = new System.Drawing.Size(1090, 70);
             this.headerPanel.TabIndex = 0;
             // 
             // closeButton
@@ -294,10 +282,9 @@
             this.closeButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
             this.closeButton.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.closeButton.ForeColor = System.Drawing.Color.Black;
-            this.closeButton.Location = new System.Drawing.Point(2060, 29);
-            this.closeButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.closeButton.Location = new System.Drawing.Point(1030, 15);
             this.closeButton.Name = "closeButton";
-            this.closeButton.Size = new System.Drawing.Size(80, 77);
+            this.closeButton.Size = new System.Drawing.Size(40, 40);
             this.closeButton.TabIndex = 1;
             this.closeButton.Text = "✕";
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
@@ -307,22 +294,20 @@
             this.titleLabel.AutoSize = true;
             this.titleLabel.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            this.titleLabel.Location = new System.Drawing.Point(50, 38);
-            this.titleLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.titleLabel.Location = new System.Drawing.Point(25, 20);
             this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(275, 65);
+            this.titleLabel.Size = new System.Drawing.Size(137, 32);
             this.titleLabel.TabIndex = 0;
             this.titleLabel.Text = "Chi tiết giá";
             // 
             // frmPriceDetails
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.ClientSize = new System.Drawing.Size(2200, 1154);
+            this.ClientSize = new System.Drawing.Size(1090, 536);
             this.Controls.Add(this.mainPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "frmPriceDetails";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmPriceDetails";
