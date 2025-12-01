@@ -45,6 +45,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pnlTicketInfo = new Guna.UI2.WinForms.Guna2Panel();
+            this.SuiteCasebtn = new System.Windows.Forms.PictureBox();
             this.btnScedule = new System.Windows.Forms.PictureBox();
             this.btnPrint = new System.Windows.Forms.PictureBox();
             this.lbUpClass = new System.Windows.Forms.Label();
@@ -61,7 +62,6 @@
             this.lbCustomerName = new System.Windows.Forms.Label();
             this.guna2Separator1 = new Guna.UI2.WinForms.Guna2Separator();
             this.label13 = new System.Windows.Forms.Label();
-            this.SuiteCasebtn = new System.Windows.Forms.PictureBox();
             this.guna2ShadowPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
@@ -70,12 +70,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnlTicketInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SuiteCasebtn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnScedule)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPrint)).BeginInit();
             this.guna2ShadowPanel2.SuspendLayout();
             this.pnlCustomer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SuiteCasebtn)).BeginInit();
             this.SuspendLayout();
             // 
             // guna2ShadowPanel1
@@ -300,11 +300,22 @@
             this.pnlTicketInfo.Size = new System.Drawing.Size(307, 213);
             this.pnlTicketInfo.TabIndex = 1;
             // 
+            // SuiteCasebtn
+            // 
+            this.SuiteCasebtn.Image = global::Airplace2025.Properties.Resources.noun_suitecase_5350511;
+            this.SuiteCasebtn.ImageLocation = "";
+            this.SuiteCasebtn.Location = new System.Drawing.Point(235, 163);
+            this.SuiteCasebtn.Name = "SuiteCasebtn";
+            this.SuiteCasebtn.Size = new System.Drawing.Size(40, 36);
+            this.SuiteCasebtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.SuiteCasebtn.TabIndex = 32;
+            this.SuiteCasebtn.TabStop = false;
+            // 
             // btnScedule
             // 
             this.btnScedule.Image = global::Airplace2025.Properties.Resources.noun_calendar_7630981;
             this.btnScedule.ImageLocation = "";
-            this.btnScedule.Location = new System.Drawing.Point(140, 156);
+            this.btnScedule.Location = new System.Drawing.Point(140, 164);
             this.btnScedule.Name = "btnScedule";
             this.btnScedule.Size = new System.Drawing.Size(40, 36);
             this.btnScedule.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -315,7 +326,7 @@
             // 
             this.btnPrint.Image = global::Airplace2025.Properties.Resources.noun_print_8158048;
             this.btnPrint.ImageLocation = "";
-            this.btnPrint.Location = new System.Drawing.Point(47, 156);
+            this.btnPrint.Location = new System.Drawing.Point(47, 164);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(42, 36);
             this.btnPrint.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -327,7 +338,7 @@
             this.lbUpClass.AutoSize = true;
             this.lbUpClass.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbUpClass.ForeColor = System.Drawing.Color.DarkGreen;
-            this.lbUpClass.Location = new System.Drawing.Point(199, 104);
+            this.lbUpClass.Location = new System.Drawing.Point(199, 123);
             this.lbUpClass.Name = "lbUpClass";
             this.lbUpClass.Size = new System.Drawing.Size(77, 15);
             this.lbUpClass.TabIndex = 30;
@@ -338,7 +349,7 @@
             this.lbEditProflie.AutoSize = true;
             this.lbEditProflie.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbEditProflie.ForeColor = System.Drawing.Color.DarkGreen;
-            this.lbEditProflie.Location = new System.Drawing.Point(23, 104);
+            this.lbEditProflie.Location = new System.Drawing.Point(23, 123);
             this.lbEditProflie.Name = "lbEditProflie";
             this.lbEditProflie.Size = new System.Drawing.Size(122, 15);
             this.lbEditProflie.TabIndex = 29;
@@ -349,7 +360,7 @@
             this.guna2ShadowPanel2.BackColor = System.Drawing.Color.Transparent;
             this.guna2ShadowPanel2.Controls.Add(this.label8);
             this.guna2ShadowPanel2.FillColor = System.Drawing.Color.Green;
-            this.guna2ShadowPanel2.Location = new System.Drawing.Point(165, 24);
+            this.guna2ShadowPanel2.Location = new System.Drawing.Point(15, 67);
             this.guna2ShadowPanel2.Name = "guna2ShadowPanel2";
             this.guna2ShadowPanel2.Radius = 8;
             this.guna2ShadowPanel2.ShadowColor = System.Drawing.Color.Black;
@@ -482,17 +493,6 @@
             this.label13.TabIndex = 2;
             this.label13.Text = "Hành khách";
             // 
-            // SuiteCasebtn
-            // 
-            this.SuiteCasebtn.Image = global::Airplace2025.Properties.Resources.noun_suitecase_5350511;
-            this.SuiteCasebtn.ImageLocation = "";
-            this.SuiteCasebtn.Location = new System.Drawing.Point(235, 155);
-            this.SuiteCasebtn.Name = "SuiteCasebtn";
-            this.SuiteCasebtn.Size = new System.Drawing.Size(40, 36);
-            this.SuiteCasebtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.SuiteCasebtn.TabIndex = 32;
-            this.SuiteCasebtn.TabStop = false;
-            // 
             // frmTraCuuDatVe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -517,6 +517,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.pnlTicketInfo.ResumeLayout(false);
             this.pnlTicketInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SuiteCasebtn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnScedule)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPrint)).EndInit();
             this.guna2ShadowPanel2.ResumeLayout(false);
@@ -524,7 +525,6 @@
             this.pnlCustomer.ResumeLayout(false);
             this.pnlCustomer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SuiteCasebtn)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -273,6 +274,14 @@ namespace Airplace2025
                             {
                                 // 1. ĐỌC DỮ LIỆU CƠ BẢN TỪ EXCEL
                                 string maMayBay = GetString(worksheet, row, 1);
+
+                                // Kiểm tra nếu MaMayBay bị rỗng (do đọc phải dòng trắng trong Excel)
+                                // thì bỏ qua ngay lập tức, không gọi xuống Database nữa.
+                                if (string.IsNullOrWhiteSpace(maMayBay))
+                                {
+                                    continue; // Nhảy sang dòng tiếp theo
+                                }
+
                                 string sbDi = GetString(worksheet, row, 2);
                                 string sbDen = GetString(worksheet, row, 3);
                                 DateTime ngayGioBay = GetDateTime(worksheet, row, 4);
@@ -280,11 +289,11 @@ namespace Airplace2025
                                 decimal giaCoBan = GetDecimal(worksheet, row, 6);
                                 string trangThai = GetString(worksheet, row, 19);
 
-                                // Validation cơ bản (nếu thiếu thông tin quan trọng thì bỏ qua dòng này)
-                                if (string.IsNullOrEmpty(maMayBay) || string.IsNullOrEmpty(sbDi) || string.IsNullOrEmpty(sbDen))
-                                {
-                                    throw new Exception("Thiếu thông tin Mã máy bay, Sân bay đi hoặc đến.");
-                                }
+                                //// Validation cơ bản (nếu thiếu thông tin quan trọng thì bỏ qua dòng này)
+                                //if (string.IsNullOrEmpty(maMayBay) || string.IsNullOrEmpty(sbDi) || string.IsNullOrEmpty(sbDen))
+                                //{
+                                //    throw new Exception("Thiếu thông tin Mã máy bay, Sân bay đi hoặc đến.");
+                                //}
 
                                 // 2. GỌI SP THÊM CHUYẾN BAY
                                 // Hàm InsertFlight gọi sp_ThemChuyenBay và trả về DataTable chứa dòng vừa thêm
@@ -398,13 +407,38 @@ namespace Airplace2025
         private DateTime GetDateTime(ExcelWorksheet ws, int row, int col)
         {
             var val = ws.Cells[row, col].Value;
-            // EPPlus tự xử lý ngày tháng rất tốt nếu cell Excel đúng định dạng Date
-            if (val is DateTime date) return date;
 
-            // Nếu là chuỗi text, thử parse
-            if (DateTime.TryParse(val?.ToString(), out DateTime result)) return result;
+            if (val == null) return DateTime.Now; // Hoặc trả về DateTime.MinValue tuỳ logic
 
-            return DateTime.Now; // Trả về Default nếu lỗi (hoặc bạn có thể throw exception)
+            // TRƯỜNG HỢP 1: Excel đã hiểu đó là ngày tháng (Native Date)
+            if (val is DateTime date)
+            {
+                return date;
+            }
+
+            // TRƯỜNG HỢP 2: Excel lưu dưới dạng Text (Chuỗi ký tự)
+            string dateText = val.ToString().Trim();
+
+            // Định nghĩa danh sách các định dạng chấp nhận được (Ưu tiên ngày trước tháng)
+            string[] formats = {
+                "dd/MM/yyyy HH:mm",  // Định dạng chuẩn bạn muốn: 20/12/2025 08:00
+                "dd/MM/yyyy HH:mm:ss",
+                "d/M/yyyy HH:mm",
+                "dd/MM/yyyy",
+                "yyyy-MM-dd HH:mm"   // Dự phòng định dạng quốc tế
+            };
+
+            // Sử dụng TryParseExact để ép kiểu chính xác
+            if (DateTime.TryParseExact(dateText, formats,
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out DateTime result))
+            {
+                return result;
+            }
+
+            // Nếu vẫn lỗi, ném ra ngoại lệ để bạn biết dòng nào sai thay vì âm thầm lưu ngày hiện tại
+            throw new Exception($"Lỗi định dạng ngày tháng tại dòng {row}, cột {col}: '{dateText}'. Vui lòng nhập đúng dd/MM/yyyy HH:mm");
         }
 
         private void dgvChuyenBay_CellClick(object sender, DataGridViewCellEventArgs e)
