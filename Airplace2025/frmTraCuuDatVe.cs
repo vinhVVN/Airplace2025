@@ -199,5 +199,41 @@ namespace Airplace2025
                      .Replace("Đ", "D");
         }
 
+        private void lbUpClass_Click(object sender, EventArgs e)
+        {
+            if (_currentTicketData == null || _currentTicketData.Rows.Count == 0)
+            {
+                MessageBox.Show("Chưa có thông tin vé.");
+                return;
+            }
+
+            // Mở form Nâng Hạng và truyền dữ liệu vé hiện tại sang
+            frmNangHang frm = new frmNangHang(_currentTicketData);
+
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                // Nếu nâng hạng thành công -> Load lại dữ liệu mới nhất từ CSDL
+                // Để cập nhật lại hạng vé mới trên giao diện
+                btnFind_Click(sender, e);
+            }
+        }
+
+        private void btnScedule_Click(object sender, EventArgs e)
+        {
+            if (_currentTicketData == null || _currentTicketData.Rows.Count == 0) return;
+
+            // Lấy dòng dữ liệu của vé hiện tại (Giả sử lấy dòng đầu hoặc dòng đang chọn)
+            DataRow veHienTai = _currentTicketData.Rows[0];
+
+            // Cần đảm bảo veHienTai có cột "GiaVeThucTe"
+            // Nếu SP Tra Cứu chưa trả về cột này thì bạn vào sửa SP sp_TraCuuDatVe thêm cột v.GiaVeThucTe nhé
+
+            frmDoiChuyenBay frm = new frmDoiChuyenBay(veHienTai);
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                // Refresh lại dữ liệu
+                btnFind_Click(sender, e);
+            }
+        }
     }
 }

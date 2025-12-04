@@ -34,5 +34,22 @@ namespace Airplace2025.BLL.DAO
             return dt;
         }
 
+
+        public string GetCountryByAirportCode(string maSanBay)
+        {
+            string sql = "SELECT QuocGia FROM SanBay WHERE MaSanBay = @MaSanBay";
+            DataTable dt = new DataTable();
+            using (SqlConnection con = DBConnection.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand(sql, con);
+                cmd.Parameters.AddWithValue("@MaSanBay", maSanBay);
+
+                con.Open();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+            }
+            object result = dt.Rows[0];
+            return result != null ? result.ToString() : "Việt Nam"; // Mặc định VN nếu lỗi
+        }
     }
 }

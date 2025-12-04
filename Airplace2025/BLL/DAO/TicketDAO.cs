@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Airplace2025.DAL;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace Airplace2025.BLL.DAO
 {
@@ -83,6 +84,89 @@ namespace Airplace2025.BLL.DAO
             }
         }
 
+        public bool CapNhatGhe(string maDatVe, string maGheMoi)
+        {
+            string query = "UPDATE ChiTietDatVe SET MaGhe = @MaGheMoi WHERE MaDatVe = @MaDatVe";
+            using(SqlConnection con = DBConnection.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@MaGheMoi", maGheMoi);
+                cmd.Parameters.AddWithValue("@MaDatVe", maDatVe);
+
+                try
+                {
+                    con.Open();
+
+                    if (cmd.ExecuteNonQuery() > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine($"Lỗi khi thêm hãng bay: {ex.Message}");
+                    return false;
+                }
+            }
+        }
+
+        public bool NangHangVe(string maVe, string maHangVeMoi)
+        {
+            try
+            {
+                using (SqlConnection con = DBConnection.GetConnection())
+                {
+                    SqlCommand cmd = new SqlCommand("sp_NangHangVe", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaVe", maVe);
+                    cmd.Parameters.AddWithValue("@MaHangVeMoi", maHangVeMoi);
+
+                    try
+                    {
+                        con.Open();
+
+                        if (cmd.ExecuteNonQuery() > 0)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine($"Lỗi: {ex.Message}");
+                        return false;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message); // Ném lỗi SQL ra cho Form bắt
+            }
+        }
+
+        // Hàm lấy tỉ lệ giá (để tính toán trên giao diện trước khi lưu)
+        public DataTable GetTiLeHangVe()
+        {
+            string sql = "SELECT MaHangVe, TenHangVe, TiLeGiaHangVe FROM HangVe";
+            DataTable dt = new DataTable();
+            using (SqlConnection con = DBConnection.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand(sql, con);
+
+                con.Open();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+            }
+            return dt;
+        }
 
     }
 }

@@ -154,7 +154,7 @@
             this.detailsAdultPanel.Location = new System.Drawing.Point(25, 80);
             this.detailsAdultPanel.Margin = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.detailsAdultPanel.Name = "detailsAdultPanel";
-            this.detailsAdultPanel.Padding = new System.Windows.Forms.Padding(15, 15, 15, 15);
+            this.detailsAdultPanel.Padding = new System.Windows.Forms.Padding(15);
             this.detailsAdultPanel.Size = new System.Drawing.Size(1050, 100);
             this.detailsAdultPanel.TabIndex = 1;
             this.detailsAdultPanel.Visible = false;
