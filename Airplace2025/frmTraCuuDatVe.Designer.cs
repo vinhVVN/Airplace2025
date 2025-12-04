@@ -343,6 +343,7 @@
             this.lbUpClass.Size = new System.Drawing.Size(77, 15);
             this.lbUpClass.TabIndex = 30;
             this.lbUpClass.Text = "NÂNG HẠNG";
+            this.lbUpClass.Click += new System.EventHandler(this.lbUpClass_Click);
             // 
             // lbEditProflie
             // 

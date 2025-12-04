@@ -275,9 +275,7 @@ namespace Airplace2025
 
         private void btnAddAirline_Click(object sender, EventArgs e)
         {
-            frmAddAirline frm = new frmAddAirline();
-            frm.ShowDialog();
-            LoadAllAirline();
+            
         }
     }
 }

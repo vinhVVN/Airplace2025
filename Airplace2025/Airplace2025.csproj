@@ -165,11 +165,11 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmAddAirline.cs">
+    <Compile Include="frmNangHang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAddAirline.Designer.cs">
-      <DependentUpon>frmAddAirline.cs</DependentUpon>
+    <Compile Include="frmNangHang.Designer.cs">
+      <DependentUpon>frmNangHang.cs</DependentUpon>
     </Compile>
     <Compile Include="frmAddAirplane.cs">
       <SubType>Form</SubType>
@@ -373,8 +373,8 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAddAirline.resx">
-      <DependentUpon>frmAddAirline.cs</DependentUpon>
+    <EmbeddedResource Include="frmNangHang.resx">
+      <DependentUpon>frmNangHang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAddAirplane.resx">
       <DependentUpon>frmAddAirplane.cs</DependentUpon>

@@ -199,5 +199,23 @@ namespace Airplace2025
                      .Replace("Đ", "D");
         }
 
+        private void lbUpClass_Click(object sender, EventArgs e)
+        {
+            if (_currentTicketData == null || _currentTicketData.Rows.Count == 0)
+            {
+                MessageBox.Show("Chưa có thông tin vé.");
+                return;
+            }
+
+            // Mở form Nâng Hạng và truyền dữ liệu vé hiện tại sang
+            frmNangHang frm = new frmNangHang(_currentTicketData);
+
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                // Nếu nâng hạng thành công -> Load lại dữ liệu mới nhất từ CSDL
+                // Để cập nhật lại hạng vé mới trên giao diện
+                btnFind_Click(sender, e);
+            }
+        }
     }
 }
