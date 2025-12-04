@@ -171,11 +171,11 @@
     <Compile Include="frmNangHang.Designer.cs">
       <DependentUpon>frmNangHang.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmAddAirplane.cs">
+    <Compile Include="frmDoiChuyenBay.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAddAirplane.Designer.cs">
-      <DependentUpon>frmAddAirplane.cs</DependentUpon>
+    <Compile Include="frmDoiChuyenBay.Designer.cs">
+      <DependentUpon>frmDoiChuyenBay.cs</DependentUpon>
     </Compile>
     <Compile Include="frmCaiDat.cs">
       <SubType>Form</SubType>
@@ -376,8 +376,8 @@
     <EmbeddedResource Include="frmNangHang.resx">
       <DependentUpon>frmNangHang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAddAirplane.resx">
-      <DependentUpon>frmAddAirplane.cs</DependentUpon>
+    <EmbeddedResource Include="frmDoiChuyenBay.resx">
+      <DependentUpon>frmDoiChuyenBay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCaiDat.resx">
       <DependentUpon>frmCaiDat.cs</DependentUpon>

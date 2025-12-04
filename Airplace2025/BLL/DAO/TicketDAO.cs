@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Airplace2025.DAL;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace Airplace2025.BLL.DAO
 {
@@ -79,6 +80,36 @@ namespace Airplace2025.BLL.DAO
                 catch (SqlException ex)
                 {
                     Console.WriteLine($"Lỗi khi thêm hãng bay: {ex.Message}");
+                }
+            }
+        }
+
+        public bool CapNhatGhe(string maDatVe, string maGheMoi)
+        {
+            string query = "UPDATE ChiTietDatVe SET MaGhe = @MaGheMoi WHERE MaDatVe = @MaDatVe";
+            using(SqlConnection con = DBConnection.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@MaGheMoi", maGheMoi);
+                cmd.Parameters.AddWithValue("@MaDatVe", maDatVe);
+
+                try
+                {
+                    con.Open();
+
+                    if (cmd.ExecuteNonQuery() > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine($"Lỗi khi thêm hãng bay: {ex.Message}");
+                    return false;
                 }
             }
         }

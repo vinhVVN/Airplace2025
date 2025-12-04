@@ -187,6 +187,7 @@
             this.txtGiaMoi.BorderThickness = 2;
             this.txtGiaMoi.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtGiaMoi.DefaultText = "";
+            this.txtGiaMoi.Enabled = false;
             this.txtGiaMoi.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtGiaMoi.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.txtGiaMoi.Location = new System.Drawing.Point(299, 151);

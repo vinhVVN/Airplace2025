@@ -139,7 +139,7 @@
             this.contentTable.Controls.Add(this.guna2Panel8, 1, 3);
             this.contentTable.Location = new System.Drawing.Point(0, 140);
             this.contentTable.Name = "contentTable";
-            this.contentTable.Padding = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            this.contentTable.Padding = new System.Windows.Forms.Padding(10);
             this.contentTable.RowCount = 4;
             this.contentTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.contentTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));

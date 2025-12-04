@@ -90,6 +90,64 @@ namespace Airplace2025.BLL.DAO
             return dt;
         }
 
+        public DataTable GetFlightById(string maChuyenBay)
+        {
+            string query = @"
+                SELECT cb.*, mb.TenMayBay, hb.TenHangBay 
+                FROM ChuyenBay cb
+                JOIN MayBay mb ON cb.MaMayBay = mb.MaMayBay
+                JOIN HangBay hb ON mb.MaHangBay = hb.MaHangBay
+                WHERE cb.MaChuyenBay = @MaChuyenBay";
+            DataTable dt = new DataTable();
+            using (SqlConnection con = DBConnection.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@MaChuyenBay", maChuyenBay);
+
+                con.Open();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+            }
+            return dt;
+        }
+
+        public DataTable DoiChuyenBay(string maVe, string maChuyenBayMoi, string maHangVeMoi)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection con = DBConnection.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand("sp_DoiChuyenBay", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@MaVe", maVe);
+                cmd.Parameters.AddWithValue("@MaChuyenBayMoi", maChuyenBayMoi);
+                cmd.Parameters.AddWithValue("@MaHangVeMoi", maHangVeMoi);
+
+                con.Open();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+            }
+            return dt;
+        }
+
+        public DataTable SearchFlightsMatrix(string maDi, string maDen, DateTime ngayBay)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection con = DBConnection.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand("sp_TimKiemChuyenBay_Matrix", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@MaSanBayDi", maDi);
+                cmd.Parameters.AddWithValue("@MaSanBayDen", maDen);
+                cmd.Parameters.AddWithValue("@NgayBay", ngayBay);
+
+                con.Open();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+            }
+            return dt;
+        }
+
+
         public DataTable GetFlightList(string TrangThai)
         {
             DataTable dt = new DataTable();
