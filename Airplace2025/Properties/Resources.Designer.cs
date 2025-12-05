@@ -93,6 +93,16 @@ namespace Airplace2025.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap alert_sign {
+            get {
+                object obj = ResourceManager.GetObject("alert-sign", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap change_fly {
             get {
                 object obj = ResourceManager.GetObject("change-fly", resourceCulture);

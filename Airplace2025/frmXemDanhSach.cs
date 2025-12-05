@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Airplace2025.BLL;
 
 namespace Airplace2025
 {
@@ -217,5 +218,146 @@ namespace Airplace2025
         {
             this.Close();
         }
+
+        private async void btnThongBao_Click(object sender, EventArgs e)
+        {
+            if (_dtHanhKhach == null || _dtHanhKhach.Rows.Count == 0) return;
+
+            frmThongBao frm = new frmThongBao();
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                string subject = frm.Subject;
+                string rawBody = frm.Body;
+
+                btnThongBao.Enabled = false;
+                btnThongBao.Text = "Đang xử lý...";
+
+                // --- CHUẨN BỊ HÌNH ẢNH ---
+                // 1. Logo Đại lý (Từ Resources)
+                MemoryStream streamAgencyLogo = new MemoryStream();
+                Properties.Resources.mb1.Save(streamAgencyLogo, System.Drawing.Imaging.ImageFormat.Png);
+
+                // 2. Logo Hãng Bay (Từ Database - Lấy dòng đầu tiên vì cả danh sách cùng 1 chuyến)
+                MemoryStream streamAirlineLogo = new MemoryStream();
+                if (_dtHanhKhach.Rows[0]["Logo"] != DBNull.Value)
+                {
+                    byte[] logoBytes = (byte[])_dtHanhKhach.Rows[0]["Logo"];
+                    streamAirlineLogo.Write(logoBytes, 0, logoBytes.Length);
+                }
+                else
+                {
+                    // Nếu không có logo hãng thì dùng tạm ảnh mặc định hoặc để trống
+                    Properties.Resources.plane_icon.Save(streamAirlineLogo, System.Drawing.Imaging.ImageFormat.Png);
+                }
+
+                // Đóng gói ảnh vào Dictionary với Key là ContentId (cid)
+                var images = new Dictionary<string, Stream>
+                {
+                    { "AgencyLogo", streamAgencyLogo },
+                    { "AirlineLogo", streamAirlineLogo }
+                };
+
+                // Lấy thông tin chung chuyến bay
+                DataRow rInfo = _dtHanhKhach.Rows[0];
+                string tenHang = rInfo["TenHangBay"].ToString();
+                string maCB = _maChuyenBay;
+                string gioBay = Convert.ToDateTime(rInfo["NgayGioBay"]).ToString("HH:mm dd/MM/yyyy");
+                string changBay = $"{rInfo["MaSanBayDi"]} ➔ {rInfo["MaSanBayDen"]}";
+
+                int success = 0;
+
+                await Task.Run(() =>
+                {
+                    foreach (DataRow row in _dtHanhKhach.Rows)
+                    {
+                        if (_dtHanhKhach.Columns.Contains("Email") && row["Email"] != DBNull.Value)
+                        {
+                            string emailTo = row["Email"].ToString();
+                            string tenKhach = row["HoTen"].ToString();
+
+                            // Tạo nội dung HTML riêng cho từng khách (để thay tên)
+                            string htmlBody = BuildProfessionalEmailBody(tenKhach, rawBody, tenHang, maCB, gioBay, changBay);
+
+                            // Gửi mail với ảnh nhúng
+                            if (EmailService.SendMailWithImages(emailTo, subject, htmlBody, images))
+                            {
+                                success++;
+                            }
+                        }
+                    }
+                });
+
+                // Dọn dẹp bộ nhớ Stream
+                streamAgencyLogo.Dispose();
+                streamAirlineLogo.Dispose();
+
+                btnThongBao.Enabled = true;
+                btnThongBao.Text = "Gửi thông báo";
+                MessageBox.Show($"Đã gửi thành công {success} email.", "Hoàn tất");
+            }
+        }
+
+
+        private string BuildProfessionalEmailBody(string tenKhach, string noiDungThongBao, string tenHangBay, string maChuyenBay, string gioBay, string changBay)
+        {
+            // Mẫu HTML sử dụng Table (tốt nhất cho Email Client)
+            // Logo Đại lý dùng cid:AgencyLogo
+            // Logo Hãng bay dùng cid:AirlineLogo
+
+                return $@"
+            <!DOCTYPE html>
+            <html>
+            <head>
+            <style>
+                body {{ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; }}
+                .container {{ width: 100%; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; }}
+                .header {{ background-color: #0056b3; padding: 20px; text-align: center; }}
+                .content {{ padding: 30px 20px; background-color: #ffffff; }}
+                .footer {{ background-color: #f4f4f4; padding: 15px; text-align: center; font-size: 12px; color: #777; }}
+                .flight-info {{ background-color: #f9f9f9; border-left: 4px solid #0056b3; padding: 15px; margin: 20px 0; }}
+                .btn {{ display: inline-block; background-color: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-top: 10px; }}
+            </style>
+            </head>
+            <body>
+            <div class='container'>
+                <div class='header'>
+                    <img src='cid:AgencyLogo' alt='Airplace Logo' style='max-height: 50px;' />
+                    <h2 style='color: white; margin: 10px 0 0 0;'>THÔNG BÁO TỪ ĐẠI LÝ</h2>
+                </div>
+
+                <div class='content'>
+                    <p>Kính gửi Quý khách <strong>{tenKhach}</strong>,</p>
+                
+                    <p>{noiDungThongBao.Replace("\n", "<br>")}</p>
+
+                    <div class='flight-info'>
+                        <table width='100%'>
+                            <tr>
+                                <td width='60px' valign='middle'>
+                                    <img src='cid:AirlineLogo' alt='Airline Logo' style='width: 50px; height: auto;' />
+                                </td>
+                                <td valign='middle'>
+                                    <strong>{tenHangBay}</strong><br/>
+                                    Chuyến bay: <strong>{maChuyenBay}</strong><br/>
+                                    Hành trình: {changBay}<br/>
+                                    Giờ khởi hành: {gioBay}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <p>Cảm ơn Quý khách đã sử dụng dịch vụ của chúng tôi.</p>
+                    <p>Trân trọng,<br/><strong>Đội ngũ Airplace 2025</strong></p>
+                </div>
+
+                <div class='footer'>
+                    <p>Email này được gửi tự động, vui lòng không trả lời.</p>
+                    <p>Hotline hỗ trợ: 1900 xxxx</p>
+                </div>
+            </div>
+            </body>
+            </html>";
+        }
+
     }
 }

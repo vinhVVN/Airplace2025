@@ -124,14 +124,14 @@
   <data name="noun-meal-8091868" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\noun-meal-8091868.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="noun-calendar-7630981" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\noun-calendar-7630981.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="save-money" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\save-money.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dustbin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dustbin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="mb1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\mb11.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="noun-calendar-7630981" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\noun-calendar-7630981.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="plane" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\plane.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -145,14 +145,14 @@
   <data name="pngwing.com (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pngwing.com (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="save-money" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\save-money.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="add-more" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\add-more.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="noun-upload-8162800" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\noun-upload-8162800.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="package-infor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\package-infor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="noun-x-4572560" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\noun-x-4572560.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -162,9 +162,6 @@
   </data>
   <data name="noun-money-5633622" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\noun-money-5633622.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="change-fly" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\change-fly.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pngaaa.com-791768" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pngaaa.com-791768.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -184,6 +181,9 @@
   <data name="magnifying-glass" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\magnifying-glass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="noun-suitecase-5350511" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\noun-suitecase-5350511.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="noun-flight-ticket-6637983" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\noun-flight-ticket-6637983.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -202,14 +202,17 @@
   <data name="noun-save-2209758" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\noun-save-2209758.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="airplane-seat-green" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\airplane-seat-green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="mb1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mb11.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="eye-removebg-preview" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\eye-removebg-preview.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="package-infor" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\package-infor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="airplane-seat-green" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\airplane-seat-green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="change-fly" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\change-fly.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="noun-entertainment-6988208" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\noun-entertainment-6988208.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -217,7 +220,7 @@
   <data name="sliders-solid-full" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sliders-solid-full.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="noun-suitecase-5350511" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\noun-suitecase-5350511.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="alert-sign" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\alert-sign.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

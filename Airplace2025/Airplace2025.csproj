@@ -117,6 +117,7 @@
     <Compile Include="BLL\DatVeBLL.cs" />
     <Compile Include="BLL\DTO\HangVeDTO.cs" />
     <Compile Include="BLL\DTO\KhachHangDTO.cs" />
+    <Compile Include="BLL\EmailService.cs" />
     <Compile Include="BLL\FlightDetail.cs" />
     <Compile Include="BLL\ChuyenBayBLL.cs" />
     <Compile Include="BLL\HoaDonBLL.cs" />
@@ -267,11 +268,11 @@
     <Compile Include="frmThemNhanVien.Designer.cs">
       <DependentUpon>frmThemNhanVien.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmThemTrungGian.cs">
+    <Compile Include="frmThongBao.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmThemTrungGian.Designer.cs">
-      <DependentUpon>frmThemTrungGian.cs</DependentUpon>
+    <Compile Include="frmThongBao.Designer.cs">
+      <DependentUpon>frmThongBao.cs</DependentUpon>
     </Compile>
     <Compile Include="frmThongKe.cs">
       <SubType>Form</SubType>
@@ -415,8 +416,8 @@
     <EmbeddedResource Include="frmThanhToan.resx">
       <DependentUpon>frmThanhToan.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmThemTrungGian.resx">
-      <DependentUpon>frmThemTrungGian.cs</DependentUpon>
+    <EmbeddedResource Include="frmThongBao.resx">
+      <DependentUpon>frmThongBao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmThongKe.resx">
       <DependentUpon>frmThongKe.cs</DependentUpon>
@@ -468,6 +469,7 @@
     <Content Include="map.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\alert-sign.png" />
     <None Include="Resources\noun-suitecase-5350511.png" />
     <None Include="Resources\noun-avatar-6781879.png" />
     <None Include="Resources\noun-calendar-7630981.png" />
