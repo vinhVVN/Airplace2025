@@ -127,6 +127,8 @@ namespace Airplace2025
                 string tenSbDi = row["TenSanBayDi"].ToString();
                 string tenSbDen = row["TenSanBayDen"].ToString();
                 string ghe = row["MaGhe"].ToString();
+                string hangve = row["TenHangVe"].ToString();
+                string hanhlyThem = row["HanhLyThem"].ToString();
 
                 DateTime ngayGioDi = Convert.ToDateTime(row["NgayGioBay"]);
                 int thoiGianBay = Convert.ToInt32(row["ThoiGianBay"]);
@@ -163,7 +165,9 @@ namespace Airplace2025
                     ngayDen,
                     thoiLuong,
                     logo,
-                    ghe
+                    ghe,
+                    hangve,
+                    hanhlyThem
                 );
 
                 // Thêm vào FlowLayoutPanel
@@ -232,6 +236,21 @@ namespace Airplace2025
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 // Refresh lại dữ liệu
+                btnFind_Click(sender, e);
+            }
+        }
+
+        private void SuiteCasebtn_Click(object sender, EventArgs e)
+        {
+            if (_currentTicketData == null || _currentTicketData.Rows.Count == 0) return;
+
+            // Lấy mã đặt vé (ví dụ: ETK001)
+            string maDatVe = _currentTicketData.Rows[0]["MaDatVe"].ToString();
+
+            frmMuaHanhLy frm = new frmMuaHanhLy(maDatVe);
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                // Refresh lại dữ liệu để thấy cập nhật
                 btnFind_Click(sender, e);
             }
         }

@@ -152,6 +152,38 @@ namespace Airplace2025.BLL.DAO
             }
         }
 
+
+        public bool MuaThemHanhLy(string maDatVe, int soKg, decimal giaTien)
+        {
+            using (SqlConnection con = DBConnection.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand("sp_MuaThemHanhLy", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@MaDatVe", maDatVe);
+                cmd.Parameters.AddWithValue("@SoKg", soKg);
+                cmd.Parameters.AddWithValue("@GiaTien", giaTien);
+
+                try
+                {
+                    con.Open();
+
+                    if (cmd.ExecuteNonQuery() > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine($"Lỗi: {ex.Message}");
+                    return false;
+                }
+            }
+        }
+
         // Hàm lấy tỉ lệ giá (để tính toán trên giao diện trước khi lưu)
         public DataTable GetTiLeHangVe()
         {

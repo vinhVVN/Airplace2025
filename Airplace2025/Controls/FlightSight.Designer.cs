@@ -47,6 +47,10 @@
             this.lbBayThang = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lbSeat = new System.Windows.Forms.Label();
+            this.lbHangVe = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lbHanhLyThem = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -259,10 +263,58 @@
             this.lbSeat.TabIndex = 35;
             this.lbSeat.Text = "X36";
             // 
+            // lbHangVe
+            // 
+            this.lbHangVe.AutoSize = true;
+            this.lbHangVe.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbHangVe.ForeColor = System.Drawing.Color.Black;
+            this.lbHangVe.Location = new System.Drawing.Point(296, 140);
+            this.lbHangVe.Name = "lbHangVe";
+            this.lbHangVe.Size = new System.Drawing.Size(86, 21);
+            this.lbHangVe.TabIndex = 36;
+            this.lbHangVe.Text = "Phổ thông";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label2.Location = new System.Drawing.Point(550, 140);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(98, 18);
+            this.label2.TabIndex = 37;
+            this.label2.Text = "Hành lý thêm:";
+            // 
+            // lbHanhLyThem
+            // 
+            this.lbHanhLyThem.AutoSize = true;
+            this.lbHanhLyThem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbHanhLyThem.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lbHanhLyThem.Location = new System.Drawing.Point(644, 140);
+            this.lbHanhLyThem.Name = "lbHanhLyThem";
+            this.lbHanhLyThem.Size = new System.Drawing.Size(24, 18);
+            this.lbHanhLyThem.TabIndex = 38;
+            this.lbHanhLyThem.Text = "36";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label3.Location = new System.Drawing.Point(666, 140);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(24, 18);
+            this.label3.TabIndex = 39;
+            this.label3.Text = "kg";
+            // 
             // FlightSight
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lbHanhLyThem);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lbHangVe);
             this.Controls.Add(this.lbSeat);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbBayThang);
@@ -314,5 +366,9 @@
         private System.Windows.Forms.Label lbBayThang;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lbSeat;
+        private System.Windows.Forms.Label lbHangVe;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lbHanhLyThem;
+        private System.Windows.Forms.Label label3;
     }
 }

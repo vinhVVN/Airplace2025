@@ -166,6 +166,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMuaHanhLy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMuaHanhLy.Designer.cs">
+      <DependentUpon>frmMuaHanhLy.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmNangHang.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -345,6 +351,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\FlightSight.resx">
       <DependentUpon>FlightSight.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMuaHanhLy.resx">
+      <DependentUpon>frmMuaHanhLy.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmQuanLiNhanVien.resx">
       <DependentUpon>frmQuanLiNhanVien.cs</DependentUpon>
