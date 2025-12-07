@@ -207,10 +207,11 @@
             this.lblFlightInfo.Text = "Vietnam Airlines • VN123 • 25/10/2025 08:00";
 
             //
-            // pnlLegend
+            // pnlLegend - Chú thích được vẽ động trong RenderSeatMap
             //
             this.pnlLegend.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlLegend.Height = 40;
+            this.pnlLegend.Height = 50;
+            this.pnlLegend.BackColor = System.Drawing.Color.FromArgb(248, 249, 250);
             this.pnlLegend.Controls.Add(this.lblLegendBox1);
             this.pnlLegend.Controls.Add(this.lblLegend1);
             this.pnlLegend.Controls.Add(this.lblLegendBox2);
@@ -218,31 +219,31 @@
             this.pnlLegend.Controls.Add(this.lblLegendBox3);
             this.pnlLegend.Controls.Add(this.lblLegend3);
 
-            // Boxes
-            this.lblLegendBox1.BackColor = System.Drawing.Color.White;
+            // Boxes - Chú thích cơ bản
+            this.lblLegendBox1.BackColor = System.Drawing.Color.FromArgb(40, 167, 69);
             this.lblLegendBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblLegendBox1.Size = new System.Drawing.Size(20, 20);
-            this.lblLegendBox1.Location = new System.Drawing.Point(10, 10);
+            this.lblLegendBox1.Location = new System.Drawing.Point(10, 15);
             
-            this.lblLegend1.Text = "Ghế trống";
+            this.lblLegend1.Text = "Đang chọn";
             this.lblLegend1.AutoSize = true;
-            this.lblLegend1.Location = new System.Drawing.Point(35, 12);
+            this.lblLegend1.Location = new System.Drawing.Point(35, 17);
 
-            this.lblLegendBox2.BackColor = System.Drawing.Color.FromArgb(40, 167, 69);
+            this.lblLegendBox2.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
             this.lblLegendBox2.Size = new System.Drawing.Size(20, 20);
-            this.lblLegendBox2.Location = new System.Drawing.Point(120, 10);
+            this.lblLegendBox2.Location = new System.Drawing.Point(130, 15);
             
-            this.lblLegend2.Text = "Đang chọn";
+            this.lblLegend2.Text = "Đã đặt";
             this.lblLegend2.AutoSize = true;
-            this.lblLegend2.Location = new System.Drawing.Point(145, 12);
+            this.lblLegend2.Location = new System.Drawing.Point(155, 17);
 
-            this.lblLegendBox3.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
+            this.lblLegendBox3.BackColor = System.Drawing.Color.FromArgb(200, 200, 200);
             this.lblLegendBox3.Size = new System.Drawing.Size(20, 20);
-            this.lblLegendBox3.Location = new System.Drawing.Point(240, 10);
+            this.lblLegendBox3.Location = new System.Drawing.Point(220, 15);
             
-            this.lblLegend3.Text = "Đã đặt/Không thể chọn";
+            this.lblLegend3.Text = "Khác hạng vé (không thể chọn)";
             this.lblLegend3.AutoSize = true;
-            this.lblLegend3.Location = new System.Drawing.Point(265, 12);
+            this.lblLegend3.Location = new System.Drawing.Point(245, 17);
 
 
             // 
@@ -255,13 +256,14 @@
             // Form Setup
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1000, 660);
+            this.ClientSize = new System.Drawing.Size(1000, 700);
+            this.MinimumSize = new System.Drawing.Size(900, 600);
             this.Controls.Add(this.pnlCenter);
             this.Controls.Add(this.pnlLeft);
             this.Controls.Add(this.pnlFooter);
             this.Controls.Add(this.pnlHeader);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Chọn ghế";
+            this.Text = "Chọn ghế ngồi - Chỉ được chọn ghế trong hạng vé đã đặt";
             this.Load += new System.EventHandler(this.frmChonGhe_Load);
             
             this.pnlHeader.ResumeLayout(false);

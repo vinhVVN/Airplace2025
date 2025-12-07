@@ -82,5 +82,55 @@ namespace Airplace2025.BLL.DAO
             }
         }
 
+        /// <summary>
+        /// Lấy cấu hình ghế chi tiết cho chuyến bay: số ghế mỗi hạng
+        /// </summary>
+        public Dictionary<string, int> GetSeatConfiguration(string MaChuyenBay)
+        {
+            var config = new Dictionary<string, int>();
+            string sql = @"SELECT cthv.MaHangVe, hv.TenHangVe, cthv.SoLuong 
+                          FROM ChiTietHangVe cthv 
+                          JOIN HangVe hv ON cthv.MaHangVe = hv.MaHangVe 
+                          WHERE cthv.MaChuyenBay = @MaChuyenBay
+                          ORDER BY hv.TiLeGiaHangVe DESC"; // Từ hạng cao -> thấp
+
+            using (SqlConnection con = DBConnection.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand(sql, con);
+                cmd.Parameters.AddWithValue("@MaChuyenBay", MaChuyenBay);
+
+                con.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string maHangVe = reader["MaHangVe"].ToString();
+                        int soLuong = Convert.ToInt32(reader["SoLuong"]);
+                        config[maHangVe] = soLuong;
+                    }
+                }
+            }
+            return config;
+        }
+
+        /// <summary>
+        /// Lấy mã hạng vé từ tên hạng vé (CabinClass)
+        /// </summary>
+        public string GetMaHangVeFromTenHangVe(string tenHangVe)
+        {
+            if (string.IsNullOrEmpty(tenHangVe)) return "ECO";
+
+            string normalized = tenHangVe.ToUpperInvariant();
+
+            if (normalized.Contains("NHẤT") || normalized.Contains("FIRST"))
+                return "FIR";
+            if (normalized.Contains("THƯƠNG GIA") || normalized.Contains("BUSINESS"))
+                return "BUS";
+            if (normalized.Contains("ĐẶC BIỆT") || normalized.Contains("PREMIUM"))
+                return "PRE";
+
+            return "ECO"; // Default: Phổ thông
+        }
+
     }
 }
