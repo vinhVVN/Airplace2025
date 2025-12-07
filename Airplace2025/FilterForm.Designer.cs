@@ -34,6 +34,7 @@
             this.lblFlightCount = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.scrollPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.pnlAirlines = new Guna.UI2.WinForms.Guna2Panel();
+            this.chkAllAirlines = new Guna.UI2.WinForms.Guna2CheckBox();
             this.lblAirlines = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pnlFlightTime = new Guna.UI2.WinForms.Guna2Panel();
             this.rbArrivalEvening = new Guna.UI2.WinForms.Guna2RadioButton();
@@ -63,9 +64,6 @@
             this.btnClose = new Guna.UI2.WinForms.Guna2Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.vScrollBar = new Guna.UI2.WinForms.Guna2VScrollBar();
-            this.chkAllAirlines = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.chkPacificAirlines = new Guna.UI2.WinForms.Guna2CheckBox();
-            this.chkVietnamAirlines = new Guna.UI2.WinForms.Guna2CheckBox();
             this.mainPanel.SuspendLayout();
             this.scrollPanel.SuspendLayout();
             this.pnlAirlines.SuspendLayout();
@@ -168,14 +166,32 @@
             // 
             // pnlAirlines
             // 
-            this.pnlAirlines.Controls.Add(this.chkVietnamAirlines);
-            this.pnlAirlines.Controls.Add(this.chkPacificAirlines);
             this.pnlAirlines.Controls.Add(this.chkAllAirlines);
             this.pnlAirlines.Controls.Add(this.lblAirlines);
-            this.pnlAirlines.Location = new System.Drawing.Point(0, 660);
+            this.pnlAirlines.Location = new System.Drawing.Point(0, 520);
             this.pnlAirlines.Name = "pnlAirlines";
-            this.pnlAirlines.Size = new System.Drawing.Size(300, 140);
+            this.pnlAirlines.Size = new System.Drawing.Size(300, 200);
             this.pnlAirlines.TabIndex = 5;
+            // 
+            // chkAllAirlines
+            // 
+            this.chkAllAirlines.AutoSize = true;
+            this.chkAllAirlines.Checked = true;
+            this.chkAllAirlines.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
+            this.chkAllAirlines.CheckedState.BorderRadius = 0;
+            this.chkAllAirlines.CheckedState.BorderThickness = 0;
+            this.chkAllAirlines.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
+            this.chkAllAirlines.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAllAirlines.Location = new System.Drawing.Point(10, 45);
+            this.chkAllAirlines.Name = "chkAllAirlines";
+            this.chkAllAirlines.Size = new System.Drawing.Size(189, 17);
+            this.chkAllAirlines.TabIndex = 1;
+            this.chkAllAirlines.Text = "Chọn tất cả các hãng hàng không";
+            this.chkAllAirlines.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkAllAirlines.UncheckedState.BorderRadius = 0;
+            this.chkAllAirlines.UncheckedState.BorderThickness = 0;
+            this.chkAllAirlines.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.chkAllAirlines.CheckedChanged += new System.EventHandler(this.chkAllAirlines_CheckedChanged);
             // 
             // lblAirlines
             // 
@@ -200,7 +216,7 @@
             this.pnlFlightTime.Controls.Add(this.lblFlightTime);
             this.pnlFlightTime.Location = new System.Drawing.Point(0, 315);
             this.pnlFlightTime.Name = "pnlFlightTime";
-            this.pnlFlightTime.Size = new System.Drawing.Size(300, 373);
+            this.pnlFlightTime.Size = new System.Drawing.Size(300, 340);
             this.pnlFlightTime.TabIndex = 4;
             // 
             // rbArrivalEvening
@@ -600,64 +616,6 @@
             this.vScrollBar.ThumbColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(95)))), ((int)(((byte)(110)))));
             this.vScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vScrollBar_Scroll);
             // 
-            // chkAllAirlines
-            // 
-            this.chkAllAirlines.AutoSize = true;
-            this.chkAllAirlines.Checked = true;
-            this.chkAllAirlines.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
-            this.chkAllAirlines.CheckedState.BorderRadius = 0;
-            this.chkAllAirlines.CheckedState.BorderThickness = 0;
-            this.chkAllAirlines.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
-            this.chkAllAirlines.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAllAirlines.Location = new System.Drawing.Point(10, 45);
-            this.chkAllAirlines.Name = "chkAllAirlines";
-            this.chkAllAirlines.Size = new System.Drawing.Size(189, 17);
-            this.chkAllAirlines.TabIndex = 1;
-            this.chkAllAirlines.Text = "Chọn tất cả các hãng hàng không";
-            this.chkAllAirlines.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.chkAllAirlines.UncheckedState.BorderRadius = 0;
-            this.chkAllAirlines.UncheckedState.BorderThickness = 0;
-            this.chkAllAirlines.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.chkAllAirlines.CheckedChanged += new System.EventHandler(this.chkAllAirlines_CheckedChanged);
-            // 
-            // chkPacificAirlines
-            // 
-            this.chkPacificAirlines.AutoSize = true;
-            this.chkPacificAirlines.Checked = true;
-            this.chkPacificAirlines.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
-            this.chkPacificAirlines.CheckedState.BorderRadius = 0;
-            this.chkPacificAirlines.CheckedState.BorderThickness = 0;
-            this.chkPacificAirlines.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
-            this.chkPacificAirlines.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkPacificAirlines.Location = new System.Drawing.Point(10, 75);
-            this.chkPacificAirlines.Name = "chkPacificAirlines";
-            this.chkPacificAirlines.Size = new System.Drawing.Size(94, 17);
-            this.chkPacificAirlines.TabIndex = 2;
-            this.chkPacificAirlines.Text = "Pacific Airlines";
-            this.chkPacificAirlines.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.chkPacificAirlines.UncheckedState.BorderRadius = 0;
-            this.chkPacificAirlines.UncheckedState.BorderThickness = 0;
-            this.chkPacificAirlines.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            // 
-            // chkVietnamAirlines
-            // 
-            this.chkVietnamAirlines.AutoSize = true;
-            this.chkVietnamAirlines.Checked = true;
-            this.chkVietnamAirlines.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
-            this.chkVietnamAirlines.CheckedState.BorderRadius = 0;
-            this.chkVietnamAirlines.CheckedState.BorderThickness = 0;
-            this.chkVietnamAirlines.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
-            this.chkVietnamAirlines.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkVietnamAirlines.Location = new System.Drawing.Point(10, 105);
-            this.chkVietnamAirlines.Name = "chkVietnamAirlines";
-            this.chkVietnamAirlines.Size = new System.Drawing.Size(100, 17);
-            this.chkVietnamAirlines.TabIndex = 3;
-            this.chkVietnamAirlines.Text = "Vietnam Airlines";
-            this.chkVietnamAirlines.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.chkVietnamAirlines.UncheckedState.BorderRadius = 0;
-            this.chkVietnamAirlines.UncheckedState.BorderThickness = 0;
-            this.chkVietnamAirlines.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            // 
             // FilterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -728,7 +686,5 @@
         private Guna.UI2.WinForms.Guna2Panel pnlAirlines;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblAirlines;
         private Guna.UI2.WinForms.Guna2CheckBox chkAllAirlines;
-        private Guna.UI2.WinForms.Guna2CheckBox chkPacificAirlines;
-        private Guna.UI2.WinForms.Guna2CheckBox chkVietnamAirlines;
     }
 }
