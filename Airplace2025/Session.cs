@@ -14,6 +14,8 @@ namespace Airplace2025
         public static string MaVaiTro { get; set; }
         public static string TenVaiTro { get; set; }
 
+        public static object AnhDaiDien { get; set; }
+
         public static bool IsLoggedIn => !string.IsNullOrEmpty(MaNhanVien);
 
         public static void Clear()
@@ -23,6 +25,7 @@ namespace Airplace2025
             HoTen = null;
             MaVaiTro = null;
             TenVaiTro = null;
+            AnhDaiDien = null;
         }
     }
 }

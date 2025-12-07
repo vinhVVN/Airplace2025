@@ -145,6 +145,7 @@ namespace Airplace2025
                     Session.HoTen = hoTen;
                     Session.MaVaiTro = userInfo["MaVaiTro"].ToString();
                     Session.TenVaiTro = vaiTro;
+                    Session.AnhDaiDien = userInfo["ChanDung"];
 
                     MessageBox.Show($"Chào mừng {hoTen} ({vaiTro})!", "Đăng nhập thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

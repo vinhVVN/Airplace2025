@@ -27,4 +27,3 @@ namespace Airplace2025
         public SelectedFareInfo FareInfo { get; }
     }
 }
-

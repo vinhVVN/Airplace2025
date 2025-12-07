@@ -165,17 +165,17 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmAddAirline.cs">
+    <Compile Include="frmNangHang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAddAirline.Designer.cs">
-      <DependentUpon>frmAddAirline.cs</DependentUpon>
+    <Compile Include="frmNangHang.Designer.cs">
+      <DependentUpon>frmNangHang.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmAddAirplane.cs">
+    <Compile Include="frmDoiChuyenBay.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAddAirplane.Designer.cs">
-      <DependentUpon>frmAddAirplane.cs</DependentUpon>
+    <Compile Include="frmDoiChuyenBay.Designer.cs">
+      <DependentUpon>frmDoiChuyenBay.cs</DependentUpon>
     </Compile>
     <Compile Include="frmCaiDat.cs">
       <SubType>Form</SubType>
@@ -315,6 +315,12 @@
     <Compile Include="frmTrangChu.Designer.cs">
       <DependentUpon>frmTrangChu.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmUserMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUserMenu.Designer.cs">
+      <DependentUpon>frmUserMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controls\StopControl.cs">
@@ -348,6 +354,9 @@
     <EmbeddedResource Include="frmTraCuuDatVe.resx">
       <DependentUpon>frmTraCuuDatVe.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmUserMenu.resx">
+      <DependentUpon>frmUserMenu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmXemDanhSach.resx">
       <DependentUpon>frmXemDanhSach.cs</DependentUpon>
     </EmbeddedResource>
@@ -364,11 +373,11 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAddAirline.resx">
-      <DependentUpon>frmAddAirline.cs</DependentUpon>
+    <EmbeddedResource Include="frmNangHang.resx">
+      <DependentUpon>frmNangHang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAddAirplane.resx">
-      <DependentUpon>frmAddAirplane.cs</DependentUpon>
+    <EmbeddedResource Include="frmDoiChuyenBay.resx">
+      <DependentUpon>frmDoiChuyenBay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCaiDat.resx">
       <DependentUpon>frmCaiDat.cs</DependentUpon>
