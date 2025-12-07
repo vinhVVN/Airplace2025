@@ -104,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\DAO\AccountDAO.cs" />
+    <Compile Include="BLL\DAO\LogDAO.cs" />
     <Compile Include="BLL\DAO\TicketDAO.cs" />
     <Compile Include="BLL\DAO\CustomerDAO.cs" />
     <Compile Include="BLL\DAO\ReportDAO.cs" />
@@ -117,12 +118,14 @@
     <Compile Include="BLL\DatVeBLL.cs" />
     <Compile Include="BLL\DTO\HangVeDTO.cs" />
     <Compile Include="BLL\DTO\KhachHangDTO.cs" />
+    <Compile Include="BLL\EmailService.cs" />
     <Compile Include="BLL\FlightDetail.cs" />
     <Compile Include="BLL\ChuyenBayBLL.cs" />
     <Compile Include="BLL\HoaDonBLL.cs" />
     <Compile Include="BLL\KhachHangBLL.cs" />
     <Compile Include="BLL\DTO\ChuyenBayDTO.cs" />
     <Compile Include="BLL\DTO\SearchFlightParams.cs" />
+    <Compile Include="BLL\TicketHelper.cs" />
     <Compile Include="Controls\TimelineNodeType.cs" />
     <Compile Include="DAL\DatVeDAO.cs" />
     <Compile Include="DAL\DBConnection.cs" />
@@ -164,6 +167,12 @@
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMuaHanhLy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMuaHanhLy.Designer.cs">
+      <DependentUpon>frmMuaHanhLy.cs</DependentUpon>
     </Compile>
     <Compile Include="frmNangHang.cs">
       <SubType>Form</SubType>
@@ -231,11 +240,23 @@
     <Compile Include="frmMayBay.Designer.cs">
       <DependentUpon>frmMayBay.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmNhatKyHoatDong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmNhatKyHoatDong.Designer.cs">
+      <DependentUpon>frmNhatKyHoatDong.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPriceDetails.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmPriceDetails.Designer.cs">
       <DependentUpon>frmPriceDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmQuanLiKhachhang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmQuanLiKhachhang.Designer.cs">
+      <DependentUpon>frmQuanLiKhachhang.cs</DependentUpon>
     </Compile>
     <Compile Include="frmQuanLiNhanVien.cs">
       <SubType>Form</SubType>
@@ -261,17 +282,23 @@
     <Compile Include="frmThanhToan.Designer.cs">
       <DependentUpon>frmThanhToan.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmThemKhachHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmThemKhachHang.Designer.cs">
+      <DependentUpon>frmThemKhachHang.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmThemNhanVien.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmThemNhanVien.Designer.cs">
       <DependentUpon>frmThemNhanVien.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmThemTrungGian.cs">
+    <Compile Include="frmThongBao.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmThemTrungGian.Designer.cs">
-      <DependentUpon>frmThemTrungGian.cs</DependentUpon>
+    <Compile Include="frmThongBao.Designer.cs">
+      <DependentUpon>frmThongBao.cs</DependentUpon>
     </Compile>
     <Compile Include="frmThongKe.cs">
       <SubType>Form</SubType>
@@ -321,6 +348,12 @@
     <Compile Include="frmUserMenu.Designer.cs">
       <DependentUpon>frmUserMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmVe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmVe.Designer.cs">
+      <DependentUpon>frmVe.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controls\StopControl.cs">
@@ -345,8 +378,20 @@
     <EmbeddedResource Include="Controls\FlightSight.resx">
       <DependentUpon>FlightSight.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmMuaHanhLy.resx">
+      <DependentUpon>frmMuaHanhLy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmNhatKyHoatDong.resx">
+      <DependentUpon>frmNhatKyHoatDong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmQuanLiKhachhang.resx">
+      <DependentUpon>frmQuanLiKhachhang.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmQuanLiNhanVien.resx">
       <DependentUpon>frmQuanLiNhanVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmThemKhachHang.resx">
+      <DependentUpon>frmThemKhachHang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmThemNhanVien.resx">
       <DependentUpon>frmThemNhanVien.cs</DependentUpon>
@@ -356,6 +401,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmUserMenu.resx">
       <DependentUpon>frmUserMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmVe.resx">
+      <DependentUpon>frmVe.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmXemDanhSach.resx">
       <DependentUpon>frmXemDanhSach.cs</DependentUpon>
@@ -415,8 +463,8 @@
     <EmbeddedResource Include="frmThanhToan.resx">
       <DependentUpon>frmThanhToan.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmThemTrungGian.resx">
-      <DependentUpon>frmThemTrungGian.cs</DependentUpon>
+    <EmbeddedResource Include="frmThongBao.resx">
+      <DependentUpon>frmThongBao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmThongKe.resx">
       <DependentUpon>frmThongKe.cs</DependentUpon>
@@ -468,6 +516,7 @@
     <Content Include="map.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\alert-sign.png" />
     <None Include="Resources\noun-suitecase-5350511.png" />
     <None Include="Resources\noun-avatar-6781879.png" />
     <None Include="Resources\noun-calendar-7630981.png" />

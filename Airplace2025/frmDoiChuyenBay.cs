@@ -111,6 +111,8 @@ namespace Airplace2025
                                 );
 
                                 MessageBox.Show($"Đã cập nhật ghế ngồi mới: {maGheMoi}", "Hoàn tất");
+                                LogDAO.Instance.GhiNhatKy("Đổi vé", $"Đổi vé {_veHienTai["MaVe"]} sang chuyến bay {_maChuyenBayMoi}");
+
 
                                 this.DialogResult = DialogResult.OK;
                                 this.Close();

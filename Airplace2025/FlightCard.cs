@@ -22,6 +22,14 @@ namespace Airplace2025
         private Size originalSize1;
         private Point originalLocation1;
         public event EventHandler<SelectedFareEventArgs> FareSelected;
+        
+        // Trạng thái enable/disable của từng panel
+        private bool isEconomyEnabled = true;
+        private bool isPremiumEnabled = true;
+        private bool isBusinessEnabled = true;
+        
+        // Màu khi disabled
+        private readonly Color disabledColor = Color.FromArgb(200, 200, 200);
 
         public ChuyenBayDTO FlightData { get; set; }
         public decimal EconomyPriceValue { get; set; }
@@ -61,26 +69,39 @@ namespace Airplace2025
 
         private void PricePanel1_MouseEnter(object sender, EventArgs e)
         {
+            if (!isEconomyEnabled) return;
+            
             // Panel được hover - nổi bật
             pricePanel1.Size = new Size(originalSize1.Width + 6, originalSize1.Height + 6);
             pricePanel1.Location = new Point(originalLocation1.X - 3, originalLocation1.Y - 3);
             pricePanel1.BringToFront();
 
-            // Làm mờ 2 panel còn lại
-            pricePanel2.FillColor = Color.FromArgb(180, pricePanel2.FillColor);
-            pricePanel3.FillColor = Color.FromArgb(180, pricePanel3.FillColor);
+            // Làm mờ 2 panel còn lại (chỉ những panel đang enabled)
+            if (isPremiumEnabled)
+                pricePanel2.FillColor = Color.FromArgb(180, originalColor2);
+            if (isBusinessEnabled)
+                pricePanel3.FillColor = Color.FromArgb(180, originalColor3);
 
             this.Cursor = Cursors.Hand;
         }
 
         private void PricePanel1_MouseLeave(object sender, EventArgs e)
         {
+            if (!isEconomyEnabled) return;
+            
             // Trả về trạng thái ban đầu
             pricePanel1.Size = originalSize1;
             pricePanel1.Location = originalLocation1;
 
-            pricePanel2.FillColor = originalColor2;
-            pricePanel3.FillColor = originalColor3;
+            if (isPremiumEnabled)
+                pricePanel2.FillColor = originalColor2;
+            else
+                pricePanel2.FillColor = disabledColor;
+                
+            if (isBusinessEnabled)
+                pricePanel3.FillColor = originalColor3;
+            else
+                pricePanel3.FillColor = disabledColor;
 
             this.Cursor = Cursors.Default;
         }
@@ -88,26 +109,39 @@ namespace Airplace2025
         // ===== PANEL 2 =====
         private void PricePanel2_MouseEnter(object sender, EventArgs e)
         {
+            if (!isPremiumEnabled) return;
+            
             // Panel được hover - nổi bật
             pricePanel2.Size = new Size(pricePanel2.Width + 6, pricePanel2.Height + 6);
             pricePanel2.Location = new Point(pricePanel2.Location.X - 3, pricePanel2.Location.Y - 3);
             pricePanel2.BringToFront();
 
-            // Làm mờ 2 panel còn lại
-            pricePanel1.FillColor = Color.FromArgb(180, pricePanel1.FillColor);
-            pricePanel3.FillColor = Color.FromArgb(180, pricePanel3.FillColor);
+            // Làm mờ 2 panel còn lại (chỉ những panel đang enabled)
+            if (isEconomyEnabled)
+                pricePanel1.FillColor = Color.FromArgb(180, originalColor1);
+            if (isBusinessEnabled)
+                pricePanel3.FillColor = Color.FromArgb(180, originalColor3);
 
             this.Cursor = Cursors.Hand;
         }
 
         private void PricePanel2_MouseLeave(object sender, EventArgs e)
         {
+            if (!isPremiumEnabled) return;
+            
             // Trả về trạng thái ban đầu
             pricePanel2.Size = new Size(150, 140);
             pricePanel2.Location = new Point(633, 0);
 
-            pricePanel1.FillColor = originalColor1;
-            pricePanel3.FillColor = originalColor3;
+            if (isEconomyEnabled)
+                pricePanel1.FillColor = originalColor1;
+            else
+                pricePanel1.FillColor = disabledColor;
+                
+            if (isBusinessEnabled)
+                pricePanel3.FillColor = originalColor3;
+            else
+                pricePanel3.FillColor = disabledColor;
 
             this.Cursor = Cursors.Default;
         }
@@ -115,26 +149,39 @@ namespace Airplace2025
         // ===== PANEL 3 =====
         private void PricePanel3_MouseEnter(object sender, EventArgs e)
         {
+            if (!isBusinessEnabled) return;
+            
             // Panel được hover - nổi bật
             pricePanel3.Size = new Size(pricePanel3.Width + 6, pricePanel3.Height + 6);
             pricePanel3.Location = new Point(pricePanel3.Location.X - 3, pricePanel3.Location.Y - 3);
             pricePanel3.BringToFront();
 
-            // Làm mờ 2 panel còn lại
-            pricePanel1.FillColor = Color.FromArgb(180, pricePanel1.FillColor);
-            pricePanel2.FillColor = Color.FromArgb(180, pricePanel2.FillColor);
+            // Làm mờ 2 panel còn lại (chỉ những panel đang enabled)
+            if (isEconomyEnabled)
+                pricePanel1.FillColor = Color.FromArgb(180, originalColor1);
+            if (isPremiumEnabled)
+                pricePanel2.FillColor = Color.FromArgb(180, originalColor2);
 
             this.Cursor = Cursors.Hand;
         }
 
         private void PricePanel3_MouseLeave(object sender, EventArgs e)
         {
+            if (!isBusinessEnabled) return;
+            
             // Trả về trạng thái ban đầu
             pricePanel3.Size = new Size(150, 140);
             pricePanel3.Location = new Point(783, 0);
 
-            pricePanel1.FillColor = originalColor1;
-            pricePanel2.FillColor = originalColor2;
+            if (isEconomyEnabled)
+                pricePanel1.FillColor = originalColor1;
+            else
+                pricePanel1.FillColor = disabledColor;
+                
+            if (isPremiumEnabled)
+                pricePanel2.FillColor = originalColor2;
+            else
+                pricePanel2.FillColor = disabledColor;
 
             this.Cursor = Cursors.Default;
         }
@@ -283,6 +330,86 @@ namespace Airplace2025
         public string DepartureAirport { get; set; }
         public string ArrivalAirport { get; set; }
 
+        /// <summary>
+        /// Thiết lập bộ lọc khoang - disable các panel không được chọn
+        /// </summary>
+        /// <param name="cabin">Tên khoang: "Tất cả", "PHỔ THÔNG", "PHỔ THÔNG ĐẶC BIỆT", "THƯƠNG GIA"</param>
+        public void SetCabinFilter(string cabin)
+        {
+            // Mặc định enable tất cả
+            isEconomyEnabled = true;
+            isPremiumEnabled = true;
+            isBusinessEnabled = true;
+
+            if (string.IsNullOrEmpty(cabin) || cabin == "Tất cả")
+            {
+                // Enable tất cả các panel
+                EnablePanel(pricePanel1, true, originalColor1);
+                EnablePanel(pricePanel2, true, originalColor2);
+                EnablePanel(pricePanel3, true, originalColor3);
+            }
+            else
+            {
+                switch (cabin.ToUpper())
+                {
+                    case "PHỔ THÔNG":
+                        isEconomyEnabled = true;
+                        isPremiumEnabled = false;
+                        isBusinessEnabled = false;
+                        EnablePanel(pricePanel1, true, originalColor1);
+                        EnablePanel(pricePanel2, false, disabledColor);
+                        EnablePanel(pricePanel3, false, disabledColor);
+                        break;
+
+                    case "PHỔ THÔNG ĐẶC BIỆT":
+                        isEconomyEnabled = false;
+                        isPremiumEnabled = true;
+                        isBusinessEnabled = false;
+                        EnablePanel(pricePanel1, false, disabledColor);
+                        EnablePanel(pricePanel2, true, originalColor2);
+                        EnablePanel(pricePanel3, false, disabledColor);
+                        break;
+
+                    case "THƯƠNG GIA":
+                        isEconomyEnabled = false;
+                        isPremiumEnabled = false;
+                        isBusinessEnabled = true;
+                        EnablePanel(pricePanel1, false, disabledColor);
+                        EnablePanel(pricePanel2, false, disabledColor);
+                        EnablePanel(pricePanel3, true, originalColor3);
+                        break;
+
+                    default:
+                        // Nếu không khớp, enable tất cả
+                        EnablePanel(pricePanel1, true, originalColor1);
+                        EnablePanel(pricePanel2, true, originalColor2);
+                        EnablePanel(pricePanel3, true, originalColor3);
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Enable/Disable một panel giá vé
+        /// </summary>
+        private void EnablePanel(Guna.UI2.WinForms.Guna2Panel panel, bool enabled, Color color)
+        {
+            panel.FillColor = color;
+            panel.Cursor = enabled ? Cursors.Hand : Cursors.No;
+            
+            // Làm mờ text khi disabled
+            foreach (Control ctrl in panel.Controls)
+            {
+                if (ctrl is Guna.UI2.WinForms.Guna2HtmlLabel lbl)
+                {
+                    if (!enabled)
+                    {
+                        lbl.ForeColor = Color.FromArgb(150, lbl.ForeColor);
+                    }
+                }
+            }
+        }
+
         private void pricePanel1_Paint(object sender, PaintEventArgs e)
         {
 
@@ -290,16 +417,19 @@ namespace Airplace2025
 
         private void pricePanel1_Click(object sender, EventArgs e)
         {
+            if (!isEconomyEnabled) return;
             NotifyFareSelected(EconomyLabel, EconomyPriceValue);
         }
 
         private void pricePanel2_Click(object sender, EventArgs e)
         {
+            if (!isPremiumEnabled) return;
             NotifyFareSelected(PremiumLabel, PremiumPriceValue);
         }
 
         private void pricePanel3_Click(object sender, EventArgs e)
         {
+            if (!isBusinessEnabled) return;
             NotifyFareSelected(BusinessLabel, BusinessPriceValue);
         }
 

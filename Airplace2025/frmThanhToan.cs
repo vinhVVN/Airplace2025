@@ -1,4 +1,5 @@
 ﻿using Airplace2025.BLL;
+using Airplace2025.BLL.DAO;
 using Airplace2025.BLL.DTO;
 using System;
 using System.Collections.Generic;
@@ -124,6 +125,7 @@ namespace Airplace2025
                 if (success)
                 {
                     MessageBox.Show($"Thanh toán thành công!\nMã hóa đơn: {maHoaDon}", "Hoàn tất", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LogDAO.Instance.GhiNhatKy("Đặt vé", $"Đặt vé thành công. Mã hoá đơn: {maHoaDon}. Tổng tiền: {_totalAmount}");
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }

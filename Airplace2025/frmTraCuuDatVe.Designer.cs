@@ -310,6 +310,7 @@
             this.SuiteCasebtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.SuiteCasebtn.TabIndex = 32;
             this.SuiteCasebtn.TabStop = false;
+            this.SuiteCasebtn.Click += new System.EventHandler(this.SuiteCasebtn_Click);
             // 
             // btnScedule
             // 
@@ -333,6 +334,7 @@
             this.btnPrint.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnPrint.TabIndex = 29;
             this.btnPrint.TabStop = false;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // lbUpClass
             // 

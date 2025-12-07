@@ -27,10 +27,11 @@ namespace Airplace2025
         private SelectedFareInfo departureFare;
         private SelectedFareInfo returnFare;
 
-        // Constants for fees (per flight sector)
-        public const decimal ADULT_SURCHARGE = 1474000m;
-        public const decimal CHILD_SURCHARGE = 1322000m;
-        public const decimal INFANT_SURCHARGE = 34000m;
+        // Constants for fees (per flight sector) - Phí và thuế theo thực tế hàng không Việt Nam
+        // Bao gồm: Phụ thu nhiên liệu + Thuế VAT + Phí sân bay + Phí an ninh + Phí dịch vụ
+        public const decimal ADULT_SURCHARGE = 450000m;      // Người lớn: ~450,000 VND
+        public const decimal CHILD_SURCHARGE = 380000m;      // Trẻ em (2-11 tuổi): ~85% người lớn
+        public const decimal INFANT_SURCHARGE = 120000m;     // Em bé (<2 tuổi): Chỉ thuế + phí cơ bản
 
         public frmShoppingCart()
         {
@@ -81,8 +82,36 @@ namespace Airplace2025
                 return;
             }
 
+            // Căn giữa containerPanel
+            CenterContainerPanel();
+            
             // Ensure layout is correct when form loads and controls are ready
             UpdateLayoutPositions();
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            CenterContainerPanel();
+        }
+
+        /// <summary>
+        /// Căn giữa containerPanel trong mainScrollPanel
+        /// </summary>
+        private void CenterContainerPanel()
+        {
+            if (containerPanel == null || mainScrollPanel == null) return;
+
+            int availableWidth = mainScrollPanel.ClientSize.Width - mainScrollPanel.Padding.Horizontal;
+            int containerWidth = containerPanel.Width;
+
+            // Tính toán vị trí X để căn giữa
+            int newX = Math.Max(20, (availableWidth - containerWidth) / 2);
+            
+            if (containerPanel.Location.X != newX)
+            {
+                containerPanel.Location = new Point(newX, containerPanel.Location.Y);
+            }
         }
 
         private void CalculateTotal()

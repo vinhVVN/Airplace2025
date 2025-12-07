@@ -24,7 +24,7 @@ namespace Airplace2025.Controls
 
         public void SetData(string aircraftName, string originAirport, string destinationAirport,
             string originAirportName, string destinationAirportName, string departureTime, string arrivalTime, string departureDay,
-            string arrivalDay, string duration, Image logo, string Seat
+            string arrivalDay, string duration, Image logo, string Seat, string className, string hanhlyThem
             )
         {
             lbTenMayBay.Text = aircraftName;
@@ -39,7 +39,8 @@ namespace Airplace2025.Controls
             lbThoiLuong.Text = duration;
             imgLogo.Image = logo;
             lbSeat.Text = Seat;
-            
+            lbHangVe.Text = className;
+            lbHanhLyThem.Text = hanhlyThem;
         }
 
     }

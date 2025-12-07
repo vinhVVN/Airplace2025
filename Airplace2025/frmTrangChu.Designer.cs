@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.btnLog = new Guna.UI2.WinForms.Guna2Button();
+            this.picMe = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.btnNhanVien = new Guna.UI2.WinForms.Guna2Button();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.btnLapLichBay = new Guna.UI2.WinForms.Guna2Button();
@@ -40,14 +42,16 @@
             this.guna2AnimateWindow1 = new Guna.UI2.WinForms.Guna2AnimateWindow(this.components);
             this.pnlCommon = new Guna.UI2.WinForms.Guna2Panel();
             this.timerUpdateStatus = new System.Windows.Forms.Timer(this.components);
-            this.picMe = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            this.btnKhachHang = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMe)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // guna2Panel1
             // 
+            this.guna2Panel1.Controls.Add(this.btnKhachHang);
+            this.guna2Panel1.Controls.Add(this.btnLog);
             this.guna2Panel1.Controls.Add(this.picMe);
             this.guna2Panel1.Controls.Add(this.btnNhanVien);
             this.guna2Panel1.Controls.Add(this.guna2PictureBox1);
@@ -62,6 +66,41 @@
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(1184, 53);
             this.guna2Panel1.TabIndex = 0;
+            // 
+            // btnLog
+            // 
+            this.btnLog.BorderColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnLog.BorderThickness = 3;
+            this.btnLog.CustomBorderColor = System.Drawing.Color.Black;
+            this.btnLog.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnLog.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnLog.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnLog.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnLog.FillColor = System.Drawing.Color.Transparent;
+            this.btnLog.FocusedColor = System.Drawing.Color.Transparent;
+            this.btnLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLog.ForeColor = System.Drawing.Color.Black;
+            this.btnLog.Location = new System.Drawing.Point(294, 18);
+            this.btnLog.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLog.Name = "btnLog";
+            this.btnLog.Size = new System.Drawing.Size(185, 28);
+            this.btnLog.TabIndex = 10;
+            this.btnLog.Text = "Nhật ký hoạt động";
+            this.btnLog.Visible = false;
+            this.btnLog.Click += new System.EventHandler(this.btnLog_Click);
+            // 
+            // picMe
+            // 
+            this.picMe.Image = global::Airplace2025.Properties.Resources.noun_avatar_6781879;
+            this.picMe.ImageRotate = 0F;
+            this.picMe.Location = new System.Drawing.Point(1060, 3);
+            this.picMe.Name = "picMe";
+            this.picMe.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.picMe.Size = new System.Drawing.Size(58, 47);
+            this.picMe.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picMe.TabIndex = 9;
+            this.picMe.TabStop = false;
+            this.picMe.Click += new System.EventHandler(this.picMe_Click);
             // 
             // btnNhanVien
             // 
@@ -83,6 +122,7 @@
             this.btnNhanVien.TabIndex = 8;
             this.btnNhanVien.Text = "Quản lý nhân viên";
             this.btnNhanVien.Visible = false;
+            this.btnNhanVien.Click += new System.EventHandler(this.btnNhanVien_Click);
             // 
             // guna2PictureBox1
             // 
@@ -111,7 +151,7 @@
             this.btnLapLichBay.FocusedColor = System.Drawing.Color.Transparent;
             this.btnLapLichBay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLapLichBay.ForeColor = System.Drawing.Color.Black;
-            this.btnLapLichBay.Location = new System.Drawing.Point(699, 13);
+            this.btnLapLichBay.Location = new System.Drawing.Point(687, 12);
             this.btnLapLichBay.Margin = new System.Windows.Forms.Padding(2);
             this.btnLapLichBay.Name = "btnLapLichBay";
             this.btnLapLichBay.Size = new System.Drawing.Size(166, 28);
@@ -132,7 +172,7 @@
             this.btnMayBay.FocusedColor = System.Drawing.Color.Transparent;
             this.btnMayBay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMayBay.ForeColor = System.Drawing.Color.Black;
-            this.btnMayBay.Location = new System.Drawing.Point(506, 12);
+            this.btnMayBay.Location = new System.Drawing.Point(502, 12);
             this.btnMayBay.Margin = new System.Windows.Forms.Padding(2);
             this.btnMayBay.Name = "btnMayBay";
             this.btnMayBay.Size = new System.Drawing.Size(179, 28);
@@ -220,18 +260,26 @@
             this.timerUpdateStatus.Interval = 60000;
             this.timerUpdateStatus.Tick += new System.EventHandler(this.timerUpdateStatus_Tick);
             // 
-            // picMe
+            // btnKhachHang
             // 
-            this.picMe.Image = global::Airplace2025.Properties.Resources.noun_avatar_6781879;
-            this.picMe.ImageRotate = 0F;
-            this.picMe.Location = new System.Drawing.Point(1012, 4);
-            this.picMe.Name = "picMe";
-            this.picMe.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            this.picMe.Size = new System.Drawing.Size(58, 47);
-            this.picMe.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picMe.TabIndex = 9;
-            this.picMe.TabStop = false;
-            this.picMe.Click += new System.EventHandler(this.picMe_Click);
+            this.btnKhachHang.BorderColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnKhachHang.BorderThickness = 3;
+            this.btnKhachHang.CustomBorderColor = System.Drawing.Color.Black;
+            this.btnKhachHang.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnKhachHang.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnKhachHang.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnKhachHang.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnKhachHang.FillColor = System.Drawing.Color.Transparent;
+            this.btnKhachHang.FocusedColor = System.Drawing.Color.Transparent;
+            this.btnKhachHang.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnKhachHang.ForeColor = System.Drawing.Color.Black;
+            this.btnKhachHang.Location = new System.Drawing.Point(858, 12);
+            this.btnKhachHang.Margin = new System.Windows.Forms.Padding(2);
+            this.btnKhachHang.Name = "btnKhachHang";
+            this.btnKhachHang.Size = new System.Drawing.Size(166, 28);
+            this.btnKhachHang.TabIndex = 11;
+            this.btnKhachHang.Text = "Khách hàng";
+            this.btnKhachHang.Click += new System.EventHandler(this.btnKhachHang_Click);
             // 
             // frmTrangChu
             // 
@@ -247,8 +295,8 @@
             this.Text = "Trangchu";
             this.Load += new System.EventHandler(this.frmTrangChu_Load);
             this.guna2Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMe)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -267,5 +315,7 @@
         private System.Windows.Forms.Timer timerUpdateStatus;
         private Guna.UI2.WinForms.Guna2Button btnNhanVien;
         private Guna.UI2.WinForms.Guna2CirclePictureBox picMe;
+        private Guna.UI2.WinForms.Guna2Button btnLog;
+        private Guna.UI2.WinForms.Guna2Button btnKhachHang;
     }
 }

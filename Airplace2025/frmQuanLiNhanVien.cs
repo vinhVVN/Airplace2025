@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using Airplace2025.DAL;
 
 namespace Airplace2025
 {
@@ -16,9 +17,7 @@ namespace Airplace2025
         string maNhanVienDangChon = "";
         string maNguoiDungDangChon = "";
 
-        // Chuỗi kết nối
-        string strCon = "Data Source=(local)\\SQLEXPRESS;Initial Catalog=QuanLyBanVeMayBay;Integrated Security=True";
-
+        // Sử dụng connection string từ DBConnection
         SqlConnection sqlCon = null;
         SqlDataAdapter adapter = null;
         DataTable dt = null;
@@ -50,7 +49,8 @@ namespace Airplace2025
         {
             try
             {
-                if (sqlCon == null) sqlCon = new SqlConnection(strCon);
+                // Sử dụng GetConnection() từ DBConnection
+                if (sqlCon == null) sqlCon = DBConnection.GetConnection();
 
                 string query = @"
                     SELECT 
@@ -163,7 +163,8 @@ namespace Airplace2025
             try
             {
                 string tuKhoa = txtTuKhoa.Text.Trim();
-                if (sqlCon == null) sqlCon = new SqlConnection(strCon);
+                // Sử dụng GetConnection() từ DBConnection
+                if (sqlCon == null) sqlCon = DBConnection.GetConnection();
 
                 string query = @"
                     SELECT 
@@ -207,24 +208,24 @@ namespace Airplace2025
 
             if (kq == DialogResult.Yes)
             {
-                SqlConnection sqlCon = null;
+                SqlConnection conn = null;
                 SqlTransaction transaction = null;
                 try
                 {
-                    sqlCon = new SqlConnection(strCon);
-                    sqlCon.Open();
-                    transaction = sqlCon.BeginTransaction();
+                    // Sử dụng GetConnection() từ DBConnection
+                    conn = DBConnection.GetConnection();
+                    conn.Open();
+                    transaction = conn.BeginTransaction();
 
                     // --- BƯỚC 1: XÓA VÉ (Thay vì update) ---
-                    // Vì DB không cho phép NULL, ta phải xóa luôn các vé này.
                     string sqlXoaVe = "DELETE FROM Ve WHERE MaNhanVien = @MaNV";
-                    SqlCommand cmdVe = new SqlCommand(sqlXoaVe, sqlCon, transaction);
+                    SqlCommand cmdVe = new SqlCommand(sqlXoaVe, conn, transaction);
                     cmdVe.Parameters.AddWithValue("@MaNV", maNhanVienDangChon);
                     cmdVe.ExecuteNonQuery();
 
                     // --- BƯỚC 2: Xóa Nhân Viên ---
                     string sqlXoaNV = "DELETE FROM NhanVien WHERE MaNhanVien = @MaNV";
-                    SqlCommand cmdNV = new SqlCommand(sqlXoaNV, sqlCon, transaction);
+                    SqlCommand cmdNV = new SqlCommand(sqlXoaNV, conn, transaction);
                     cmdNV.Parameters.AddWithValue("@MaNV", maNhanVienDangChon);
                     cmdNV.ExecuteNonQuery();
 
@@ -232,7 +233,7 @@ namespace Airplace2025
                     if (maNguoiDungDangChon != "")
                     {
                         string sqlXoaTK = "DELETE FROM TaiKhoan WHERE MaNguoiDung = @MaND";
-                        SqlCommand cmdTK = new SqlCommand(sqlXoaTK, sqlCon, transaction);
+                        SqlCommand cmdTK = new SqlCommand(sqlXoaTK, conn, transaction);
                         cmdTK.Parameters.AddWithValue("@MaND", maNguoiDungDangChon);
                         cmdTK.ExecuteNonQuery();
                     }
@@ -257,7 +258,7 @@ namespace Airplace2025
                 }
                 finally
                 {
-                    if (sqlCon != null) sqlCon.Close();
+                    if (conn != null) conn.Close();
                 }
             }
         }
@@ -271,10 +272,12 @@ namespace Airplace2025
                 return;
             }
 
+            SqlConnection conn = null;
             try
             {
-                if (sqlCon == null) sqlCon = new SqlConnection(strCon);
-                if (sqlCon.State == ConnectionState.Closed) sqlCon.Open();
+                // Sử dụng GetConnection() từ DBConnection
+                conn = DBConnection.GetConnection();
+                if (conn.State == ConnectionState.Closed) conn.Open();
 
                 string sqlUpdate = @"UPDATE NhanVien 
                              SET HoTen=@HoTen, CCCD=@CCCD, DiaChi=@DiaChi, 
@@ -282,7 +285,7 @@ namespace Airplace2025
                                  GioiTinh=@GioiTinh, NgaySinh=@NgaySinh
                              WHERE MaNhanVien=@MaNV";
 
-                SqlCommand cmd = new SqlCommand(sqlUpdate, sqlCon);
+                SqlCommand cmd = new SqlCommand(sqlUpdate, conn);
 
                 cmd.Parameters.AddWithValue("@MaNV", maNhanVienDangChon);
                 cmd.Parameters.AddWithValue("@HoTen", txtHoTen.Text);
@@ -306,7 +309,7 @@ namespace Airplace2025
             }
             finally
             {
-                if (sqlCon.State == ConnectionState.Open) sqlCon.Close();
+                if (conn != null && conn.State == ConnectionState.Open) conn.Close();
             }
         }
     }

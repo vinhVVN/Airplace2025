@@ -127,6 +127,8 @@ namespace Airplace2025
                 string tenSbDi = row["TenSanBayDi"].ToString();
                 string tenSbDen = row["TenSanBayDen"].ToString();
                 string ghe = row["MaGhe"].ToString();
+                string hangve = row["TenHangVe"].ToString();
+                string hanhlyThem = row["HanhLyThem"].ToString();
 
                 DateTime ngayGioDi = Convert.ToDateTime(row["NgayGioBay"]);
                 int thoiGianBay = Convert.ToInt32(row["ThoiGianBay"]);
@@ -163,7 +165,9 @@ namespace Airplace2025
                     ngayDen,
                     thoiLuong,
                     logo,
-                    ghe
+                    ghe,
+                    hangve,
+                    hanhlyThem
                 );
 
                 // Thêm vào FlowLayoutPanel
@@ -233,6 +237,79 @@ namespace Airplace2025
             {
                 // Refresh lại dữ liệu
                 btnFind_Click(sender, e);
+            }
+        }
+
+        private void SuiteCasebtn_Click(object sender, EventArgs e)
+        {
+            if (_currentTicketData == null || _currentTicketData.Rows.Count == 0) return;
+
+            // Lấy mã đặt vé (ví dụ: ETK001)
+            string maDatVe = _currentTicketData.Rows[0]["MaDatVe"].ToString();
+
+            frmMuaHanhLy frm = new frmMuaHanhLy(maDatVe);
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                // Refresh lại dữ liệu để thấy cập nhật
+                btnFind_Click(sender, e);
+            }
+        }
+
+        public void HienThiFormVe(DataTable dtData)
+        {
+            // dtData: Chứa danh sách vé (1 dòng nếu 1 chiều, 2 dòng nếu khứ hồi)
+            if (dtData == null || dtData.Rows.Count == 0) return;
+
+            // 1. Khởi tạo Form chứa (Container Form)
+            Form formContainer = new Form();
+            formContainer.Text = "Vé Điện Tử (E-Ticket)";
+            formContainer.Size = new Size(1000, 700); // Kích thước tùy chỉnh
+            formContainer.StartPosition = FormStartPosition.CenterScreen;
+            formContainer.AutoScroll = true; // Cho phép cuộn nếu vé dài
+            formContainer.BackColor = Color.WhiteSmoke;
+
+            // 2. Tạo FlowLayoutPanel để xếp vé
+            FlowLayoutPanel pnlFlow = new FlowLayoutPanel();
+            pnlFlow.Dock = DockStyle.Top;
+            pnlFlow.AutoSize = true;
+            pnlFlow.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            pnlFlow.FlowDirection = FlowDirection.TopDown; // Xếp từ trên xuống
+            pnlFlow.WrapContents = false;
+            pnlFlow.Padding = new Padding(20);
+
+            // Căn giữa vé trong panel
+            pnlFlow.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+
+            // 3. Duyệt qua từng dòng dữ liệu (từng chuyến bay)
+            foreach (DataRow row in dtData.Rows)
+            {
+                // Tạo instance frmVe mới
+                frmVe ve = new frmVe();
+
+                // Cấu hình để nhúng vào Form khác
+                ve.TopLevel = false;
+                ve.FormBorderStyle = FormBorderStyle.None;
+                ve.Visible = true;
+
+                // Đẩy dữ liệu vào
+                ve.SetTicketData(row);
+
+                // Thêm vào panel
+                pnlFlow.Controls.Add(ve);
+
+                // Thêm khoảng cách giữa các vé (nếu có vé thứ 2)
+                pnlFlow.Controls.Add(new Label { Height = 20, Width = 10 });
+            }
+
+            formContainer.Controls.Add(pnlFlow);
+            formContainer.ShowDialog(); // Hiển thị form
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            if (_currentTicketData != null && _currentTicketData.Rows.Count > 0)
+            {
+                HienThiFormVe(_currentTicketData);
             }
         }
     }

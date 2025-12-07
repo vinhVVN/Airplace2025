@@ -469,6 +469,9 @@ namespace Airplace2025
             }
         }
 
+        /// <summary>
+        /// Tính min/max giá vé từ danh sách chuyến bay (tất cả các hạng vé)
+        /// </summary>
         private void CalculateMinMaxPrice()
         {
             if (originalFlights == null || originalFlights.Count == 0)
@@ -478,10 +481,38 @@ namespace Airplace2025
                 return;
             }
 
-            var prices = originalFlights.Select(f => f.GiaEconomy ?? f.GiaCoBan).ToList();
+            // Thu thập tất cả giá vé từ tất cả các hạng (Economy, Premium, Business)
+            var allPrices = new List<decimal>();
+            
+            foreach (var flight in originalFlights)
+            {
+                // Thêm giá Economy nếu có
+                if (flight.GiaEconomy.HasValue && flight.GiaEconomy > 0)
+                    allPrices.Add(flight.GiaEconomy.Value);
+                
+                // Thêm giá Premium nếu có
+                if (flight.GiaPremium.HasValue && flight.GiaPremium > 0)
+                    allPrices.Add(flight.GiaPremium.Value);
+                
+                // Thêm giá Business nếu có
+                if (flight.GiaBusiness.HasValue && flight.GiaBusiness > 0)
+                    allPrices.Add(flight.GiaBusiness.Value);
+                
+                // Nếu không có giá nào, dùng GiaCoBan
+                if (allPrices.Count == 0 && flight.GiaCoBan > 0)
+                    allPrices.Add(flight.GiaCoBan);
+            }
 
-            minFlightPrice = prices.Min();
-            maxFlightPrice = prices.Max();
+            if (allPrices.Count > 0)
+            {
+                minFlightPrice = allPrices.Min();
+                maxFlightPrice = allPrices.Max();
+            }
+            else
+            {
+                minFlightPrice = 0;
+                maxFlightPrice = 0;
+            }
         }
 
         private void UpdateFilterSortVisibility()
@@ -569,6 +600,9 @@ namespace Airplace2025
                         card.IsNextDay = isNextDay;
                         card.DepartureAirport = flight.TenSanBayDi;
                         card.ArrivalAirport = flight.TenSanBayDen;
+
+                        // Áp dụng bộ lọc khoang - disable các panel không được chọn
+                        card.SetCabinFilter(filterCabin);
 
                         card.Margin = new Padding(5, 10, 5, 10);
                         card.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;

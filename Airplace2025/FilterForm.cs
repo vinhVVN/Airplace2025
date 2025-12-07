@@ -1,4 +1,5 @@
-﻿using Guna.UI2.WinForms;
+﻿using Airplace2025.BLL.DAO;
+using Guna.UI2.WinForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,13 +33,110 @@ namespace Airplace2025
         private static int sessionDepartureTimeSlot = 0;
         private static int sessionArrivalTimeSlot = 0;
         private static bool sessionAllAirlines = true;
-        private static bool sessionVietnamAirlines = true;
-        private static bool sessionPacificAirlines = true;
+        private static Dictionary<string, bool> sessionAirlineStates = new Dictionary<string, bool>();
+
+        // Danh sách checkbox hãng bay động
+        private List<Guna2CheckBox> airlineCheckBoxes = new List<Guna2CheckBox>();
+        private DataTable airlineData;
+
+        // Lưu giá min/max thực tế từ kết quả tìm kiếm
+        private decimal actualMinPrice = 0;
+        private decimal actualMaxPrice = 0;
 
         public FilterForm()
         {
             InitializeComponent();
             SelectedAirlines = new List<string>();
+        }
+
+        /// <summary>
+        /// Lấy danh sách hãng bay từ database thông qua BLL
+        /// </summary>
+        private void LoadAirlinesFromDatabase()
+        {
+            try
+            {
+                // Sử dụng AirlineDAO để lấy danh sách hãng bay
+                airlineData = AirlineDAO.Instance.GetAirlineList();
+                CreateAirlineCheckBoxes();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi tải danh sách hãng bay: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Tạo động các checkbox cho mỗi hãng bay
+        /// </summary>
+        private void CreateAirlineCheckBoxes()
+        {
+            // Xóa các checkbox cũ (nếu có)
+            foreach (var chk in airlineCheckBoxes)
+            {
+                pnlAirlines.Controls.Remove(chk);
+                chk.Dispose();
+            }
+            airlineCheckBoxes.Clear();
+
+            if (airlineData == null || airlineData.Rows.Count == 0)
+                return;
+
+            int startY = 45; // Vị trí bắt đầu sau checkbox "Chọn tất cả"
+            int spacing = 30; // Khoảng cách giữa các checkbox
+
+            // Cập nhật vị trí checkbox "Chọn tất cả"
+            chkAllAirlines.Location = new Point(10, startY);
+            startY += spacing;
+
+            foreach (DataRow row in airlineData.Rows)
+            {
+                string maHangBay = row["MaHangBay"].ToString();
+                string tenHangBay = row["TenHangBay"].ToString();
+
+                Guna2CheckBox chk = new Guna2CheckBox
+                {
+                    AutoSize = true,
+                    Name = $"chk_{maHangBay}",
+                    Text = tenHangBay,
+                    Tag = maHangBay, // Lưu mã hãng bay trong Tag
+                    Location = new Point(10, startY),
+                    Checked = true,
+                    CheckedState = { 
+                        BorderColor = Color.FromArgb(255, 193, 7),
+                        BorderRadius = 0,
+                        BorderThickness = 0,
+                        FillColor = Color.FromArgb(255, 193, 7)
+                    },
+                    UncheckedState = {
+                        BorderColor = Color.FromArgb(125, 137, 149),
+                        BorderRadius = 0,
+                        BorderThickness = 0,
+                        FillColor = Color.FromArgb(125, 137, 149)
+                    }
+                };
+
+                // Khởi tạo session state cho hãng bay mới nếu chưa có
+                if (!sessionAirlineStates.ContainsKey(maHangBay))
+                {
+                    sessionAirlineStates[maHangBay] = true;
+                }
+
+                // Hook mouse wheel cho checkbox mới
+                chk.MouseWheel += FilterForm_MouseWheel;
+
+                airlineCheckBoxes.Add(chk);
+                pnlAirlines.Controls.Add(chk);
+                startY += spacing;
+            }
+
+            // Điều chỉnh chiều cao panel Airlines
+            int newHeight = startY + 20;
+            pnlAirlines.Height = newHeight;
+
+            // Cập nhật lại layout và scrollbar
+            RecalculateLayout();
         }
 
         /// <summary>
@@ -49,11 +147,17 @@ namespace Airplace2025
             if (minPrice <= 0 || maxPrice <= 0 || minPrice >= maxPrice)
             {
                 // Nếu giá không hợp lệ, sử dụng giá trị mặc định
+                actualMinPrice = 3063000;
+                actualMaxPrice = 8776000;
                 trackBudget.Minimum = 3063;
                 trackBudget.Maximum = 8776;
             }
             else
             {
+                // Lưu giá thực tế (VND)
+                actualMinPrice = minPrice;
+                actualMaxPrice = maxPrice;
+                
                 // Chuyển đổi từ VND sang nghìn VND (đơn vị của trackbar)
                 int minValue = (int)(minPrice / 1000);
                 int maxValue = (int)(maxPrice / 1000);
@@ -83,17 +187,43 @@ namespace Airplace2025
                 ctrl.Tag = ctrl.Top;
             }
 
-            // Enable mouse wheel scrolling
+            // Enable mouse wheel scrolling cho tất cả các control
             this.MouseWheel += FilterForm_MouseWheel;
             scrollPanel.MouseWheel += FilterForm_MouseWheel;
+            
+            // Hook mouse wheel cho tất cả child controls để scroll hoạt động ở mọi nơi
+            HookMouseWheelToAllControls(scrollPanel);
+        }
+
+        /// <summary>
+        /// Hook mouse wheel event cho tất cả child controls để scroll hoạt động khi hover bất kỳ control nào
+        /// </summary>
+        private void HookMouseWheelToAllControls(Control parent)
+        {
+            foreach (Control ctrl in parent.Controls)
+            {
+                ctrl.MouseWheel += FilterForm_MouseWheel;
+                if (ctrl.HasChildren)
+                {
+                    HookMouseWheelToAllControls(ctrl);
+                }
+            }
         }
 
         private void vScrollBar_Scroll(object sender, ScrollEventArgs e)
         {
             scrollOffset = e.NewValue;
+            ApplyScroll();
+        }
+
+        private void ApplyScroll()
+        {
             foreach (Control ctrl in scrollPanel.Controls)
             {
-                ctrl.Top = ctrl.Tag != null ? (int)ctrl.Tag - scrollOffset : ctrl.Top;
+                if (ctrl.Tag != null)
+                {
+                    ctrl.Top = (int)ctrl.Tag - scrollOffset;
+                }
             }
         }
 
@@ -113,7 +243,13 @@ namespace Airplace2025
             rbNoStop.Checked = true;
             rbDepartureAny.Checked = true;
             rbArrivalAny.Checked = true;
+            
+            // Reset tất cả checkbox hãng bay
             chkAllAirlines.Checked = true;
+            foreach (var chk in airlineCheckBoxes)
+            {
+                chk.Checked = true;
+            }
         }
 
         private void mainPanel_Paint(object sender, PaintEventArgs e)
@@ -124,8 +260,61 @@ namespace Airplace2025
         private void FilterForm_Load(object sender, EventArgs e)
         {
             SetupForm();
+            // Load danh sách hãng bay từ database
+            LoadAirlinesFromDatabase();
             // Restore session nếu đã có
             RestoreSession();
+            // Cập nhật scrollbar sau khi load xong tất cả
+            RecalculateLayout();
+        }
+
+        /// <summary>
+        /// Tính toán lại layout và cập nhật scrollbar
+        /// </summary>
+        private void RecalculateLayout()
+        {
+            // Sắp xếp lại vị trí các panel theo thứ tự từ trên xuống
+            int currentY = 70; // Bắt đầu sau lblKhoang và cboKhoang
+
+            // Panel Budget
+            pnlBudget.Location = new Point(0, currentY);
+            currentY += pnlBudget.Height + 10;
+
+            // Panel Stops
+            pnlStops.Location = new Point(0, currentY);
+            currentY += pnlStops.Height + 10;
+
+            // Panel Flight Time
+            pnlFlightTime.Location = new Point(0, currentY);
+            currentY += pnlFlightTime.Height + 10;
+
+            // Panel Airlines
+            pnlAirlines.Location = new Point(0, currentY);
+            currentY += pnlAirlines.Height + 20;
+
+            // Cập nhật scrollbar dựa trên tổng chiều cao thực tế
+            int totalContentHeight = currentY;
+            int visibleHeight = scrollPanel.Height;
+
+            if (totalContentHeight > visibleHeight)
+            {
+                vScrollBar.Visible = true;
+                vScrollBar.Minimum = 0;
+                vScrollBar.Maximum = totalContentHeight - visibleHeight + vScrollBar.LargeChange;
+                vScrollBar.Value = 0;
+            }
+            else
+            {
+                vScrollBar.Visible = false;
+                vScrollBar.Value = 0;
+            }
+
+            // Reset scroll position
+            scrollOffset = 0;
+            foreach (Control ctrl in scrollPanel.Controls)
+            {
+                ctrl.Tag = ctrl.Top;
+            }
         }
 
         /// <summary>
@@ -190,10 +379,16 @@ namespace Airplace2025
                         break;
                 }
 
-                // Restore Airlines
+                // Restore Airlines - động từ session
                 chkAllAirlines.Checked = sessionAllAirlines;
-                chkVietnamAirlines.Checked = sessionVietnamAirlines;
-                chkPacificAirlines.Checked = sessionPacificAirlines;
+                foreach (var chk in airlineCheckBoxes)
+                {
+                    string maHangBay = chk.Tag?.ToString();
+                    if (!string.IsNullOrEmpty(maHangBay) && sessionAirlineStates.ContainsKey(maHangBay))
+                    {
+                        chk.Checked = sessionAirlineStates[maHangBay];
+                    }
+                }
             }
         }
 
@@ -219,10 +414,16 @@ namespace Airplace2025
             else if (rbArrivalAfternoon.Checked) sessionArrivalTimeSlot = 2;
             else if (rbArrivalEvening.Checked) sessionArrivalTimeSlot = 3;
 
-            // Lưu Airlines
+            // Lưu Airlines - động
             sessionAllAirlines = chkAllAirlines.Checked;
-            sessionVietnamAirlines = chkVietnamAirlines.Checked;
-            sessionPacificAirlines = chkPacificAirlines.Checked;
+            foreach (var chk in airlineCheckBoxes)
+            {
+                string maHangBay = chk.Tag?.ToString();
+                if (!string.IsNullOrEmpty(maHangBay))
+                {
+                    sessionAirlineStates[maHangBay] = chk.Checked;
+                }
+            }
         }
 
         /// <summary>
@@ -237,8 +438,11 @@ namespace Airplace2025
             sessionDepartureTimeSlot = 0;
             sessionArrivalTimeSlot = 0;
             sessionAllAirlines = true;
-            sessionVietnamAirlines = true;
-            sessionPacificAirlines = true;
+            // Reset tất cả hãng bay về checked
+            foreach (var key in sessionAirlineStates.Keys.ToList())
+            {
+                sessionAirlineStates[key] = true;
+            }
         }
 
         private Image CreateArrowIcon(bool isDown)
@@ -260,14 +464,10 @@ namespace Airplace2025
             if (vScrollBar.Visible)
             {
                 int newValue = vScrollBar.Value - (e.Delta / 120 * SCROLL_AMOUNT);
-                newValue = Math.Max(vScrollBar.Minimum, Math.Min(newValue, vScrollBar.Maximum));
+                newValue = Math.Max(vScrollBar.Minimum, Math.Min(newValue, vScrollBar.Maximum - vScrollBar.LargeChange));
                 vScrollBar.Value = newValue;
-
-                foreach (Control ctrl in scrollPanel.Controls)
-                {
-                    if (ctrl.Tag == null) ctrl.Tag = ctrl.Top + vScrollBar.Value;
-                    ctrl.Top = (int)ctrl.Tag - vScrollBar.Value;
-                }
+                scrollOffset = newValue;
+                ApplyScroll();
             }
         }
 
@@ -283,22 +483,13 @@ namespace Airplace2025
 
         private void UpdatePriceLabels()
         {
-            // Cập nhật lblMinPrice với giá trị Minimum của trackbar
-            lblMinPrice.Text = string.Format("{0:N0} VND", trackBudget.Minimum * 1000);
+            // lblMinPrice: Hiển thị giá RẺ NHẤT trong các chuyến bay tìm được
+            lblMinPrice.Text = string.Format("{0:N0} VND", actualMinPrice);
+            lblMinPrice.ForeColor = System.Drawing.Color.Black;
             
-            // Cập nhật lblMaxPrice dựa trên giá trị hiện tại của trackbar
-            if (trackBudget.Value == trackBudget.Maximum)
-            {
-                lblMaxPrice.Text = string.Format("{0:N0} VND", trackBudget.Maximum * 1000);
-                lblMaxPrice.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-                lblMinPrice.ForeColor = System.Drawing.Color.Black;
-            }
-            else
-            {
-                lblMaxPrice.Text = string.Format("{0:N0} VND", trackBudget.Value * 1000);
-                lblMaxPrice.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-                lblMinPrice.ForeColor = System.Drawing.Color.Black;
-            }
+            // lblMaxPrice: Hiển thị giá ĐẮT NHẤT trong các chuyến bay tìm được
+            lblMaxPrice.Text = string.Format("{0:N0} VND", actualMaxPrice);
+            lblMaxPrice.ForeColor = System.Drawing.Color.FromArgb(0, 102, 102);
         }
 
         private void ToggleSection(Guna2Panel panel, Guna2ImageButton btn)
@@ -321,8 +512,8 @@ namespace Airplace2025
             {
                 if (panel == pnlBudget) panel.Height = 120;
                 else if (panel == pnlStops) panel.Height = 100;
-                else if (panel == pnlFlightTime) panel.Height = 280;
-                else if (panel == pnlAirlines) panel.Height = 140;
+                else if (panel == pnlFlightTime) panel.Height = 340;
+                else if (panel == pnlAirlines) panel.Height = pnlAirlines.Height; // Giữ nguyên chiều cao đã tính
 
                 btn.Image = CreateArrowIcon(true);
                 foreach (Control ctrl in panel.Controls)
@@ -330,7 +521,7 @@ namespace Airplace2025
                     ctrl.Visible = true;
                 }
             }
-            UpdateScrollBar(GetTotalContentHeight());
+            RecalculateLayout();
         }
 
         private void UpdateScrollBar(int contentHeight)
@@ -339,14 +530,14 @@ namespace Airplace2025
             if (contentHeight > visibleHeight)
             {
                 vScrollBar.Visible = true;
-                vScrollBar.Maximum = contentHeight - visibleHeight + 100;
-                vScrollBar.LargeChange = visibleHeight / 10;
+                vScrollBar.Maximum = contentHeight - visibleHeight + vScrollBar.LargeChange;
+                vScrollBar.LargeChange = Math.Max(10, visibleHeight / 10);
             }
             else
             {
                 vScrollBar.Visible = false;
+                vScrollBar.Value = 0;
             }
-            vScrollBar.Maximum = 999;
         }
 
         private int GetTotalContentHeight()
@@ -362,8 +553,11 @@ namespace Airplace2025
 
         private void chkAllAirlines_CheckedChanged(object sender, EventArgs e)
         {
-            chkPacificAirlines.Checked = chkAllAirlines.Checked;
-            chkVietnamAirlines.Checked = chkAllAirlines.Checked;
+            // Đồng bộ tất cả checkbox hãng bay với checkbox "Chọn tất cả"
+            foreach (var chk in airlineCheckBoxes)
+            {
+                chk.Checked = chkAllAirlines.Checked;
+            }
         }
 
         private void btnApply_Click(object sender, EventArgs e)
@@ -389,7 +583,7 @@ namespace Airplace2025
             else if (rbArrivalAfternoon.Checked) ArrivalTimeSlot = 2;
             else if (rbArrivalEvening.Checked) ArrivalTimeSlot = 3;
 
-            // Lưu giá trị Hãng hàng không
+            // Lưu giá trị Hãng hàng không - động
             SelectedAirlines.Clear();
             if (chkAllAirlines.Checked)
             {
@@ -397,8 +591,14 @@ namespace Airplace2025
             }
             else
             {
-                if (chkVietnamAirlines.Checked) SelectedAirlines.Add("Vietnam Airlines");
-                if (chkPacificAirlines.Checked) SelectedAirlines.Add("Pacific Airlines");
+                foreach (var chk in airlineCheckBoxes)
+                {
+                    if (chk.Checked)
+                    {
+                        // Thêm tên hãng bay vào danh sách
+                        SelectedAirlines.Add(chk.Text);
+                    }
+                }
             }
 
             // Lưu tất cả giá trị vào session để giữ lại cho lần mở sau
