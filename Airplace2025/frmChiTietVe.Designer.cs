@@ -77,7 +77,7 @@
             this.mainPanel.FillColor = System.Drawing.Color.White;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(799, 448);
+            this.mainPanel.Size = new System.Drawing.Size(800, 439);
             this.mainPanel.TabIndex = 0;
             // 
             // btnConfirm
@@ -97,7 +97,7 @@
             this.btnConfirm.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(120)))), ((int)(((byte)(140)))));
             this.btnConfirm.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(120)))), ((int)(((byte)(140)))));
             this.btnConfirm.HoverState.ForeColor = System.Drawing.Color.White;
-            this.btnConfirm.Location = new System.Drawing.Point(410, 378);
+            this.btnConfirm.Location = new System.Drawing.Point(411, 369);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(212, 45);
             this.btnConfirm.TabIndex = 4;
@@ -116,7 +116,7 @@
             this.closeBottomButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(180)))), ((int)(((byte)(0)))));
             this.closeBottomButton.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.closeBottomButton.ForeColor = System.Drawing.Color.Black;
-            this.closeBottomButton.Location = new System.Drawing.Point(628, 378);
+            this.closeBottomButton.Location = new System.Drawing.Point(629, 369);
             this.closeBottomButton.Name = "closeBottomButton";
             this.closeBottomButton.Size = new System.Drawing.Size(141, 45);
             this.closeBottomButton.TabIndex = 3;
@@ -333,7 +333,7 @@
             this.commonButton.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(120)))), ((int)(((byte)(140)))));
             this.commonButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.commonButton.ForeColor = System.Drawing.Color.White;
-            this.commonButton.Location = new System.Drawing.Point(435, 80);
+            this.commonButton.Location = new System.Drawing.Point(436, 80);
             this.commonButton.Name = "commonButton";
             this.commonButton.Size = new System.Drawing.Size(350, 50);
             this.commonButton.TabIndex = 1;
@@ -347,7 +347,7 @@
             this.headerPanel.FillColor = System.Drawing.Color.White;
             this.headerPanel.Location = new System.Drawing.Point(0, 0);
             this.headerPanel.Name = "headerPanel";
-            this.headerPanel.Size = new System.Drawing.Size(799, 70);
+            this.headerPanel.Size = new System.Drawing.Size(800, 70);
             this.headerPanel.TabIndex = 0;
             // 
             // guna2Button1
@@ -363,7 +363,7 @@
             this.guna2Button1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(200)))), ((int)(((byte)(0)))));
             this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2Button1.ForeColor = System.Drawing.Color.Black;
-            this.guna2Button1.Location = new System.Drawing.Point(739, 15);
+            this.guna2Button1.Location = new System.Drawing.Point(740, 15);
             this.guna2Button1.Name = "guna2Button1";
             this.guna2Button1.Size = new System.Drawing.Size(40, 40);
             this.guna2Button1.TabIndex = 1;
@@ -387,7 +387,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.ClientSize = new System.Drawing.Size(799, 448);
+            this.ClientSize = new System.Drawing.Size(800, 439);
             this.Controls.Add(this.mainPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmChiTietVe";
