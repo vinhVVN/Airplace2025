@@ -33,7 +33,7 @@ namespace Airplace2025
             // --- 1. RESET (Đưa tất cả các nút về trạng thái Mặc định) ---
             // Tạo một List hoặc mảng chứa tất cả các nút menu của bạn
             Guna.UI2.WinForms.Guna2Button[] menuButtons =
-                new Guna.UI2.WinForms.Guna2Button[] { btnChuyenBay, btnVeMayBay, btnBaoCao,btnMayBay, btnLapLichBay };
+                new Guna.UI2.WinForms.Guna2Button[] { btnChuyenBay, btnVeMayBay, btnBaoCao,btnMayBay, btnLapLichBay, btnNhanVien, btnLog, btnKhachHang };
 
             foreach (var btn in menuButtons)
             {
@@ -162,12 +162,14 @@ namespace Airplace2025
             btnBaoCao.Visible = !isAdmin;
             btnMayBay.Visible = !isAdmin;
             btnLapLichBay.Visible = !isAdmin;
+            btnKhachHang.Visible = !isAdmin;
 
             // --- CẤU HÌNH CHO ADMIN (Hiện nút Admin, Ẩn nút Staff) ---
             // Giả sử bạn đã tạo nút btnNhanVien trên giao diện
             if (btnNhanVien != null)
             {
                 btnNhanVien.Visible = isAdmin;
+                btnLog.Visible = isAdmin;
             }
 
             // --- MỞ FORM MẶC ĐỊNH TƯƠNG ỨNG ---
@@ -175,8 +177,9 @@ namespace Airplace2025
             {
                 // Nếu là Admin -> Mở form Quản lý nhân viên
                 if (btnNhanVien != null) SetActiveButton(btnNhanVien);
+                
 
-                // Bạn cần tạo frmQuanLyNhanVien trước nhé
+                
                 LoadFormIntoPanel(new frmQuanLiNhanVien()); 
 
                 // (Tạm thời nếu chưa có form nhân viên thì hiện thông báo hoặc form rỗng)
@@ -300,6 +303,30 @@ namespace Airplace2025
             this.Close(); // Đóng trang chủ
             frmDangNhap frm = new frmDangNhap();
             frm.Show(); // Hiện lại form đăng nhập
+        }
+
+        private void btnLog_Click(object sender, EventArgs e)
+        {
+            SetActiveButton((Guna.UI2.WinForms.Guna2Button)sender);
+
+            // *Thực hiện các chức năng: Ví dụ: Hiển thị UserControl Chuyến Bay*
+            LoadFormIntoPanel(new frmNhatKyHoatDong());
+        }
+
+        private void btnNhanVien_Click(object sender, EventArgs e)
+        {
+            SetActiveButton((Guna.UI2.WinForms.Guna2Button)sender);
+
+            // *Thực hiện các chức năng: Ví dụ: Hiển thị UserControl Chuyến Bay*
+            LoadFormIntoPanel(new frmQuanLiNhanVien());
+        }
+
+        private void btnKhachHang_Click(object sender, EventArgs e)
+        {
+            SetActiveButton((Guna.UI2.WinForms.Guna2Button)sender);
+
+            // *Thực hiện các chức năng: Ví dụ: Hiển thị UserControl Chuyến Bay*
+            LoadFormIntoPanel(new frmQuanLiKhachhang());
         }
     }
 }

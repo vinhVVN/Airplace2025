@@ -135,6 +135,8 @@ namespace Airplace2025
 
                 if (dtTaiKhoan.Rows.Count > 0)
                 {
+                    
+
                     DataRow userInfo = dtTaiKhoan.Rows[0];
                     string hoTen = userInfo["HoTen"].ToString();
                     string vaiTro = userInfo["TenVaiTro"].ToString();
@@ -148,6 +150,8 @@ namespace Airplace2025
                     Session.AnhDaiDien = userInfo["ChanDung"];
 
                     MessageBox.Show($"Chào mừng {hoTen} ({vaiTro})!", "Đăng nhập thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    LogDAO.Instance.GhiNhatKy("Đăng nhập", "Người dùng đăng nhập vào hệ thống");
 
                     // Mở form chính và ẩn form này
                     frmTrangChu fTrangChu = new frmTrangChu();

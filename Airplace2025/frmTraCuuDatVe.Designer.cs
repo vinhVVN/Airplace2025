@@ -29,16 +29,25 @@
         private void InitializeComponent()
         {
             this.guna2ShadowPanel1 = new Guna.UI2.WinForms.Guna2ShadowPanel();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnFind = new Guna.UI2.WinForms.Guna2Button();
             this.txtMaVe = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtHoTen = new Guna.UI2.WinForms.Guna2TextBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pnlTicketInfo = new Guna.UI2.WinForms.Guna2Panel();
+            this.SuiteCasebtn = new System.Windows.Forms.PictureBox();
+            this.btnScedule = new System.Windows.Forms.PictureBox();
+            this.btnPrint = new System.Windows.Forms.PictureBox();
             this.lbUpClass = new System.Windows.Forms.Label();
             this.lbEditProflie = new System.Windows.Forms.Label();
             this.guna2ShadowPanel2 = new Guna.UI2.WinForms.Guna2ShadowPanel();
@@ -48,34 +57,25 @@
             this.TicketPnl = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlCustomer = new Guna.UI2.WinForms.Guna2Panel();
             this.lbGender = new System.Windows.Forms.Label();
+            this.guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.label9 = new System.Windows.Forms.Label();
             this.lbCustomerName = new System.Windows.Forms.Label();
             this.guna2Separator1 = new Guna.UI2.WinForms.Guna2Separator();
             this.label13 = new System.Windows.Forms.Label();
-            this.guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
-            this.SuiteCasebtn = new System.Windows.Forms.PictureBox();
-            this.btnScedule = new System.Windows.Forms.PictureBox();
-            this.btnPrint = new System.Windows.Forms.PictureBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.guna2ShadowPanel1.SuspendLayout();
-            this.pnlTicketInfo.SuspendLayout();
-            this.guna2ShadowPanel2.SuspendLayout();
-            this.pnlCustomer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SuiteCasebtn)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnScedule)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnPrint)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pnlTicketInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SuiteCasebtn)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnScedule)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPrint)).BeginInit();
+            this.guna2ShadowPanel2.SuspendLayout();
+            this.pnlCustomer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // guna2ShadowPanel1
@@ -104,6 +104,16 @@
             this.guna2ShadowPanel1.Size = new System.Drawing.Size(843, 213);
             this.guna2ShadowPanel1.TabIndex = 0;
             // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Image = global::Airplace2025.Properties.Resources.add_more;
+            this.pictureBox6.ImageLocation = "";
+            this.pictureBox6.Location = new System.Drawing.Point(664, 160);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(34, 30);
+            this.pictureBox6.TabIndex = 28;
+            this.pictureBox6.TabStop = false;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -113,6 +123,26 @@
             this.label6.Size = new System.Drawing.Size(112, 21);
             this.label6.TabIndex = 27;
             this.label6.Text = "Dịch vụ hỗ trợ";
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::Airplace2025.Properties.Resources.change_fly;
+            this.pictureBox5.ImageLocation = "";
+            this.pictureBox5.Location = new System.Drawing.Point(415, 159);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(34, 30);
+            this.pictureBox5.TabIndex = 26;
+            this.pictureBox5.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::Airplace2025.Properties.Resources.package_infor;
+            this.pictureBox4.ImageLocation = "";
+            this.pictureBox4.Location = new System.Drawing.Point(221, 157);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(34, 30);
+            this.pictureBox4.TabIndex = 26;
+            this.pictureBox4.TabStop = false;
             // 
             // label5
             // 
@@ -133,6 +163,16 @@
             this.label4.Size = new System.Drawing.Size(101, 21);
             this.label4.TabIndex = 25;
             this.label4.Text = "Thông tin vé";
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::Airplace2025.Properties.Resources.save_money;
+            this.pictureBox3.ImageLocation = "";
+            this.pictureBox3.Location = new System.Drawing.Point(32, 157);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(34, 30);
+            this.pictureBox3.TabIndex = 24;
+            this.pictureBox3.TabStop = false;
             // 
             // label3
             // 
@@ -201,6 +241,16 @@
             this.txtHoTen.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
             this.txtHoTen.TabIndex = 5;
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::Airplace2025.Properties.Resources.Person_green;
+            this.pictureBox2.ImageLocation = "";
+            this.pictureBox2.Location = new System.Drawing.Point(382, 24);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(25, 21);
+            this.pictureBox2.TabIndex = 3;
+            this.pictureBox2.TabStop = false;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -210,6 +260,16 @@
             this.label2.Size = new System.Drawing.Size(76, 21);
             this.label2.TabIndex = 2;
             this.label2.Text = "Họ và tên";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Airplace2025.Properties.Resources.airplane_seat_green;
+            this.pictureBox1.ImageLocation = "";
+            this.pictureBox1.Location = new System.Drawing.Point(46, 24);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(28, 21);
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
             // 
             // label1
             // 
@@ -239,6 +299,42 @@
             this.pnlTicketInfo.Name = "pnlTicketInfo";
             this.pnlTicketInfo.Size = new System.Drawing.Size(307, 213);
             this.pnlTicketInfo.TabIndex = 1;
+            // 
+            // SuiteCasebtn
+            // 
+            this.SuiteCasebtn.Image = global::Airplace2025.Properties.Resources.noun_suitecase_5350511;
+            this.SuiteCasebtn.ImageLocation = "";
+            this.SuiteCasebtn.Location = new System.Drawing.Point(235, 163);
+            this.SuiteCasebtn.Name = "SuiteCasebtn";
+            this.SuiteCasebtn.Size = new System.Drawing.Size(40, 36);
+            this.SuiteCasebtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.SuiteCasebtn.TabIndex = 32;
+            this.SuiteCasebtn.TabStop = false;
+            this.SuiteCasebtn.Click += new System.EventHandler(this.SuiteCasebtn_Click);
+            // 
+            // btnScedule
+            // 
+            this.btnScedule.Image = global::Airplace2025.Properties.Resources.noun_calendar_7630981;
+            this.btnScedule.ImageLocation = "";
+            this.btnScedule.Location = new System.Drawing.Point(140, 164);
+            this.btnScedule.Name = "btnScedule";
+            this.btnScedule.Size = new System.Drawing.Size(40, 36);
+            this.btnScedule.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnScedule.TabIndex = 31;
+            this.btnScedule.TabStop = false;
+            this.btnScedule.Click += new System.EventHandler(this.btnScedule_Click);
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Image = global::Airplace2025.Properties.Resources.noun_print_8158048;
+            this.btnPrint.ImageLocation = "";
+            this.btnPrint.Location = new System.Drawing.Point(47, 164);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(42, 36);
+            this.btnPrint.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnPrint.TabIndex = 29;
+            this.btnPrint.TabStop = false;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // lbUpClass
             // 
@@ -349,6 +445,18 @@
             this.lbGender.TabIndex = 31;
             this.lbGender.Text = "Giới tính";
             // 
+            // guna2CirclePictureBox1
+            // 
+            this.guna2CirclePictureBox1.Image = global::Airplace2025.Properties.Resources.noun_avatar_6781879;
+            this.guna2CirclePictureBox1.ImageRotate = 0F;
+            this.guna2CirclePictureBox1.Location = new System.Drawing.Point(8, 55);
+            this.guna2CirclePictureBox1.Name = "guna2CirclePictureBox1";
+            this.guna2CirclePictureBox1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.guna2CirclePictureBox1.Size = new System.Drawing.Size(50, 40);
+            this.guna2CirclePictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2CirclePictureBox1.TabIndex = 30;
+            this.guna2CirclePictureBox1.TabStop = false;
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -389,113 +497,6 @@
             this.label13.TabIndex = 2;
             this.label13.Text = "Hành khách";
             // 
-            // guna2CirclePictureBox1
-            // 
-            this.guna2CirclePictureBox1.Image = global::Airplace2025.Properties.Resources.noun_avatar_6781879;
-            this.guna2CirclePictureBox1.ImageRotate = 0F;
-            this.guna2CirclePictureBox1.Location = new System.Drawing.Point(8, 55);
-            this.guna2CirclePictureBox1.Name = "guna2CirclePictureBox1";
-            this.guna2CirclePictureBox1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            this.guna2CirclePictureBox1.Size = new System.Drawing.Size(50, 40);
-            this.guna2CirclePictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2CirclePictureBox1.TabIndex = 30;
-            this.guna2CirclePictureBox1.TabStop = false;
-            // 
-            // SuiteCasebtn
-            // 
-            this.SuiteCasebtn.Image = global::Airplace2025.Properties.Resources.noun_suitecase_5350511;
-            this.SuiteCasebtn.ImageLocation = "";
-            this.SuiteCasebtn.Location = new System.Drawing.Point(235, 163);
-            this.SuiteCasebtn.Name = "SuiteCasebtn";
-            this.SuiteCasebtn.Size = new System.Drawing.Size(40, 36);
-            this.SuiteCasebtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.SuiteCasebtn.TabIndex = 32;
-            this.SuiteCasebtn.TabStop = false;
-            this.SuiteCasebtn.Click += new System.EventHandler(this.SuiteCasebtn_Click);
-            // 
-            // btnScedule
-            // 
-            this.btnScedule.Image = global::Airplace2025.Properties.Resources.noun_calendar_7630981;
-            this.btnScedule.ImageLocation = "";
-            this.btnScedule.Location = new System.Drawing.Point(140, 164);
-            this.btnScedule.Name = "btnScedule";
-            this.btnScedule.Size = new System.Drawing.Size(40, 36);
-            this.btnScedule.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnScedule.TabIndex = 31;
-            this.btnScedule.TabStop = false;
-            this.btnScedule.Click += new System.EventHandler(this.btnScedule_Click);
-            // 
-            // btnPrint
-            // 
-            this.btnPrint.Image = global::Airplace2025.Properties.Resources.noun_print_8158048;
-            this.btnPrint.ImageLocation = "";
-            this.btnPrint.Location = new System.Drawing.Point(47, 164);
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(42, 36);
-            this.btnPrint.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnPrint.TabIndex = 29;
-            this.btnPrint.TabStop = false;
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.Image = global::Airplace2025.Properties.Resources.add_more;
-            this.pictureBox6.ImageLocation = "";
-            this.pictureBox6.Location = new System.Drawing.Point(664, 160);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(34, 30);
-            this.pictureBox6.TabIndex = 28;
-            this.pictureBox6.TabStop = false;
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Image = global::Airplace2025.Properties.Resources.change_fly;
-            this.pictureBox5.ImageLocation = "";
-            this.pictureBox5.Location = new System.Drawing.Point(415, 159);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(34, 30);
-            this.pictureBox5.TabIndex = 26;
-            this.pictureBox5.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = global::Airplace2025.Properties.Resources.package_infor;
-            this.pictureBox4.ImageLocation = "";
-            this.pictureBox4.Location = new System.Drawing.Point(221, 157);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(34, 30);
-            this.pictureBox4.TabIndex = 26;
-            this.pictureBox4.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::Airplace2025.Properties.Resources.save_money;
-            this.pictureBox3.ImageLocation = "";
-            this.pictureBox3.Location = new System.Drawing.Point(32, 157);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(34, 30);
-            this.pictureBox3.TabIndex = 24;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::Airplace2025.Properties.Resources.Person_green;
-            this.pictureBox2.ImageLocation = "";
-            this.pictureBox2.Location = new System.Drawing.Point(382, 24);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(25, 21);
-            this.pictureBox2.TabIndex = 3;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Airplace2025.Properties.Resources.airplane_seat_green;
-            this.pictureBox1.ImageLocation = "";
-            this.pictureBox1.Location = new System.Drawing.Point(46, 24);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(28, 21);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
             // frmTraCuuDatVe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -512,22 +513,22 @@
             this.Load += new System.EventHandler(this.frmTraCuuDatVe_Load);
             this.guna2ShadowPanel1.ResumeLayout(false);
             this.guna2ShadowPanel1.PerformLayout();
-            this.pnlTicketInfo.ResumeLayout(false);
-            this.pnlTicketInfo.PerformLayout();
-            this.guna2ShadowPanel2.ResumeLayout(false);
-            this.guna2ShadowPanel2.PerformLayout();
-            this.pnlCustomer.ResumeLayout(false);
-            this.pnlCustomer.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SuiteCasebtn)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnScedule)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnPrint)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.pnlTicketInfo.ResumeLayout(false);
+            this.pnlTicketInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SuiteCasebtn)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnScedule)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPrint)).EndInit();
+            this.guna2ShadowPanel2.ResumeLayout(false);
+            this.guna2ShadowPanel2.PerformLayout();
+            this.pnlCustomer.ResumeLayout(false);
+            this.pnlCustomer.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
