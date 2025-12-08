@@ -89,9 +89,12 @@ namespace Airplace2025
 
                             // 3. Khởi tạo SelectedFareInfo bằng CONSTRUCTOR (Không dùng Object Initializer)
                             // Thứ tự tham số: (ChuyenBayDTO flight, string cabinClass, decimal price)
+
+                            
+
                             var newFlightInfo = new SelectedFareInfo(
                                 chuyenBayDto,           // Tham số 1: Đối tượng chuyến bay
-                                _selectedMaHangVeMoi,   // Tham số 2: Hạng vé (VD: "ECO")
+                                _ticketClassMap[_selectedMaHangVeMoi],   // Tham số 2: Hạng vé (VD: "ECO")
                                 _selectedGiaMoi         // Tham số 3: Giá tiền
                             );
 
@@ -126,6 +129,14 @@ namespace Airplace2025
                 MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private static readonly Dictionary<string, string> _ticketClassMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        {
+            { "ECO", "Phổ thông" },
+            { "BUS", "Thương gia" },
+            { "PRE", "Phổ thông đặc biệt" },
+            { "FIR", "Hạng nhất" }
+        };
 
         private void btnExit_Click(object sender, EventArgs e)
         {

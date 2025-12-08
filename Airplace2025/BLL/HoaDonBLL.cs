@@ -19,7 +19,7 @@ namespace Airplace2025.BLL
 
         private HoaDonBLL() { }
 
-        public bool ThanhToan(decimal tongTien, string phuongThuc, List<string> danhSachMaDatVe, out string maHoaDon)
+        public string ThanhToan(decimal tongTien, string phuongThuc, List<string> danhSachMaDatVe, out string maHoaDon)
         {
             try
             {

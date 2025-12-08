@@ -372,6 +372,7 @@
     <Compile Include="frmXemDanhSach.Designer.cs">
       <DependentUpon>frmXemDanhSach.cs</DependentUpon>
     </Compile>
+    <Compile Include="TicketRender.cs" />
     <EmbeddedResource Include="Controls\FlightLegControl.resx">
       <DependentUpon>FlightLegControl.cs</DependentUpon>
     </EmbeddedResource>
