@@ -3,6 +3,7 @@ using Airplace2025.BLL.DAO;
 using Airplace2025.BLL.DTO;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
@@ -120,12 +121,15 @@ namespace Airplace2025
             try
             {
                 string maHoaDon;
-                bool success = HoaDonBLL.Instance.ThanhToan(_totalAmount, paymentMethod, _ticketIds, out maHoaDon);
+                string success = HoaDonBLL.Instance.ThanhToan(_totalAmount, paymentMethod, _ticketIds, out maHoaDon);
                 
-                if (success)
+                if (success != "")
                 {
                     MessageBox.Show($"Thanh toán thành công!\nMã hóa đơn: {maHoaDon}", "Hoàn tất", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LogDAO.Instance.GhiNhatKy("Đặt vé", $"Đặt vé thành công. Mã hoá đơn: {maHoaDon}. Tổng tiền: {_totalAmount}");
+                    DataTable ve = TicketDAO.Instance.TraCuuDatVe(success, _customerName);
+                    frmTraCuuDatVe frm = new frmTraCuuDatVe();
+                    frm.HienThiFormVe(ve);
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }

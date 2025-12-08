@@ -20,7 +20,7 @@ namespace Airplace2025.DAL
 
         private HoaDonDAO() { }
 
-        public bool ThanhToanVaXuatVe(string maHoaDon, string phuongThucTT, decimal tongTien, List<string> danhSachMaDatVe)
+        public string ThanhToanVaXuatVe(string maHoaDon, string phuongThucTT, decimal tongTien, List<string> danhSachMaDatVe)
         {
             using (SqlConnection conn = DBConnection.GetConnection())
             {
@@ -38,6 +38,7 @@ namespace Airplace2025.DAL
                         cmd.Parameters.AddWithValue("@TongTien", tongTien);
                         cmd.ExecuteNonQuery();
                     }
+
 
                     // 2. Cập nhật ChiTietDatVe và Ve
                     foreach (string maDatVe in danhSachMaDatVe)
@@ -74,7 +75,7 @@ namespace Airplace2025.DAL
                     }
 
                     transaction.Commit();
-                    return true;
+                    return danhSachMaDatVe[0];
                 }
                 catch (Exception)
                 {
